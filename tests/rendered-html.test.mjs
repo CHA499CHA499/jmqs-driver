@@ -52,8 +52,8 @@ test("includes the isolated Three.js driver and original audio layer", async () 
   assert.match(driverAudio, /\["localhost", "127\.0\.0\.1"\]/);
   assert.match(driverAudio, /new Audio\(url\)/);
   assert.match(page, /playActivationSequence/);
-  assert.match(page, /className="activate-button"/);
-  assert.match(page, />启动 Persona Driver<\/button>/);
+  assert.doesNotMatch(page, /className="activate-button"/);
+  assert.doesNotMatch(page, />启动 Persona Driver<\/button>/);
   assert.match(page, /driver-side-handle/);
   assert.match(page, /announcerName: "Donald John Trump"/);
   assert.match(page, /workbench-card-art-image/);
