@@ -12,10 +12,18 @@
 
 ## 输出
 
-- 根路由 `/`：承载公开 Demo 的应用外壳。
+- 根路由 `/`：Persona Driver 工作台，包含演示素材、指令卡、人物卡盒和角色实例面板。
 - 静态资产 `/persona-atlas.html`：假面骑事交互体验。
 - 静态资产 `/hero-personas.png`：首页响应式人物卡背景。
 - 静态资产 `/og.png`：链接分享封面。
+
+## 3D 运行合同
+
+- `app/driver-scene.tsx` 是唯一 Three.js 边界，只接收 Driver phase 与人物卡颜色。
+- phase 只允许 `idle / ready / inserting / locked / activated`。
+- 页面不支持 WebGL 2 时必须保留完整 DOM 工作台，并显示静态 Driver。
+- Three.js、材质和几何体由 Vite 打包；运行时不从 CDN 获取 3D 代码或模型。
+- 页面卸载时必须停止动画、断开 ResizeObserver、释放 geometry/material/renderer。
 
 ## 读写路径
 
@@ -27,6 +35,7 @@
 ## 环境与依赖
 
 - Node.js 22.13 或更高版本。
+- npm 依赖 `three`，只在构建期安装，访客零安装。
 - Sites vinext starter 与 Cloudflare Worker 兼容构建。
 - 不需要 API key、OAuth、飞书凭证、数据库或对象存储。
 

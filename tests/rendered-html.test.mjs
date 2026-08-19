@@ -17,9 +17,27 @@ test("renders the public persona atlas shell", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<title>假面骑事 \| 公开测试版<\/title>/);
-  assert.match(html, /src="\/persona-atlas\.html"/);
+  assert.match(html, /<title>假面骑事 \| Persona Driver 工作台<\/title>/);
+  assert.match(html, /PERSONA DRIVER WORKBENCH/);
+  assert.match(html, /原始素材/);
+  assert.match(html, /角色实例/);
+  assert.doesNotMatch(html, /public-demo-frame/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview/);
+});
+
+test("includes the isolated Three.js driver", async () => {
+  const [driver, page, packageJson] = await Promise.all([
+    readFile(new URL("../app/driver-scene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ]);
+  assert.match(packageJson, /"three"/);
+  assert.match(driver, /WebGLRenderer/);
+  assert.match(driver, /getContext\("webgl2"\)/);
+  assert.match(driver, /requestAnimationFrame/);
+  assert.match(driver, /renderer\.dispose\(\)/);
+  assert.match(page, /PERSONA RIDE/);
+  assert.match(page, /speechSynthesis/);
 });
 
 test("ships the interactive demo asset", async () => {

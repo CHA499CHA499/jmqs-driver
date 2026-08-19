@@ -16,6 +16,10 @@
 首页主视觉或高度修正出现问题时，同时回退 `public/persona-atlas.html` 与 `public/hero-personas.png`，避免 HTML
 引用新资产但发布包缺图。回退后至少以一个宽屏和一个窄屏视口确认没有底部白区。
 
+Three.js Driver 出现黑屏、GPU 兼容或性能问题时，优先回退 `app/page.tsx`、`app/globals.css`、
+`app/driver-scene.tsx`、`package.json` 与 `package-lock.json` 到上一公开版本；旧图鉴静态资产无需删除。
+回退提交完成后重新构建并部署历史兼容版本，不在生产环境临时改用 CDN。
+
 ## 紧急下线
 
 如果公开内容出现隐私、版权或错误数据风险，应先将 Sites 访问权限收紧或停止公开部署，再调查源码。
