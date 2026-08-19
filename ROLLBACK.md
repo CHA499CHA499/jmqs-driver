@@ -26,12 +26,21 @@ Three.js Driver 出现黑屏、GPU 兼容或性能问题时，优先回退 `app/
 `app/driver-scene.tsx`、`package.json` 与 `package-lock.json` 到上一公开版本；旧图鉴静态资产无需删除。
 回退提交完成后重新构建并部署历史兼容版本，不在生产环境临时改用 CDN。
 
+锁定态主按钮再次消失时，先恢复 `phase === "locked"` 分支中的 `.activate-button` 和 `activateDriver` 点击绑定；
+不允许只留下图标、拖拽手势或说明文字作为唯一启动入口。
+
+机械把手交互异常时，移除 `app/page.tsx` 的 `handleProgress` 与 `.driver-handle-control`，恢复 locked 阶段的单一启动按钮；同时从 `DriverScene` props 和动画循环移除把手进度映射。该回退不会影响卡片插入、音效或角色实例状态。
+
 音频出现浏览器兼容、音量或误播放问题时，可单独回退 `app/driver-audio.ts` 与 `app/page.tsx` 的声音调用，
 保留 Three.js Driver 和 DOM 工作台。禁止用影视原声音频文件替代合成层。
 
 本机随机候选覆盖出现问题时，停止 `127.0.0.1:8765` 静态服务即可立即恢复原创合成音；源码回退只需删除
 `localActivationClipUrls`、`playRandomLocalActivationClip` 和 `stopDriverAudio` 中的本机播放器清理，不需要改动或删除候选源文件。
 公开版本不携带候选音频，因此无需执行 Sites 回退。
+
+三段串行播报出现顺序、发音或音色问题时，可单独回退 `localPersonaAnnouncementUrls`、
+`localCommandAnnouncementUrls`、`playLocalClip` 与 `playLocalActivationSequence`，恢复为启动按钮直接随机候选；
+`announcer/` 源文件可保留用于重新选音，不影响站点构建。
 
 ## 紧急下线
 

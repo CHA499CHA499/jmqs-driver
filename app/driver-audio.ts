@@ -9,6 +9,21 @@ const localActivationClipUrls = Array.from(
   (_, index) => `http://127.0.0.1:8765/candidate-${String(index + 1).padStart(2, "0")}.m4a`,
 );
 
+const localPersonaAnnouncementUrls: Record<string, string> = {
+  naval: "http://127.0.0.1:8765/announcer/persona-naval-ravikant.m4a",
+  musk: "http://127.0.0.1:8765/announcer/persona-elon-musk.m4a",
+  jobs: "http://127.0.0.1:8765/announcer/persona-steve-jobs.m4a",
+  trump: "http://127.0.0.1:8765/announcer/persona-donald-john-trump.m4a",
+  pg: "http://127.0.0.1:8765/announcer/persona-paul-graham.m4a",
+};
+
+const localCommandAnnouncementUrls: Record<string, string> = {
+  explain: "http://127.0.0.1:8765/announcer/command-explain.m4a",
+  review: "http://127.0.0.1:8765/announcer/command-review.m4a",
+  decide: "http://127.0.0.1:8765/announcer/command-decide.m4a",
+  action: "http://127.0.0.1:8765/announcer/command-action.m4a",
+};
+
 function getAudioContext() {
   if (typeof window === "undefined") return null;
   const AudioContextClass =
@@ -93,7 +108,7 @@ export function playCardInsertSound() {
   tone(context, { start: 0.38, duration: 0.09, frequency: 840, endFrequency: 1040, gain: 0.055, type: "triangle" });
 }
 
-function playSynthesizedActivationSequence(role: string, name: string, command: string) {
+function playSynthesizedActivationEffect() {
   const context = getAudioContext();
   if (context) {
     noiseBurst(context, 0, 0.16, 0.12);
@@ -114,21 +129,35 @@ function playSynthesizedActivationSequence(role: string, name: string, command: 
     tone(context, { start: 0.78, duration: 0.5, frequency: 440, gain: 0.04, type: "triangle" });
     noiseBurst(context, 0.74, 0.34, 0.07);
   }
+}
 
-  if (typeof window !== "undefined" && "speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(
-      `PERSONA RIDE。${role}，${name}。${command}模式，启动。`,
-    );
-    utterance.lang = "zh-CN";
-    utterance.rate = 0.76;
-    utterance.pitch = 0.62;
-    utterance.volume = 0.96;
-    window.setTimeout(() => window.speechSynthesis.speak(utterance), 920);
-  }
+function playLocalClip(url: string, onComplete: () => void, onFailure: () => void) {
+  activeLocalClip?.pause();
+  const clip = new Audio(url);
+  clip.preload = "auto";
+  clip.volume = 0.92;
+  activeLocalClip = clip;
+  clip.addEventListener("ended", () => {
+    if (activeLocalClip === clip) activeLocalClip = null;
+    onComplete();
+  });
+  void clip.play().catch(() => {
+    if (activeLocalClip === clip) activeLocalClip = null;
+    onFailure();
+  });
 }
 
 function playRandomLocalActivationClip(fallback: () => void) {
+  const choices = localActivationClipUrls
+    .map((url, index) => ({ url, index }))
+    .filter(({ index }) => index !== previousLocalClipIndex);
+  const selected = choices[Math.floor(Math.random() * choices.length)];
+  previousLocalClipIndex = selected.index;
+
+  playLocalClip(selected.url, () => undefined, fallback);
+}
+
+function playLocalActivationSequence(personaId: string, commandId: string, fallback: () => void) {
   if (
     typeof window === "undefined" ||
     !["localhost", "127.0.0.1"].includes(window.location.hostname)
@@ -136,30 +165,44 @@ function playRandomLocalActivationClip(fallback: () => void) {
     return false;
   }
 
-  const choices = localActivationClipUrls
-    .map((url, index) => ({ url, index }))
-    .filter(({ index }) => index !== previousLocalClipIndex);
-  const selected = choices[Math.floor(Math.random() * choices.length)];
-  previousLocalClipIndex = selected.index;
+  const personaAnnouncement = localPersonaAnnouncementUrls[personaId];
+  const commandAnnouncement = localCommandAnnouncementUrls[commandId];
+  if (!personaAnnouncement || !commandAnnouncement) return false;
 
-  activeLocalClip?.pause();
-  const clip = new Audio(selected.url);
-  clip.preload = "auto";
-  clip.volume = 0.92;
-  activeLocalClip = clip;
-  clip.addEventListener("ended", () => {
-    if (activeLocalClip === clip) activeLocalClip = null;
-  });
-  void clip.play().catch(() => {
-    if (activeLocalClip === clip) activeLocalClip = null;
-    fallback();
-  });
+  playLocalClip(
+    personaAnnouncement,
+    () => playLocalClip(commandAnnouncement, () => playRandomLocalActivationClip(fallback), fallback),
+    fallback,
+  );
   return true;
 }
 
-export function playActivationSequence(role: string, name: string, command: string) {
-  const fallback = () => playSynthesizedActivationSequence(role, name, command);
-  if (!playRandomLocalActivationClip(fallback)) fallback();
+function speakThenActivate(personaName: string, commandCode: string) {
+  const activate = () => playSynthesizedActivationEffect();
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+    activate();
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(`${personaName}. ${commandCode}.`);
+  utterance.lang = "en-US";
+  utterance.rate = 0.76;
+  utterance.pitch = 0.62;
+  utterance.volume = 0.96;
+  utterance.addEventListener("end", activate, { once: true });
+  utterance.addEventListener("error", activate, { once: true });
+  window.speechSynthesis.speak(utterance);
+}
+
+export function playActivationSequence(
+  personaId: string,
+  personaName: string,
+  commandId: string,
+  commandCode: string,
+) {
+  const fallback = () => speakThenActivate(personaName, commandCode);
+  if (!playLocalActivationSequence(personaId, commandId, fallback)) fallback();
 }
 
 export function stopDriverAudio() {

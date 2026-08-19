@@ -1,6 +1,7 @@
 "use client";
 
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import {
   playActivationSequence,
   playCardInsertSound,
@@ -17,6 +18,7 @@ const DriverScene = lazy(() =>
 interface Persona {
   id: string;
   name: string;
+  announcerName: string;
   role: string;
   code: string;
   color: string;
@@ -29,6 +31,7 @@ const PERSONAS: Persona[] = [
   {
     id: "naval",
     name: "纳瓦尔",
+    announcerName: "Naval Ravikant",
     role: "长期主义策略师",
     code: "LEVERAGE ARCHITECT",
     color: "#d8b25c",
@@ -39,6 +42,7 @@ const PERSONAS: Persona[] = [
   {
     id: "musk",
     name: "埃隆·马斯克",
+    announcerName: "Elon Musk",
     role: "第一性原理工程师",
     code: "FIRST PRINCIPLE",
     color: "#ef3048",
@@ -49,6 +53,7 @@ const PERSONAS: Persona[] = [
   {
     id: "jobs",
     name: "史蒂夫·乔布斯",
+    announcerName: "Steve Jobs",
     role: "产品体验主理人",
     code: "FOCUS EDITOR",
     color: "#d7dde5",
@@ -59,6 +64,7 @@ const PERSONAS: Persona[] = [
   {
     id: "trump",
     name: "唐纳德·特朗普",
+    announcerName: "Donald John Trump",
     role: "注意力谈判者",
     code: "DEAL MAKER",
     color: "#e86836",
@@ -69,6 +75,7 @@ const PERSONAS: Persona[] = [
   {
     id: "pg",
     name: "Paul Graham",
+    announcerName: "Paul Graham",
     role: "创业问题诊断师",
     code: "FOUNDER SIGNAL",
     color: "#7ba6d9",
@@ -107,10 +114,20 @@ export default function Home() {
   const [manifested, setManifested] = useState(false);
   const [task, setTask] = useState("评审假面骑事工作台的首次使用路径");
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [handleProgress, setHandleProgress] = useState(0);
+  const handleProgressRef = useRef(0);
   const timerRef = useRef<number | null>(null);
+  const handleDragRef = useRef<{ side: "left" | "right"; startX: number; startProgress: number } | null>(null);
+  const handleMovedRef = useRef(false);
+  const suppressHandleClickRef = useRef(false);
 
   const selectedPersona = PERSONAS.find((persona) => persona.id === selectedPersonaId) ?? null;
   const selectedCommand = COMMANDS.find((command) => command.id === selectedCommandId) ?? COMMANDS[1];
+
+  function updateHandleProgress(value: number) {
+    handleProgressRef.current = value;
+    setHandleProgress(value);
+  }
 
   useEffect(() => {
     return () => {
@@ -124,6 +141,7 @@ export default function Home() {
     setSelectedPersonaId(personaId);
     setPhase("ready");
     setManifested(false);
+    updateHandleProgress(0);
     if (soundEnabled) playCardSelectSound();
   }
 
@@ -132,6 +150,7 @@ export default function Home() {
     if (timerRef.current) window.clearTimeout(timerRef.current);
     setSelectedPersonaId(personaId);
     setManifested(false);
+    updateHandleProgress(0);
     setPhase("inserting");
     if (soundEnabled) playCardInsertSound();
     timerRef.current = window.setTimeout(() => setPhase("locked"), 920);
@@ -139,9 +158,15 @@ export default function Home() {
 
   function activateDriver() {
     if (!selectedPersona || phase !== "locked") return;
+    updateHandleProgress(1);
     setPhase("activated");
     if (soundEnabled) {
-      playActivationSequence(selectedPersona.role, selectedPersona.name, selectedCommand.label);
+      playActivationSequence(
+        selectedPersona.id,
+        selectedPersona.announcerName,
+        selectedCommand.id,
+        selectedCommand.code,
+      );
     }
     timerRef.current = window.setTimeout(() => setManifested(true), 900);
   }
@@ -151,7 +176,42 @@ export default function Home() {
     setSelectedPersonaId(null);
     setPhase("idle");
     setManifested(false);
+    updateHandleProgress(0);
     stopDriverAudio();
+  }
+
+  function beginHandleDrag(event: ReactPointerEvent<HTMLButtonElement>, side: "left" | "right") {
+    if (phase !== "locked") return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    handleDragRef.current = { side, startX: event.clientX, startProgress: handleProgressRef.current };
+    handleMovedRef.current = false;
+    suppressHandleClickRef.current = false;
+  }
+
+  function moveHandleDrag(event: ReactPointerEvent<HTMLButtonElement>) {
+    const drag = handleDragRef.current;
+    if (!drag || phase !== "locked") return;
+    const signedDistance = drag.side === "left" ? event.clientX - drag.startX : drag.startX - event.clientX;
+    if (Math.abs(signedDistance) > 4) handleMovedRef.current = true;
+    updateHandleProgress(Math.max(0, Math.min(1, drag.startProgress + signedDistance / 92)));
+  }
+
+  function endHandleDrag(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (!handleDragRef.current) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    handleDragRef.current = null;
+    if (!handleMovedRef.current) return;
+    suppressHandleClickRef.current = true;
+    if (handleProgressRef.current >= 0.72) activateDriver();
+    else updateHandleProgress(0);
+  }
+
+  function handleHandleClick() {
+    if (suppressHandleClickRef.current) {
+      suppressHandleClickRef.current = false;
+      return;
+    }
+    activateDriver();
   }
 
   function toggleMaterial(id: string) {
@@ -239,7 +299,7 @@ export default function Home() {
             <span>{selectedPersona ? selectedPersona.code : "NO PERSONA CARD"}</span>
           </div>
           <Suspense fallback={<div className="driver-loading">正在装载 Persona Driver</div>}>
-            <DriverScene phase={phase} cardColor={selectedPersona?.color ?? "#ef3048"} />
+            <DriverScene phase={phase} cardColor={selectedPersona?.color ?? "#ef3048"} handleProgress={handleProgress} />
           </Suspense>
           {selectedPersona && phase !== "idle" && (
             <div className="inserted-card-label">
@@ -253,7 +313,30 @@ export default function Home() {
             )}
             {phase === "inserting" && <p>正在读取人物能力数据</p>}
             {phase === "locked" && (
-              <button className="activate-button" type="button" onClick={activateDriver}>启动 Persona Driver</button>
+              <div className="driver-handle-control" style={{ "--handle-progress": handleProgress } as CSSProperties}>
+                <button
+                  className="driver-side-handle left"
+                  type="button"
+                  aria-label="向内合拢左侧把手完成变身"
+                  onPointerDown={(event) => beginHandleDrag(event, "left")}
+                  onPointerMove={moveHandleDrag}
+                  onPointerUp={endHandleDrag}
+                  onPointerCancel={endHandleDrag}
+                  onClick={handleHandleClick}
+                >›</button>
+                <div className="driver-handle-track" aria-hidden="true"><span /></div>
+                <button
+                  className="driver-side-handle right"
+                  type="button"
+                  aria-label="向内合拢右侧把手完成变身"
+                  onPointerDown={(event) => beginHandleDrag(event, "right")}
+                  onPointerMove={moveHandleDrag}
+                  onPointerUp={endHandleDrag}
+                  onPointerCancel={endHandleDrag}
+                  onClick={handleHandleClick}
+                >‹</button>
+                <small>向内拖动把手完成变身，点击也可启动</small>
+              </div>
             )}
             {phase === "activated" && <p className="activation-caption">PERSONA RIDE · {selectedPersona?.role} · {selectedPersona?.name}</p>}
             {selectedPersona && phase !== "inserting" && (
@@ -308,7 +391,7 @@ export default function Home() {
               onClick={() => choosePersona(persona.id)}
             >
               <span className="workbench-card-index">{String(index + 1).padStart(2, "0")}</span>
-              <span className="workbench-card-art" style={{ "--persona-color": persona.color } as React.CSSProperties}>
+              <span className="workbench-card-art" style={{ "--persona-color": persona.color } as CSSProperties}>
                 <img className="workbench-card-art-image" src={persona.image} alt="" />
               </span>
               <small>{persona.code}</small><strong>{persona.name}</strong><span>{persona.role}</span>

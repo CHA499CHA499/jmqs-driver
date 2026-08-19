@@ -8,15 +8,17 @@ export type DriverPhase = "idle" | "ready" | "inserting" | "locked" | "activated
 interface DriverSceneProps {
   phase: DriverPhase;
   cardColor: string;
+  handleProgress: number;
 }
 
 function easeOutCubic(value: number) {
   return 1 - Math.pow(1 - value, 3);
 }
 
-export function DriverScene({ phase, cardColor }: DriverSceneProps) {
+export function DriverScene({ phase, cardColor, handleProgress }: DriverSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const phaseRef = useRef<DriverPhase>(phase);
+  const handleProgressRef = useRef(handleProgress);
   const phaseStartedRef = useRef(0);
   const pointerRef = useRef({ x: 0, y: 0 });
   const [failed, setFailed] = useState(false);
@@ -25,6 +27,10 @@ export function DriverScene({ phase, cardColor }: DriverSceneProps) {
     phaseRef.current = phase;
     phaseStartedRef.current = performance.now();
   }, [phase]);
+
+  useEffect(() => {
+    handleProgressRef.current = handleProgress;
+  }, [handleProgress]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -179,6 +185,22 @@ export function DriverScene({ phase, cardColor }: DriverSceneProps) {
       const elapsed = Math.max(0, time - phaseStartedRef.current);
       const active = currentPhase === "activated";
       const armed = currentPhase === "ready" || currentPhase === "inserting" || currentPhase === "locked" || active;
+      const closure = active ? 1 : currentPhase === "locked" ? handleProgressRef.current : 0;
+      const assembly = easeOutCubic(closure);
+
+      leftHousing.position.x = THREE.MathUtils.lerp(-2.62, -2.15, assembly);
+      rightHousing.position.x = THREE.MathUtils.lerp(2.62, 2.15, assembly);
+      leftHousing.rotation.z = THREE.MathUtils.lerp(-0.34, -0.2, assembly);
+      rightHousing.rotation.z = THREE.MathUtils.lerp(0.34, 0.2, assembly);
+      leftRail.position.x = THREE.MathUtils.lerp(-2.04, -1.72, assembly);
+      rightRail.position.x = THREE.MathUtils.lerp(2.04, 1.72, assembly);
+      leftRail.rotation.z = THREE.MathUtils.lerp(-0.34, -0.2, assembly);
+      rightRail.rotation.z = THREE.MathUtils.lerp(0.34, 0.2, assembly);
+      outerRing.position.z = THREE.MathUtils.lerp(-0.28, 0.05, assembly);
+      middleRing.position.z = THREE.MathUtils.lerp(-0.02, 0.22, assembly);
+      innerRing.position.z = THREE.MathUtils.lerp(0.14, 0.34, assembly);
+      core.position.z = THREE.MathUtils.lerp(0.12, 0.34, assembly);
+      coreInset.position.z = THREE.MathUtils.lerp(0.25, 0.52, assembly);
       const breath = reducedMotion ? 1 : 1 + Math.sin(time * 0.0018) * 0.025;
       core.scale.setScalar(breath);
       coreInset.rotation.z = active ? time * -0.003 : time * -0.00028;
@@ -204,9 +226,9 @@ export function DriverScene({ phase, cardColor }: DriverSceneProps) {
         card.position.y = 3.25;
       }
 
-      const targetIntensity = active ? 4.8 : armed ? 1.15 : 0.32;
+      const targetIntensity = active ? 4.8 : armed ? 1.15 + assembly * 1.45 : 0.32;
       energy.emissiveIntensity += (targetIntensity - energy.emissiveIntensity) * 0.08;
-      redLight.intensity += ((active ? 10 : armed ? 3.2 : 1.1) - redLight.intensity) * 0.08;
+      redLight.intensity += ((active ? 10 : armed ? 3.2 + assembly * 2.8 : 1.1) - redLight.intensity) * 0.08;
       energyBars.forEach((bar, index) => {
         const pulse = active && !reducedMotion ? 1 + Math.sin(time * 0.008 + index) * 0.22 : 1;
         bar.scale.y += (pulse - bar.scale.y) * 0.12;

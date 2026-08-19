@@ -274,6 +274,53 @@ button:focus-visible, input:focus-visible, [draggable="true"]:focus-visible {
 .insert-button { background: var(--signal-deep); }
 .activate-button { background: var(--signal); color: white; box-shadow: 0 0 30px rgba(239,48,72,.22); }
 .activate-button:active, .insert-button:active { transform: scale(.98); }
+.driver-handle-control {
+  --handle-progress: 0;
+  width: min(340px, calc(100vw - 56px));
+  display: grid;
+  grid-template-columns: 58px minmax(90px, 1fr) 58px;
+  gap: 9px;
+  align-items: center;
+}
+.driver-side-handle {
+  height: 52px;
+  border: 1px solid #67717f;
+  border-radius: 6px 15px 15px 6px;
+  background: linear-gradient(90deg, #161b22, #343b46 52%, #171b21);
+  color: #eef2f7;
+  font: 29px/1 monospace;
+  box-shadow: inset 0 0 0 2px #0b0e12, 0 0 calc(6px + 12px * var(--handle-progress)) rgba(239,48,72,.24);
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.driver-side-handle.left { transform: translateX(calc(18px * var(--handle-progress))); }
+.driver-side-handle.right { border-radius: 15px 6px 6px 15px; transform: translateX(calc(-18px * var(--handle-progress))); }
+.driver-side-handle:hover, .driver-side-handle:focus-visible { border-color: var(--signal); outline: none; }
+.driver-side-handle:active { transition: none; }
+.driver-handle-track {
+  height: 8px;
+  overflow: hidden;
+  border: 1px solid #3b424d;
+  border-radius: 999px;
+  background: #07090c;
+  box-shadow: inset 0 0 8px #000;
+}
+.driver-handle-track span {
+  width: calc(var(--handle-progress) * 100%);
+  height: 100%;
+  display: block;
+  background: linear-gradient(90deg, #74202a, var(--signal), #ffd4d9);
+  box-shadow: 0 0 12px var(--signal);
+}
+.driver-handle-control > small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: .04em;
+  text-align: center;
+}
 .reset-driver { border: 0; background: transparent; color: var(--subtle); font-size: 10px; text-decoration: underline; text-underline-offset: 4px; }
 .activation-caption { color: #ff8392 !important; font: 11px/1 monospace !important; letter-spacing: .08em; }
 .phase-activated { background: radial-gradient(circle at 50% 50%, rgba(239,48,72,.22), transparent 46%); }
@@ -401,6 +448,7 @@ button:focus-visible, input:focus-visible, [draggable="true"]:focus-visible {
   .material-list { grid-template-columns: 1fr; }
   .driver-controls { flex-wrap: wrap; }
   .insert-button, .activate-button { width: 100%; }
+  .driver-handle-control { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
