@@ -17,6 +17,7 @@
 入口分流出现问题时，回退 `choice` 页面与 `begin/open-pack/build-cards/back-choice` 四个动作，恢复原 `begin → scope`。
 开包动效出现问题时，回退 `pack` 页面、`crackPack/revealPackCard/resetPackOpening` 和对应 CSS，恢复 `open-pack → atlas`。
 立绘出现问题时，同时回退 `public/personas/`、人物数据中的 `image` 字段与卡面图片 CSS；禁止只删图片留下失效路径。
+首页卡盒立绘出现问题时，回退 `app/page.tsx` 的 `Persona.image` 与 `workbench-card-art-image`，恢复原几何占位卡面。
 
 首页主视觉或高度修正出现问题时，同时回退 `public/persona-atlas.html` 与 `public/hero-personas.png`，避免 HTML
 引用新资产但发布包缺图。回退后至少以一个宽屏和一个窄屏视口确认没有底部白区。
@@ -27,6 +28,10 @@ Three.js Driver 出现黑屏、GPU 兼容或性能问题时，优先回退 `app/
 
 音频出现浏览器兼容、音量或误播放问题时，可单独回退 `app/driver-audio.ts` 与 `app/page.tsx` 的声音调用，
 保留 Three.js Driver 和 DOM 工作台。禁止用影视原声音频文件替代合成层。
+
+本机随机候选覆盖出现问题时，停止 `127.0.0.1:8765` 静态服务即可立即恢复原创合成音；源码回退只需删除
+`localActivationClipUrls`、`playRandomLocalActivationClip` 和 `stopDriverAudio` 中的本机播放器清理，不需要改动或删除候选源文件。
+公开版本不携带候选音频，因此无需执行 Sites 回退。
 
 ## 紧急下线
 

@@ -20,6 +20,7 @@ interface Persona {
   role: string;
   code: string;
   color: string;
+  image: string;
   summary: string;
   tags: string[];
 }
@@ -31,6 +32,7 @@ const PERSONAS: Persona[] = [
     role: "长期主义策略师",
     code: "LEVERAGE ARCHITECT",
     color: "#d8b25c",
+    image: "/personas/naval.jpg",
     summary: "从长期复利、杠杆和独立判断出发，检查任务是否值得持续投入。",
     tags: ["长期主义", "杠杆", "判断"],
   },
@@ -40,6 +42,7 @@ const PERSONAS: Persona[] = [
     role: "第一性原理工程师",
     code: "FIRST PRINCIPLE",
     color: "#ef3048",
+    image: "/personas/elon-musk.jpg",
     summary: "把复杂问题拆回物理约束、成本边界和可执行工程步骤。",
     tags: ["第一性原理", "工程", "速度"],
   },
@@ -49,6 +52,7 @@ const PERSONAS: Persona[] = [
     role: "产品体验主理人",
     code: "FOCUS EDITOR",
     color: "#d7dde5",
+    image: "/personas/steve-jobs.jpg",
     summary: "聚焦用户真正感知的价值，删掉多余功能，强化产品叙事与整体体验。",
     tags: ["产品", "审美", "聚焦"],
   },
@@ -58,6 +62,7 @@ const PERSONAS: Persona[] = [
     role: "注意力谈判者",
     code: "DEAL MAKER",
     color: "#e86836",
+    image: "/personas/donald-trump.jpg",
     summary: "从筹码、声量和谈判位置出发，判断如何获得更主动的局面。",
     tags: ["谈判", "传播", "筹码"],
   },
@@ -67,6 +72,7 @@ const PERSONAS: Persona[] = [
     role: "创业问题诊断师",
     code: "FOUNDER SIGNAL",
     color: "#7ba6d9",
+    image: "/personas/paul-graham.jpg",
     summary: "识别真正的问题和用户信号，避免用复杂方案掩盖尚未成立的需求。",
     tags: ["创业", "写作", "用户"],
   },
@@ -302,7 +308,9 @@ export default function Home() {
               onClick={() => choosePersona(persona.id)}
             >
               <span className="workbench-card-index">{String(index + 1).padStart(2, "0")}</span>
-              <span className="workbench-card-art" style={{ "--persona-color": persona.color } as React.CSSProperties} data-letter={persona.name.slice(0, 1)} />
+              <span className="workbench-card-art" style={{ "--persona-color": persona.color } as React.CSSProperties}>
+                <img className="workbench-card-art-image" src={persona.image} alt="" />
+              </span>
               <small>{persona.code}</small><strong>{persona.name}</strong><span>{persona.role}</span>
             </button>
           ))}

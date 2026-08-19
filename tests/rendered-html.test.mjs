@@ -41,7 +41,17 @@ test("includes the isolated Three.js driver and original audio layer", async () 
   assert.match(driverAudio, /speechSynthesis/);
   assert.match(driverAudio, /createOscillator/);
   assert.match(driverAudio, /createBuffer/);
+  assert.match(driverAudio, /localActivationClipUrls/);
+  assert.match(driverAudio, /127\.0\.0\.1:8765/);
+  assert.match(driverAudio, /\["localhost", "127\.0\.0\.1"\]/);
+  assert.match(driverAudio, /new Audio\(selected\.url\)/);
   assert.match(page, /playActivationSequence/);
+  assert.match(page, /workbench-card-art-image/);
+  assert.match(page, /personas\/naval\.jpg/);
+  assert.match(page, /personas\/elon-musk\.jpg/);
+  assert.match(page, /personas\/steve-jobs\.jpg/);
+  assert.match(page, /personas\/donald-trump\.jpg/);
+  assert.match(page, /personas\/paul-graham\.jpg/);
 });
 
 test("ships the interactive demo asset", async () => {

@@ -1,6 +1,13 @@
 "use client";
 
 let sharedContext: AudioContext | null = null;
+let activeLocalClip: HTMLAudioElement | null = null;
+let previousLocalClipIndex = -1;
+
+const localActivationClipUrls = Array.from(
+  { length: 16 },
+  (_, index) => `http://127.0.0.1:8765/candidate-${String(index + 1).padStart(2, "0")}.m4a`,
+);
 
 function getAudioContext() {
   if (typeof window === "undefined") return null;
@@ -86,7 +93,7 @@ export function playCardInsertSound() {
   tone(context, { start: 0.38, duration: 0.09, frequency: 840, endFrequency: 1040, gain: 0.055, type: "triangle" });
 }
 
-export function playActivationSequence(role: string, name: string, command: string) {
+function playSynthesizedActivationSequence(role: string, name: string, command: string) {
   const context = getAudioContext();
   if (context) {
     noiseBurst(context, 0, 0.16, 0.12);
@@ -121,7 +128,46 @@ export function playActivationSequence(role: string, name: string, command: stri
   }
 }
 
+function playRandomLocalActivationClip(fallback: () => void) {
+  if (
+    typeof window === "undefined" ||
+    !["localhost", "127.0.0.1"].includes(window.location.hostname)
+  ) {
+    return false;
+  }
+
+  const choices = localActivationClipUrls
+    .map((url, index) => ({ url, index }))
+    .filter(({ index }) => index !== previousLocalClipIndex);
+  const selected = choices[Math.floor(Math.random() * choices.length)];
+  previousLocalClipIndex = selected.index;
+
+  activeLocalClip?.pause();
+  const clip = new Audio(selected.url);
+  clip.preload = "auto";
+  clip.volume = 0.92;
+  activeLocalClip = clip;
+  clip.addEventListener("ended", () => {
+    if (activeLocalClip === clip) activeLocalClip = null;
+  });
+  void clip.play().catch(() => {
+    if (activeLocalClip === clip) activeLocalClip = null;
+    fallback();
+  });
+  return true;
+}
+
+export function playActivationSequence(role: string, name: string, command: string) {
+  const fallback = () => playSynthesizedActivationSequence(role, name, command);
+  if (!playRandomLocalActivationClip(fallback)) fallback();
+}
+
 export function stopDriverAudio() {
+  if (activeLocalClip) {
+    activeLocalClip.pause();
+    activeLocalClip.currentTime = 0;
+    activeLocalClip = null;
+  }
   if (typeof window !== "undefined" && "speechSynthesis" in window) {
     window.speechSynthesis.cancel();
   }
