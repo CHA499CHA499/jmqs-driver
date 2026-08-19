@@ -25,9 +25,10 @@ test("renders the public persona atlas shell", async () => {
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview/);
 });
 
-test("includes the isolated Three.js driver", async () => {
-  const [driver, page, packageJson] = await Promise.all([
+test("includes the isolated Three.js driver and original audio layer", async () => {
+  const [driver, driverAudio, page, packageJson] = await Promise.all([
     readFile(new URL("../app/driver-scene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/driver-audio.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
@@ -36,8 +37,11 @@ test("includes the isolated Three.js driver", async () => {
   assert.match(driver, /getContext\("webgl2"\)/);
   assert.match(driver, /requestAnimationFrame/);
   assert.match(driver, /renderer\.dispose\(\)/);
-  assert.match(page, /PERSONA RIDE/);
-  assert.match(page, /speechSynthesis/);
+  assert.match(driverAudio, /PERSONA RIDE/);
+  assert.match(driverAudio, /speechSynthesis/);
+  assert.match(driverAudio, /createOscillator/);
+  assert.match(driverAudio, /createBuffer/);
+  assert.match(page, /playActivationSequence/);
 });
 
 test("ships the interactive demo asset", async () => {

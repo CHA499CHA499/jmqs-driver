@@ -45,3 +45,6 @@ npm test
 根页面升级为工作台：左侧演示素材与指令卡、中央 Three.js Persona Driver、底部人物卡盒、右侧角色实例面板。
 第一版支持待机呼吸、人物卡插入、锁定、核心旋转点亮、原创 Web Audio 提示音和系统 TTS 播报。
 Three.js 由 Vite 打包进站点，访客无需安装依赖；不支持 WebGL 2 时显示静态 Driver。
+
+音效层由 `app/driver-audio.ts` 运行时合成：选卡金属音、指令卡双脉冲、插卡滑轨与锁扣、启动扫描脉冲、
+能量升频和低频冲击。最后使用系统 TTS 播报原创 `PERSONA RIDE` 文案；不包含影视原版采样。

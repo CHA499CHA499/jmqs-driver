@@ -25,6 +25,14 @@
 - Three.js、材质和几何体由 Vite 打包；运行时不从 CDN 获取 3D 代码或模型。
 - 页面卸载时必须停止动画、断开 ResizeObserver、释放 geometry/material/renderer。
 
+## 音效运行合同
+
+- `app/driver-audio.ts` 是唯一声音边界，通过 Web Audio API 实时合成，不读取外部音频文件。
+- 只在用户点击选卡、指令卡、插卡或启动按钮后创建或恢复 AudioContext。
+- `PERSONA RIDE` 使用浏览器系统 TTS，声音与可用语言随访客操作系统变化。
+- 静音时停止 TTS，后续交互不再产生 Web Audio 事件。
+- 禁止加入假面骑士原版音频、采样、台词节奏或其他受保护音效资产。
+
 ## 读写路径
 
 - 源码读取：当前工具目录。

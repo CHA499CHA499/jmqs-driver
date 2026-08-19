@@ -20,6 +20,9 @@ Three.js Driver 出现黑屏、GPU 兼容或性能问题时，优先回退 `app/
 `app/driver-scene.tsx`、`package.json` 与 `package-lock.json` 到上一公开版本；旧图鉴静态资产无需删除。
 回退提交完成后重新构建并部署历史兼容版本，不在生产环境临时改用 CDN。
 
+音频出现浏览器兼容、音量或误播放问题时，可单独回退 `app/driver-audio.ts` 与 `app/page.tsx` 的声音调用，
+保留 Three.js Driver 和 DOM 工作台。禁止用影视原声音频文件替代合成层。
+
 ## 紧急下线
 
 如果公开内容出现隐私、版权或错误数据风险，应先将 Sites 访问权限收紧或停止公开部署，再调查源码。
