@@ -98,6 +98,17 @@ button:focus-visible, input:focus-visible, [draggable="true"]:focus-visible {
   font-size: 12px;
 }
 .gallery-link:hover { border-color: var(--line-strong); color: var(--text); }
+.sound-toggle {
+  flex: 0 0 auto;
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  padding: 0 11px;
+  font-size: 11px;
+}
+.sound-toggle.enabled { border-color: #56222c; background: rgba(239,48,72,.08); color: #ff8b99; }
 
 .workbench-grid {
   min-height: 0;
@@ -370,6 +381,7 @@ button:focus-visible, input:focus-visible, [draggable="true"]:focus-visible {
 @media (max-width: 760px) {
   .workbench-header { gap: 12px; }
   .workbench-brand small, .gallery-link { display: none; }
+  .sound-toggle { margin-left: auto; }
   .mission-field { display: grid; gap: 6px; }
   .workbench-grid { display: flex; flex-direction: column; }
   .driver-stage { order: 1; min-height: 520px; }

@@ -44,6 +44,8 @@
 
     #feishu-persona-atlas .atlas-screen { display: none !important; min-height: 100dvh; }
     #feishu-persona-atlas[data-screen="welcome"] .atlas-screen[data-view="welcome"],
+    #feishu-persona-atlas[data-screen="choice"] .atlas-screen[data-view="choice"],
+    #feishu-persona-atlas[data-screen="pack"] .atlas-screen[data-view="pack"],
     #feishu-persona-atlas[data-screen="scope"] .atlas-screen[data-view="scope"],
     #feishu-persona-atlas[data-screen="scan"] .atlas-screen[data-view="scan"],
     #feishu-persona-atlas[data-screen="unlock"] .atlas-screen[data-view="unlock"],
@@ -228,6 +230,125 @@
       font-size: 10px;
       letter-spacing: .25em;
     }
+
+    #feishu-persona-atlas .atlas-choice {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      position: relative;
+    }
+    #feishu-persona-atlas .atlas-choice > .atlas-back { position: absolute; left: 28px; top: 28px; }
+    #feishu-persona-atlas .atlas-choice-shell { width: min(720px, 100%); }
+    #feishu-persona-atlas .atlas-choice-shell h2 { margin: 0 0 10px; font-size: 30px; }
+    #feishu-persona-atlas .atlas-choice-shell > p { margin: 0; color: var(--atlas-muted); font-size: 14px; }
+    #feishu-persona-atlas .atlas-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+    #feishu-persona-atlas .atlas-choice-card {
+      min-height: 190px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid var(--atlas-line);
+      border-radius: 12px;
+      background: var(--atlas-panel);
+      color: var(--atlas-text);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+    #feishu-persona-atlas .atlas-choice-card:hover { border-color: var(--atlas-accent); background: var(--atlas-panel-2); transform: translateY(-2px); }
+    #feishu-persona-atlas .atlas-choice-card svg { width: 26px; height: 26px; color: var(--atlas-accent); }
+    #feishu-persona-atlas .atlas-choice-card strong { margin-top: auto; font-size: 19px; }
+    #feishu-persona-atlas .atlas-choice-card span { color: var(--atlas-muted); font-size: 12px; line-height: 1.6; }
+
+    #feishu-persona-atlas .atlas-pack {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 76px 28px 36px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 45%, rgba(239,48,72,.14), transparent 34%);
+    }
+    #feishu-persona-atlas .atlas-pack > .atlas-back { position: absolute; left: 28px; top: 28px; }
+    #feishu-persona-atlas .atlas-pack-shell { width: min(1120px, 100%); text-align: center; }
+    #feishu-persona-atlas .atlas-pack-shell h2 { margin: 0; font-size: 28px; }
+    #feishu-persona-atlas .atlas-pack-status { min-height: 20px; margin: 8px 0 0; color: var(--atlas-muted); font-size: 13px; }
+    #feishu-persona-atlas .atlas-pack-seal {
+      display: block;
+      width: 220px;
+      height: 300px;
+      margin: 30px auto 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      perspective: 900px;
+    }
+    #feishu-persona-atlas .atlas-pack-object {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      border: 1px solid #535b68;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, transparent 0 47%, rgba(239,48,72,.4) 48% 50%, transparent 51%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, transparent 2px 11px),
+        linear-gradient(155deg, #222833, #0b0e13 68%);
+      box-shadow: 0 28px 75px rgba(0,0,0,.62), inset 0 0 0 5px #0c0f15, inset 0 0 0 6px rgba(239,48,72,.35);
+      transform: rotate(-3deg);
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+    #feishu-persona-atlas .atlas-pack-seal:hover .atlas-pack-object { transform: rotate(0) translateY(-4px); border-color: var(--atlas-accent); box-shadow: 0 34px 90px rgba(0,0,0,.68), 0 0 35px rgba(239,48,72,.15), inset 0 0 0 5px #0c0f15, inset 0 0 0 6px rgba(239,48,72,.55); }
+    #feishu-persona-atlas .atlas-pack-mark { width: 90px; height: 90px; display: grid; place-items: center; border: 2px solid var(--atlas-accent); transform: rotate(45deg); box-shadow: inset 0 0 28px rgba(239,48,72,.13); }
+    #feishu-persona-atlas .atlas-pack-mark svg { width: 34px; height: 34px; color: var(--atlas-accent); transform: rotate(-45deg); }
+    #feishu-persona-atlas .atlas-pack-count { color: var(--atlas-muted); font: 10px/1 monospace; letter-spacing: .18em; }
+    #feishu-persona-atlas .atlas-pack[data-pack-state="opening"] .atlas-pack-object { animation: atlas-pack-crack .7s cubic-bezier(.2,.75,.2,1) both; }
+    #feishu-persona-atlas .atlas-pack[data-pack-state="opened"] .atlas-pack-seal { display: none; }
+    #feishu-persona-atlas .atlas-pack-cards {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #feishu-persona-atlas .atlas-pack[data-pack-state="opened"] .atlas-pack-cards { opacity: 1; pointer-events: auto; }
+    #feishu-persona-atlas .atlas-pack-card {
+      width: 100%;
+      aspect-ratio: .67;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      perspective: 900px;
+      opacity: 0;
+      transform: translateY(70px) scale(.62);
+    }
+    #feishu-persona-atlas .atlas-pack[data-pack-state="opened"] .atlas-pack-card { animation: atlas-pack-deal .52s cubic-bezier(.18,.82,.22,1) forwards; }
+    #feishu-persona-atlas .atlas-pack-card:nth-child(2) { animation-delay: .08s !important; }
+    #feishu-persona-atlas .atlas-pack-card:nth-child(3) { animation-delay: .16s !important; }
+    #feishu-persona-atlas .atlas-pack-card:nth-child(4) { animation-delay: .24s !important; }
+    #feishu-persona-atlas .atlas-pack-card:nth-child(5) { animation-delay: .32s !important; }
+    #feishu-persona-atlas .atlas-pack-card-inner { width: 100%; height: 100%; display: block; position: relative; transform-style: preserve-3d; transition: transform .58s cubic-bezier(.2,.72,.2,1); }
+    #feishu-persona-atlas .atlas-pack-card.is-revealed .atlas-pack-card-inner { transform: rotateY(180deg); }
+    #feishu-persona-atlas .atlas-pack-card-face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #454d59; border-radius: 14px; backface-visibility: hidden; box-shadow: 0 18px 42px rgba(0,0,0,.46); }
+    #feishu-persona-atlas .atlas-pack-card-back { background: repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, transparent 2px 10px), #0d1016; }
+    #feishu-persona-atlas .atlas-pack-card-back::after { content: ""; width: 44%; aspect-ratio: 1; border: 1px solid var(--atlas-accent); transform: rotate(45deg); box-shadow: inset 0 0 24px rgba(239,48,72,.15), 0 0 18px rgba(239,48,72,.13); }
+    #feishu-persona-atlas .atlas-pack-card-front { padding: 14px; transform: rotateY(180deg); background: linear-gradient(155deg, #303744, #0e1117 62%); }
+    #feishu-persona-atlas .atlas-pack-card-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; object-position: center top; }
+    #feishu-persona-atlas .atlas-pack-card-copy { position: absolute; left: 0; right: 0; bottom: 0; padding: 42px 14px 14px; display: flex; flex-direction: column; align-items: flex-start; background: linear-gradient(transparent, rgba(7,9,13,.96) 60%); }
+    #feishu-persona-atlas .atlas-pack-card-copy strong { width: 100%; color: var(--atlas-text); font-size: 18px; text-align: left; }
+    #feishu-persona-atlas .atlas-pack-card-copy span { width: 100%; margin-top: 7px; color: var(--atlas-accent); font-size: 10px; text-align: left; }
+    #feishu-persona-atlas .atlas-pack-collect { margin-top: 26px; opacity: 0; pointer-events: none; transform: translateY(8px); }
+    #feishu-persona-atlas .atlas-pack.is-complete .atlas-pack-collect { opacity: 1; pointer-events: auto; transform: translateY(0); transition: opacity .2s ease, transform .2s ease; }
 
     #feishu-persona-atlas .atlas-setup {
       width: 100%;
@@ -421,7 +542,9 @@
     #feishu-persona-atlas .atlas-unlock-front { transform: rotateY(180deg); padding: 15px; }
     #feishu-persona-atlas .atlas-unlock-front::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(239,48,72,.45); border-radius: 11px; pointer-events: none; }
     #feishu-persona-atlas .atlas-unlock-portrait { height: 245px; border-radius: 9px; background: radial-gradient(circle at 50% 23%, #5d2731, transparent 16%), linear-gradient(150deg,#29313d,#11151c 62%); position: relative; overflow: hidden; }
-    #feishu-persona-atlas .atlas-unlock-portrait::after { content: "楚"; position: absolute; left: 50%; bottom: -26px; transform: translateX(-50%); font-size: 188px; font-weight: 900; color: rgba(255,255,255,.055); }
+    #feishu-persona-atlas .atlas-unlock-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center top; }
+    #feishu-persona-atlas .atlas-unlock-portrait-has-image::after { display: none; }
+    #feishu-persona-atlas .atlas-unlock-portrait::after { content: "N"; position: absolute; left: 50%; bottom: -26px; transform: translateX(-50%); font-size: 188px; font-weight: 900; color: rgba(255,255,255,.055); }
     #feishu-persona-atlas .atlas-unlock-id { margin-top: 17px; color: var(--atlas-accent); font: 10px/1 monospace; letter-spacing: .16em; }
     #feishu-persona-atlas .atlas-unlock-name { margin: 8px 0 3px; font-size: 25px; }
     #feishu-persona-atlas .atlas-unlock-title { color: var(--atlas-muted); font-size: 12px; }
@@ -476,6 +599,9 @@
     #feishu-persona-atlas .atlas-card-front { padding: 12px; }
     #feishu-persona-atlas .atlas-card-back { transform: rotateY(180deg); padding: 21px; background: repeating-linear-gradient(135deg, rgba(255,255,255,.018) 0 1px, transparent 1px 8px), #0d1016; }
     #feishu-persona-atlas .atlas-portrait { display: block; height: 210px; position: relative; overflow: hidden; border-radius: 9px; background: linear-gradient(145deg, #343c49, #12161d 70%); }
+    #feishu-persona-atlas .atlas-portrait-image { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center top; }
+    #feishu-persona-atlas .atlas-portrait-has-image::before,
+    #feishu-persona-atlas .atlas-portrait-has-image::after { display: none; }
     #feishu-persona-atlas .atlas-portrait::before { content: attr(data-initial); position: absolute; right: -7px; bottom: -35px; color: rgba(255,255,255,.07); font-size: 150px; font-weight: 900; }
     #feishu-persona-atlas .atlas-portrait::after { content: ""; position: absolute; inset: 17% 25% 0; border-radius: 48% 48% 10% 10%; background: linear-gradient(150deg, rgba(255,255,255,.2), rgba(0,0,0,.5)); clip-path: polygon(22% 0,78% 0,93% 28%,78% 46%,100% 100%,0 100%,22% 46%,7% 28%); }
     #feishu-persona-atlas .atlas-portrait-line { position: absolute; inset: 0; background: linear-gradient(112deg, transparent 49%, rgba(239,48,72,.36) 50%, transparent 51%); z-index: 2; }
@@ -555,6 +681,8 @@
 
     @keyframes atlas-radar-spin { to { transform: rotate(360deg); } }
     @keyframes atlas-unlock-enter { from { opacity: 0; transform: translateY(44px) scale(.86) rotateY(-18deg); } to { opacity: 1; transform: translateY(0) scale(1) rotateY(0); } }
+    @keyframes atlas-pack-crack { 0% { transform: rotate(-3deg) scale(1); } 18% { transform: rotate(5deg) scale(1.03); } 36% { transform: rotate(-6deg) scale(1.06); } 58% { transform: rotate(4deg) scale(1.1); } 80% { opacity: 1; transform: rotate(-2deg) scale(1.16); } 100% { opacity: 0; transform: rotate(0) scale(1.35); } }
+    @keyframes atlas-pack-deal { from { opacity: 0; transform: translateY(70px) scale(.62) rotate(-8deg); } to { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
 
     @media (max-width: 850px) {
       #feishu-persona-atlas { min-height: 100dvh; }
@@ -577,6 +705,18 @@
       #feishu-persona-atlas .atlas-lead { font-size: 14px; line-height: 1.7; }
       #feishu-persona-atlas .atlas-welcome-copy { padding: 42px 26px; }
       #feishu-persona-atlas .atlas-welcome-actions { align-items: stretch; flex-direction: column; }
+      #feishu-persona-atlas .atlas-choice { padding: 76px 20px 28px; }
+      #feishu-persona-atlas .atlas-choice > .atlas-back { left: 20px; top: 22px; }
+      #feishu-persona-atlas .atlas-choice-grid { grid-template-columns: 1fr; }
+      #feishu-persona-atlas .atlas-choice-card { min-height: 142px; }
+      #feishu-persona-atlas .atlas-pack { padding: 72px 16px 28px; }
+      #feishu-persona-atlas .atlas-pack > .atlas-back { left: 20px; top: 22px; }
+      #feishu-persona-atlas .atlas-pack-seal { width: 170px; height: 232px; }
+      #feishu-persona-atlas .atlas-pack-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+      #feishu-persona-atlas .atlas-pack-card-front { padding: 9px; }
+      #feishu-persona-atlas .atlas-pack-card-copy { padding: 34px 9px 9px; }
+      #feishu-persona-atlas .atlas-pack-card-copy strong { font-size: 13px; }
+      #feishu-persona-atlas .atlas-pack-card-copy span { font-size: 8px; }
       #feishu-persona-atlas .atlas-setup { display: block; }
       #feishu-persona-atlas .atlas-setup-aside { padding: 22px; border-right: 0; border-bottom: 1px solid var(--atlas-line-soft); }
       #feishu-persona-atlas .atlas-setup-aside h2 { margin: 25px 0 8px; font-size: 23px; }
@@ -630,7 +770,7 @@
       <div><span class="atlas-demo-flag"><i data-lucide="flask-conical"></i> 演示数据</span></div>
       <p class="atlas-kicker">Feishu Persona Archive / Prototype 01</p>
       <h1 class="atlas-display" id="atlas-welcome-title">假面骑事<span>协作角色收录系统</span></h1>
-      <p class="atlas-lead">从你授权的飞书协作记录中，提炼人物事实、协作主题与关系线索，生成可校正、可追溯的角色卡。当前原型只使用虚构示例人物，不读取任何真实数据。</p>
+      <p class="atlas-lead">固定卡组使用五个公开人物 Skill 摘要，不读取飞书或任何真实协作数据。</p>
       <div class="atlas-welcome-actions">
         <button class="atlas-primary" type="button" data-action="begin"><i data-lucide="scan-line"></i> 开始构建图鉴</button>
         <button class="atlas-ghost" type="button" data-action="preview"><i data-lucide="gallery-horizontal"></i> 直接体验演示</button>
@@ -647,11 +787,36 @@
     </div>
   </section>
 
+  <section class="atlas-screen atlas-choice" data-view="choice" aria-labelledby="atlas-choice-title">
+    <button class="atlas-back" type="button" data-action="back-welcome"><i data-lucide="arrow-left"></i> 返回</button>
+    <div class="atlas-choice-shell">
+      <h2 id="atlas-choice-title">选择进入方式</h2>
+      <p>打开固定卡包，或继续构建自己的卡片。</p>
+      <div class="atlas-choice-grid">
+        <button class="atlas-choice-card" type="button" data-action="open-pack"><i data-lucide="package-open"></i><strong>打开卡包</strong><span>进入固定五人卡组</span></button>
+        <button class="atlas-choice-card" type="button" data-action="build-cards"><i data-lucide="scan-line"></i><strong>构建卡片</strong><span>进入数据范围与扫描流程</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="atlas-screen atlas-pack" data-view="pack" data-pack-state="sealed" aria-labelledby="atlas-pack-title">
+    <button class="atlas-back" type="button" data-action="back-choice"><i data-lucide="arrow-left"></i> 返回</button>
+    <div class="atlas-pack-shell">
+      <h2 id="atlas-pack-title">打开固定卡包</h2>
+      <p class="atlas-pack-status" id="atlas-pack-status" aria-live="polite">点击卡包开启</p>
+      <button class="atlas-pack-seal" type="button" data-action="crack-pack" aria-label="点击开启五人卡包">
+        <span class="atlas-pack-object"><span class="atlas-pack-mark"><i data-lucide="layers-3"></i></span><span class="atlas-pack-count">5 PERSONA CARDS</span></span>
+      </button>
+      <div class="atlas-pack-cards" id="atlas-pack-cards" aria-label="待揭晓卡牌"></div>
+      <button class="atlas-primary atlas-pack-collect" type="button" data-action="collect-pack"><i data-lucide="archive-restore"></i> 收下卡牌</button>
+    </div>
+  </section>
+
   <section class="atlas-screen atlas-setup" data-view="scope" aria-labelledby="atlas-scope-title">
     <aside class="atlas-setup-aside">
-      <button class="atlas-back" type="button" data-action="back-welcome"><i data-lucide="arrow-left"></i> 返回</button>
+      <button class="atlas-back" type="button" data-action="back-choice"><i data-lucide="arrow-left"></i> 返回</button>
       <h2>确认采集边界</h2>
-      <p>每一种来源都可以单独关闭。演示仅模拟采集过程，不会访问飞书。</p>
+      <p>演示仅使用固定公开 Skill，不会访问飞书。</p>
       <div class="atlas-step-rail" aria-label="构建步骤">
         <div class="atlas-step-item is-active">01 数据范围</div>
         <div class="atlas-step-item">02 证据扫描</div>
@@ -684,8 +849,8 @@
         <div class="atlas-exclude"><input id="atlas-exclude-input" type="text" placeholder="输入群名或关键词"><button class="atlas-secondary" type="button" data-action="add-exclude">添加排除</button></div>
         <div class="atlas-tags" id="atlas-exclude-tags"><span class="atlas-tag">家人群</span><span class="atlas-tag">薪酬讨论</span></div>
       </div>
-      <div class="atlas-privacy-note"><i data-lucide="lock-keyhole"></i><span>原型中的人物、消息摘要和统计均为虚构演示数据。正式功能会先在本地聚合证据，并在任何模型处理前明确展示将要发送的字段。</span></div>
-      <div class="atlas-setup-actions"><button class="atlas-ghost" type="button" data-action="back-welcome">取消</button><button class="atlas-primary" type="button" data-action="start-scan"><i data-lucide="scan-search"></i> 开始模拟扫描</button></div>
+      <div class="atlas-privacy-note"><i data-lucide="lock-keyhole"></i><span>人物内容来自公开 GitHub Skill 的摘要，不代表本人观点。演示不会访问飞书或本机资料。</span></div>
+      <div class="atlas-setup-actions"><button class="atlas-ghost" type="button" data-action="back-choice">取消</button><button class="atlas-primary" type="button" data-action="start-scan"><i data-lucide="scan-search"></i> 开始模拟扫描</button></div>
     </div>
   </section>
 
@@ -713,18 +878,18 @@
 
   <section class="atlas-screen atlas-unlock" data-view="unlock" aria-labelledby="atlas-unlock-title">
     <h2 id="atlas-unlock-title">首张人物卡已解锁</h2>
-    <p>扫描识别到 8 位高关联协作者，点击卡片完成收录。</p>
+    <p>固定卡组包含 5 位人物，点击卡片完成收录。</p>
     <div class="atlas-unlock-frame">
-      <div class="atlas-unlock-card" tabindex="0" role="button" aria-label="揭晓楚云的人物卡" data-action="reveal-card">
+      <div class="atlas-unlock-card" tabindex="0" role="button" aria-label="揭晓纳瓦尔的人物卡" data-action="reveal-card">
         <div class="atlas-unlock-face atlas-unlock-back"><div class="atlas-unlock-sigil"><i data-lucide="scan-face"></i></div></div>
-        <div class="atlas-unlock-face atlas-unlock-front"><div class="atlas-unlock-portrait"></div><div class="atlas-unlock-id">ARCHIVE / 001</div><h3 class="atlas-unlock-name">楚云</h3><div class="atlas-unlock-title">代号：界面构筑者 · 产品设计</div><div class="atlas-unlock-meta"><span>EVIDENCE 12</span><span>CONFIDENCE HIGH</span></div></div>
+        <div class="atlas-unlock-face atlas-unlock-front"><div class="atlas-unlock-portrait atlas-unlock-portrait-has-image"><img src="/personas/naval.jpg" alt="纳瓦尔原创角色立绘"></div><div class="atlas-unlock-id">ARCHIVE / 001</div><h3 class="atlas-unlock-name">纳瓦尔</h3><div class="atlas-unlock-title">代号：杠杆思维 · 商业</div><div class="atlas-unlock-meta"><span>MODELS 5</span><span>SOURCE GITHUB</span></div></div>
       </div>
     </div>
     <div class="atlas-unlock-tip" id="atlas-unlock-tip">点击卡片揭晓</div>
     <button class="atlas-primary" type="button" data-action="enter-atlas"><i data-lucide="book-open"></i> 进入假面骑事</button>
   </section>
 
-  <section class="atlas-screen atlas-app" data-view="atlas" aria-label="飞书假面骑事演示">
+  <section class="atlas-screen atlas-app" data-view="atlas" aria-label="假面骑事固定 Skill 卡组演示">
     <header class="atlas-appbar">
       <div class="atlas-brand"><div class="atlas-brand-mark"><i data-lucide="scan-face"></i></div><div><strong>假面骑事</strong><small>PERSONA ARCHIVE</small></div></div>
       <div class="atlas-appbar-spacer"></div>
@@ -737,21 +902,20 @@
       <aside class="atlas-sidebar">
         <div class="atlas-side-label">COLLECTION</div>
         <nav class="atlas-side-nav" aria-label="人物集合">
-          <button type="button" aria-pressed="true" data-collection="all"><i data-lucide="layout-grid"></i> 全部收录 <span id="atlas-count-all">8</span></button>
+          <button type="button" aria-pressed="true" data-collection="all"><i data-lucide="layout-grid"></i> 全部收录 <span id="atlas-count-all">5</span></button>
           <button type="button" aria-pressed="false" data-collection="favorite"><i data-lucide="star"></i> 我的收藏 <span id="atlas-count-fav">2</span></button>
-          <button type="button" aria-pressed="false" data-collection="recent"><i data-lucide="clock-3"></i> 最近协作 <span>4</span></button>
+          <button type="button" aria-pressed="false" data-collection="recent"><i data-lucide="layers-3"></i> 固定卡组 <span>5</span></button>
           <button type="button" aria-pressed="false" data-collection="hidden"><i data-lucide="eye-off"></i> 已隐藏 <span id="atlas-count-hidden">0</span></button>
         </nav>
         <div class="atlas-sidebar-rule"></div>
         <div class="atlas-side-label">SOURCE</div>
         <div class="atlas-side-nav">
-          <button type="button" aria-pressed="false" data-source="消息"><i data-lucide="messages-square"></i> 消息证据 <span>63</span></button>
-          <button type="button" aria-pressed="false" data-source="会议"><i data-lucide="calendar-days"></i> 会议证据 <span>18</span></button>
+          <button type="button" aria-pressed="false" data-source="GitHub"><i data-lucide="github"></i> GitHub Skill <span>5</span></button>
         </div>
         <button class="atlas-secondary" type="button" data-action="resync"><i data-lucide="scan-search"></i> 重新扫描</button>
       </aside>
       <main class="atlas-main">
-        <div class="atlas-toolbar"><div class="atlas-toolbar-title"><strong id="atlas-list-title">全部收录</strong><span id="atlas-result-count">8 张卡片</span></div><button class="atlas-filter-btn" type="button" aria-pressed="true" data-domain="all">全部</button><button class="atlas-filter-btn" type="button" aria-pressed="false" data-domain="产品">产品</button><button class="atlas-filter-btn" type="button" aria-pressed="false" data-domain="技术">技术</button><button class="atlas-filter-btn" type="button" aria-pressed="false" data-domain="设计">设计</button></div>
+        <div class="atlas-toolbar"><div class="atlas-toolbar-title"><strong id="atlas-list-title">全部收录</strong><span id="atlas-result-count">5 张卡片</span></div><button class="atlas-filter-btn" type="button" aria-pressed="true" data-domain="all">全部</button><button class="atlas-filter-btn" type="button" aria-pressed="false" data-domain="商业">商业</button><button class="atlas-filter-btn" type="button" aria-pressed="false" data-domain="工程">工程</button><button class="atlas-filter-btn" type="button" aria-pressed="false" data-domain="产品">产品</button><button class="atlas-filter-btn" type="button" aria-pressed="false" data-domain="创业">创业</button></div>
         <div class="atlas-deck">
           <section class="atlas-stage" aria-label="人物卡片浏览区">
             <div class="atlas-deck-viewport" id="atlas-deck-viewport"></div>
@@ -766,7 +930,7 @@
   </section>
 
   <div class="atlas-modal-layer" id="atlas-evidence-modal" role="dialog" aria-modal="true" aria-labelledby="atlas-evidence-title">
-    <div class="atlas-modal"><div class="atlas-modal-head"><h3 id="atlas-evidence-title">证据详情</h3><span id="atlas-evidence-id"></span><button class="atlas-icon-button" type="button" data-action="close-evidence" aria-label="关闭"><i data-lucide="x"></i></button></div><div class="atlas-modal-body"><div class="atlas-evidence-summary"><i data-lucide="shield-check"></i><span>以下为虚构演示摘录。正式功能中，每条人物判断都可以回溯来源，推断与事实会分层展示。</span></div><div class="atlas-evidence-list" id="atlas-evidence-list"></div></div></div>
+    <div class="atlas-modal"><div class="atlas-modal-head"><h3 id="atlas-evidence-title">证据详情</h3><span id="atlas-evidence-id"></span><button class="atlas-icon-button" type="button" data-action="close-evidence" aria-label="关闭"><i data-lucide="x"></i></button></div><div class="atlas-modal-body"><div class="atlas-evidence-summary"><i data-lucide="shield-check"></i><span>以下为公开 GitHub Skill 的摘要，不代表本人观点。</span></div><div class="atlas-evidence-list" id="atlas-evidence-list"></div></div></div>
   </div>
 
   <div class="atlas-modal-layer" id="atlas-edit-modal" role="dialog" aria-modal="true" aria-labelledby="atlas-edit-title">
@@ -774,7 +938,7 @@
   </div>
 
   <div class="atlas-modal-layer" id="atlas-lab-modal" role="dialog" aria-modal="true" aria-labelledby="atlas-lab-title">
-    <div class="atlas-modal"><div class="atlas-modal-head"><h3 id="atlas-lab-title">体验实验室</h3><span>DEMO STATES</span><button class="atlas-icon-button" type="button" data-action="close-lab" aria-label="关闭"><i data-lucide="x"></i></button></div><div class="atlas-modal-body"><p class="atlas-lab-note">快速进入边界状态，用于测试流程恢复、空图鉴和异常反馈。所有操作只影响本地演示数据。</p><div class="atlas-lab-grid"><button class="atlas-secondary" type="button" data-action="lab-replay"><i data-lucide="rotate-ccw"></i> 重播冷启动</button><button class="atlas-secondary" type="button" data-action="lab-error"><i data-lucide="triangle-alert"></i> 注入扫描异常</button><button class="atlas-secondary" type="button" data-action="lab-empty"><i data-lucide="archive-x"></i> 查看空图鉴</button><button class="atlas-secondary" type="button" data-action="lab-restore"><i data-lucide="database-backup"></i> 恢复 8 张示例卡</button></div></div><div class="atlas-modal-actions"><button class="atlas-danger" type="button" data-action="lab-clear">清除全部体验状态</button><button class="atlas-primary" type="button" data-action="close-lab">完成</button></div></div>
+    <div class="atlas-modal"><div class="atlas-modal-head"><h3 id="atlas-lab-title">体验实验室</h3><span>DEMO STATES</span><button class="atlas-icon-button" type="button" data-action="close-lab" aria-label="关闭"><i data-lucide="x"></i></button></div><div class="atlas-modal-body"><p class="atlas-lab-note">快速进入边界状态，用于测试流程恢复、空图鉴和异常反馈。所有操作只影响本地演示数据。</p><div class="atlas-lab-grid"><button class="atlas-secondary" type="button" data-action="lab-replay"><i data-lucide="rotate-ccw"></i> 重播冷启动</button><button class="atlas-secondary" type="button" data-action="lab-error"><i data-lucide="triangle-alert"></i> 注入扫描异常</button><button class="atlas-secondary" type="button" data-action="lab-empty"><i data-lucide="archive-x"></i> 查看空图鉴</button><button class="atlas-secondary" type="button" data-action="lab-restore"><i data-lucide="database-backup"></i> 恢复 5 张固定卡</button></div></div><div class="atlas-modal-actions"><button class="atlas-danger" type="button" data-action="lab-clear">清除全部体验状态</button><button class="atlas-primary" type="button" data-action="close-lab">完成</button></div></div>
   </div>
 
   <div class="atlas-toast" id="atlas-toast" role="status" aria-live="polite"></div>
@@ -784,18 +948,15 @@
       "use strict";
       const root = document.getElementById("feishu-persona-atlas");
       const people = [
-        { id: "PA-001", name: "楚云", alias: "界面构筑者", role: "产品设计师", domain: "设计", sources: ["消息", "会议"], recent: true, favorite: true, hidden: false, initials: "楚", topics: ["交互设计", "用户研究", "设计系统"], evidence: 12, meetings: 5, confidence: "高", summary: "擅长把模糊需求拆成可验证的界面路径，会主动指出体验断点并给出结构化方案。", style: "先确认用户任务，再讨论视觉表达", quote: "我们先把首次使用的那一分钟走顺。" },
-        { id: "PA-002", name: "林岳", alias: "架构巡游者", role: "后端工程师", domain: "技术", sources: ["消息", "会议"], recent: true, favorite: false, hidden: false, initials: "林", topics: ["服务架构", "稳定性", "性能"], evidence: 15, meetings: 7, confidence: "高", summary: "关注系统边界与长期维护成本，讨论方案时会快速定位不可逆的技术决策。", style: "先画清数据流，再进入实现细节", quote: "这个状态该由谁持有，先说清楚。" },
-        { id: "PA-003", name: "周奕", alias: "需求校准者", role: "产品经理", domain: "产品", sources: ["消息", "会议"], recent: true, favorite: true, hidden: false, initials: "周", topics: ["需求分析", "增长实验", "路线图"], evidence: 18, meetings: 9, confidence: "高", summary: "能把讨论拉回用户价值与上线目标，对范围控制敏感，偏好小步验证。", style: "用真实场景压测需求优先级", quote: "如果只能解决一个问题，用户最痛的是哪个？" },
-        { id: "PA-004", name: "顾遥", alias: "质量守门人", role: "测试工程师", domain: "技术", sources: ["消息"], recent: false, favorite: false, hidden: false, initials: "顾", topics: ["质量保障", "自动化", "边界场景"], evidence: 9, meetings: 2, confidence: "中", summary: "善于从用户输入和异常状态中寻找断点，反馈通常带有明确复现步骤。", style: "先固定复现条件，再判断影响范围", quote: "正常路径没问题，我们来看看中途取消会怎样。" },
-        { id: "PA-005", name: "沈玥", alias: "叙事点火者", role: "品牌内容负责人", domain: "产品", sources: ["消息", "会议"], recent: true, favorite: false, hidden: false, initials: "沈", topics: ["品牌叙事", "内容策略", "发布"], evidence: 10, meetings: 4, confidence: "中", summary: "擅长把技术能力转换成用户能记住的故事，对命名、节奏和首屏信息密度很敏感。", style: "从一句能被复述的话开始组织内容", quote: "功能不是主角，用户完成的事才是。" },
-        { id: "PA-006", name: "唐骁", alias: "交付推进者", role: "项目负责人", domain: "产品", sources: ["消息", "会议"], recent: false, favorite: false, hidden: false, initials: "唐", topics: ["项目管理", "风险", "跨组协同"], evidence: 14, meetings: 8, confidence: "高", summary: "擅长拆解依赖、确认责任人与时间点，出现阻塞时会优先建立最短恢复路径。", style: "用清晰的责任边界换取推进速度", quote: "现在卡住的是决定，还是执行？" },
-        { id: "PA-007", name: "叶澄", alias: "数据观测者", role: "数据分析师", domain: "技术", sources: ["消息"], recent: false, favorite: false, hidden: false, initials: "叶", topics: ["指标体系", "行为分析", "实验设计"], evidence: 8, meetings: 1, confidence: "中", summary: "会追问指标定义、样本偏差和结论边界，倾向先建立可观测性再评价效果。", style: "把判断转写为能被数据证伪的问题", quote: "这个增长来自更多用户，还是更高频次？" },
-        { id: "PA-008", name: "许棠", alias: "关系连接者", role: "用户运营", domain: "产品", sources: ["消息", "会议"], recent: false, favorite: false, hidden: false, initials: "许", topics: ["用户运营", "社群", "反馈闭环"], evidence: 11, meetings: 3, confidence: "中", summary: "熟悉核心用户的真实语境，能快速匹配合适的访谈对象并建立反馈闭环。", style: "先找具体的人，再讨论抽象的人群", quote: "我知道三位用户正好遇到过这个问题。" }
+        { id: "PA-001", name: "纳瓦尔", alias: "杠杆思维", role: "创业者 / 投资人", domain: "商业", sources: ["GitHub"], recent: true, favorite: true, hidden: false, initials: "N", image: "/personas/naval.jpg", topics: ["杠杆思维", "特定知识", "财富与自由"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "naval-skill", repo: "github.com/alchaincyf/naval-skill", summary: "基于著作、播客、推文、决策记录和外部批评，提炼杠杆、特定知识与欲望管理等思维框架。", style: "先重新定义问题，再寻找无需许可的杠杆", quote: "不要追逐金钱和地位，要追求能持续产生价值的资产。" },
+        { id: "PA-002", name: "埃隆·马斯克", alias: "第一性原理", role: "企业家 / 工程管理者", domain: "工程", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "M", image: "/personas/elon-musk.jpg", topics: ["渐近极限", "五步算法", "快速迭代"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "elon-musk-skill", repo: "github.com/alchaincyf/elon-musk-skill", summary: "以渐近极限、五步算法、垂直整合和快速迭代分析工程与成本问题。", style: "先逼近理论极限，再按顺序删除和简化", quote: "先质疑需求，再删除、简化、加速，最后自动化。" },
+        { id: "PA-003", name: "史蒂夫·乔布斯", alias: "聚焦与品味", role: "产品创造者", domain: "产品", sources: ["GitHub"], recent: true, favorite: true, hidden: false, initials: "J", image: "/personas/steve-jobs.jpg", topics: ["聚焦", "端到端控制", "技术与人文"], evidence: 6, meetings: 8, confidence: "GitHub", sourceName: "steve-jobs-skill", repo: "github.com/alchaincyf/steve-jobs-skill", summary: "以聚焦、端到端控制、现实扭曲力场和技术与人文等框架分析产品、设计与战略。", style: "对多数好主意说不，只保留真正重要的体验", quote: "聚焦不是答应一件事，而是拒绝其他好主意。" },
+        { id: "PA-004", name: "唐纳德·特朗普", alias: "谈判与权力", role: "商业谈判者", domain: "商业", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "T", image: "/personas/donald-trump.jpg", topics: ["交易思维", "叙事权", "不可预测性"], evidence: 6, meetings: 8, confidence: "GitHub", sourceName: "trump-skill", repo: "github.com/alchaincyf/trump-skill", summary: "以交易、叙事与不可预测性等框架分析谈判和权力关系。", style: "先识别筹码、观众和叙事控制权", quote: "所有关系都可以拆成筹码、让步和输赢。" },
+        { id: "PA-005", name: "Paul Graham", alias: "创业与写作", role: "创业者 / 写作者", domain: "创业", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "PG", image: "/personas/paul-graham.jpg", topics: ["写作即思考", "迭代发现", "独立思考"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "paul-graham-skill", repo: "github.com/alchaincyf/paul-graham-skill", summary: "以写作即思考、品味、迭代发现和超线性回报分析创业与创作。", style: "通过写作与快速迭代发现真正的问题", quote: "写作不只是传递想法，写作本身也生成想法。" }
       ];
       const initialPeople = JSON.parse(JSON.stringify(people));
-      const storageKey = "feishu-persona-atlas-demo-v1";
-      const state = { index: 0, query: "", collection: "all", domain: "all", source: "", scanProgress: 0, scanTimer: null, paused: false, resyncing: false, scanMode: "normal", demoLimit: null, partial: false, visible: [], lastFocused: null, pointerStartX: null };
+      const storageKey = "feishu-persona-atlas-fixed-five-v1";
+      const state = { index: 0, query: "", collection: "all", domain: "all", source: "", scanProgress: 0, scanTimer: null, paused: false, resyncing: false, scanMode: "normal", demoLimit: null, partial: false, visible: [], lastFocused: null, pointerStartX: null, packTimer: null, packOpened: false, packRevealed: [] };
 
       function persistDemo() {
         try {
@@ -830,7 +991,60 @@
       function setScreen(screen) {
         root.dataset.screen = screen;
         if (screen !== "scan") stopScan();
+        if (screen !== "pack") stopPackAnimation();
         persistDemo();
+      }
+
+      function stopPackAnimation() {
+        if (state.packTimer !== null) window.clearTimeout(state.packTimer);
+        state.packTimer = null;
+      }
+
+      function packCardMarkup(person) {
+        return '<button class="atlas-pack-card" type="button" data-action="reveal-pack-card" data-person-id="' + person.id + '" aria-label="揭晓' + person.name + '"><span class="atlas-pack-card-inner"><span class="atlas-pack-card-face atlas-pack-card-back"></span><span class="atlas-pack-card-face atlas-pack-card-front"><img class="atlas-pack-card-art" src="' + person.image + '" alt=""><span class="atlas-pack-card-copy"><strong>' + person.name + '</strong><span>' + person.alias + '</span></span></span></span></button>';
+      }
+
+      function resetPackOpening() {
+        stopPackAnimation();
+        state.packOpened = false;
+        state.packRevealed = [];
+        const pack = root.querySelector(".atlas-pack");
+        pack.dataset.packState = "sealed";
+        pack.classList.remove("is-complete");
+        root.querySelector("#atlas-pack-cards").innerHTML = "";
+        root.querySelector("#atlas-pack-status").textContent = "点击卡包开启";
+        const seal = root.querySelector('[data-action="crack-pack"]');
+        seal.disabled = false;
+        setScreen("pack");
+        refreshIcons();
+      }
+
+      function crackPack() {
+        if (state.packOpened) return;
+        state.packOpened = true;
+        const pack = root.querySelector(".atlas-pack");
+        pack.dataset.packState = "opening";
+        root.querySelector('[data-action="crack-pack"]').disabled = true;
+        root.querySelector("#atlas-pack-status").textContent = "卡包正在开启";
+        state.packTimer = window.setTimeout(function finishPackCrack() {
+          state.packTimer = null;
+          root.querySelector("#atlas-pack-cards").innerHTML = people.map(packCardMarkup).join("");
+          pack.dataset.packState = "opened";
+          root.querySelector("#atlas-pack-status").textContent = "点击卡牌逐张揭晓";
+          refreshIcons();
+        }, 700);
+      }
+
+      function revealPackCard(card) {
+        if (!state.packOpened || card.classList.contains("is-revealed")) return;
+        card.classList.add("is-revealed");
+        state.packRevealed.push(card.dataset.personId);
+        const remaining = people.length - state.packRevealed.length;
+        root.querySelector("#atlas-pack-status").textContent = remaining > 0 ? "还剩 " + remaining + " 张未揭晓" : "五张卡牌已全部收集";
+        if (remaining === 0) {
+          root.querySelector(".atlas-pack").classList.add("is-complete");
+          root.querySelector('[data-action="collect-pack"]').focus();
+        }
       }
 
       function showToast(message) {
@@ -864,17 +1078,17 @@
       function cardMarkup(person, position) {
         const fav = person.favorite ? '<span class="atlas-card-fav" aria-label="已收藏"><i data-lucide="star"></i></span>' : "";
         return '<button class="atlas-person-card" type="button" data-person-id="' + person.id + '" data-position="' + position + '" aria-label="' + person.name + '人物卡，点击翻面">' +
-          '<span class="atlas-card-face atlas-card-front">' + fav + '<span class="atlas-card-number">' + person.id + '</span><span class="atlas-portrait" data-initial="' + person.initials + '"><span class="atlas-portrait-line"></span></span><span class="atlas-card-code">' + person.alias.toUpperCase() + '</span><strong class="atlas-card-name">' + person.name + '</strong><span class="atlas-card-role">' + person.role + '</span><span class="atlas-card-tags"><span>' + person.domain + '</span><span>证据 ' + person.evidence + '</span></span></span>' +
-          '<span class="atlas-card-face atlas-card-back"><span class="atlas-back-id">' + person.id + ' / PROFILE</span><strong class="atlas-back-name">' + person.name + '</strong><span class="atlas-back-alias">代号：' + person.alias + '</span><span class="atlas-back-rule"></span><span class="atlas-back-label">COLLABORATION STYLE</span><span class="atlas-back-copy">' + person.style + '</span><span class="atlas-back-label">SIGNATURE TRACE</span><span class="atlas-back-copy">“' + person.quote + '”</span><span class="atlas-skill"><span>可信度</span><span>' + person.confidence + '</span></span><span class="atlas-skill"><span>最近协作</span><span>' + (person.recent ? "7 天内" : "30 天前") + '</span></span></span></button>';
+          '<span class="atlas-card-face atlas-card-front">' + fav + '<span class="atlas-card-number">' + person.id + '</span><span class="atlas-portrait atlas-portrait-has-image"><img class="atlas-portrait-image" src="' + person.image + '" alt=""><span class="atlas-portrait-line"></span></span><span class="atlas-card-code">' + person.alias.toUpperCase() + '</span><strong class="atlas-card-name">' + person.name + '</strong><span class="atlas-card-role">' + person.role + '</span><span class="atlas-card-tags"><span>' + person.domain + '</span><span>证据 ' + person.evidence + '</span></span></span>' +
+          '<span class="atlas-card-face atlas-card-back"><span class="atlas-back-id">' + person.id + ' / PROFILE</span><strong class="atlas-back-name">' + person.name + '</strong><span class="atlas-back-alias">代号：' + person.alias + '</span><span class="atlas-back-rule"></span><span class="atlas-back-label">THINKING SYSTEM</span><span class="atlas-back-copy">' + person.style + '</span><span class="atlas-back-label">SIGNATURE TRACE</span><span class="atlas-back-copy">“' + person.quote + '”</span><span class="atlas-skill"><span>来源</span><span>' + person.confidence + '</span></span><span class="atlas-skill"><span>卡组</span><span>固定</span></span></span></button>';
       }
 
       function detailMarkup(person) {
         return '<div class="atlas-detail-top"><div><span class="atlas-detail-label">SELECTED PROFILE</span><h2>' + person.name + '</h2><div class="atlas-detail-role">' + person.role + ' · ' + person.alias + '</div></div><div class="atlas-detail-actions"><button class="atlas-icon-button ' + (person.favorite ? "is-active" : "") + '" type="button" data-action="favorite" aria-label="' + (person.favorite ? "取消收藏" : "收藏") + '" title="收藏"><i data-lucide="star"></i></button><button class="atlas-icon-button" type="button" data-action="edit" aria-label="纠正人物信息" title="纠正信息"><i data-lucide="pencil"></i></button><button class="atlas-icon-button" type="button" data-action="hide-person" aria-label="' + (person.hidden ? "恢复人物" : "隐藏人物") + '" title="' + (person.hidden ? "恢复" : "隐藏") + '"><i data-lucide="' + (person.hidden ? "eye" : "eye-off") + '"></i></button></div></div>' +
-          '<div class="atlas-stat-row"><div class="atlas-stat"><strong>' + person.evidence + '</strong><span>有效证据</span></div><div class="atlas-stat"><strong>' + person.meetings + '</strong><span>共同会议</span></div></div>' +
-          '<section class="atlas-detail-section"><h3>协作印象 · AI 推断</h3><p>' + person.summary + '</p></section>' +
-          '<section class="atlas-detail-section"><h3>关注领域 · 事实聚合</h3><div class="atlas-detail-chips">' + person.topics.map(function topicTag(topic) { return '<span>' + topic + '</span>'; }).join("") + '</div></section>' +
-          '<section class="atlas-detail-section"><h3>代表表达 · 演示摘录</h3><p>“' + person.quote + '”</p></section>' +
-          '<button class="atlas-secondary atlas-evidence-button" type="button" data-action="evidence"><i data-lucide="file-search"></i> 查看 ' + person.evidence + ' 条证据</button>';
+          '<div class="atlas-stat-row"><div class="atlas-stat"><strong>' + person.evidence + '</strong><span>心智模型</span></div><div class="atlas-stat"><strong>' + person.meetings + '</strong><span>决策启发</span></div></div>' +
+          '<section class="atlas-detail-section"><h3>SKILL 简述</h3><p>' + person.summary + '</p></section>' +
+          '<section class="atlas-detail-section"><h3>核心模型</h3><div class="atlas-detail-chips">' + person.topics.map(function topicTag(topic) { return '<span>' + topic + '</span>'; }).join("") + '</div></section>' +
+          '<section class="atlas-detail-section"><h3>框架句</h3><p>“' + person.quote + '”</p></section>' +
+          '<button class="atlas-secondary atlas-evidence-button" type="button" data-action="evidence"><i data-lucide="file-search"></i> 查看 Skill 来源</button>';
       }
 
       function renderAtlas() {
@@ -929,7 +1143,7 @@
 
       function updateScanUi() {
         const progress = state.scanProgress;
-        const found = Math.min(8, Math.floor(progress / 11));
+        const found = Math.min(5, Math.floor(progress / 18));
         let phase = "校验授权范围";
         let caption = "正在确认可读取的会话与联系人范围";
         let activeLog = 0;
@@ -1031,9 +1245,8 @@
         root.querySelector("#atlas-evidence-title").textContent = person.name + " · 证据详情";
         root.querySelector("#atlas-evidence-id").textContent = person.id;
         const examples = [
-          { icon: "messages-square", source: "产品讨论群", time: "08-12 14:20", text: person.quote },
-          { icon: "calendar-days", source: "项目周会", time: "08-08 10:00", text: "围绕“" + person.topics[0] + "”推进了方案确认，并补充了下一步责任人。" },
-          { icon: "contact-round", source: "通讯录资料", time: "08-01 同步", text: person.role + "，近期协作主题包括" + person.topics.join("、") + "。" }
+          { icon: "github", source: person.sourceName, time: "公开仓库", text: person.repo },
+          { icon: "brain-circuit", source: "认知框架", time: "固定卡组", text: person.evidence + " 个心智模型，" + person.meetings + " 条决策启发式。" }
         ];
         root.querySelector("#atlas-evidence-list").innerHTML = examples.map(function evidenceItem(item) {
           return '<article class="atlas-evidence-item"><div class="atlas-evidence-meta"><i data-lucide="' + item.icon + '"></i><strong>' + item.source + '</strong><span>' + item.time + '</span></div><p>' + item.text + '</p></article>';
@@ -1092,7 +1305,7 @@
         state.collection = value;
         state.index = 0;
         root.querySelectorAll("[data-collection]").forEach(function updateCollection(button) { button.setAttribute("aria-pressed", String(button.dataset.collection === value)); });
-        const titles = { all: "全部收录", favorite: "我的收藏", recent: "最近协作", hidden: "已隐藏" };
+        const titles = { all: "全部收录", favorite: "我的收藏", recent: "固定卡组", hidden: "已隐藏" };
         root.querySelector("#atlas-list-title").textContent = titles[value];
         renderAtlas();
       }
@@ -1131,9 +1344,15 @@
         }
         if (!actionTarget) return;
         const action = actionTarget.dataset.action;
-        if (action === "begin") setScreen("scope");
+        if (action === "begin") setScreen("choice");
+        if (action === "open-pack") resetPackOpening();
+        if (action === "build-cards") setScreen("scope");
         if (action === "preview") { setScreen("atlas"); renderAtlas(); }
         if (action === "back-welcome") setScreen("welcome");
+        if (action === "back-choice") setScreen("choice");
+        if (action === "crack-pack") crackPack();
+        if (action === "reveal-pack-card") revealPackCard(actionTarget);
+        if (action === "collect-pack") { setScreen("atlas"); renderAtlas(); }
         if (action === "start-scan") {
           const checked = root.querySelectorAll('input[name="source"]:checked').length;
           if (!checked) { showToast("请至少选择一种数据来源"); return; }
@@ -1164,7 +1383,7 @@
         }
         if (action === "reveal-card") {
           actionTarget.classList.add("is-revealed");
-          root.querySelector("#atlas-unlock-tip").textContent = "楚云 · 界面构筑者 · 已收入图鉴";
+          root.querySelector("#atlas-unlock-tip").textContent = "纳瓦尔 · 杠杆思维 · 已收入图鉴";
           root.querySelector('[data-action="enter-atlas"]').classList.add("is-visible");
         }
         if (action === "enter-atlas") { setScreen("atlas"); renderAtlas(); }
@@ -1195,7 +1414,7 @@
           renderAtlas();
           showToast("已切换为空图鉴测试档");
         }
-        if (action === "lab-restore") { closeModal("#atlas-lab-modal"); restorePeople(); renderAtlas(); showToast("已恢复 8 张示例卡"); }
+        if (action === "lab-restore") { closeModal("#atlas-lab-modal"); restorePeople(); renderAtlas(); showToast("已恢复 5 张固定卡"); }
         if (action === "lab-clear") { closeModal("#atlas-lab-modal"); clearPersistedDemo(); restorePeople(); setScreen("welcome"); showToast("全部体验状态已清除"); }
       }
 
@@ -1260,6 +1479,9 @@
         }
         state.demoLimit = typeof saved.demoLimit === "number" ? saved.demoLimit : null;
         state.partial = Boolean(saved.partial);
+        if (saved.screen === "choice") { setScreen("choice"); return; }
+        if (saved.screen === "pack") { resetPackOpening(); return; }
+        if (saved.screen === "scope") { setScreen("scope"); return; }
         if (saved.screen === "scan" && saved.scanProgress > 0 && saved.scanProgress < 100) {
           startScan(Boolean(saved.resyncing), "normal", Number(saved.scanProgress));
           toggleScan();

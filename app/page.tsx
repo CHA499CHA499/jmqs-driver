@@ -1,6 +1,13 @@
 "use client";
 
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import {
+  playActivationSequence,
+  playCardInsertSound,
+  playCardSelectSound,
+  playCommandSelectSound,
+  stopDriverAudio,
+} from "./driver-audio";
 import type { DriverPhase } from "./driver-scene";
 
 const DriverScene = lazy(() =>
@@ -86,34 +93,6 @@ const OUTPUTS: Record<string, string[]> = {
   action: ["确定 Driver 原创几何和音效语法。", "接入 YouNavi FileItem 多选素材投影。", "增加 Persona Card 与 Command Card 运行记录。"],
 };
 
-function playActivationVoice(persona: Persona) {
-  if (typeof window === "undefined") return;
-  const AudioContextClass = window.AudioContext ?? (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-  if (AudioContextClass) {
-    const context = new AudioContextClass();
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.type = "sawtooth";
-    oscillator.frequency.setValueAtTime(120, context.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(440, context.currentTime + 0.42);
-    gain.gain.setValueAtTime(0.0001, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.16, context.currentTime + 0.04);
-    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.48);
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.start();
-    oscillator.stop(context.currentTime + 0.5);
-  }
-
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-    const voice = new SpeechSynthesisUtterance(`PERSONA RIDE。 ${persona.role}，${persona.name}。`);
-    voice.lang = "zh-CN";
-    voice.rate = 0.82;
-    voice.pitch = 0.72;
-    window.setTimeout(() => window.speechSynthesis.speak(voice), 220);
-  }
-}
-
 export default function Home() {
   const [selectedMaterialIds, setSelectedMaterialIds] = useState<string[]>(["roadmap", "feedback", "meeting"]);
   const [selectedPersonaId, setSelectedPersonaId] = useState<string | null>(null);
@@ -121,6 +100,7 @@ export default function Home() {
   const [phase, setPhase] = useState<DriverPhase>("idle");
   const [manifested, setManifested] = useState(false);
   const [task, setTask] = useState("评审假面骑事工作台的首次使用路径");
+  const [soundEnabled, setSoundEnabled] = useState(true);
   const timerRef = useRef<number | null>(null);
 
   const selectedPersona = PERSONAS.find((persona) => persona.id === selectedPersonaId) ?? null;
@@ -129,7 +109,7 @@ export default function Home() {
   useEffect(() => {
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
-      if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+      stopDriverAudio();
     };
   }, []);
 
@@ -138,6 +118,7 @@ export default function Home() {
     setSelectedPersonaId(personaId);
     setPhase("ready");
     setManifested(false);
+    if (soundEnabled) playCardSelectSound();
   }
 
   function insertPersona(personaId = selectedPersonaId) {
@@ -146,13 +127,16 @@ export default function Home() {
     setSelectedPersonaId(personaId);
     setManifested(false);
     setPhase("inserting");
+    if (soundEnabled) playCardInsertSound();
     timerRef.current = window.setTimeout(() => setPhase("locked"), 920);
   }
 
   function activateDriver() {
     if (!selectedPersona || phase !== "locked") return;
     setPhase("activated");
-    playActivationVoice(selectedPersona);
+    if (soundEnabled) {
+      playActivationSequence(selectedPersona.role, selectedPersona.name, selectedCommand.label);
+    }
     timerRef.current = window.setTimeout(() => setManifested(true), 900);
   }
 
@@ -161,7 +145,7 @@ export default function Home() {
     setSelectedPersonaId(null);
     setPhase("idle");
     setManifested(false);
-    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    stopDriverAudio();
   }
 
   function toggleMaterial(id: string) {
@@ -181,6 +165,17 @@ export default function Home() {
           <span>当前任务</span>
           <input value={task} onChange={(event) => setTask(event.target.value)} />
         </label>
+        <button
+          className={soundEnabled ? "sound-toggle enabled" : "sound-toggle"}
+          type="button"
+          aria-pressed={soundEnabled}
+          onClick={() => {
+            if (soundEnabled) stopDriverAudio();
+            setSoundEnabled((value) => !value);
+          }}
+        >
+          {soundEnabled ? "音效开启" : "音效关闭"}
+        </button>
         <a className="gallery-link" href="/persona-atlas.html">打开旧图鉴</a>
       </header>
 
@@ -213,7 +208,10 @@ export default function Home() {
                   className={selectedCommandId === command.id ? "command-card selected" : "command-card"}
                   type="button"
                   key={command.id}
-                  onClick={() => setSelectedCommandId(command.id)}
+                  onClick={() => {
+                    setSelectedCommandId(command.id);
+                    if (soundEnabled) playCommandSelectSound();
+                  }}
                 >
                   <small>{command.code}</small><strong>{command.label}</strong><span>{command.description}</span>
                 </button>

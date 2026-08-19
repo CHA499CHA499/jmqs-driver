@@ -8,14 +8,34 @@
 ## 输入
 
 - 无服务端输入。
-- 访客只能操作站内虚构演示数据与浏览器内临时 UI 状态。
+- 访客只能操作站内固定公开 Skill 摘要与浏览器内临时 UI 状态。
+- 固定卡组只读取构建时写入的 5 个公开 GitHub Skill 摘要，不在运行时访问 GitHub。
 
 ## 输出
 
-- 根路由 `/`：承载公开 Demo 的应用外壳。
+- 根路由 `/`：Persona Driver 工作台，包含演示素材、指令卡、人物卡盒和角色实例面板。
 - 静态资产 `/persona-atlas.html`：假面骑事交互体验。
+- 静态资产 `/personas/*.jpg`：五张原创人物角色立绘。
+- 首页主入口分流为「打开卡包」与「构建卡片」。
+- 「打开卡包」只操作本地固定五人数据：开包、逐张揭晓、收下卡牌。
 - 静态资产 `/hero-personas.png`：首页响应式人物卡背景。
 - 静态资产 `/og.png`：链接分享封面。
+
+## 3D 运行合同
+
+- `app/driver-scene.tsx` 是唯一 Three.js 边界，只接收 Driver phase 与人物卡颜色。
+- phase 只允许 `idle / ready / inserting / locked / activated`。
+- 页面不支持 WebGL 2 时必须保留完整 DOM 工作台，并显示静态 Driver。
+- Three.js、材质和几何体由 Vite 打包；运行时不从 CDN 获取 3D 代码或模型。
+- 页面卸载时必须停止动画、断开 ResizeObserver、释放 geometry/material/renderer。
+
+## 音效运行合同
+
+- `app/driver-audio.ts` 是唯一声音边界，通过 Web Audio API 实时合成，不读取外部音频文件。
+- 只在用户点击选卡、指令卡、插卡或启动按钮后创建或恢复 AudioContext。
+- `PERSONA RIDE` 使用浏览器系统 TTS，声音与可用语言随访客操作系统变化。
+- 静音时停止 TTS，后续交互不再产生 Web Audio 事件。
+- 禁止加入假面骑士原版音频、采样、台词节奏或其他受保护音效资产。
 
 ## 读写路径
 
@@ -27,11 +47,12 @@
 ## 环境与依赖
 
 - Node.js 22.13 或更高版本。
+- npm 依赖 `three`，只在构建期安装，访客零安装。
 - Sites vinext starter 与 Cloudflare Worker 兼容构建。
 - 不需要 API key、OAuth、飞书凭证、数据库或对象存储。
 
 ## 安全合同
 
-- 站点公开，但演示内容全部虚构。
+- 站点公开，人物内容是公开 Skill 摘要，不代表本人观点。
 - 外部内容不会进入 Cinder 四层记忆系统。
 - 发布凭证只在 Sites 交付命令中短暂使用，不写入源码、Git 配置或 URL。
