@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export type DriverPhase = "idle" | "ready" | "inserting" | "locked" | "activated";
 
@@ -38,16 +39,16 @@ export function DriverScene({ phase, cardColor, handleProgress }: DriverScenePro
 
     const capabilityCanvas = document.createElement("canvas");
     if (!capabilityCanvas.getContext("webgl2")) {
-      setFailed(true);
-      return;
+      const failureFrame = window.requestAnimationFrame(() => setFailed(true));
+      return () => window.cancelAnimationFrame(failureFrame);
     }
 
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
     } catch {
-      setFailed(true);
-      return;
+      const failureFrame = window.requestAnimationFrame(() => setFailed(true));
+      return () => window.cancelAnimationFrame(failureFrame);
     }
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -63,6 +64,18 @@ export function DriverScene({ phase, cardColor, handleProgress }: DriverScenePro
 
     const driver = new THREE.Group();
     scene.add(driver);
+
+    const modelAssembly = new THREE.Group();
+    modelAssembly.visible = false;
+    scene.add(modelAssembly);
+    let modelCard: THREE.Group | null = null;
+    let energyRod: THREE.Group | null = null;
+    let skillRod: THREE.Group | null = null;
+    let leftDockPivot: THREE.Object3D | null = null;
+    let rightDockPivot: THREE.Object3D | null = null;
+    const modelSignalMaterials = new Set<THREE.MeshStandardMaterial>();
+    const cardSignalMaterials = new Set<THREE.MeshStandardMaterial>();
+    let disposed = false;
 
     const metal = new THREE.MeshStandardMaterial({ color: 0x343942, metalness: 0.9, roughness: 0.28 });
     const darkMetal = new THREE.MeshStandardMaterial({ color: 0x11151b, metalness: 0.82, roughness: 0.38 });
@@ -137,6 +150,68 @@ export function DriverScene({ phase, cardColor, handleProgress }: DriverScenePro
       energyBars.push(bar);
     }
 
+    function collectMaterials(root: THREE.Object3D, cardOnly = false) {
+      root.traverse((object) => {
+        if (!(object instanceof THREE.Mesh)) return;
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.forEach((material) => {
+          if (!(material instanceof THREE.MeshStandardMaterial)) return;
+          if (material.name.includes("SignalRed")) {
+            modelSignalMaterials.add(material);
+            if (cardOnly) cardSignalMaterials.add(material);
+          }
+        });
+      });
+    }
+
+    function disposeDetached(root: THREE.Object3D) {
+      root.traverse((object) => {
+        if (!(object instanceof THREE.Mesh)) return;
+        object.geometry.dispose();
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.forEach((material) => material.dispose());
+      });
+    }
+
+    const modelLoader = new GLTFLoader();
+    void Promise.all([
+      modelLoader.loadAsync("/models/persona-driver/belt.glb"),
+      modelLoader.loadAsync("/models/persona-driver/persona-card.glb"),
+      modelLoader.loadAsync("/models/persona-driver/energy-rod.glb"),
+      modelLoader.loadAsync("/models/persona-driver/skill-rod.glb"),
+    ]).then(([beltAsset, cardAsset, energyAsset, skillAsset]) => {
+      if (disposed) {
+        [beltAsset.scene, cardAsset.scene, energyAsset.scene, skillAsset.scene].forEach(disposeDetached);
+        return;
+      }
+
+      const beltModel = beltAsset.scene;
+      modelCard = cardAsset.scene;
+      energyRod = energyAsset.scene;
+      skillRod = skillAsset.scene;
+      leftDockPivot = beltModel.getObjectByName("LeftRodDock_Pivot") ?? null;
+      rightDockPivot = beltModel.getObjectByName("RightRodDock_Pivot") ?? null;
+
+      modelCard.position.set(0, 0.04, 1.48);
+      energyRod.position.set(-1.03, 0.02, 1.48);
+      skillRod.position.set(1.03, 0.02, 1.48);
+      energyRod.rotation.z = 0.23;
+      skillRod.rotation.z = -0.23;
+
+      collectMaterials(beltModel);
+      collectMaterials(modelCard, true);
+      collectMaterials(energyRod);
+      collectMaterials(skillRod);
+      modelAssembly.add(beltModel, modelCard, energyRod, skillRod);
+      modelAssembly.scale.setScalar(1.08);
+      modelAssembly.position.y = -0.02;
+      modelAssembly.visible = true;
+      driver.visible = false;
+    }).catch(() => {
+      modelAssembly.visible = false;
+      driver.visible = true;
+    });
+
     scene.add(new THREE.AmbientLight(0xffffff, 1.25));
     const keyLight = new THREE.DirectionalLight(0xdce7ff, 4.1);
     keyLight.position.set(-3, 4, 6);
@@ -151,18 +226,32 @@ export function DriverScene({ phase, cardColor, handleProgress }: DriverScenePro
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let frame = 0;
     let lastRendered = 0;
+    let resizeFrame = 0;
+    let lastWidth = 0;
+    let lastHeight = 0;
 
-    function resize() {
+    function resizeNow() {
       const width = Math.max(container.clientWidth, 1);
       const height = Math.max(container.clientHeight, 1);
+      if (width === lastWidth && height === lastHeight) return;
+      lastWidth = width;
+      lastHeight = height;
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     }
 
-    const observer = new ResizeObserver(resize);
+    function scheduleResize() {
+      if (resizeFrame) return;
+      resizeFrame = window.requestAnimationFrame(() => {
+        resizeFrame = 0;
+        resizeNow();
+      });
+    }
+
+    const observer = new ResizeObserver(scheduleResize);
     observer.observe(container);
-    resize();
+    scheduleResize();
 
     function handlePointerMove(event: PointerEvent) {
       const rect = container.getBoundingClientRect();
@@ -212,6 +301,8 @@ export function DriverScene({ phase, cardColor, handleProgress }: DriverScenePro
       const targetY = reducedMotion ? 0 : pointerRef.current.x * 0.08;
       driver.rotation.x += (targetX - driver.rotation.x) * 0.06;
       driver.rotation.y += (targetY - driver.rotation.y) * 0.06;
+      modelAssembly.rotation.x += (targetX - modelAssembly.rotation.x) * 0.06;
+      modelAssembly.rotation.y += (targetY - modelAssembly.rotation.y) * 0.06;
 
       card.visible = currentPhase === "inserting" || currentPhase === "locked" || active;
       cardMaterial.color.set(cardColor);
@@ -226,8 +317,41 @@ export function DriverScene({ phase, cardColor, handleProgress }: DriverScenePro
         card.position.y = 3.25;
       }
 
+      if (modelCard) {
+        modelCard.visible = card.visible;
+        if (currentPhase === "inserting") {
+          const progress = Math.min(1, elapsed / (reducedMotion ? 1 : 900));
+          modelCard.position.y = THREE.MathUtils.lerp(2.65, 0.04, easeOutCubic(progress));
+          modelCard.rotation.z = THREE.MathUtils.lerp(-0.08, 0, progress);
+        } else if (modelCard.visible) {
+          modelCard.position.y = 0.04;
+          modelCard.rotation.z = 0;
+        } else {
+          modelCard.position.y = 2.65;
+        }
+        cardSignalMaterials.forEach((material) => {
+          material.color.set(cardColor);
+          material.emissive.set(cardColor);
+        });
+      }
+
+      if (energyRod && skillRod) {
+        energyRod.position.x = THREE.MathUtils.lerp(-1.03, -0.92, assembly);
+        skillRod.position.x = THREE.MathUtils.lerp(1.03, 0.92, assembly);
+        energyRod.rotation.z = THREE.MathUtils.lerp(0.23, 0.055, assembly);
+        skillRod.rotation.z = THREE.MathUtils.lerp(-0.23, -0.055, assembly);
+      }
+      if (leftDockPivot && rightDockPivot) {
+        leftDockPivot.rotation.z = THREE.MathUtils.lerp(0, -0.17, assembly);
+        rightDockPivot.rotation.z = THREE.MathUtils.lerp(0, 0.17, assembly);
+      }
+
       const targetIntensity = active ? 4.8 : armed ? 1.15 + assembly * 1.45 : 0.32;
       energy.emissiveIntensity += (targetIntensity - energy.emissiveIntensity) * 0.08;
+      modelSignalMaterials.forEach((material) => {
+        const materialTarget = cardSignalMaterials.has(material) ? Math.min(targetIntensity, 2.4) : targetIntensity;
+        material.emissiveIntensity += (materialTarget - material.emissiveIntensity) * 0.08;
+      });
       redLight.intensity += ((active ? 10 : armed ? 3.2 + assembly * 2.8 : 1.1) - redLight.intensity) * 0.08;
       energyBars.forEach((bar, index) => {
         const pulse = active && !reducedMotion ? 1 + Math.sin(time * 0.008 + index) * 0.22 : 1;
@@ -239,7 +363,9 @@ export function DriverScene({ phase, cardColor, handleProgress }: DriverScenePro
     frame = window.requestAnimationFrame(animate);
 
     return () => {
+      disposed = true;
       window.cancelAnimationFrame(frame);
+      if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
       observer.disconnect();
       container.removeEventListener("pointermove", handlePointerMove);
       container.removeEventListener("pointerleave", handlePointerLeave);

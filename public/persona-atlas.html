@@ -13,6 +13,7 @@
       --atlas-accent: light-dark(#ef3048, #ef3048);
       --atlas-accent-soft: light-dark(#3b121a, #3b121a);
       --atlas-black: light-dark(#050608, #050608);
+      --atlas-layer-entrance: 40;
       width: 100%;
       min-height: 100dvh;
       position: relative;
@@ -349,6 +350,55 @@
     #feishu-persona-atlas .atlas-pack-card-copy span { width: 100%; margin-top: 7px; color: var(--atlas-accent); font-size: 10px; text-align: left; }
     #feishu-persona-atlas .atlas-pack-collect { margin-top: 26px; opacity: 0; pointer-events: none; transform: translateY(8px); }
     #feishu-persona-atlas .atlas-pack.is-complete .atlas-pack-collect { opacity: 1; pointer-events: auto; transform: translateY(0); transition: opacity .2s ease, transform .2s ease; }
+
+    #feishu-persona-atlas .atlas-entrance {
+      position: absolute;
+      inset: 0;
+      z-index: var(--atlas-layer-entrance);
+      display: grid;
+      place-items: center;
+      padding: 42px 24px;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(239,48,72,.2), transparent 42%),
+        rgba(3,4,6,.94);
+      transition: opacity .18s ease, visibility .18s ease;
+    }
+    #feishu-persona-atlas .atlas-entrance.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+    #feishu-persona-atlas .atlas-entrance-frame {
+      --atlas-return-x: 0px;
+      --atlas-return-y: 0px;
+      --atlas-return-scale: 1;
+      width: min(460px, 72vw);
+      aspect-ratio: 2 / 3;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 18px;
+      background: #080a0e;
+      box-shadow: 0 34px 110px rgba(0,0,0,.74), 0 0 64px rgba(239,48,72,.18);
+      transform: translate3d(0, 18px, 0) scale(.9);
+      transition: transform .38s cubic-bezier(.2,.74,.2,1), opacity .38s ease;
+    }
+    #feishu-persona-atlas .atlas-entrance.is-active .atlas-entrance-frame { transform: translate3d(0, 0, 0) scale(1); }
+    #feishu-persona-atlas .atlas-entrance.is-returning .atlas-entrance-frame {
+      transform: translate3d(var(--atlas-return-x), var(--atlas-return-y), 0) scale(var(--atlas-return-scale));
+      opacity: .18;
+    }
+    #feishu-persona-atlas .atlas-entrance-video,
+    #feishu-persona-atlas .atlas-entrance-poster { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+    #feishu-persona-atlas .atlas-entrance-poster { opacity: 1; transition: opacity .12s ease; }
+    #feishu-persona-atlas .atlas-entrance-video.is-ready + .atlas-entrance-poster { opacity: 0; }
+    #feishu-persona-atlas .atlas-entrance-shade { position: absolute; inset: auto 0 0; height: 42%; background: linear-gradient(transparent, rgba(3,4,6,.96) 68%); pointer-events: none; }
+    #feishu-persona-atlas .atlas-entrance-copy { position: absolute; left: 24px; right: 24px; bottom: 22px; text-align: left; }
+    #feishu-persona-atlas .atlas-entrance-copy span { color: var(--atlas-accent); font: 9px/1 monospace; letter-spacing: .18em; }
+    #feishu-persona-atlas .atlas-entrance-copy strong { display: block; margin-top: 8px; font-size: clamp(24px, 4vw, 38px); }
+    #feishu-persona-atlas .atlas-entrance-copy small { display: block; margin-top: 6px; color: var(--atlas-muted); font-size: 12px; }
+    #feishu-persona-atlas .atlas-entrance-skip { position: absolute; right: 24px; top: 22px; min-height: 36px; border: 1px solid rgba(255,255,255,.2); border-radius: 7px; background: rgba(5,6,8,.62); padding: 0 12px; color: var(--atlas-muted); cursor: pointer; backdrop-filter: blur(8px); }
+    #feishu-persona-atlas .atlas-entrance-skip:hover { border-color: rgba(255,255,255,.42); color: var(--atlas-text); }
 
     #feishu-persona-atlas .atlas-setup {
       width: 100%;
@@ -717,6 +767,10 @@
       #feishu-persona-atlas .atlas-pack-card-copy { padding: 34px 9px 9px; }
       #feishu-persona-atlas .atlas-pack-card-copy strong { font-size: 13px; }
       #feishu-persona-atlas .atlas-pack-card-copy span { font-size: 8px; }
+      #feishu-persona-atlas .atlas-entrance { padding: 56px 14px 24px; }
+      #feishu-persona-atlas .atlas-entrance-frame { width: min(390px, 88vw); }
+      #feishu-persona-atlas .atlas-entrance-copy { left: 18px; right: 18px; bottom: 18px; }
+      #feishu-persona-atlas .atlas-entrance-skip { right: 16px; top: 16px; }
       #feishu-persona-atlas .atlas-setup { display: block; }
       #feishu-persona-atlas .atlas-setup-aside { padding: 22px; border-right: 0; border-bottom: 1px solid var(--atlas-line-soft); }
       #feishu-persona-atlas .atlas-setup-aside h2 { margin: 25px 0 8px; font-size: 23px; }
@@ -762,6 +816,7 @@
       #feishu-persona-atlas .atlas-person-card[data-position="center"].is-flipped { transform: translateX(0) translateZ(36px); }
       #feishu-persona-atlas .atlas-person-card[data-position="center"].is-flipped .atlas-card-front { visibility: hidden; }
       #feishu-persona-atlas .atlas-person-card[data-position="center"].is-flipped .atlas-card-back { transform: none; }
+      #feishu-persona-atlas .atlas-entrance { display: none; }
     }
   </style>
 
@@ -809,6 +864,15 @@
       </button>
       <div class="atlas-pack-cards" id="atlas-pack-cards" aria-label="待揭晓卡牌"></div>
       <button class="atlas-primary atlas-pack-collect" type="button" data-action="collect-pack"><i data-lucide="archive-restore"></i> 收下卡牌</button>
+    </div>
+    <div class="atlas-entrance" id="atlas-entrance" role="dialog" aria-modal="true" aria-labelledby="atlas-entrance-name" aria-hidden="true">
+      <div class="atlas-entrance-frame" id="atlas-entrance-frame">
+        <video class="atlas-entrance-video" id="atlas-entrance-video" muted playsinline preload="metadata"></video>
+        <img class="atlas-entrance-poster" id="atlas-entrance-poster" alt="">
+        <div class="atlas-entrance-shade"></div>
+        <div class="atlas-entrance-copy"><span>PERSONA RIDE / MANIFEST</span><strong id="atlas-entrance-name"></strong><small id="atlas-entrance-alias"></small></div>
+      </div>
+      <button class="atlas-entrance-skip" type="button" data-action="skip-entrance">跳过出场</button>
     </div>
   </section>
 
@@ -948,15 +1012,15 @@
       "use strict";
       const root = document.getElementById("feishu-persona-atlas");
       const people = [
-        { id: "PA-001", name: "纳瓦尔", alias: "杠杆思维", role: "创业者 / 投资人", domain: "商业", sources: ["GitHub"], recent: true, favorite: true, hidden: false, initials: "N", image: "/personas/naval.jpg", topics: ["杠杆思维", "特定知识", "财富与自由"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "naval-skill", repo: "github.com/alchaincyf/naval-skill", summary: "基于著作、播客、推文、决策记录和外部批评，提炼杠杆、特定知识与欲望管理等思维框架。", style: "先重新定义问题，再寻找无需许可的杠杆", quote: "不要追逐金钱和地位，要追求能持续产生价值的资产。" },
-        { id: "PA-002", name: "埃隆·马斯克", alias: "第一性原理", role: "企业家 / 工程管理者", domain: "工程", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "M", image: "/personas/elon-musk.jpg", topics: ["渐近极限", "五步算法", "快速迭代"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "elon-musk-skill", repo: "github.com/alchaincyf/elon-musk-skill", summary: "以渐近极限、五步算法、垂直整合和快速迭代分析工程与成本问题。", style: "先逼近理论极限，再按顺序删除和简化", quote: "先质疑需求，再删除、简化、加速，最后自动化。" },
-        { id: "PA-003", name: "史蒂夫·乔布斯", alias: "聚焦与品味", role: "产品创造者", domain: "产品", sources: ["GitHub"], recent: true, favorite: true, hidden: false, initials: "J", image: "/personas/steve-jobs.jpg", topics: ["聚焦", "端到端控制", "技术与人文"], evidence: 6, meetings: 8, confidence: "GitHub", sourceName: "steve-jobs-skill", repo: "github.com/alchaincyf/steve-jobs-skill", summary: "以聚焦、端到端控制、现实扭曲力场和技术与人文等框架分析产品、设计与战略。", style: "对多数好主意说不，只保留真正重要的体验", quote: "聚焦不是答应一件事，而是拒绝其他好主意。" },
-        { id: "PA-004", name: "唐纳德·特朗普", alias: "谈判与权力", role: "商业谈判者", domain: "商业", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "T", image: "/personas/donald-trump.jpg", topics: ["交易思维", "叙事权", "不可预测性"], evidence: 6, meetings: 8, confidence: "GitHub", sourceName: "trump-skill", repo: "github.com/alchaincyf/trump-skill", summary: "以交易、叙事与不可预测性等框架分析谈判和权力关系。", style: "先识别筹码、观众和叙事控制权", quote: "所有关系都可以拆成筹码、让步和输赢。" },
-        { id: "PA-005", name: "Paul Graham", alias: "创业与写作", role: "创业者 / 写作者", domain: "创业", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "PG", image: "/personas/paul-graham.jpg", topics: ["写作即思考", "迭代发现", "独立思考"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "paul-graham-skill", repo: "github.com/alchaincyf/paul-graham-skill", summary: "以写作即思考、品味、迭代发现和超线性回报分析创业与创作。", style: "通过写作与快速迭代发现真正的问题", quote: "写作不只是传递想法，写作本身也生成想法。" }
+        { id: "PA-001", name: "纳瓦尔", alias: "杠杆思维", role: "创业者 / 投资人", domain: "商业", sources: ["GitHub"], recent: true, favorite: true, hidden: false, initials: "N", image: "/personas/naval.jpg", motion: "/personas-motion/naval.mp4", motionPoster: "/personas-motion/naval.jpg", topics: ["杠杆思维", "特定知识", "财富与自由"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "naval-skill", repo: "github.com/alchaincyf/naval-skill", summary: "基于著作、播客、推文、决策记录和外部批评，提炼杠杆、特定知识与欲望管理等思维框架。", style: "先重新定义问题，再寻找无需许可的杠杆", quote: "不要追逐金钱和地位，要追求能持续产生价值的资产。" },
+        { id: "PA-002", name: "埃隆·马斯克", alias: "第一性原理", role: "企业家 / 工程管理者", domain: "工程", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "M", image: "/personas/elon-musk.jpg", motion: "/personas-motion/elon-musk.mp4", motionPoster: "/personas-motion/elon-musk.jpg", topics: ["渐近极限", "五步算法", "快速迭代"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "elon-musk-skill", repo: "github.com/alchaincyf/elon-musk-skill", summary: "以渐近极限、五步算法、垂直整合和快速迭代分析工程与成本问题。", style: "先逼近理论极限，再按顺序删除和简化", quote: "先质疑需求，再删除、简化、加速，最后自动化。" },
+        { id: "PA-003", name: "史蒂夫·乔布斯", alias: "聚焦与品味", role: "产品创造者", domain: "产品", sources: ["GitHub"], recent: true, favorite: true, hidden: false, initials: "J", image: "/personas/steve-jobs.jpg", motion: "/personas-motion/steve-jobs.mp4", motionPoster: "/personas-motion/steve-jobs.jpg", topics: ["聚焦", "端到端控制", "技术与人文"], evidence: 6, meetings: 8, confidence: "GitHub", sourceName: "steve-jobs-skill", repo: "github.com/alchaincyf/steve-jobs-skill", summary: "以聚焦、端到端控制、现实扭曲力场和技术与人文等框架分析产品、设计与战略。", style: "对多数好主意说不，只保留真正重要的体验", quote: "聚焦不是答应一件事，而是拒绝其他好主意。" },
+        { id: "PA-004", name: "唐纳德·特朗普", alias: "谈判与权力", role: "商业谈判者", domain: "商业", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "T", image: "/personas/donald-trump.jpg", motion: "/personas-motion/donald-trump.mp4", motionPoster: "/personas-motion/donald-trump.jpg", topics: ["交易思维", "叙事权", "不可预测性"], evidence: 6, meetings: 8, confidence: "GitHub", sourceName: "trump-skill", repo: "github.com/alchaincyf/trump-skill", summary: "以交易、叙事与不可预测性等框架分析谈判和权力关系。", style: "先识别筹码、观众和叙事控制权", quote: "所有关系都可以拆成筹码、让步和输赢。" },
+        { id: "PA-005", name: "Paul Graham", alias: "创业与写作", role: "创业者 / 写作者", domain: "创业", sources: ["GitHub"], recent: true, favorite: false, hidden: false, initials: "PG", image: "/personas/paul-graham.jpg", motion: "/personas-motion/paul-graham.mp4", motionPoster: "/personas-motion/paul-graham.jpg", topics: ["写作即思考", "迭代发现", "独立思考"], evidence: 5, meetings: 8, confidence: "GitHub", sourceName: "paul-graham-skill", repo: "github.com/alchaincyf/paul-graham-skill", summary: "以写作即思考、品味、迭代发现和超线性回报分析创业与创作。", style: "通过写作与快速迭代发现真正的问题", quote: "写作不只是传递想法，写作本身也生成想法。" }
       ];
       const initialPeople = JSON.parse(JSON.stringify(people));
-      const storageKey = "feishu-persona-atlas-fixed-five-v1";
-      const state = { index: 0, query: "", collection: "all", domain: "all", source: "", scanProgress: 0, scanTimer: null, paused: false, resyncing: false, scanMode: "normal", demoLimit: null, partial: false, visible: [], lastFocused: null, pointerStartX: null, packTimer: null, packOpened: false, packRevealed: [] };
+      const storageKey = "feishu-persona-atlas-fixed-five-v2";
+      const state = { index: 0, query: "", collection: "all", domain: "all", source: "", scanProgress: 0, scanTimer: null, paused: false, resyncing: false, scanMode: "normal", demoLimit: null, partial: false, visible: [], lastFocused: null, pointerStartX: null, packTimer: null, packMotionTimer: null, packMotionCard: null, packOpened: false, packRevealed: [] };
 
       function persistDemo() {
         try {
@@ -997,11 +1061,24 @@
 
       function stopPackAnimation() {
         if (state.packTimer !== null) window.clearTimeout(state.packTimer);
+        if (state.packMotionTimer !== null) window.clearTimeout(state.packMotionTimer);
         state.packTimer = null;
+        state.packMotionTimer = null;
+        if (state.packMotionCard) state.packMotionCard.disabled = false;
+        state.packMotionCard = null;
+        const entrance = root.querySelector("#atlas-entrance");
+        const video = root.querySelector("#atlas-entrance-video");
+        video.pause();
+        video.removeAttribute("src");
+        video.load();
+        video.classList.remove("is-ready");
+        entrance.classList.remove("is-active", "is-returning");
+        entrance.setAttribute("aria-hidden", "true");
+        root.querySelector(".atlas-pack").removeAttribute("aria-busy");
       }
 
       function packCardMarkup(person) {
-        return '<button class="atlas-pack-card" type="button" data-action="reveal-pack-card" data-person-id="' + person.id + '" aria-label="揭晓' + person.name + '"><span class="atlas-pack-card-inner"><span class="atlas-pack-card-face atlas-pack-card-back"></span><span class="atlas-pack-card-face atlas-pack-card-front"><img class="atlas-pack-card-art" src="' + person.image + '" alt=""><span class="atlas-pack-card-copy"><strong>' + person.name + '</strong><span>' + person.alias + '</span></span></span></span></button>';
+        return '<button class="atlas-pack-card" type="button" data-action="reveal-pack-card" data-person-id="' + person.id + '" aria-label="揭晓' + person.name + '"><span class="atlas-pack-card-inner"><span class="atlas-pack-card-face atlas-pack-card-back"></span><span class="atlas-pack-card-face atlas-pack-card-front"><img class="atlas-pack-card-art" src="' + person.motionPoster + '" alt=""><span class="atlas-pack-card-copy"><strong>' + person.name + '</strong><span>' + person.alias + '</span></span></span></span></button>';
       }
 
       function resetPackOpening() {
@@ -1035,8 +1112,8 @@
         }, 700);
       }
 
-      function revealPackCard(card) {
-        if (!state.packOpened || card.classList.contains("is-revealed")) return;
+      function finishPackReveal(card) {
+        card.disabled = false;
         card.classList.add("is-revealed");
         state.packRevealed.push(card.dataset.personId);
         const remaining = people.length - state.packRevealed.length;
@@ -1044,7 +1121,70 @@
         if (remaining === 0) {
           root.querySelector(".atlas-pack").classList.add("is-complete");
           root.querySelector('[data-action="collect-pack"]').focus();
+        } else {
+          const nextCard = root.querySelector('.atlas-pack-card:not(.is-revealed)');
+          if (nextCard) nextCard.focus();
         }
+      }
+
+      function closePackEntrance() {
+        const card = state.packMotionCard;
+        if (!card) return;
+        const entrance = root.querySelector("#atlas-entrance");
+        const frame = root.querySelector("#atlas-entrance-frame");
+        const video = root.querySelector("#atlas-entrance-video");
+        if (state.packMotionTimer !== null) window.clearTimeout(state.packMotionTimer);
+        video.pause();
+        const cardRect = card.getBoundingClientRect();
+        const frameRect = frame.getBoundingClientRect();
+        const returnX = cardRect.left + cardRect.width / 2 - (frameRect.left + frameRect.width / 2);
+        const returnY = cardRect.top + cardRect.height / 2 - (frameRect.top + frameRect.height / 2);
+        frame.style.setProperty("--atlas-return-x", returnX + "px");
+        frame.style.setProperty("--atlas-return-y", returnY + "px");
+        frame.style.setProperty("--atlas-return-scale", String(Math.max(.12, cardRect.width / frameRect.width)));
+        entrance.classList.add("is-returning");
+        state.packMotionTimer = window.setTimeout(function finishEntranceReturn() {
+          state.packMotionTimer = null;
+          entrance.classList.remove("is-active", "is-returning");
+          entrance.setAttribute("aria-hidden", "true");
+          root.querySelector(".atlas-pack").removeAttribute("aria-busy");
+          state.packMotionCard = null;
+          finishPackReveal(card);
+        }, 380);
+      }
+
+      function playPackEntrance(card, person) {
+        const entrance = root.querySelector("#atlas-entrance");
+        const video = root.querySelector("#atlas-entrance-video");
+        const poster = root.querySelector("#atlas-entrance-poster");
+        state.packMotionCard = card;
+        card.disabled = true;
+        poster.src = person.motionPoster;
+        root.querySelector("#atlas-entrance-name").textContent = person.name;
+        root.querySelector("#atlas-entrance-alias").textContent = person.alias;
+        entrance.classList.remove("is-returning");
+        entrance.classList.add("is-active");
+        entrance.setAttribute("aria-hidden", "false");
+        root.querySelector(".atlas-pack").setAttribute("aria-busy", "true");
+        root.querySelector("#atlas-pack-status").textContent = person.name + "正在出场";
+        root.querySelector('[data-action="skip-entrance"]').focus();
+        video.classList.remove("is-ready");
+        video.src = person.motion;
+        video.currentTime = 0;
+        video.onloadeddata = function markEntranceReady() { video.classList.add("is-ready"); };
+        video.onended = closePackEntrance;
+        video.onerror = closePackEntrance;
+        const playback = video.play();
+        if (playback && typeof playback.catch === "function") playback.catch(closePackEntrance);
+        state.packMotionTimer = window.setTimeout(closePackEntrance, 4600);
+      }
+
+      function revealPackCard(card) {
+        if (!state.packOpened || state.packMotionCard || card.classList.contains("is-revealed")) return;
+        const person = people.find(function findPackPerson(item) { return item.id === card.dataset.personId; });
+        const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!person || !person.motion || reduceMotion) { finishPackReveal(card); return; }
+        playPackEntrance(card, person);
       }
 
       function showToast(message) {
@@ -1352,6 +1492,7 @@
         if (action === "back-choice") setScreen("choice");
         if (action === "crack-pack") crackPack();
         if (action === "reveal-pack-card") revealPackCard(actionTarget);
+        if (action === "skip-entrance") closePackEntrance();
         if (action === "collect-pack") { setScreen("atlas"); renderAtlas(); }
         if (action === "start-scan") {
           const checked = root.querySelectorAll('input[name="source"]:checked').length;
@@ -1419,6 +1560,11 @@
       }
 
       function handleKeydown(event) {
+        if (event.key === "Escape" && state.packMotionCard) {
+          event.preventDefault();
+          closePackEntrance();
+          return;
+        }
         const openLayer = root.querySelector(".atlas-modal-layer.is-open");
         if (openLayer && event.key === "Tab") {
           const focusable = Array.from(openLayer.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [href]'));

@@ -10,6 +10,7 @@
 - 无服务端输入。
 - 访客只能操作站内固定公开 Skill 摘要与浏览器内临时 UI 状态。
 - 固定卡组只读取构建时写入的 5 个公开 GitHub Skill 摘要，不在运行时访问 GitHub。
+- localhost 真实运行只接受 `persona.navi-run/v1`：`runId/personaId/commandId/task/materials`；Skill 名称和指令正文由 Bridge 白名单补全。
 
 ## 输出
 
@@ -17,10 +18,15 @@
 - 人物卡进入 `locked` 后必须显示可见、可聚焦的「启动 Persona Driver」按钮；按钮是唯一必需的变身入口。
 - 静态资产 `/persona-atlas.html`：假面骑事交互体验。
 - 静态资产 `/personas/*.jpg`：五张原创人物角色立绘。
+- 静态资产 `/personas-motion/*.mp4`：五段 24fps、4 秒、首尾同帧的卡片出场视频；只在卡包首次揭晓时按用户点击播放。
+- 静态资产 `/personas-motion/*.jpg`：与对应视频首尾帧一致的静态海报和降级卡面。
 - 首页主入口分流为「打开卡包」与「构建卡片」。
 - 「打开卡包」只操作本地固定五人数据：开包、逐张揭晓、收下卡牌。
+- 揭晓动作在普通动态偏好下先打开模态出场层，视频结束或用户跳过后缩回目标卡位并记为已揭晓；同一卡不会自动重播。
+- `prefers-reduced-motion: reduce`、媒体播放失败或不支持视频时直接完成静态揭晓，不得阻塞后续卡牌或「收下卡牌」。
 - 静态资产 `/hero-personas.png`：首页响应式人物卡背景。
 - 静态资产 `/og.png`：链接分享封面。
+- 本机 Bridge 成功返回 `persona.navi-receipt/v1`，包含稳定的 run/task/conversation ID；它只代表任务已入队，不代表完成。
 
 ## 3D 运行合同
 
@@ -51,12 +57,41 @@
 - 静音时停止本机候选与 TTS，后续交互不再产生声音事件。
 - 禁止加入假面骑士原版音频、采样、台词节奏或其他受保护音效资产。
 
+## Navi Bridge 运行合同
+
+- 入口：`scripts/persona-navi-bridge.mjs`，固定监听 `localhost:8766`；`pnpm navi:bridge` 启动。
+- `GET /health`：返回当前进程随机 token、agent-cli 可用性和五个 Skill 的 installed/name/SHA-256 状态。
+- `POST /runs`：校验 `persona.navi-run/v1`，按 runId 幂等创建 YouNavi task/conversation。
+- `GET /runs/<runId>`：执行 `task show`；成功后执行 `convo show`，只接受同 task ID 的完整 assistant message，正文上限 2MB。
+- `POST /runs/<runId>/open`：由用户点击或 Driver 启动动作触发，只执行 `open -a YouNavi`；当前不承诺精确跳到 conversation。
+- Bridge 先打开 YouNavi，再用 `auth me --no-auto-start` 最多等待 30 秒；就绪后 `chat send` 使用 `--no-auto-start`。
+- `POST /runs` 的首条消息必须以真实 `/skill-name` 开头，并同时包含 Persona Card、Command、Task、Inputs 与 Output contract。
+- 当前 `materials` 只有演示名称与说明，没有路径或正文；Prompt 必须明确禁止模型声称已经读取这些文件。真实 YouNavi 文件接入属于后续独立版本。
+- 每次 Driver 启动默认创建新 conversation；后续追问功能未实现，不隐式复用旧 conversation。
+- 请求必须来自 `http://localhost:3000` 或 `http://127.0.0.1:3000`，携带当前 Bridge token；只允许同站/同源 Fetch Metadata。
+- Bridge 不接受客户端路径或 shell 命令；所有 Skill 和 Command 都由服务端 manifest 映射，agent-cli 通过 `execFile` 数组参数调用。
+- `.persona-runs/<runId>/request.json` 记录冻结输入，`receipt.json` 记录 task/conversation，`result.json` 记录已核验完成回复；目录 gitignored。
+- request 已存在但 receipt 不存在时返回 `RUN_CREATION_UNKNOWN`，禁止同 runId 自动重发。
+- 公开 Sites 环境不访问 localhost，不创建真实 Navi 任务，页面显示演示模式。
+
+固定 Skill 源版本：
+
+| Skill | GitHub | Commit |
+|---|---|---|
+| `naval-perspective` | `alchaincyf/naval-skill` | `259e452ef6f6c2bfdbe30368f7c85bc683fe1949` |
+| `elon-musk-perspective` | `alchaincyf/elon-musk-skill` | `5a7d8cf0f23ca6071d18ed8c5c80e8996459a443` |
+| `steve-jobs-perspective` | `alchaincyf/steve-jobs-skill` | `cd724b0e2e2d9e83a436063b5b915294b5925d28` |
+| `trump-perspective` | `alchaincyf/trump-skill` | `4bdb94895a01a84b9f55d90ae5889747c0736757` |
+| `paul-graham-perspective` | `alchaincyf/paul-graham-skill` | `8de3d2bf4e0c301ea3caf015b189307f8d8d8dc0` |
+
 ## 读写路径
 
 - 源码读取：当前工具目录。
 - 构建输出：`dist/`。
 - 浏览器临时状态：访客自己的 sessionStorage。
 - 本机开发音频只读：`outputs/bilibili-audio/decade-candidates/`，其中 `announcer/` 是角色名和指令播报；由独立 `127.0.0.1:8765` 静态服务提供，不属于站点构建输入。
+- 本机 Skill 只读：`/Users/zqnw/navi-ai/CHA499/skills/{naval-perspective,elon-musk-perspective,steve-jobs-perspective,trump-perspective,paul-graham-perspective}/`。
+- Bridge 运行证据：当前工具目录 `.persona-runs/`；不提交 Git、不进入站点构建。
 - 不读写 CHA499 的 `brain/`、`thalamus/` 或 `vault/`。
 
 ## 环境与依赖
@@ -65,6 +100,7 @@
 - npm 依赖 `three`，只在构建期安装，访客零安装。
 - Sites vinext starter 与 Cloudflare Worker 兼容构建。
 - 不需要 API key、OAuth、飞书凭证、数据库或对象存储。
+- 真实对话依赖本机 YouNavi 已登录；Bridge 不读取或返回认证 token 文件。
 
 ## 安全合同
 

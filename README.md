@@ -7,6 +7,8 @@
 点击首页主按钮后先选择「打开卡包」或「构建卡片」；前者进入固定卡组，后者沿用原模拟构建流程。
 打开卡包时先点击密封卡包，再逐张点击翻开五张人物卡，全部揭晓后进入图鉴。
 五位人物均使用项目自有生成立绘：动态漫画姿势、原创特摄假面和角色专属配色，不复用参考图像素或第三方角色设计。
+每张背面卡首次揭晓时会播放对应的 4 秒动态出场：大幅人物动作、激烈运镜和粒子冲击，随后缩回原卡位并完成翻卡。
+动画支持「跳过出场」和 Escape；系统启用 reduced motion 或视频加载失败时直接揭晓静态卡，不阻塞收集流程。
 
 ## 本地运行
 
@@ -14,6 +16,14 @@
 npm install
 npm run dev
 ```
+
+需要真实创建 YouNavi 对话时，另开一个终端启动仅监听 localhost 的 Bridge：
+
+```bash
+pnpm navi:bridge
+```
+
+页面仍从 `http://localhost:3000` 打开；公开 Sites 不会调用 Bridge。
 
 ## 验证
 
@@ -29,6 +39,7 @@ npm test
 - `public/persona-atlas.html`：可交互 Demo。
 - `public/hero-personas.png`：首页三人物卡主视觉，左侧标题由 HTML 实时渲染。
 - `public/personas/`：五张人物角色立绘的网页压缩资产。
+- `public/personas-motion/`：五段 4 秒 H.264 出场视频与首帧海报；只在卡包首次揭晓时播放。
 - `public/og.png`：链接分享封面。
 - `.openai/hosting.json`：Sites 项目绑定，只保存公开项目 ID，不含凭证。
 - `INTERFACE.md`：调用与数据边界。
@@ -62,3 +73,23 @@ Three.js 由 Vite 打包进站点，访客无需安装依赖；不支持 WebGL 2
 才按「英文角色卡名 → 英文指令 → 随机候选音效」串行播放。角色名和指令使用同一固定本机音色与处理链；
 `candidate-01..16.m4a` 不变调、不变速。所有本机音频均来自 `127.0.0.1:8765`，不进入 `public/`、构建产物或公开部署；
 服务不可用时自动回退到系统播报加原创合成音。选卡、指令卡和插卡不会触发这条启动序列。
+
+## Persona Navi Bridge
+
+本机版启动 Driver 后会把人物卡、指令卡、当前任务、选中素材说明和输出合同组装为
+`persona.navi-run/v1`，提交到 `http://localhost:8766`。Bridge 先打开 YouNavi，等待本机后端与认证就绪，
+再用 `agent-cli chat send` 创建独立 conversation。首条用户消息以 `/skill-name` 显式激活 Skill；页面保存
+task/conversation 回执，支持按需检查结果和再次打开 YouNavi。
+
+| 卡片 | YouNavi Skill |
+|---|---|
+| Naval | `naval-perspective` |
+| Elon Musk | `elon-musk-perspective` |
+| Steve Jobs | `steve-jobs-perspective` |
+| Donald John Trump | `trump-perspective` |
+| Paul Graham | `paul-graham-perspective` |
+
+运行前必须把五个完整 Skill 目录安装到 `/Users/zqnw/navi-ai/CHA499/skills/`。Bridge 只接受服务端白名单中的
+persona/command，不接受网页传入 Skill 路径、命令或落盘目录；CLI 使用数组参数调用，不经过 shell。
+运行证据写在 gitignored `.persona-runs/<runId>/`，不进入 Sites、brain 或人物卡。
+当前四项素材仍是演示元数据，Bridge 会明确告诉 Navi 没有文件路径或正文，禁止假装已读取；真实侧边栏文件内容尚未接入。

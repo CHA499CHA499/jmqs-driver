@@ -19,6 +19,7 @@ interface Persona {
   id: string;
   name: string;
   announcerName: string;
+  skillName: string;
   role: string;
   code: string;
   color: string;
@@ -32,6 +33,7 @@ const PERSONAS: Persona[] = [
     id: "naval",
     name: "纳瓦尔",
     announcerName: "Naval Ravikant",
+    skillName: "naval-perspective",
     role: "长期主义策略师",
     code: "LEVERAGE ARCHITECT",
     color: "#d8b25c",
@@ -43,6 +45,7 @@ const PERSONAS: Persona[] = [
     id: "musk",
     name: "埃隆·马斯克",
     announcerName: "Elon Musk",
+    skillName: "elon-musk-perspective",
     role: "第一性原理工程师",
     code: "FIRST PRINCIPLE",
     color: "#ef3048",
@@ -54,6 +57,7 @@ const PERSONAS: Persona[] = [
     id: "jobs",
     name: "史蒂夫·乔布斯",
     announcerName: "Steve Jobs",
+    skillName: "steve-jobs-perspective",
     role: "产品体验主理人",
     code: "FOCUS EDITOR",
     color: "#d7dde5",
@@ -65,6 +69,7 @@ const PERSONAS: Persona[] = [
     id: "trump",
     name: "唐纳德·特朗普",
     announcerName: "Donald John Trump",
+    skillName: "trump-perspective",
     role: "注意力谈判者",
     code: "DEAL MAKER",
     color: "#e86836",
@@ -76,6 +81,7 @@ const PERSONAS: Persona[] = [
     id: "pg",
     name: "Paul Graham",
     announcerName: "Paul Graham",
+    skillName: "paul-graham-perspective",
     role: "创业问题诊断师",
     code: "FOUNDER SIGNAL",
     color: "#7ba6d9",
@@ -106,6 +112,41 @@ const OUTPUTS: Record<string, string[]> = {
   action: ["确定 Driver 原创几何和音效语法。", "接入 YouNavi FileItem 多选素材投影。", "增加 Persona Card 与 Command Card 运行记录。"],
 };
 
+const NAVI_BRIDGE_URL = "http://localhost:8766";
+
+type NaviRunStatus = "idle" | "creating" | "pending" | "running" | "completed" | "error" | "demo";
+
+const NAVI_RUN_LABELS: Record<NaviRunStatus, string> = {
+  idle: "待机",
+  creating: "正在创建",
+  pending: "已入队",
+  running: "执行中",
+  completed: "已完成",
+  error: "需要处理",
+  demo: "演示模式",
+};
+
+interface NaviRunState {
+  status: NaviRunStatus;
+  runId?: string;
+  taskId?: string;
+  conversationId?: string;
+  contentMarkdown?: string;
+  error?: string;
+  openError?: string;
+}
+
+function createPersonaRunId(): string {
+  const value = typeof crypto !== "undefined" && "randomUUID" in crypto
+    ? crypto.randomUUID()
+    : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+  return `prun-${value.toLowerCase()}`;
+}
+
+function isLocalPersonaRuntime(): boolean {
+  return typeof window !== "undefined" && ["localhost", "127.0.0.1"].includes(window.location.hostname);
+}
+
 export default function Home() {
   const [selectedMaterialIds, setSelectedMaterialIds] = useState<string[]>(["roadmap", "feedback", "meeting"]);
   const [selectedPersonaId, setSelectedPersonaId] = useState<string | null>(null);
@@ -115,8 +156,11 @@ export default function Home() {
   const [task, setTask] = useState("评审假面骑事工作台的首次使用路径");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [handleProgress, setHandleProgress] = useState(0);
+  const [naviRun, setNaviRun] = useState<NaviRunState>({ status: "idle" });
   const handleProgressRef = useRef(0);
   const timerRef = useRef<number | null>(null);
+  const activationStartedRef = useRef(false);
+  const naviTokenRef = useRef<string | null>(null);
   const handleDragRef = useRef<{ side: "left" | "right"; startX: number; startProgress: number } | null>(null);
   const handleMovedRef = useRef(false);
   const suppressHandleClickRef = useRef(false);
@@ -141,6 +185,8 @@ export default function Home() {
     setSelectedPersonaId(personaId);
     setPhase("ready");
     setManifested(false);
+    setNaviRun({ status: "idle" });
+    activationStartedRef.current = false;
     updateHandleProgress(0);
     if (soundEnabled) playCardSelectSound();
   }
@@ -150,14 +196,106 @@ export default function Home() {
     if (timerRef.current) window.clearTimeout(timerRef.current);
     setSelectedPersonaId(personaId);
     setManifested(false);
+    setNaviRun({ status: "idle" });
+    activationStartedRef.current = false;
     updateHandleProgress(0);
     setPhase("inserting");
     if (soundEnabled) playCardInsertSound();
     timerRef.current = window.setTimeout(() => setPhase("locked"), 920);
   }
 
+  async function naviRequest(path: string, options: RequestInit = {}) {
+    const send = (token: string | null) => fetch(`${NAVI_BRIDGE_URL}${path}`, {
+        ...options,
+        cache: "no-store",
+        headers: {
+          ...(options.body ? { "Content-Type": "application/json" } : {}),
+          ...(token ? { "X-Persona-Navi-Token": token } : {}),
+          ...(options.headers ?? {}),
+        },
+      });
+    let response = await send(naviTokenRef.current);
+    let payload = await response.json().catch(() => ({ ok: false, error: `HTTP ${response.status}` }));
+    if (path !== "/health" && response.status === 403 && payload.code === "INVALID_REQUEST_TOKEN") {
+      const healthResponse = await fetch(`${NAVI_BRIDGE_URL}/health`, { cache: "no-store" });
+      const health = await healthResponse.json().catch(() => ({ ok: false }));
+      if (healthResponse.ok && health.ok && health.token) {
+        naviTokenRef.current = health.token;
+        response = await send(health.token);
+        payload = await response.json().catch(() => ({ ok: false, error: `HTTP ${response.status}` }));
+      }
+    }
+    if (!response.ok || !payload.ok) throw new Error(payload.error || `Bridge 请求失败（HTTP ${response.status}）`);
+    return payload;
+  }
+
+  async function ensureNaviBridge(persona: Persona) {
+    const health = await naviRequest("/health");
+    if (!health.cliAvailable) throw new Error("未找到可用的 YouNavi agent-cli");
+    if (!health.skills?.[persona.id]?.installed) throw new Error(`YouNavi 未安装 ${persona.skillName}`);
+    naviTokenRef.current = health.token;
+  }
+
+  async function openNaviRun(runId: string) {
+    try {
+      await naviRequest(`/runs/${encodeURIComponent(runId)}/open`, { method: "POST" });
+    } catch (error) {
+      setNaviRun((current) => ({ ...current, openError: String((error as Error)?.message || error) }));
+    }
+  }
+
+  async function startNaviConversation(persona: Persona, command = selectedCommand) {
+    if (!isLocalPersonaRuntime()) {
+      setNaviRun({ status: "demo" });
+      return;
+    }
+    const runId = createPersonaRunId();
+    setNaviRun({ status: "creating", runId });
+    try {
+      await ensureNaviBridge(persona);
+      const receipt = await naviRequest("/runs", {
+        method: "POST",
+        body: JSON.stringify({
+          schema: "persona.navi-run/v1",
+          runId,
+          personaId: persona.id,
+          commandId: command.id,
+          task,
+          materials: MATERIALS.filter((material) => selectedMaterialIds.includes(material.id)),
+        }),
+      });
+      setNaviRun({
+        status: receipt.status === "running" ? "running" : "pending",
+        runId,
+        taskId: receipt.taskId,
+        conversationId: receipt.conversationId,
+      });
+      await openNaviRun(runId);
+    } catch (error) {
+      setNaviRun({ status: "error", runId, error: String((error as Error)?.message || error) });
+    }
+  }
+
+  async function checkNaviRun() {
+    if (!naviRun.runId) return;
+    try {
+      const result = await naviRequest(`/runs/${encodeURIComponent(naviRun.runId)}`);
+      setNaviRun((current) => ({
+        ...current,
+        status: result.status,
+        taskId: result.taskId,
+        conversationId: result.conversationId,
+        contentMarkdown: result.contentMarkdown,
+        error: result.status === "error" ? (result.error || "Navi 任务执行失败") : undefined,
+      }));
+    } catch (error) {
+      setNaviRun((current) => ({ ...current, status: "error", error: String((error as Error)?.message || error) }));
+    }
+  }
+
   function activateDriver() {
-    if (!selectedPersona || phase !== "locked") return;
+    if (!selectedPersona || phase !== "locked" || activationStartedRef.current) return;
+    activationStartedRef.current = true;
     updateHandleProgress(1);
     setPhase("activated");
     if (soundEnabled) {
@@ -168,6 +306,7 @@ export default function Home() {
         selectedCommand.code,
       );
     }
+    void startNaviConversation(selectedPersona, selectedCommand);
     timerRef.current = window.setTimeout(() => setManifested(true), 900);
   }
 
@@ -176,6 +315,9 @@ export default function Home() {
     setSelectedPersonaId(null);
     setPhase("idle");
     setManifested(false);
+    setNaviRun({ status: "idle" });
+    activationStartedRef.current = false;
+    naviTokenRef.current = null;
     updateHandleProgress(0);
     stopDriverAudio();
   }
@@ -314,6 +456,7 @@ export default function Home() {
             {phase === "inserting" && <p>正在读取人物能力数据</p>}
             {phase === "locked" && (
               <div className="driver-handle-control" style={{ "--handle-progress": handleProgress } as CSSProperties}>
+                <button className="activate-button" type="button" onClick={activateDriver}>启动 Persona Driver</button>
                 <button
                   className="driver-side-handle left"
                   type="button"
@@ -366,6 +509,33 @@ export default function Home() {
                 <div><dt>授权素材</dt><dd>{selectedMaterialIds.length} 份</dd></div>
                 <div><dt>当前任务</dt><dd>{task}</dd></div>
               </dl>
+              {naviRun.status !== "idle" && (
+                <section className={`navi-run-panel status-${naviRun.status}`} aria-live="polite">
+                  <header>
+                    <h3>Navi 对话</h3>
+                    <span>{NAVI_RUN_LABELS[naviRun.status]}</span>
+                  </header>
+                  {naviRun.status === "creating" && <p>正在校验 Skill 并创建独立对话。</p>}
+                  {naviRun.status === "demo" && <p>公开演示不会调用访客本机 YouNavi。</p>}
+                  {naviRun.conversationId && (
+                    <code title={naviRun.conversationId}>conversation · {naviRun.conversationId.slice(0, 12)}</code>
+                  )}
+                  {naviRun.error && <p className="navi-run-error">{naviRun.error}</p>}
+                  {naviRun.openError && <p className="navi-run-warning">对话已创建，但未自动打开 YouNavi：{naviRun.openError}</p>}
+                  {naviRun.contentMarkdown && <pre>{naviRun.contentMarkdown}</pre>}
+                  {naviRun.runId && naviRun.status !== "creating" && naviRun.status !== "demo" && (
+                    <div className="navi-run-actions">
+                      <button type="button" onClick={() => void checkNaviRun()}>检查结果</button>
+                      {naviRun.conversationId && (
+                        <button type="button" onClick={() => void openNaviRun(naviRun.runId!)}>打开 YouNavi</button>
+                      )}
+                      {naviRun.status === "error" && (
+                        <button type="button" onClick={() => void startNaviConversation(selectedPersona, selectedCommand)}>重新创建</button>
+                      )}
+                    </div>
+                  )}
+                </section>
+              )}
               <section className="output-section">
                 <h3>角色输出</h3>
                 <ol>

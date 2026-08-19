@@ -16,6 +16,7 @@
 固定五人卡组出现内容错误时，只回退 `public/persona-atlas.html` 与对应测试；首页主视觉未变，不随卡组回退。
 入口分流出现问题时，回退 `choice` 页面与 `begin/open-pack/build-cards/back-choice` 四个动作，恢复原 `begin → scope`。
 开包动效出现问题时，回退 `pack` 页面、`crackPack/revealPackCard/resetPackOpening` 和对应 CSS，恢复 `open-pack → atlas`。
+动态出场层出现加载、性能或焦点问题时，回退 `atlas-entrance` DOM/CSS、`playPackEntrance/closePackEntrance/finishPackReveal` 和人物数据中的 `motion/motionPoster` 字段，再删除 `public/personas-motion/`；原静态卡包与 `public/personas/` 不受影响。
 立绘出现问题时，同时回退 `public/personas/`、人物数据中的 `image` 字段与卡面图片 CSS；禁止只删图片留下失效路径。
 首页卡盒立绘出现问题时，回退 `app/page.tsx` 的 `Persona.image` 与 `workbench-card-art-image`，恢复原几何占位卡面。
 
@@ -41,6 +42,17 @@ Three.js Driver 出现黑屏、GPU 兼容或性能问题时，优先回退 `app/
 三段串行播报出现顺序、发音或音色问题时，可单独回退 `localPersonaAnnouncementUrls`、
 `localCommandAnnouncementUrls`、`playLocalClip` 与 `playLocalActivationSequence`，恢复为启动按钮直接随机候选；
 `announcer/` 源文件可保留用于重新选音，不影响站点构建。
+
+Persona Navi Bridge 出现误创建、重复任务或本机调用问题时：
+
+1. 先停止 `pnpm navi:bridge`；页面会显示 Bridge 不可用，公开站不受影响。
+2. 回退 `scripts/persona-navi-bridge*.mjs`、`app/page.tsx` 的 Navi 状态与请求、`app/globals.css` 的 `.navi-run-*` 样式。
+3. 保留 `.persona-runs/` 作为审计证据，不删除已创建的 YouNavi conversation；需要归档/删除时由用户在 YouNavi 明确操作。
+4. 五个已安装 Skill 与站点无运行耦合，可以保留；如需卸载，逐一移出 `/Users/zqnw/navi-ai/CHA499/skills/`，不要删除其他用户 Skill。
+5. request 存在但 receipt 缺失时不得手工补 receipt 或自动重发；先用 YouNavi 会话历史核对是否已创建任务。
+
+若角色面板变化再次触发 ResizeObserver 错误，保留 `scheduleResize` 的 animation-frame 合并和相同尺寸短路；
+只回退该逻辑前必须在开发模式反复展开/收起 Navi 状态面板验证没有错误浮层。
 
 ## 紧急下线
 

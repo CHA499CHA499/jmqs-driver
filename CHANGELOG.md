@@ -2,6 +2,14 @@
 
 ## 2026-08-19
 
+- 五张卡牌的首次揭晓接入 4 秒动态出场立绘；出场层播放人物大动作、激烈运镜和粒子冲击，结束后缩回目标卡位并翻卡。
+- 动态出场支持跳过、Escape、视频失败降级和 reduced-motion 静态直出；五张视频与匹配首帧海报作为本地静态资产随站点发布。
+- 新增本机 `Persona Navi Bridge`：启动 Driver 后先唤起 YouNavi，再显式激活人物 Skill，创建独立 task/conversation 并保存幂等回执。
+- 五张人物卡对齐真实 Skill 名称与固定源提交；完整 Skill 已迁入 YouNavi 用户目录，Bridge 逐次校验 SKILL.md name 与 SHA-256。
+- 角色实例面板新增 Navi 创建、入队、执行、完成、失败状态，支持检查结果、重新打开 YouNavi 和失败后重新创建。
+- Bridge 只监听 localhost，使用 Origin/Fetch Metadata/进程随机 token、persona/command 白名单、请求限额和 `execFile` 数组参数；公开 Sites 保持演示模式。
+- `chat send` 前先打开 YouNavi 并等待后端认证就绪；请求已落盘但无回执时失败关闭，避免重试重复创建 conversation。
+- Three.js resize 改为 animation-frame 合并并跳过相同尺寸，避免角色面板变化触发 ResizeObserver 开发错误浮层。
 - 在左右机械把手之外恢复卡片锁定态的「启动 Persona Driver」主按钮；拖拽体验不再替代唯一主操作。
 - 增加仅限本机开发的 Driver 启动音覆盖：点击启动按钮时从本地 16 段候选随机播放一段，避免连续重复；候选不打包、不发布，服务不可用时回退原创合成音。
 - 本机启动音改为三段串行播报：固定同音色角色卡名、固定同音色英文指令、未经变调变速的随机候选；Donald 卡使用完整播报名 `Donald John Trump`。

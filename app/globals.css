@@ -282,6 +282,7 @@ button:focus-visible, input:focus-visible, [draggable="true"]:focus-visible {
   gap: 9px;
   align-items: center;
 }
+.driver-handle-control > .activate-button { grid-column: 1 / -1; justify-self: center; }
 .driver-side-handle {
   height: 52px;
   border: 1px solid #67717f;
@@ -354,6 +355,51 @@ button:focus-visible, input:focus-visible, [draggable="true"]:focus-visible {
 .instance-content dl div { display: grid; grid-template-columns: 70px 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .instance-content dt { color: var(--subtle); font-size: 9px; }
 .instance-content dd { margin: 0; color: #c7ccd4; font-size: 10px; line-height: 1.5; }
+.navi-run-panel {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(5,7,10,.56);
+}
+.navi-run-panel header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.navi-run-panel h3 { margin: 0; font-size: 11px; }
+.navi-run-panel header span { color: var(--muted); font: 8px/1 monospace; letter-spacing: .08em; }
+.navi-run-panel.status-pending, .navi-run-panel.status-running { border-color: #5f4c28; }
+.navi-run-panel.status-completed { border-color: #315b42; }
+.navi-run-panel.status-error { border-color: #7e2835; }
+.navi-run-panel p { margin: 9px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+.navi-run-panel code {
+  display: block;
+  margin-top: 9px;
+  overflow: hidden;
+  color: #c7ccd4;
+  font: 9px/1.4 monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.navi-run-panel .navi-run-error { color: #ff8b99; }
+.navi-run-panel .navi-run-warning { color: #d9b76d; }
+.navi-run-panel pre {
+  max-height: 220px;
+  margin: 10px 0 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  color: #d6dae0;
+  font: 10px/1.6 "SFMono-Regular", Consolas, monospace;
+}
+.navi-run-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.navi-run-actions button {
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 9px;
+  cursor: pointer;
+}
+.navi-run-actions button:hover { color: var(--text); border-color: var(--signal); }
 .output-section { margin-top: 20px; }
 .output-section h3 { margin: 0; font-size: 12px; }
 .output-section ol { margin: 11px 0 0; padding-left: 18px; color: #c7ccd4; font-size: 11px; line-height: 1.65; }
