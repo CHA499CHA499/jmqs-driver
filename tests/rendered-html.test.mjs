@@ -27,5 +27,8 @@ test("ships the interactive demo asset", async () => {
   assert.match(html, /feishu-persona-atlas/);
   assert.match(html, /开始构建图鉴/);
   assert.match(html, /假面骑事/);
+  assert.match(html, /hero-personas\.png/);
+  assert.match(html, /min-height:100dvh/);
+  assert.doesNotMatch(html, /min-height:\s*(720|760|780)px/);
   assert.doesNotMatch(html, /真实飞书数据/);
 });

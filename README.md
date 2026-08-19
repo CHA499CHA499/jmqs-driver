@@ -22,6 +22,7 @@ npm test
 
 - `app/`：Sites 外壳、页面元数据与公开 Demo iframe。
 - `public/persona-atlas.html`：可交互 Demo。
+- `public/hero-personas.png`：首页三人物卡主视觉，左侧标题由 HTML 实时渲染。
 - `public/og.png`：链接分享封面。
 - `.openai/hosting.json`：Sites 项目绑定，只保存公开项目 ID，不含凭证。
 - `INTERFACE.md`：调用与数据边界。
@@ -33,3 +34,8 @@ npm test
 - 只展示虚构演示数据。
 - 没有登录、数据库、文件上传、第三方连接器或模型调用。
 - Demo 的本地状态仅存在于访客浏览器会话。
+
+## 页面尺寸
+
+首页与各交互状态使用动态视口高度 `100dvh`，不再依赖 720/760/780px 固定高度。根页面只保留一层 iframe，
+内部页面负责铺满视口，避免高屏幕下露出外层白底。
