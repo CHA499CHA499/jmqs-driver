@@ -69,6 +69,13 @@ export const COMMAND_MANIFEST = Object.freeze({
   },
 });
 
+export const MATERIAL_MANIFEST = Object.freeze({
+  roadmap: { name: "产品路线图.md", fileName: "产品路线图.md", meta: "本机预设 · 产品" },
+  feedback: { name: "用户反馈汇总.md", fileName: "用户反馈汇总.md", meta: "本机预设 · 研究" },
+  meeting: { name: "首次体验评审纪要.md", fileName: "首次体验评审纪要.md", meta: "本机预设 · 会议" },
+  metrics: { name: "转化指标口径.md", fileName: "转化指标口径.md", meta: "本机预设 · 数据" },
+});
+
 export class PersonaNaviError extends Error {
   constructor(message, { code = "PERSONA_NAVI_ERROR", status = 400 } = {}) {
     super(message);
@@ -102,17 +109,28 @@ export function validateRunPayload(payload) {
   const task = cleanText(payload.task, { name: "当前任务", max: 4000 });
   const rawMaterials = Array.isArray(payload.materials) ? payload.materials : [];
   if (rawMaterials.length > 12) throw new PersonaNaviError("素材不能超过 12 项", { code: "INVALID_RUN" });
-  const materials = rawMaterials.map((item, index) => ({
-    id: cleanText(item?.id, { name: `素材 ${index + 1} ID`, max: 64 }),
-    name: cleanText(item?.name, { name: `素材 ${index + 1} 名称`, max: 160 }),
-    meta: cleanText(item?.meta, { name: `素材 ${index + 1} 说明`, max: 240, required: false }),
-  }));
+  const materialIds = rawMaterials.map((item, index) => cleanText(
+    typeof item === "string" ? item : item?.id,
+    { name: `素材 ${index + 1} ID`, max: 64 },
+  ));
+  if (new Set(materialIds).size !== materialIds.length) {
+    throw new PersonaNaviError("素材 ID 不能重复", { code: "INVALID_RUN" });
+  }
+  const materials = materialIds.map((id) => {
+    const material = MATERIAL_MANIFEST[id];
+    if (!material) throw new PersonaNaviError(`素材 ${id} 不在服务端白名单`, { code: "UNKNOWN_MATERIAL" });
+    return { id, ...material };
+  });
   return { schema: payload.schema, runId, personaId, commandId, task, materials, persona, command };
 }
 
 export function renderPersonaPrompt(run) {
   const materialLines = run.materials.length
-    ? run.materials.map((item, index) => `${index + 1}. ${item.name}${item.meta ? `（${item.meta}）` : ""}`)
+    ? run.materials.flatMap((item, index) => [
+        `${index + 1}. ${item.name}${item.meta ? `（${item.meta}）` : ""}`,
+        `   - 绝对路径：${item.path}`,
+        `   - SHA-256：${item.sha256}`,
+      ])
     : ["无额外素材"];
   return [
     `/${run.persona.skillName}`,
@@ -127,9 +145,10 @@ export function renderPersonaPrompt(run) {
     "",
     run.task,
     "",
-    "## 已选输入（演示元数据）",
+    "## 已选输入（只读预设）",
     "",
-    "以下条目只有名称和说明，没有文件路径或正文。不要声称已经读取文件；只能把它们当作待补充的输入索引。",
+    "只读取下列明确列出的绝对路径。禁止使用 find、目录遍历或扩大到 /Users、用户主目录及其他目录搜索。",
+    "如果任一路径不可读，直接列出该路径并继续使用其余材料；不要猜测内容，不要声称已读不存在的文件。",
     "",
     ...materialLines,
     "",
@@ -247,6 +266,48 @@ export async function inspectInstalledSkills(skillsDir) {
   return result;
 }
 
+export async function inspectPresetMaterials(presetRoot) {
+  const result = {};
+  for (const [materialId, material] of Object.entries(MATERIAL_MANIFEST)) {
+    const file = path.resolve(presetRoot, material.fileName);
+    try {
+      const body = await readFile(file);
+      if (body.byteLength > 1024 * 1024) throw new Error("preset too large");
+      result[materialId] = {
+        available: true,
+        id: materialId,
+        name: material.name,
+        meta: material.meta,
+        path: file,
+        size: body.byteLength,
+        sha256: createHash("sha256").update(body).digest("hex"),
+      };
+    } catch {
+      result[materialId] = {
+        available: false,
+        id: materialId,
+        name: material.name,
+        meta: material.meta,
+        path: file,
+        size: null,
+        sha256: null,
+      };
+    }
+  }
+  return result;
+}
+
+async function resolvePresetMaterials(materials, presetRoot) {
+  const inspected = await inspectPresetMaterials(presetRoot);
+  return materials.map((material) => {
+    const resolved = inspected[material.id];
+    if (!resolved?.available) {
+      throw new PersonaNaviError(`预设文件不可读：${material.name}`, { code: "PRESET_MISSING", status: 409 });
+    }
+    return resolved;
+  });
+}
+
 function cliData(result, operation) {
   if (!result?.success) {
     throw new PersonaNaviError(result?.error || `${operation}失败`, {
@@ -265,6 +326,7 @@ function taskStatus(data) {
 export function createPersonaRunService({
   runRoot,
   skillsDir,
+  presetRoot,
   resolveCli = resolveAgentCli,
   runCli = execAgentCli,
   prepareRuntime = prepareYouNaviRuntime,
@@ -293,11 +355,13 @@ export function createPersonaRunService({
       if (!installed?.installed) {
         throw new PersonaNaviError(`YouNavi 未安装 ${run.persona.skillName}`, { code: "SKILL_MISSING", status: 409 });
       }
-      const prompt = renderPersonaPrompt(run);
+      const materials = await resolvePresetMaterials(run.materials, presetRoot);
+      const resolvedRun = { ...run, materials };
+      const prompt = renderPersonaPrompt(resolvedRun);
       const title = `PERSONA RIDE · ${run.persona.displayName} · ${run.command.code}`.slice(0, 100);
       const cli = await prepareRuntime({ resolveCli, runCli });
       await writeJsonAtomic(requestPath, {
-        ...run,
+        ...resolvedRun,
         persona: { ...run.persona, skillSha256: installed.sha256 },
         prompt,
         title,

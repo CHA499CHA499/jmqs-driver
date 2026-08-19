@@ -7,6 +7,7 @@ import {
   PersonaNaviError,
   createPersonaRunService,
   inspectInstalledSkills,
+  inspectPresetMaterials,
   openYouNavi,
   resolveAgentCli,
 } from "./persona-navi-bridge-lib.mjs";
@@ -16,10 +17,11 @@ const PROJECT_DIR = path.resolve(SCRIPT_DIR, "..");
 const PORT = Number.parseInt(process.env.PERSONA_NAVI_BRIDGE_PORT || "8766", 10);
 const RUN_ROOT = path.resolve(process.env.PERSONA_NAVI_RUN_ROOT || path.join(PROJECT_DIR, ".persona-runs"));
 const SKILLS_DIR = path.resolve(process.env.PERSONA_NAVI_SKILLS_DIR || "/Users/zqnw/navi-ai/CHA499/skills");
+const PRESET_ROOT = path.resolve(process.env.PERSONA_NAVI_PRESET_ROOT || path.join(PROJECT_DIR, "presets"));
 const REQUEST_TOKEN = randomBytes(24).toString("base64url");
 const TOKEN_HEADER = "x-persona-navi-token";
 const ALLOWED_ORIGINS = new Set(["http://localhost:3000", "http://127.0.0.1:3000"]);
-const service = createPersonaRunService({ runRoot: RUN_ROOT, skillsDir: SKILLS_DIR });
+const service = createPersonaRunService({ runRoot: RUN_ROOT, skillsDir: SKILLS_DIR, presetRoot: PRESET_ROOT });
 
 function requestOrigin(req) {
   return String(req.headers.origin || "").trim().toLowerCase();
@@ -101,8 +103,9 @@ const server = createServer(async (req, res) => {
     const url = new URL(req.url || "/", `http://localhost:${PORT}`);
     if (url.pathname === "/health" && req.method === "GET") {
       assertBrowserRequest(req, { token: false });
-      const [skills, cli] = await Promise.all([
+      const [skills, presets, cli] = await Promise.all([
         inspectInstalledSkills(SKILLS_DIR),
+        inspectPresetMaterials(PRESET_ROOT),
         resolveAgentCli().then(() => true).catch(() => false),
       ]);
       sendJson(req, res, 200, {
@@ -111,6 +114,7 @@ const server = createServer(async (req, res) => {
         token: REQUEST_TOKEN,
         cliAvailable: cli,
         skills,
+        presets,
       });
       return;
     }

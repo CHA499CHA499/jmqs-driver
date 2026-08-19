@@ -35,18 +35,29 @@ test("uses the five verified YouNavi skill names", () => {
 });
 
 test("renders a slash skill, command, task, inputs and output contract", () => {
-  const prompt = renderPersonaPrompt(validateRunPayload(run()));
+  const validated = validateRunPayload(run());
+  const prompt = renderPersonaPrompt({
+    ...validated,
+    materials: validated.materials.map((material) => ({
+      ...material,
+      path: `/tmp/persona-presets/${material.fileName}`,
+      sha256: "a".repeat(64),
+    })),
+  });
   assert.match(prompt, /^\/trump-perspective/m);
   assert.match(prompt, /Persona Card: Donald John Trump/);
   assert.match(prompt, /Command: ACTION \/ 行动/);
   assert.match(prompt, /整理产品上线的下一步/);
   assert.match(prompt, /产品路线图\.md/);
-  assert.match(prompt, /不要声称已经读取文件/);
+  assert.match(prompt, /\/tmp\/persona-presets\/产品路线图\.md/);
+  assert.match(prompt, /禁止使用 find、目录遍历/);
+  assert.match(prompt, /不要声称已读不存在的文件/);
   assert.match(prompt, /判断 \/ 行动 \/ 风险 \/ 证据/);
 });
 
 test("rejects unknown personas and excessive material input", () => {
   assert.throws(() => validateRunPayload(run({ personaId: "unknown" })), /白名单/);
+  assert.throws(() => validateRunPayload(run({ materials: ["unknown-material"] })), /素材 unknown-material/);
   assert.throws(() => validateRunPayload(run({ materials: Array.from({ length: 13 }, (_, index) => ({
     id: `m${index}`, name: `material-${index}`, meta: "demo",
   })) })), /12 项/);
@@ -56,6 +67,9 @@ test("creates one idempotent Navi conversation receipt", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "persona-navi-test-"));
   const skillsDir = path.join(root, "skills");
   const runRoot = path.join(root, "runs");
+  const presetRoot = path.join(root, "presets");
+  await mkdir(presetRoot, { recursive: true });
+  await writeFile(path.join(presetRoot, "产品路线图.md"), "# real preset\n", "utf8");
   for (const persona of Object.values(PERSONA_MANIFEST)) {
     const directory = path.join(skillsDir, persona.skillName);
     await mkdir(directory, { recursive: true });
@@ -65,6 +79,7 @@ test("creates one idempotent Navi conversation receipt", async () => {
   const service = createPersonaRunService({
     runRoot,
     skillsDir,
+    presetRoot,
     resolveCli: async () => "/mock/agent-cli",
     prepareRuntime: async () => "/mock/agent-cli",
     runCli: async (_cli, args) => {
@@ -92,12 +107,16 @@ test("detects a mismatched installed Skill name", async () => {
 test("returns the real Navi task error for visible recovery", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "persona-error-test-"));
   const skillsDir = path.join(root, "skills");
+  const presetRoot = path.join(root, "presets");
   const target = path.join(skillsDir, PERSONA_MANIFEST.trump.skillName);
   await mkdir(target, { recursive: true });
+  await mkdir(presetRoot, { recursive: true });
   await writeFile(path.join(target, "SKILL.md"), "---\nname: trump-perspective\n---\n", "utf8");
+  await writeFile(path.join(presetRoot, "产品路线图.md"), "# real preset\n", "utf8");
   const service = createPersonaRunService({
     runRoot: path.join(root, "runs"),
     skillsDir,
+    presetRoot,
     resolveCli: async () => "/mock/agent-cli",
     prepareRuntime: async () => "/mock/agent-cli",
     runCli: async (_cli, args) => args.includes("send")

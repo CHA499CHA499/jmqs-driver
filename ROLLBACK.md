@@ -27,6 +27,8 @@ Three.js Driver 出现黑屏、GPU 兼容或性能问题时，优先回退 `app/
 `app/driver-scene.tsx`、`package.json` 与 `package-lock.json` 到上一公开版本；旧图鉴静态资产无需删除。
 回退提交完成后重新构建并部署历史兼容版本，不在生产环境临时改用 CDN。
 
+模块化 GLB 出现加载、朝向、穿模或性能问题时，先回退 `app/driver-scene.tsx` 的 `GLTFLoader` 与模型装配分支；程序化 Driver 会恢复为唯一渲染路径。确认生产已恢复后再删除 `public/models/persona-driver/`，禁止先删资产留下 404 请求。
+
 锁定态主按钮再次消失时，先恢复 `phase === "locked"` 分支中的 `.activate-button` 和 `activateDriver` 点击绑定；
 不允许只留下图标、拖拽手势或说明文字作为唯一启动入口。
 
@@ -50,6 +52,8 @@ Persona Navi Bridge 出现误创建、重复任务或本机调用问题时：
 3. 保留 `.persona-runs/` 作为审计证据，不删除已创建的 YouNavi conversation；需要归档/删除时由用户在 YouNavi 明确操作。
 4. 五个已安装 Skill 与站点无运行耦合，可以保留；如需卸载，逐一移出 `/Users/zqnw/navi-ai/CHA499/skills/`，不要删除其他用户 Skill。
 5. request 存在但 receipt 缺失时不得手工补 receipt 或自动重发；先用 YouNavi 会话历史核对是否已创建任务。
+
+固定预设素材解析异常时，可回退 `MATERIAL_MANIFEST`、`inspectPresetMaterials` 与 `resolvePresetMaterials`，恢复为仅传演示元数据；不要删除用户放在 `PERSONA_NAVI_PRESET_ROOT` 中的原始 Markdown。
 
 若角色面板变化再次触发 ResizeObserver 错误，保留 `scheduleResize` 的 animation-frame 合并和相同尺寸短路；
 只回退该逻辑前必须在开发模式反复展开/收起 Navi 状态面板验证没有错误浮层。

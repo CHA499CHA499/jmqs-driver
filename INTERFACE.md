@@ -31,6 +31,9 @@
 ## 3D 运行合同
 
 - `app/driver-scene.tsx` 是唯一 Three.js 边界，只接收 Driver phase、人物卡颜色与归一化把手进度。
+- 运行时从同源静态路径并行读取 `/models/persona-driver/{belt,persona-card,energy-rod,skill-rod}.glb`；不使用 CDN、外部纹理或运行时模型服务。
+- 四个 GLB 保持独立根节点；人物卡负责纵向插入，两根棒负责左右闭合，腰带本体暴露 `LeftRodDock_Pivot` 与 `RightRodDock_Pivot`。
+- GLB 全部成功后隐藏程序化 Driver；任一模型失败时继续显示程序化几何，不改变业务 phase、音频与角色实例合同。
 - `app/page.tsx` 的人物卡盒读取 `/personas/*.jpg`，卡片姓名继续作为可访问文本，图片使用空替代避免重复朗读。
 - phase 只允许 `idle / ready / inserting / locked / activated`。
 - 页面不支持 WebGL 2 时必须保留完整 DOM 工作台，并显示静态 Driver。
@@ -66,7 +69,8 @@
 - `POST /runs/<runId>/open`：由用户点击或 Driver 启动动作触发，只执行 `open -a YouNavi`；当前不承诺精确跳到 conversation。
 - Bridge 先打开 YouNavi，再用 `auth me --no-auto-start` 最多等待 30 秒；就绪后 `chat send` 使用 `--no-auto-start`。
 - `POST /runs` 的首条消息必须以真实 `/skill-name` 开头，并同时包含 Persona Card、Command、Task、Inputs 与 Output contract。
-- 当前 `materials` 只有演示名称与说明，没有路径或正文；Prompt 必须明确禁止模型声称已经读取这些文件。真实 YouNavi 文件接入属于后续独立版本。
+- 当前 `materials` 只接受四个固定 ID；Bridge 在服务端把 ID 映射到 `PERSONA_NAVI_PRESET_ROOT`（默认项目 `presets/`）中的同名 Markdown，校验文件不超过 1MB 并把绝对路径与 SHA-256 写入冻结请求。
+- Prompt 只允许读取上述精确绝对路径，禁止 `find`、目录遍历、扩大到用户主目录或猜测缺失内容；任一选中预设不可读时不创建任务。
 - 每次 Driver 启动默认创建新 conversation；后续追问功能未实现，不隐式复用旧 conversation。
 - 请求必须来自 `http://localhost:3000` 或 `http://127.0.0.1:3000`，携带当前 Bridge token；只允许同站/同源 Fetch Metadata。
 - Bridge 不接受客户端路径或 shell 命令；所有 Skill 和 Command 都由服务端 manifest 映射，agent-cli 通过 `execFile` 数组参数调用。
@@ -89,8 +93,10 @@
 - 源码读取：当前工具目录。
 - 构建输出：`dist/`。
 - 浏览器临时状态：访客自己的 sessionStorage。
+- 模块化 Driver 静态资产：`public/models/persona-driver/`，随 Git 与 Sites 构建迁移。
 - 本机开发音频只读：`outputs/bilibili-audio/decade-candidates/`，其中 `announcer/` 是角色名和指令播报；由独立 `127.0.0.1:8765` 静态服务提供，不属于站点构建输入。
 - 本机 Skill 只读：`/Users/zqnw/navi-ai/CHA499/skills/{naval-perspective,elon-musk-perspective,steve-jobs-perspective,trump-perspective,paul-graham-perspective}/`。
+- 本机预设素材只读：`PERSONA_NAVI_PRESET_ROOT`，未设置时为当前工具目录 `presets/`；仅允许 manifest 中四个固定文件名。
 - Bridge 运行证据：当前工具目录 `.persona-runs/`；不提交 Git、不进入站点构建。
 - 不读写 CHA499 的 `brain/`、`thalamus/` 或 `vault/`。
 

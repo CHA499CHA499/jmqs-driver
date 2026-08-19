@@ -40,6 +40,7 @@ npm test
 - `public/hero-personas.png`：首页三人物卡主视觉，左侧标题由 HTML 实时渲染。
 - `public/personas/`：五张人物角色立绘的网页压缩资产。
 - `public/personas-motion/`：五段 4 秒 H.264 出场视频与首帧海报；只在卡包首次揭晓时播放。
+- `public/models/persona-driver/`：原创模块化腰带本体、人物卡、能量棒与技能棒 GLB。
 - `public/og.png`：链接分享封面。
 - `.openai/hosting.json`：Sites 项目绑定，只保存公开项目 ID，不含凭证。
 - `INTERFACE.md`：调用与数据边界。
@@ -65,6 +66,7 @@ npm test
 Three.js 由 Vite 打包进站点，访客无需安装依赖；不支持 WebGL 2 时显示静态 Driver。
 人物卡锁定后始终显示明确的「启动 Persona Driver」主按钮；实验性交互不能替代主操作。
 卡片锁定后，用户可把左右机械把手向中心拖动；拖动进度会同步驱动 3D 外壳、导轨、光环与核心闭合，超过阈值后进入 `PERSONA RIDE`。单击任一把手是键盘和触控场景的等价启动入口，未达到阈值则自动弹回。
+中央 Driver 优先加载四件原创模块化 GLB：空载腰带、人物主卡、青色能量棒和琥珀色技能棒。人物卡保持独立插入动画，两根棒与左右插座随闭合进度旋转；模型请求失败时自动保留原程序化几何回退。
 
 音效层由 `app/driver-audio.ts` 运行时合成：选卡金属音、指令卡双脉冲、插卡滑轨与锁扣、启动扫描脉冲、
 能量升频和低频冲击。最后使用系统 TTS 播报原创 `PERSONA RIDE` 文案；不包含影视原版采样。
@@ -92,4 +94,5 @@ task/conversation 回执，支持按需检查结果和再次打开 YouNavi。
 运行前必须把五个完整 Skill 目录安装到 `/Users/zqnw/navi-ai/CHA499/skills/`。Bridge 只接受服务端白名单中的
 persona/command，不接受网页传入 Skill 路径、命令或落盘目录；CLI 使用数组参数调用，不经过 shell。
 运行证据写在 gitignored `.persona-runs/<runId>/`，不进入 Sites、brain 或人物卡。
-当前四项素材仍是演示元数据，Bridge 会明确告诉 Navi 没有文件路径或正文，禁止假装已读取；真实侧边栏文件内容尚未接入。
+四项素材由 Bridge 固定映射到本机预设目录中的同名 Markdown；默认目录是项目下 `presets/`，也可通过
+`PERSONA_NAVI_PRESET_ROOT` 指向其他明确目录。网页只提交素材 ID，不能提交或扩大读取路径；预设缺失时停止创建任务并显示错误。

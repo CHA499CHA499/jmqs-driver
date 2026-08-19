@@ -92,10 +92,10 @@ const PERSONAS: Persona[] = [
 ];
 
 const MATERIALS = [
-  { id: "roadmap", name: "产品路线图.md", meta: "12 KB · 产品" },
-  { id: "feedback", name: "用户反馈汇总.txt", meta: "28 KB · 研究" },
-  { id: "meeting", name: "首次体验评审纪要.md", meta: "19 KB · 会议" },
-  { id: "metrics", name: "转化指标口径.csv", meta: "8 KB · 数据" },
+  { id: "roadmap", name: "产品路线图.md", meta: "本机预设 · 产品" },
+  { id: "feedback", name: "用户反馈汇总.md", meta: "本机预设 · 研究" },
+  { id: "meeting", name: "首次体验评审纪要.md", meta: "本机预设 · 会议" },
+  { id: "metrics", name: "转化指标口径.md", meta: "本机预设 · 数据" },
 ];
 
 const COMMANDS = [
@@ -229,10 +229,12 @@ export default function Home() {
     return payload;
   }
 
-  async function ensureNaviBridge(persona: Persona) {
+  async function ensureNaviBridge(persona: Persona, materialIds: string[]) {
     const health = await naviRequest("/health");
     if (!health.cliAvailable) throw new Error("未找到可用的 YouNavi agent-cli");
     if (!health.skills?.[persona.id]?.installed) throw new Error(`YouNavi 未安装 ${persona.skillName}`);
+    const missingPreset = materialIds.find((materialId) => !health.presets?.[materialId]?.available);
+    if (missingPreset) throw new Error(`本机预设不可读：${missingPreset}`);
     naviTokenRef.current = health.token;
   }
 
@@ -250,9 +252,10 @@ export default function Home() {
       return;
     }
     const runId = createPersonaRunId();
+    const materialIds = MATERIALS.filter((material) => selectedMaterialIds.includes(material.id)).map((material) => material.id);
     setNaviRun({ status: "creating", runId });
     try {
-      await ensureNaviBridge(persona);
+      await ensureNaviBridge(persona, materialIds);
       const receipt = await naviRequest("/runs", {
         method: "POST",
         body: JSON.stringify({
@@ -261,7 +264,7 @@ export default function Home() {
           personaId: persona.id,
           commandId: command.id,
           task,
-          materials: MATERIALS.filter((material) => selectedMaterialIds.includes(material.id)),
+          materials: materialIds,
         }),
       });
       setNaviRun({
