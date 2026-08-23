@@ -1,11 +1,11 @@
 # Modular Persona Driver Models
 
-原创 Persona Driver 的网页模型资产。四个 GLB 必须保持独立加载和独立动画，不在构建阶段合并。
+原创 Persona Driver 的离线出帧源资产说明。四个 GLB 与材质已经移出发布目录，浏览器运行时不得加载。
 
-- `belt.glb`：空载腰带本体；包含 `MainCardSlot_Root`、`LeftRodDock_Pivot`、`RightRodDock_Pivot`。
-- `persona-card.glb`：人物主卡；根节点 `PersonaCard_Root`。
-- `energy-rod.glb`：青色能量棒；根节点 `EnergyRod_Root`。
-- `skill-rod.glb`：琥珀色技能棒；根节点 `SkillRod_Root`。
+- 归档位置：`CHA499/artifacts/persona-driver-convergence/2026-08-21/history/public/models/persona-driver/`。
+- 原模型：`belt.glb`、`persona-card.glb`、`energy-rod.glb`、`skill-rod.glb`。
+- 原材质：`textures/brushed-gunmetal-v1.png`。
 
-静态资产全部由项目自有 Blender 脚本生成，无外部纹理、品牌标识或第三方模型。`app/driver-scene.tsx` 使用同源
-`GLTFLoader` 并行加载；加载失败时保留原程序化 Three.js Driver，不中断人物卡主流程。
+模型属于历史源资产，不进入当前网页运行链路。当前网页只读取 `public/driver-textures/` 中批准的二维元素图；不要用这些模型重新覆盖二维贴图。
+
+需要恢复离线出帧时，从归档按相对路径复制到临时素材工作区；不要把 GLB 重新放回公开 `public/`。

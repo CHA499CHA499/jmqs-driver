@@ -13,154 +13,237 @@ async function render() {
   );
 }
 
-test("renders the public persona atlas shell", async () => {
+test("renders the cover-first persona entry shell", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /<title>假面骑事 \| Persona Driver 工作台<\/title>/);
-  assert.match(html, /PERSONA DRIVER WORKBENCH/);
-  assert.match(html, /原始素材/);
-  assert.match(html, /角色实例/);
+  assert.match(html, /PERSONA DRIVER · PUBLIC TEST/);
+  assert.match(html, /准备变身/);
+  assert.match(html, /领取新手卡包，解锁你的第一组 Persona Card/);
+  assert.doesNotMatch(html, /选择卡包|经典五人卡组|打开选中的卡包/);
   assert.doesNotMatch(html, /public-demo-frame/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview/);
 });
 
-test("includes the isolated Three.js driver and original audio layer", async () => {
-  const [driver, driverAudio, page, packageJson] = await Promise.all([
-    readFile(new URL("../app/driver-scene.tsx", import.meta.url), "utf8"),
+test("includes the layered texture driver and original audio layer", async () => {
+  const [driver, closure, driverAudio, page, packageJson, styles] = await Promise.all([
+    readFile(new URL("../app/driver-texture-scene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/driver-closure-layer.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/driver-audio.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
-  assert.match(packageJson, /"three"/);
-  assert.match(driver, /WebGLRenderer/);
-  assert.match(driver, /getContext\("webgl2"\)/);
-  assert.match(driver, /requestAnimationFrame/);
-  assert.match(driver, /renderer\.dispose\(\)/);
+  assert.doesNotMatch(packageJson, /"three"/);
+  assert.doesNotMatch(driver, /WebGLRenderer|GLTFLoader|getContext\("webgl2"\)/);
   assert.match(driver, /handleProgress/);
-  assert.match(driver, /leftHousing\.position\.x/);
-  assert.match(driver, /GLTFLoader/);
-  assert.match(driver, /models\/persona-driver\/belt\.glb/);
-  assert.match(driver, /models\/persona-driver\/persona-card\.glb/);
-  assert.match(driver, /models\/persona-driver\/energy-rod\.glb/);
-  assert.match(driver, /models\/persona-driver\/skill-rod\.glb/);
-  assert.match(driver, /function scheduleResize\(\)/);
-  assert.match(driver, /width === lastWidth && height === lastHeight/);
+  assert.match(driver, /DriverClosureLayer/);
+  assert.match(closure, /driver-textures\/belt-v1\.png/);
+  assert.match(closure, /data-source="\/driver-textures\/belt-v1\.png"/);
+  assert.match(driver, /DEFAULT_DRIVER_ROD_ASSETS/);
+  assert.match(driver, /texture-persona-card/);
+  assert.match(driver, /texture-driver-rod/);
+  assert.match(driver, /texture-driver-foreground/);
+  assert.doesNotMatch(driver, /driver-human-backdrop/);
+  assert.match(driver, /data-layer="middle"/);
+  assert.match(driver, /data-layer="foreground"/);
+  assert.doesNotMatch(driver, /position:\s*fixed/);
   assert.match(driverAudio, /SpeechSynthesisUtterance/);
   assert.match(driverAudio, /speechSynthesis/);
   assert.match(driverAudio, /createOscillator/);
   assert.match(driverAudio, /createBuffer/);
-  assert.match(driverAudio, /localActivationClipUrls/);
-  assert.match(driverAudio, /localPersonaAnnouncementUrls/);
-  assert.match(driverAudio, /localCommandAnnouncementUrls/);
-  assert.match(driverAudio, /persona-donald-john-trump\.m4a/);
-  assert.match(driverAudio, /command-action\.m4a/);
-  assert.match(driverAudio, /127\.0\.0\.1:8765/);
-  assert.match(driverAudio, /\["localhost", "127\.0\.0\.1"\]/);
-  assert.match(driverAudio, /new Audio\(url\)/);
+  assert.match(driverAudio, /playPackEntrancePreset|stopPackEntrancePreset/);
+  assert.match(driverAudio, /REQUIRED_ANNOUNCER_URL/);
+  assert.match(driverAudio, /persona-driver-announcer-v2-expressive\.m4a/);
+  assert.match(driverAudio, /new Audio\(REQUIRED_ANNOUNCER_URL\)/);
+  assert.match(driverAudio, /LOCAL_CLIP_START_TIMEOUT_MS/);
+  assert.match(driverAudio, /playSynthesizedActivationEffect\(\)/);
+  assert.match(driverAudio, /checkDriverAudioOutput/);
+  assert.match(styles, /\.driver-assembly[\s\S]*aspect-ratio: 1672 \/ 941/);
+  assert.match(styles, /\.driver-assembly[\s\S]*calc\(100vw - 32px\)/);
+  assert.match(styles, /\.interaction-drag-layer[\s\S]*position: fixed/);
+  assert.match(styles, /\.texture-persona-card[\s\S]*transform: translate\(-50%, -50%\)/);
+  assert.match(styles, /\.texture-driver-foreground[\s\S]*inset: 0/);
+  assert.doesNotMatch(styles, /belt-nudge|driver-human-backdrop/);
+  assert.doesNotMatch(styles, /\.texture-driver-held/);
+  assert.doesNotMatch(styles, /\.interaction-hands|\.driver-layer-scene|\.driver-sprite-scene/);
   assert.match(page, /playActivationSequence/);
   assert.match(page, /className="activate-button"/);
   assert.match(page, />启动 Persona Driver<\/button>/);
   assert.match(page, /driver-side-handle/);
+  assert.match(page, /beginItemGrab/);
+  assert.match(page, /querySelector<HTMLElement>\("\.driver-assembly"\)/);
+  assert.match(page, /getBoundingClientRect/);
+  assert.match(page, /driver-drop-guides/);
+  assert.match(page, /DriverTextureScene/);
+  assert.match(page, /InteractionDragLayer/);
+  assert.match(page, /ACTIVATION_HISTORY_KEY/);
+  assert.match(page, /PACK_PROGRESS_KEY/);
+  assert.match(page, /readPackProgress/);
+  assert.match(page, /viewedEntranceIds/);
+  assert.match(page, /localStorage/);
+  assert.match(page, /activation-history-panel/);
+  assert.match(page, /http:\/\/127\.0\.0\.1:8766/);
+  assert.match(page, /runSystemCheck/);
+  assert.match(page, /system-check-panel/);
+  assert.match(page, /前期资料/);
+  assert.match(page, /中间流程/);
+  assert.match(page, /最终接入/);
+  assert.doesNotMatch(page, /InteractionHands/);
+  assert.doesNotMatch(page, /driver-human-backdrop/);
+  assert.doesNotMatch(page, /driver-rod-id/);
+  assert.doesNotMatch(page, /onDragOver|onDrop/);
+  assert.match(page, /onDragStart=\{\(event\) => event\.preventDefault\(\)\}/);
+  assert.match(page, /拖入能量棒与技能棒/);
+  assert.match(page, /energyRodEquipped=/);
+  assert.match(page, /skillRodEquipped=/);
   assert.match(page, /announcerName: "Donald John Trump"/);
   assert.match(page, /skillName: "trump-perspective"/);
-  assert.match(page, /persona\.navi-run\/v1/);
-  assert.match(page, /Navi 对话/);
+  assert.match(page, /buildPersonaNaviRodRequest/);
+  assert.match(page, /RunResultSheet/);
+  assert.doesNotMatch(page, /<pre>\{naviRun\.contentMarkdown\}/);
+  assert.match(page, /乔布斯盖茨 D5 大会对话/);
+  assert.match(page, /梁文道《活着（二）》/);
   assert.match(page, /payload\.code === "INVALID_REQUEST_TOKEN"/);
-  assert.match(page, /workbench-card-art-image/);
-  assert.match(page, /personas\/naval\.jpg/);
-  assert.match(page, /personas\/elon-musk\.jpg/);
-  assert.match(page, /personas\/steve-jobs\.jpg/);
-  assert.match(page, /personas\/donald-trump\.jpg/);
-  assert.match(page, /personas\/paul-graham\.jpg/);
+  assert.match(page, /BRIDGE_OFFLINE/);
+  assert.match(page, /本地运行时未启动，请重启开发服务/);
+  assert.doesNotMatch(page, /评审假面骑事工作台的首次使用路径/);
+  assert.match(page, /PersonaCardShelf/);
+  assert.doesNotMatch(page, /entranceKey=\{screen\}|workbench-empty-shelf/);
+  assert.match(page, /personas\/naval-action-masked-v3\.jpg/);
+  assert.match(page, /personas\/elon-musk-action-masked-v3\.jpg/);
+  assert.match(page, /personas\/steve-jobs-action-masked-v3\.jpg/);
+  assert.match(page, /personas\/donald-trump-action-masked-v3\.jpg/);
+  assert.match(page, /personas\/paul-graham-action-masked-v3\.jpg/);
+  assert.match(page, /brand\/persona-gate-logo-v1-(32|64)\.png/);
+  assert.match(page, /className="sealed-pack-logo" src="\/brand\/persona-gate-logo-v1-256\.png"/);
+  assert.doesNotMatch(page, /className="sealed-pack"[^\n]*PersonaCardBack/);
+  assert.match(page, /pack-reveal-back"><PersonaCardBack \/>/);
+  assert.doesNotMatch(page, /sealed-pack-back|sealed-pack[\s\S]*persona-card-back-base/);
+  assert.doesNotMatch(page, /pack-option-mark|pack-reveal-back.*<i/);
+  assert.doesNotMatch(page, /material-tray|command-card|mission-field/);
+  assert.match(page, /openStarterPack|tearStarterPack|deal-cards/);
+  assert.match(page, /已获得新手卡包|撕开卡包|收下卡牌，进入工作台/);
+  assert.match(page, /dealRunRef/);
+  assert.match(page, /prefers-reduced-motion/);
+  assert.doesNotMatch(page, /选择卡包|经典五人卡组|打开选中的卡包/);
+  assert.doesNotMatch(page, /pack-choice/);
+  assert.match(page, /personas-motion\/naval\.mp4/);
+  assert.match(page, /personas-motion\/elon-musk\.mp4/);
+  assert.match(page, /personas-motion-v3-intense\/steve-jobs-action-masked-intense-v3\.mp4/);
+  assert.match(page, /personas-motion-v3-intense\/donald-trump-action-masked-intense-v3\.mp4/);
+  assert.match(page, /personas-motion-v3-intense\/paul-graham-action-masked-intense-v3\.mp4/);
+  assert.match(page, /pack-entrance-video|finishPackReveal|revealPackCard/);
+  assert.doesNotMatch(page, /personas-motion-v3-intense\/(naval|elon-musk)-action-masked-intense-v3\.mp4/);
+  assert.match(page, /function restartExperience\(\)/);
+  assert.match(page, /重新开始当前体验，不清除唤起记录/);
+  assert.match(page, /localStorage\.removeItem\(PACK_PROGRESS_KEY\)/);
+  assert.match(page, /setDragPointer\(\{ x: 0, y: 0 \}\)/);
+  assert.match(page, /suppressInspectRef\.current = null/);
+  assert.match(page, /handleDragRef\.current = null/);
+  assert.match(page, /handleMovedRef\.current = false/);
+  assert.match(page, /suppressHandleClickRef\.current = false/);
+  assert.doesNotMatch(page, /restartPackExperience/);
+  assert.match(page, /id: "decision", label: "决策", code: "DECISION"/);
+  assert.doesNotMatch(page, /id: "decide"/);
+  assert.match(page, /const selectedMaterialIds = selectedMaterial \? \[selectedMaterial\.id\] : \[\]/);
+  assert.match(page, /PersonaCardEditor/);
+  assert.match(page, /RodInjectorPanel/);
+  assert.match(page, /卡片可编辑\/展示，但需映射 Skill 后才能唤起 YouNavi/);
+  assert.match(styles, /\.pack-reveal-grid[\s\S]*width: 100%/);
+  assert.match(styles, /\.pack-entrance[\s\S]*position: fixed/);
+  assert.match(styles, /\.pack-entrance-video[\s\S]*object-fit: contain/);
+  assert.match(styles, /\.pack-entrance-copy\.is-visible/);
 });
 
-test("ships the interactive demo asset", async () => {
-  const html = await readFile(new URL("../public/persona-atlas.html", import.meta.url), "utf8");
-  assert.match(html, /feishu-persona-atlas/);
-  assert.match(html, /开始构建图鉴/);
-  assert.match(html, /假面骑事/);
-  assert.match(html, /hero-personas\.png/);
-  assert.match(html, /纳瓦尔/);
-  assert.match(html, /埃隆·马斯克/);
-  assert.match(html, /史蒂夫·乔布斯/);
-  assert.match(html, /唐纳德·特朗普/);
-  assert.match(html, /Paul Graham/);
-  assert.match(html, /恢复 5 张固定卡/);
-  assert.match(html, /打开卡包/);
-  assert.match(html, /构建卡片/);
-  assert.match(html, /data-screen="choice"/);
-  assert.match(html, /data-view="pack"/);
-  assert.match(html, /点击卡牌逐张揭晓/);
-  assert.match(html, /收下卡牌/);
-  assert.match(html, /personas\/naval\.jpg/);
-  assert.match(html, /personas\/elon-musk\.jpg/);
-  assert.match(html, /personas\/steve-jobs\.jpg/);
-  assert.match(html, /personas\/donald-trump\.jpg/);
-  assert.match(html, /personas\/paul-graham\.jpg/);
-  assert.match(html, /PERSONA RIDE \/ MANIFEST/);
-  assert.match(html, /跳过出场/);
-  assert.match(html, /personas-motion\/naval\.mp4/);
-  assert.match(html, /personas-motion\/elon-musk\.mp4/);
-  assert.match(html, /personas-motion\/steve-jobs\.mp4/);
-  assert.match(html, /personas-motion\/donald-trump\.mp4/);
-  assert.match(html, /personas-motion\/paul-graham\.mp4/);
-  assert.match(html, /prefers-reduced-motion: reduce/);
-  assert.match(html, /不代表本人观点/);
-  assert.doesNotMatch(html, /楚云|林岳|周奕|顾遥|沈玥|唐骁|叶澄|许棠/);
-  assert.match(html, /min-height:100dvh/);
-  assert.doesNotMatch(html, /min-height:\s*(720|760|780)px/);
-  assert.doesNotMatch(html, /真实飞书数据/);
-});
-
-test("ships five generated persona illustrations", async () => {
+test("ships five action-masked-v3 baseline persona illustrations", async () => {
   const assets = await Promise.all([
-    readFile(new URL("../public/personas/naval.jpg", import.meta.url)),
-    readFile(new URL("../public/personas/elon-musk.jpg", import.meta.url)),
-    readFile(new URL("../public/personas/steve-jobs.jpg", import.meta.url)),
-    readFile(new URL("../public/personas/donald-trump.jpg", import.meta.url)),
-    readFile(new URL("../public/personas/paul-graham.jpg", import.meta.url)),
+    readFile(new URL("../public/personas/naval-action-masked-v3.jpg", import.meta.url)),
+    readFile(new URL("../public/personas/elon-musk-action-masked-v3.jpg", import.meta.url)),
+    readFile(new URL("../public/personas/steve-jobs-action-masked-v3.jpg", import.meta.url)),
+    readFile(new URL("../public/personas/donald-trump-action-masked-v3.jpg", import.meta.url)),
+    readFile(new URL("../public/personas/paul-graham-action-masked-v3.jpg", import.meta.url)),
   ]);
   for (const asset of assets) assert.ok(asset.byteLength > 100_000);
 });
 
-test("ships five four-second persona entrance videos and matching posters", async () => {
-  const names = ["naval", "elon-musk", "steve-jobs", "donald-trump", "paul-graham"];
-  const assets = await Promise.all(names.flatMap((name) => [
-    readFile(new URL(`../public/personas-motion/${name}.mp4`, import.meta.url)),
-    readFile(new URL(`../public/personas-motion/${name}.jpg`, import.meta.url)),
-  ]));
-  for (let index = 0; index < assets.length; index += 2) {
-    assert.ok(assets[index].byteLength > 1_000_000, `${names[index / 2]} entrance video is unexpectedly small`);
-    assert.ok(assets[index + 1].byteLength > 20_000, `${names[index / 2]} entrance poster is unexpectedly small`);
-  }
+test("ships the sealed-pack logo and keeps the reveal back as the only card back", async () => {
+  const logo = await readFile(new URL("../public/brand/persona-gate-logo-v1-256.png", import.meta.url));
+  assert.ok(logo.byteLength > 1000);
 });
 
-test("ships the original modular Persona Driver models", async () => {
-  const assets = await Promise.all([
-    readFile(new URL("../public/models/persona-driver/belt.glb", import.meta.url)),
-    readFile(new URL("../public/models/persona-driver/persona-card.glb", import.meta.url)),
-    readFile(new URL("../public/models/persona-driver/energy-rod.glb", import.meta.url)),
-    readFile(new URL("../public/models/persona-driver/skill-rod.glb", import.meta.url)),
-  ]);
-  for (const asset of assets) assert.ok(asset.byteLength > 100_000);
+test("ships the required same-origin driver announcer", async () => {
+  const audio = await readFile(new URL("../public/audio/persona-driver-announcer-v2-expressive.m4a", import.meta.url));
+  assert.ok(audio.byteLength > 100_000);
 });
 
-test("includes the isolated Three.js driver and original audio layer", async () => {
-  const [driver, driverAudio, page, packageJson] = await Promise.all([
-    readFile(new URL("../app/driver-scene.tsx", import.meta.url), "utf8"),
+test("uses one generic empty Persona Card slot", async () => {
+  const model = await readFile(new URL("../app/persona-card-model.ts", import.meta.url), "utf8");
+  assert.match(model, /id: "custom-template-empty-v1"/);
+  assert.equal((model.match(/templateId: "empty"/g) ?? []).length, 1);
+});
+
+test("keeps the layered texture driver independent from the audio layer", async () => {
+  const [driver, closure, driverAudio, page, packageJson] = await Promise.all([
+    readFile(new URL("../app/driver-texture-scene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/driver-closure-layer.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/driver-audio.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
-  assert.match(packageJson, /"three"/);
-  assert.match(driver, /WebGLRenderer/);
-  assert.match(driver, /getContext\("webgl2"\)/);
-  assert.match(driver, /requestAnimationFrame/);
-  assert.match(driver, /renderer\.dispose\(\)/);
+  assert.doesNotMatch(packageJson, /"three"/);
+  assert.doesNotMatch(driver, /WebGLRenderer|GLTFLoader|getContext\("webgl2"\)/);
+  assert.match(closure, /texture-driver-belt/);
+  assert.match(driver, /texture-driver-glow/);
   assert.match(driverAudio, /SpeechSynthesisUtterance/);
   assert.match(driverAudio, /speechSynthesis/);
   assert.match(driverAudio, /createOscillator/);
   assert.match(driverAudio, /createBuffer/);
   assert.match(page, /playActivationSequence/);
+});
+
+test("keeps the latest Persona Driver interaction state machine in page wiring", async () => {
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /if \(progress\.packOpened\) setScreen\("deal-cards"\)/);
+  assert.match(page, /setScreen\("deal-cards"\)/);
+  assert.match(page, /packProgressResetRef\.current = true/);
+  assert.match(page, /className=\{rodsRevealed \? "workbench-grid has-rods" : "workbench-grid workbench-empty"\}/);
+  assert.match(page, /\{rodsRevealed && <aside className="rod-tray">/);
+  assert.match(page, /const rodsRevealed = phase === "locked" \|\| phase === "activated"/);
+  assert.match(page, /PersonaCardShelf/);
+  assert.match(page, /PersonaDetailSheet/);
+  assert.doesNotMatch(page, /<PersonaDetailSheet[\s\S]*?onInsert=/);
+  assert.match(page, /onCreateFromTemplate=\{openTemplateCardEditor\}/);
+  assert.match(page, /initialTemplateId=\{cardEditorTemplateId\}/);
+  assert.match(page, /onCardSaved=\{handleCardSaved\}/);
+  assert.match(page, /setCardDetailOpen\(false\);\s+setPhase\("inserting"\)/);
+  assert.doesNotMatch(page, /workbench-card|persona-cards|card-case/);
+  assert.match(page, /run-status-card/);
+  assert.match(page, /RUN_STATUS_CARD_LABELS/);
+  assert.match(page, /继续读取并生成/);
+  assert.match(page, /continueNaviRun/);
+  assert.match(page, /status: "continuing",\s+error: undefined,\s+errorCode: undefined,\s+continuationError: undefined/);
+  assert.match(page, /naviRun\.status === "error" \|\| naviRun\.status === "incomplete"/);
+  assert.match(page, /hasCompleteNaviCoverage/);
+  assert.match(page, /persona-run-contract\.mjs/);
+  assert.match(page, /run-coverage-summary/);
+  assert.match(page, /run-status-details/);
+  assert.match(page, /skillEvidence/);
+  assert.match(page, /nextOffset/);
+  assert.match(page, /onClick=\{openResultSheet\}/);
+  assert.match(page, /onClick=\{retryNaviRun\}/);
+  assert.match(page, /resultSheetOpen/);
+  assert.doesNotMatch(page, /selectedPersona && manifested/);
+  assert.match(page, /PERSONA_CARD_TEMPLATE_CARDS/);
+  assert.match(page, /templateCards=\{PERSONA_CARD_TEMPLATE_CARDS\}/);
+  assert.match(page, /onDragStart=\{\(item, event\) => beginItemGrab/);
+  assert.match(page, /PersonaManagementPage/);
+  assert.match(page, /initialSection=\{managementSection\}/);
+  assert.match(page, /aria-label="打开管理中心"/);
+  assert.match(page, /openManagement\("cards"\)/);
+  assert.doesNotMatch(page, /card-management/);
+  assert.match(page, /if \(equipped\) return null/);
+  assert.match(page, /setInjector\(rod\.id\)/);
+  assert.match(page, /if \(item\.kind === "rod" && target === item\.id\)/);
 });

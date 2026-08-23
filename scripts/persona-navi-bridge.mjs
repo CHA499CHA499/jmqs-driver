@@ -1,5 +1,6 @@
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import { createServer } from "node:http";
+import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -7,21 +8,53 @@ import {
   PersonaNaviError,
   createPersonaRunService,
   inspectInstalledSkills,
-  inspectPresetMaterials,
+  inspectSourceMaterials,
   openYouNavi,
   resolveAgentCli,
+  MAX_REQUEST_BODY_BYTES,
 } from "./persona-navi-bridge-lib.mjs";
+import {
+  createPersonaSoulRunService,
+  inspectCreateSoulSkill,
+} from "./persona-soul-bridge-lib.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_DIR = path.resolve(SCRIPT_DIR, "..");
+
+try {
+  process.loadEnvFile(path.join(PROJECT_DIR, ".env.local"));
+} catch (error) {
+  if (error?.code !== "ENOENT") throw error;
+}
+
+const LOCAL_ROOT = path.join(PROJECT_DIR, ".local");
 const PORT = Number.parseInt(process.env.PERSONA_NAVI_BRIDGE_PORT || "8766", 10);
+const HOST = "127.0.0.1";
 const RUN_ROOT = path.resolve(process.env.PERSONA_NAVI_RUN_ROOT || path.join(PROJECT_DIR, ".persona-runs"));
-const SKILLS_DIR = path.resolve(process.env.PERSONA_NAVI_SKILLS_DIR || "/Users/zqnw/navi-ai/CHA499/skills");
-const PRESET_ROOT = path.resolve(process.env.PERSONA_NAVI_PRESET_ROOT || path.join(PROJECT_DIR, "presets"));
+const SKILLS_DIR = path.resolve(process.env.PERSONA_NAVI_SKILLS_DIR || path.join(LOCAL_ROOT, "skills"));
+const MATERIAL_ROOT = path.resolve(
+  process.env.PERSONA_NAVI_MATERIAL_ROOT
+    || process.env.PERSONA_NAVI_PRESET_ROOT
+    || path.join(LOCAL_ROOT, "materials"),
+);
 const REQUEST_TOKEN = randomBytes(24).toString("base64url");
 const TOKEN_HEADER = "x-persona-navi-token";
+const EVENT_LOG_FILE = path.join(RUN_ROOT, "bridge-events.ndjson");
+const SOUL_RUN_ROOT = path.join(RUN_ROOT, "soul");
+const SOUL_WORKSPACE_ROOT = path.resolve(process.env.PERSONA_NAVI_SOUL_WORKSPACE_ROOT || path.join(LOCAL_ROOT, "soul-workspace"));
+// A 1 MiB UTF-8 document can expand when JSON escapes quotes/control chars or
+// carries multibyte characters. Keep a finite envelope for JSON overhead.
+export const REQUEST_BODY_LIMIT_BYTES = MAX_REQUEST_BODY_BYTES;
 const ALLOWED_ORIGINS = new Set(["http://localhost:3000", "http://127.0.0.1:3000"]);
-const service = createPersonaRunService({ runRoot: RUN_ROOT, skillsDir: SKILLS_DIR, presetRoot: PRESET_ROOT });
+const service = createPersonaRunService({ runRoot: RUN_ROOT, skillsDir: SKILLS_DIR, materialRoot: MATERIAL_ROOT });
+const soulService = createPersonaSoulRunService({ runRoot: SOUL_RUN_ROOT, workspaceRoot: SOUL_WORKSPACE_ROOT, skillsDir: SKILLS_DIR, materialRoot: MATERIAL_ROOT });
+
+async function logBridgeEvent(event, extra = {}) {
+  try {
+    await mkdir(RUN_ROOT, { recursive: true });
+    await appendFile(EVENT_LOG_FILE, `${JSON.stringify({ ts: new Date().toISOString(), pid: process.pid, event, ...extra })}\n`);
+  } catch { /* Observability must not block the Bridge response. */ }
+}
 
 function requestOrigin(req) {
   return String(req.headers.origin || "").trim().toLowerCase();
@@ -41,11 +74,13 @@ function tokenMatches(actual) {
 function assertBrowserRequest(req, { token = true } = {}) {
   if (!allowedHost(req)) throw new PersonaNaviError("请求 Host 不是本机 Bridge", { code: "INVALID_LOCAL_HOST", status: 403 });
   const origin = requestOrigin(req);
-  if (origin && !ALLOWED_ORIGINS.has(origin)) {
+  const originAllowed = ALLOWED_ORIGINS.has(origin);
+  if (origin && !originAllowed) {
     throw new PersonaNaviError("页面来源不在 Bridge 白名单", { code: "INVALID_REQUEST_ORIGIN", status: 403 });
   }
   const fetchSite = String(req.headers["sec-fetch-site"] || "").trim().toLowerCase();
-  if (fetchSite && !["same-origin", "same-site", "none"].includes(fetchSite)) {
+  const loopbackAliasPair = fetchSite === "cross-site" && originAllowed && allowedHost(req);
+  if (fetchSite && !["same-origin", "same-site", "none"].includes(fetchSite) && !loopbackAliasPair) {
     throw new PersonaNaviError("拒绝跨站调用本机 Bridge", { code: "CROSS_SITE_REQUEST", status: 403 });
   }
   if (token && !tokenMatches(req.headers[TOKEN_HEADER])) {
@@ -72,17 +107,19 @@ function sendJson(req, res, status, value) {
     "Content-Type": "application/json; charset=utf-8",
     "Content-Length": Buffer.byteLength(body),
     "Cache-Control": "no-store",
-    "Cross-Origin-Resource-Policy": "same-site",
+    // localhost:3000 ↔ 127.0.0.1:8766 is a deliberate CORS alias pair.
+    // Never send cross-origin CORP to an unapproved Origin.
+    "Cross-Origin-Resource-Policy": ALLOWED_ORIGINS.has(requestOrigin(req)) ? "cross-origin" : "same-site",
   });
   res.end(body);
 }
 
-async function readJsonBody(req, limit = 256 * 1024) {
+async function readJsonBody(req, limit = REQUEST_BODY_LIMIT_BYTES) {
   const chunks = [];
   let size = 0;
   for await (const chunk of req) {
     size += chunk.length;
-    if (size > limit) throw new PersonaNaviError("请求体超过 256KB", { code: "REQUEST_TOO_LARGE", status: 413 });
+    if (size > limit) throw new PersonaNaviError("请求体超过 4.125 MiB", { code: "REQUEST_TOO_LARGE", status: 413 });
     chunks.push(chunk);
   }
   try {
@@ -103,9 +140,10 @@ const server = createServer(async (req, res) => {
     const url = new URL(req.url || "/", `http://localhost:${PORT}`);
     if (url.pathname === "/health" && req.method === "GET") {
       assertBrowserRequest(req, { token: false });
-      const [skills, presets, cli] = await Promise.all([
+      const [skills, materials, createSoul, cli] = await Promise.all([
         inspectInstalledSkills(SKILLS_DIR),
-        inspectPresetMaterials(PRESET_ROOT),
+        inspectSourceMaterials(MATERIAL_ROOT),
+        inspectCreateSoulSkill(SKILLS_DIR),
         resolveAgentCli().then(() => true).catch(() => false),
       ]);
       sendJson(req, res, 200, {
@@ -114,19 +152,48 @@ const server = createServer(async (req, res) => {
         token: REQUEST_TOKEN,
         cliAvailable: cli,
         skills,
-        presets,
+        materials,
+        soul: { createSoul },
       });
+      return;
+    }
+    if (url.pathname === "/soul-runs" && req.method === "POST") {
+      assertBrowserRequest(req);
+      const body = await readJsonBody(req);
+      await logBridgeEvent("soul-request-created", { code: "SOUL_RUN_REQUEST", runId: typeof body?.runId === "string" ? body.runId : undefined });
+      sendJson(req, res, 200, await soulService.createRun(body));
+      return;
+    }
+    const soulRunMatch = url.pathname.match(/^\/soul-runs\/(psoul-[a-z0-9-]{12,72})$/i);
+    if (soulRunMatch && req.method === "GET") {
+      assertBrowserRequest(req);
+      sendJson(req, res, 200, await soulService.readRun(soulRunMatch[1]));
+      return;
+    }
+    const soulOpenMatch = url.pathname.match(/^\/soul-runs\/(psoul-[a-z0-9-]{12,72})\/open$/i);
+    if (soulOpenMatch && req.method === "POST") {
+      assertBrowserRequest(req);
+      sendJson(req, res, 200, await openYouNavi());
       return;
     }
     if (url.pathname === "/runs" && req.method === "POST") {
       assertBrowserRequest(req);
-      sendJson(req, res, 200, await service.createRun(await readJsonBody(req)));
+      const body = await readJsonBody(req);
+      await logBridgeEvent("request-created", { code: "RUN_REQUEST", runId: typeof body?.runId === "string" ? body.runId : undefined });
+      sendJson(req, res, 200, await service.createRun(body));
       return;
     }
     const runMatch = url.pathname.match(/^\/runs\/(prun-[a-z0-9-]{12,72})$/i);
     if (runMatch && req.method === "GET") {
       assertBrowserRequest(req);
       sendJson(req, res, 200, await service.readRun(runMatch[1]));
+      return;
+    }
+    const continueMatch = url.pathname.match(/^\/runs\/(prun-[a-z0-9-]{12,72})\/continue$/i);
+    if (continueMatch && req.method === "POST") {
+      assertBrowserRequest(req);
+      await logBridgeEvent("request-created", { code: "RUN_CONTINUATION", runId: continueMatch[1] });
+      sendJson(req, res, 200, await service.continueRun(continueMatch[1]));
       return;
     }
     const openMatch = url.pathname.match(/^\/runs\/(prun-[a-z0-9-]{12,72})\/open$/i);
@@ -138,6 +205,7 @@ const server = createServer(async (req, res) => {
     sendJson(req, res, 404, { ok: false, code: "NOT_FOUND", error: "Route not found" });
   } catch (error) {
     const known = error instanceof PersonaNaviError;
+    await logBridgeEvent(known && error.status === 403 ? "auth-denied" : "error", { code: known ? error.code : "PERSONA_NAVI_INTERNAL" });
     sendJson(req, res, known ? error.status : 500, {
       ok: false,
       code: known ? error.code : "PERSONA_NAVI_INTERNAL",
@@ -146,10 +214,11 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, "localhost", () => {
-  process.stdout.write(`Persona Navi Bridge: http://localhost:${PORT}\n`);
+server.listen(PORT, HOST, () => {
+  void logBridgeEvent("listening", { code: "BRIDGE_LISTENING", port: PORT });
+  process.stdout.write(`Persona Navi Bridge: http://${HOST}:${PORT}\n`);
 });
 
 for (const signal of ["SIGINT", "SIGTERM"]) {
-  process.on(signal, () => server.close(() => process.exit(0)));
+  process.on(signal, () => { void logBridgeEvent("shutdown", { code: "BRIDGE_SHUTDOWN", signal }).finally(() => server.close(() => process.exit(0))); });
 }

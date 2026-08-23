@@ -1,19 +1,46 @@
 "use client";
 
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import {
+  checkDriverAudioOutput,
   playActivationSequence,
   playCardInsertSound,
   playCardSelectSound,
-  playCommandSelectSound,
+  playPackEntrancePreset,
   stopDriverAudio,
+  stopPackEntrancePreset,
 } from "./driver-audio";
 import type { DriverPhase } from "./driver-scene";
-
-const DriverScene = lazy(() =>
-  import("./driver-scene").then((module) => ({ default: module.DriverScene })),
-);
+import { DriverTextureScene } from "./driver-texture-scene";
+import { InteractionDragLayer } from "./interaction-drag-layer";
+import { PersonaCardEditor } from "./persona-card-editor";
+import { PersonaCardShelf } from "./persona-card-shelf";
+import { PersonaCardBack } from "./persona-card-back";
+import { PersonaDetailSheet } from "./persona-detail-sheet";
+import { PersonaManagementPage } from "./persona-management-page";
+import { SoulCardWizard } from "./soul-card-wizard";
+import { RunResultSheet } from "./run-result-sheet";
+import { WaitingVideoPanel } from "./waiting-video-panel";
+import { humanizeSourceDisplayName } from "./run-result-presentation.mjs";
+import { isCompleteRunCoverage, normalizeRunError, PERSONA_RUN_STATUS_LABELS } from "./persona-run-contract.mjs";
+import type { PersonaManagementSection } from "./persona-management-model";
+import {
+  toDriverPersona,
+  toPersonaCard,
+  normalizePersonaCardCollection,
+  PERSONA_CARD_TEMPLATE_CARDS,
+  type PersonaCard,
+  type PersonaCardBaseline,
+} from "./persona-card-model";
+import RodInjectorPanel from "./rod-injector-panel";
+import {
+  buildPersonaNaviRodRequest,
+  createEmptyRodState,
+  migrateRodState,
+  type RodContentState,
+  type SkillPresetId,
+} from "./rod-content-model";
 
 interface Persona {
   id: string;
@@ -24,8 +51,10 @@ interface Persona {
   code: string;
   color: string;
   image: string;
+  motion?: string;
+  motionPoster?: string;
   summary: string;
-  tags: string[];
+  tags: readonly string[];
 }
 
 const PERSONAS: Persona[] = [
@@ -37,7 +66,9 @@ const PERSONAS: Persona[] = [
     role: "长期主义策略师",
     code: "LEVERAGE ARCHITECT",
     color: "#d8b25c",
-    image: "/personas/naval.jpg",
+    image: "/personas/naval-action-masked-v3.jpg",
+    motion: "/personas-motion/naval.mp4",
+    motionPoster: "/personas-motion/naval.jpg",
     summary: "从长期复利、杠杆和独立判断出发，检查任务是否值得持续投入。",
     tags: ["长期主义", "杠杆", "判断"],
   },
@@ -49,7 +80,9 @@ const PERSONAS: Persona[] = [
     role: "第一性原理工程师",
     code: "FIRST PRINCIPLE",
     color: "#ef3048",
-    image: "/personas/elon-musk.jpg",
+    image: "/personas/elon-musk-action-masked-v3.jpg",
+    motion: "/personas-motion/elon-musk.mp4",
+    motionPoster: "/personas-motion/elon-musk.jpg",
     summary: "把复杂问题拆回物理约束、成本边界和可执行工程步骤。",
     tags: ["第一性原理", "工程", "速度"],
   },
@@ -61,7 +94,8 @@ const PERSONAS: Persona[] = [
     role: "产品体验主理人",
     code: "FOCUS EDITOR",
     color: "#d7dde5",
-    image: "/personas/steve-jobs.jpg",
+    image: "/personas/steve-jobs-action-masked-v3.jpg",
+    motion: "/personas-motion-v3-intense/steve-jobs-action-masked-intense-v3.mp4",
     summary: "聚焦用户真正感知的价值，删掉多余功能，强化产品叙事与整体体验。",
     tags: ["产品", "审美", "聚焦"],
   },
@@ -73,7 +107,8 @@ const PERSONAS: Persona[] = [
     role: "注意力谈判者",
     code: "DEAL MAKER",
     color: "#e86836",
-    image: "/personas/donald-trump.jpg",
+    image: "/personas/donald-trump-action-masked-v3.jpg",
+    motion: "/personas-motion-v3-intense/donald-trump-action-masked-intense-v3.mp4",
     summary: "从筹码、声量和谈判位置出发，判断如何获得更主动的局面。",
     tags: ["谈判", "传播", "筹码"],
   },
@@ -85,46 +120,104 @@ const PERSONAS: Persona[] = [
     role: "创业问题诊断师",
     code: "FOUNDER SIGNAL",
     color: "#7ba6d9",
-    image: "/personas/paul-graham.jpg",
+    image: "/personas/paul-graham-action-masked-v3.jpg",
+    motion: "/personas-motion-v3-intense/paul-graham-action-masked-intense-v3.mp4",
     summary: "识别真正的问题和用户信号，避免用复杂方案掩盖尚未成立的需求。",
     tags: ["创业", "写作", "用户"],
   },
 ];
 
 const MATERIALS = [
-  { id: "roadmap", name: "产品路线图.md", meta: "本机预设 · 产品" },
-  { id: "feedback", name: "用户反馈汇总.md", meta: "本机预设 · 研究" },
-  { id: "meeting", name: "首次体验评审纪要.md", meta: "本机预设 · 会议" },
-  { id: "metrics", name: "转化指标口径.md", meta: "本机预设 · 数据" },
+  { id: "jobs-gates-d5", name: "乔布斯盖茨 D5 大会对话", displayName: "乔布斯与比尔·盖茨 D5 大会访谈原文", technicalName: "FuVenture_乔布斯盖茨D5大会对话_转写文本.txt", meta: "100 KB · 乔布斯 × 盖茨" },
+  { id: "jobs-1990", name: "乔布斯访谈 1990", displayName: "史蒂夫·乔布斯 1990 访谈原文", technicalName: "乔布斯访谈1990_转写文本.txt", meta: "59 KB · Steve Jobs" },
+  { id: "gates-ted", name: "比尔·盖茨 TED Interview", displayName: "比尔·盖茨 TED 访谈原文", technicalName: "比尔盖茨_TED_Interview_原转写.txt", meta: "45 KB · Bill Gates" },
+  { id: "liang-alive", name: "梁文道《活着（二）》", displayName: "梁文道《一千零一夜：活着（二）》转写原文", technicalName: "梁文道_一千零一夜_活着二_转写文本.txt", meta: "28 KB · 梁文道" },
 ];
 
 const COMMANDS = [
   { id: "explain", label: "解释", code: "EXPLAIN", description: "补齐背景和历史逻辑" },
   { id: "review", label: "评审", code: "REVIEW", description: "检查方案与明显风险" },
-  { id: "decide", label: "决策", code: "DECIDE", description: "比较选项和代价" },
+  { id: "decision", label: "决策", code: "DECISION", description: "比较选项和代价" },
   { id: "action", label: "行动", code: "ACTION", description: "整理下一步与责任" },
+  { id: "custom", label: "自定义", code: "CUSTOM", description: "编辑本轮要交给角色的 Prompt" },
 ];
 
-const OUTPUTS: Record<string, string[]> = {
-  explain: ["当前方案试图一次完成建卡、组队和执行，用户第一分钟认知负担较高。", "建议先让用户完成一次单人召唤，再逐步出现多卡能力。"],
-  review: ["中央 Driver 已成为明确主操作，但素材台和卡盒需要更强的状态反馈。", "首版应锁定单人卡 + 单指令卡，暂不加入多人辩论。", "所有判断都要能返回所选素材证据。"],
-  decide: ["方案 A：保持卡片画廊，开发成本低但任务感弱。", "方案 B：中央 Driver 工作台，仪式感和任务闭环更强。", "建议选择方案 B，并控制 3D 只服务插卡和启动。"],
-  action: ["确定 Driver 原创几何和音效语法。", "接入 YouNavi FileItem 多选素材投影。", "增加 Persona Card 与 Command Card 运行记录。"],
+const DRIVER_RODS = [
+  { id: "energy", code: "ENERGY ROD", label: "能量棒", description: "装载能量与强化等级" },
+  { id: "skill", code: "SKILL ROD", label: "技能棒", description: "装载招式与执行指令" },
+] as const;
+
+type DriverRodId = (typeof DRIVER_RODS)[number]["id"];
+type DriverDropTarget = "persona" | "energy" | "skill" | null;
+type HeldWorkbenchItem = { kind: "persona" | "rod"; id: string; label: string; detail: string; image?: string; color?: string };
+
+const DRIVER_ROD_DROP_BOUNDS: Record<DriverRodId, { left: number; right: number; top: number; bottom: number }> = {
+  energy: { left: 0.2417, right: 0.3093, top: 0.239, bottom: 0.761 },
+  skill: { left: 0.6907, right: 0.7583, top: 0.239, bottom: 0.761 },
 };
 
-const NAVI_BRIDGE_URL = "http://localhost:8766";
+interface RodState {
+  content: RodContentState;
+  /** Compatibility bridge for the original fixed material/preset path. */
+  fixedMaterialId: string | null;
+  fixedPresetId: SkillPresetId | null;
+}
 
-type NaviRunStatus = "idle" | "creating" | "pending" | "running" | "completed" | "error" | "demo";
+function emptyRodState(kind: "energy" | "skill"): RodState {
+  return { content: createEmptyRodState(kind), fixedMaterialId: null, fixedPresetId: null };
+}
+
+function buildPersonaTask(command: { id: string }, sourceName: string, customPrompt?: string): string {
+  if (command.id === "custom") return customPrompt?.trim() || "基于所选素材完成本次分析。";
+  const tasks: Record<string, string> = {
+    review: `评审所选素材《${sourceName}》中的观点、成立条件、风险和需补证部分。`,
+    explain: `解释所选素材《${sourceName}》的背景、关键概念、因果链和历史逻辑。`,
+    decision: `基于所选素材《${sourceName}》比较方案、代价和不可逆风险并给出建议。`,
+    action: `基于所选素材《${sourceName}》提炼行动、负责人、验收标准与风险。`,
+  };
+  return tasks[command.id] ?? `基于所选素材《${sourceName}》完成本次分析。`;
+}
+
+const NAVI_BRIDGE_URL = "http://127.0.0.1:8766";
+const ACTIVATION_HISTORY_KEY = "persona-driver.activation-history.v1";
+const ACTIVATION_HISTORY_LIMIT = 50;
+const PACK_PROGRESS_KEY = "persona-driver.pack-progress.v1";
+const DRIVER_ACTIVATION_MOTION_ENABLED = false;
+
+type NaviRunStatus = "idle" | "creating" | "continuing" | "pending" | "running" | "completed" | "incomplete" | "error" | "demo";
+type AppScreen = "cover" | "starter-pack" | "deal-cards" | "workbench" | "management";
+type SystemCheckStatus = "idle" | "checking" | "pass" | "warning" | "fail";
+type ActivationMotionStatus = "idle" | "loading" | "playing" | "ended" | "error" | "skipped";
 
 const NAVI_RUN_LABELS: Record<NaviRunStatus, string> = {
   idle: "待机",
   creating: "正在创建",
+  continuing: "正在继续读取",
   pending: "已入队",
   running: "执行中",
   completed: "已完成",
+  incomplete: "读取不完整",
   error: "需要处理",
   demo: "演示模式",
 };
+
+const RUN_STATUS_CARD_LABELS: Record<NaviRunStatus, string> = {
+  ...PERSONA_RUN_STATUS_LABELS,
+};
+
+interface NaviCoverageItem {
+  mode: string;
+  sourceName: string;
+  technicalName?: string;
+  path?: string;
+  sha256?: string;
+  bytes?: number;
+  readLines?: number | null;
+  totalLines?: number | null;
+  nextOffset?: number;
+  eof?: boolean;
+  reason?: string | null;
+}
 
 interface NaviRunState {
   status: NaviRunStatus;
@@ -132,9 +225,61 @@ interface NaviRunState {
   taskId?: string;
   conversationId?: string;
   contentMarkdown?: string;
+  task?: string;
+  commandId?: string;
+  coverage?: NaviCoverageItem[];
+  metadata?: {
+    title?: string;
+    task?: string;
+    persona?: { id?: string | null; displayName?: string | null; skillName?: string | null };
+    command?: { id?: string | null; code?: string | null; label?: string | null; instruction?: string | null };
+    source?: { displayName?: string; technicalName?: string | null; path?: string | null; sha256?: string | null };
+  };
   error?: string;
+  errorCode?: string;
+  continuationError?: string;
+  continuationBlocked?: boolean;
+  skillEvidence?: { expectedSkill?: string | null; activatedSkills?: string[]; slashSkills?: string[]; eventTypes?: string[]; summary?: string };
   openError?: string;
 }
+
+interface ActivationHistoryRecord {
+  id: string;
+  createdAt: string;
+  personaId: string;
+  personaName: string;
+  commandId: string;
+  commandCode: string;
+  status: NaviRunStatus;
+  runId?: string;
+  taskId?: string;
+  conversationId?: string;
+  error?: string;
+  errorCode?: string;
+  openError?: string;
+}
+
+interface PackProgressRecord {
+  version: 1;
+  selectedPackId: "classic-five" | "starter" | null;
+  packOpened: boolean;
+  revealedPackIds: string[];
+  viewedEntranceIds: string[];
+}
+
+interface SystemCheckItem {
+  id: "sources" | "flow" | "handoff";
+  label: string;
+  status: SystemCheckStatus;
+  detail: string;
+}
+
+const INITIAL_SYSTEM_CHECKS: SystemCheckItem[] = [
+  { id: "sources", label: "前期资料", status: "idle", detail: "尚未检查固定人物卡与原始转写说明。" },
+  { id: "flow", label: "中间流程", status: "idle", detail: "尚未检查卡片、腰带、双棒和音频反馈。" },
+  { id: "handoff", label: "最终接入", status: "idle", detail: "尚未检查本机 Navi Bridge。" },
+];
+
 
 function createPersonaRunId(): string {
   const value = typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -147,58 +292,550 @@ function isLocalPersonaRuntime(): boolean {
   return typeof window !== "undefined" && ["localhost", "127.0.0.1"].includes(window.location.hostname);
 }
 
+function hasCompleteNaviCoverage(coverage: NaviCoverageItem[] | undefined): boolean {
+  return isCompleteRunCoverage(coverage);
+}
+
+function readActivationHistory(): ActivationHistoryRecord[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const value = JSON.parse(window.localStorage.getItem(ACTIVATION_HISTORY_KEY) ?? "[]");
+    if (!Array.isArray(value)) return [];
+    return value.filter((entry): entry is ActivationHistoryRecord => Boolean(entry && typeof entry.id === "string" && typeof entry.createdAt === "string" && typeof entry.personaName === "string" && typeof entry.commandCode === "string" && typeof entry.status === "string")).slice(0, ACTIVATION_HISTORY_LIMIT);
+  } catch {
+    return [];
+  }
+}
+
+function readPackProgress(): PackProgressRecord | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const value = JSON.parse(window.localStorage.getItem(PACK_PROGRESS_KEY) ?? "null");
+    if (value?.version !== 1 || typeof value.packOpened !== "boolean" || !Array.isArray(value.revealedPackIds) || !Array.isArray(value.viewedEntranceIds)) return null;
+    return {
+      version: 1,
+      selectedPackId: value.selectedPackId === "classic-five" || value.selectedPackId === "starter" ? value.selectedPackId : null,
+      packOpened: value.packOpened,
+      revealedPackIds: value.revealedPackIds.filter((id: unknown): id is string => typeof id === "string"),
+      viewedEntranceIds: value.viewedEntranceIds.filter((id: unknown): id is string => typeof id === "string"),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function formatActivationTime(value: string): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "时间未知";
+  return new Intl.DateTimeFormat("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(date);
+}
+
 export default function Home() {
-  const [selectedMaterialIds, setSelectedMaterialIds] = useState<string[]>(["roadmap", "feedback", "meeting"]);
+  const [energyRod, setEnergyRod] = useState<RodState>(() => emptyRodState("energy"));
+  const [skillRod, setSkillRod] = useState<RodState>(() => emptyRodState("skill"));
+  const [injector, setInjector] = useState<"energy" | "skill" | null>(null);
+  const [cardEditorOpen, setCardEditorOpen] = useState(false);
+  const [cardEditorTemplateId, setCardEditorTemplateId] = useState<string | null>(null);
+  const [cardDetailOpen, setCardDetailOpen] = useState(false);
+  const [personaCards, setPersonaCards] = useState<readonly PersonaCard[]>(() => normalizePersonaCardCollection(PERSONAS.map((persona) => toPersonaCard(persona))));
   const [selectedPersonaId, setSelectedPersonaId] = useState<string | null>(null);
-  const [selectedCommandId, setSelectedCommandId] = useState("review");
+  const [screen, setScreen] = useState<AppScreen>("cover");
+  const [managementSection, setManagementSection] = useState<PersonaManagementSection>("prompts");
+  const [selectedPackId, setSelectedPackId] = useState<PackProgressRecord["selectedPackId"]>(null);
+  const [packOpened, setPackOpened] = useState(false);
+  const [revealedPackIds, setRevealedPackIds] = useState<string[]>([]);
+  const [viewedEntranceIds, setViewedEntranceIds] = useState<string[]>([]);
+  const [packEntrancePersonaId, setPackEntrancePersonaId] = useState<string | null>(null);
+  const [entranceCopyVisible, setEntranceCopyVisible] = useState(false);
+  const [activationMotionPersonaId, setActivationMotionPersonaId] = useState<string | null>(null);
+  const [activationMotionStatus, setActivationMotionStatus] = useState<ActivationMotionStatus>("idle");
+  const [activationMotionDiagnostic, setActivationMotionDiagnostic] = useState<string | null>(null);
+  const [packProgressReady, setPackProgressReady] = useState(false);
+  const dealRunRef = useRef(false);
+  const revealedPackIdsRef = useRef<string[]>([]);
+  const soundEnabledRef = useRef(true);
+  const packEntranceVideoRef = useRef<HTMLVideoElement | null>(null);
+  const activationVideoRef = useRef<HTMLVideoElement | null>(null);
   const [phase, setPhase] = useState<DriverPhase>("idle");
-  const [manifested, setManifested] = useState(false);
-  const [task, setTask] = useState("评审假面骑事工作台的首次使用路径");
+  const [resultSheetOpen, setResultSheetOpen] = useState(false);
+  const [waitingVideoOpen, setWaitingVideoOpen] = useState(false);
+  const autoOpenedResultRunIdRef = useRef<string | null>(null);
+  const pendingAutoOpenRunIdRef = useRef<string | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [handleProgress, setHandleProgress] = useState(0);
+  const [equippedRods, setEquippedRods] = useState<Record<DriverRodId, boolean>>({ energy: false, skill: false });
   const [naviRun, setNaviRun] = useState<NaviRunState>({ status: "idle" });
+  const [activationHistory, setActivationHistory] = useState<ActivationHistoryRecord[]>([]);
+  const [historyReady, setHistoryReady] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [systemChecks, setSystemChecks] = useState<SystemCheckItem[]>(INITIAL_SYSTEM_CHECKS);
+  const [systemCheckOpen, setSystemCheckOpen] = useState(false);
+  const [systemChecking, setSystemChecking] = useState(false);
+  const [heldItem, setHeldItem] = useState<HeldWorkbenchItem | null>(null);
+  const [dropTarget, setDropTarget] = useState<DriverDropTarget>(null);
+  const [dragPointer, setDragPointer] = useState({ x: 0, y: 0 });
   const handleProgressRef = useRef(0);
+  const packProgressResetRef = useRef(false);
   const timerRef = useRef<number | null>(null);
   const activationStartedRef = useRef(false);
   const naviTokenRef = useRef<string | null>(null);
   const handleDragRef = useRef<{ side: "left" | "right"; startX: number; startProgress: number } | null>(null);
   const handleMovedRef = useRef(false);
   const suppressHandleClickRef = useRef(false);
+  const driverStageRef = useRef<HTMLElement>(null);
+  const heldItemRef = useRef<HeldWorkbenchItem | null>(null);
+  const grabRef = useRef<{ pointerId: number; startX: number; startY: number; moved: boolean } | null>(null);
+  const dropTargetRef = useRef<DriverDropTarget>(null);
+  const suppressInspectRef = useRef<string | null>(null);
+  const historyButtonRef = useRef<HTMLButtonElement>(null);
+  const systemCheckButtonRef = useRef<HTMLButtonElement>(null);
 
-  const selectedPersona = PERSONAS.find((persona) => persona.id === selectedPersonaId) ?? null;
-  const selectedCommand = COMMANDS.find((command) => command.id === selectedCommandId) ?? COMMANDS[1];
+  const availablePersonas = personaCards.map((card) => toDriverPersona(card));
+  const selectedPersona = availablePersonas.find((persona) => persona.id === selectedPersonaId) ?? null;
+  const selectedPersonaCard = personaCards.find((card) => card.id === selectedPersonaId) ?? null;
+  const selectedMaterial = energyRod.content.charged?.kind === "fixed-material"
+    ? energyRod.content.charged
+    : MATERIALS.find((material) => material.id === energyRod.fixedMaterialId) ?? null;
+  const selectedMaterialDefinition = selectedMaterial ? MATERIALS.find((material) => material.id === selectedMaterial.id) : null;
+  const selectedDocument = energyRod.content.charged?.kind === "document" ? energyRod.content.charged : null;
+  const selectedSourceDisplayName = selectedDocument
+    ? humanizeSourceDisplayName(selectedDocument.name)
+    : selectedMaterialDefinition?.displayName ?? selectedMaterial?.name ?? "本次材料";
+  const selectedSourceTechnicalName = selectedDocument?.name
+    ?? selectedMaterialDefinition?.technicalName
+    ?? selectedMaterial?.name
+    ?? "";
+  const selectedPrompt = skillRod.content.charged?.kind === "prompt"
+    ? skillRod.content.charged
+    : null;
+  const selectedCommand = COMMANDS.find((command) => command.id === (selectedPrompt?.presetId ?? skillRod.fixedPresetId)) ?? null;
+  const selectedMaterialIds = selectedMaterial ? [selectedMaterial.id] : [];
+  const energyCharged = Boolean(energyRod.content.charged?.kind === "document" || energyRod.content.charged?.kind === "fixed-material" || selectedMaterial);
+  const skillCharged = Boolean(skillRod.content.charged?.kind === "prompt");
+  const rodsReady = equippedRods.energy && equippedRods.skill;
+  const rodsRevealed = phase === "locked" || phase === "activated";
+  const equippedRodCount = Number(equippedRods.energy) + Number(equippedRods.skill);
+  const packComplete = revealedPackIds.length === PERSONAS.length;
+  const packEntrancePersona = PERSONAS.find((persona) => persona.id === packEntrancePersonaId) ?? null;
+  const activationMotionPersona = PERSONAS.find((persona) => persona.id === activationMotionPersonaId) ?? null;
 
   function updateHandleProgress(value: number) {
     handleProgressRef.current = value;
     setHandleProgress(value);
   }
 
+  function itemKey(item: HeldWorkbenchItem) {
+    return `${item.kind}:${item.id}`;
+  }
+
+  function updateHeldItem(item: HeldWorkbenchItem | null) {
+    heldItemRef.current = item;
+    setHeldItem(item);
+  }
+
+  function updateDropTarget(target: DriverDropTarget) {
+    if (dropTargetRef.current === target) return;
+    dropTargetRef.current = target;
+    setDropTarget(target);
+  }
+
+  function addActivationHistory(record: ActivationHistoryRecord) {
+    setActivationHistory((current) => [record, ...current.filter((entry) => entry.id !== record.id)].slice(0, ACTIVATION_HISTORY_LIMIT));
+  }
+
+  function updateActivationHistory(id: string, patch: Partial<ActivationHistoryRecord>) {
+    setActivationHistory((current) => current.map((entry) => entry.id === id ? { ...entry, ...patch } : entry));
+  }
+
+  function getDropTarget(clientX: number, clientY: number, item: HeldWorkbenchItem): DriverDropTarget {
+    const stage = driverStageRef.current;
+    if (!stage) return null;
+    const assembly = stage.querySelector<HTMLElement>(".driver-assembly");
+    const rect = assembly?.getBoundingClientRect() ?? stage.getBoundingClientRect();
+    const x = (clientX - rect.left) / rect.width;
+    const y = (clientY - rect.top) / rect.height;
+    if (x < 0 || x > 1 || y < 0 || y > 1) return null;
+    if (item.kind === "persona") return x > 0.42 && x < 0.58 && y > 0.17 && y < 0.83 ? "persona" : null;
+    if (item.kind === "rod" && phase === "locked") {
+      if (item.id !== "energy" && item.id !== "skill") return null;
+      const bounds = DRIVER_ROD_DROP_BOUNDS[item.id];
+      return x > bounds.left && x < bounds.right && y > bounds.top && y < bounds.bottom ? item.id : null;
+    }
+    return null;
+  }
+
+  function beginItemGrab(event: ReactPointerEvent<HTMLElement>, item: HeldWorkbenchItem) {
+    if (event.button !== 0) return;
+    if (item.kind === "persona") setCardDetailOpen(false);
+    event.currentTarget.setPointerCapture(event.pointerId);
+    grabRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, moved: false };
+    setDragPointer({ x: event.clientX, y: event.clientY });
+    updateHeldItem(item);
+    updateDropTarget(getDropTarget(event.clientX, event.clientY, item));
+  }
+
+  function moveItemGrab(event: ReactPointerEvent<HTMLElement>) {
+    const grab = grabRef.current;
+    const item = heldItemRef.current;
+    if (!grab || !item || grab.pointerId !== event.pointerId) return;
+    if (Math.hypot(event.clientX - grab.startX, event.clientY - grab.startY) > 6) grab.moved = true;
+    setDragPointer({ x: event.clientX, y: event.clientY });
+    updateDropTarget(getDropTarget(event.clientX, event.clientY, item));
+  }
+
+  function applyItemDrop(item: HeldWorkbenchItem, target: DriverDropTarget) {
+    if (item.kind === "persona" && target === "persona") {
+      insertPersona(item.id);
+      return;
+    }
+    if (item.kind === "rod" && target === item.id) {
+      equipRod(item.id);
+      return;
+    }
+  }
+
+  function endItemGrab(event: ReactPointerEvent<HTMLElement>) {
+    const grab = grabRef.current;
+    const item = heldItemRef.current;
+    if (!grab || !item || grab.pointerId !== event.pointerId) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    if (grab.moved) {
+      suppressInspectRef.current = itemKey(item);
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    if (item.kind === "persona") setCardDetailOpen(false);
+    if (dropTargetRef.current) applyItemDrop(item, dropTargetRef.current);
+    grabRef.current = null;
+    updateHeldItem(null);
+    setDragPointer({ x: 0, y: 0 });
+    updateDropTarget(null);
+  }
+
+  function consumeSuppressedItemClick(kind: HeldWorkbenchItem["kind"], id: string) {
+    const key = `${kind}:${id}`;
+    if (suppressInspectRef.current !== key) return false;
+    suppressInspectRef.current = null;
+    return true;
+  }
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setActivationHistory(readActivationHistory());
+      setHistoryReady(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const progress = readPackProgress();
+      if (progress) {
+        setSelectedPackId(progress.selectedPackId);
+        setRevealedPackIds(progress.revealedPackIds.filter((id) => PERSONAS.some((persona) => persona.id === id)));
+        setViewedEntranceIds(progress.viewedEntranceIds.filter((id) => PERSONAS.some((persona) => persona.id === id)));
+        setPackOpened(progress.packOpened);
+        if (progress.packOpened) setScreen("deal-cards");
+        else if (progress.selectedPackId) setScreen("starter-pack");
+      }
+      setPackProgressReady(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    revealedPackIdsRef.current = revealedPackIds;
+  }, [revealedPackIds]);
+
+  useEffect(() => {
+    soundEnabledRef.current = soundEnabled;
+  }, [soundEnabled]);
+
+  useEffect(() => {
+    if (screen !== "deal-cards" || !packOpened || packComplete || dealRunRef.current) return;
+    dealRunRef.current = true;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const missing = PERSONAS.filter((persona) => !revealedPackIdsRef.current.includes(persona.id));
+    const timers = missing.map((persona, index) => window.setTimeout(() => {
+      if (soundEnabledRef.current) {
+        try { playCardInsertSound(); } catch { /* Audio feedback is optional. */ }
+      }
+    }, index * 180));
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [packOpened, packComplete, screen]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setEntranceCopyVisible(Boolean(packEntrancePersonaId)), packEntrancePersonaId ? 240 : 0);
+    return () => window.clearTimeout(timer);
+  }, [packEntrancePersonaId]);
+
+  useEffect(() => {
+    if (!packEntrancePersonaId) return;
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") finishPackReveal(packEntrancePersonaId);
+    };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [packEntrancePersonaId]);
+
+  useEffect(() => {
+    const video = activationVideoRef.current;
+    return () => { if (video) video.pause(); };
+  }, [activationMotionPersonaId]);
+
+  useEffect(() => {
+    const video = packEntranceVideoRef.current;
+    return () => { if (video) video.pause(); };
+  }, [packEntrancePersonaId]);
+
+  useEffect(() => {
+    if (!historyReady || typeof window === "undefined") return;
+    window.localStorage.setItem(ACTIVATION_HISTORY_KEY, JSON.stringify(activationHistory.slice(0, ACTIVATION_HISTORY_LIMIT)));
+  }, [activationHistory, historyReady]);
+
+  useEffect(() => {
+    if (!packProgressReady || packProgressResetRef.current || typeof window === "undefined") return;
+    window.localStorage.setItem(PACK_PROGRESS_KEY, JSON.stringify({
+      version: 1,
+      selectedPackId,
+      packOpened,
+      revealedPackIds,
+      viewedEntranceIds,
+    } satisfies PackProgressRecord));
+  }, [packOpened, packProgressReady, revealedPackIds, selectedPackId, viewedEntranceIds]);
+
+  useEffect(() => {
+    if (!historyOpen && !systemCheckOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (systemCheckOpen) {
+        setSystemCheckOpen(false);
+        systemCheckButtonRef.current?.focus();
+        return;
+      }
+      setHistoryOpen(false);
+      historyButtonRef.current?.focus();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [historyOpen, systemCheckOpen]);
+
+  useEffect(() => {
+    if (!resultSheetOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setResultSheetOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [resultSheetOpen]);
+
+  useEffect(() => {
+    if (naviRun.status !== "completed" || !naviRun.contentMarkdown || !naviRun.runId || !hasCompleteNaviCoverage(naviRun.coverage)) return;
+    if (autoOpenedResultRunIdRef.current === naviRun.runId) return;
+    const hasModal = cardDetailOpen || cardEditorOpen || Boolean(injector) || screen === "management" || Boolean(heldItem);
+    if (hasModal || screen !== "workbench") {
+      pendingAutoOpenRunIdRef.current = naviRun.runId;
+      return;
+    }
+    autoOpenedResultRunIdRef.current = naviRun.runId;
+    pendingAutoOpenRunIdRef.current = null;
+    const timer = window.setTimeout(() => setResultSheetOpen(true), 0);
+    return () => window.clearTimeout(timer);
+  }, [cardDetailOpen, cardEditorOpen, heldItem, injector, naviRun.contentMarkdown, naviRun.coverage, naviRun.runId, naviRun.status, screen]);
+
   useEffect(() => {
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
+      stopPackEntrancePreset();
       stopDriverAudio();
     };
   }, []);
 
-  function choosePersona(personaId: string) {
+  function choosePersona(personaId: string, { openDetail = true }: { openDetail?: boolean } = {}) {
     if (timerRef.current) window.clearTimeout(timerRef.current);
     setSelectedPersonaId(personaId);
     setPhase("ready");
-    setManifested(false);
     setNaviRun({ status: "idle" });
+    setResultSheetOpen(false);
+    setWaitingVideoOpen(false);
+    autoOpenedResultRunIdRef.current = null;
+    pendingAutoOpenRunIdRef.current = null;
     activationStartedRef.current = false;
+    setEquippedRods({ energy: false, skill: false });
     updateHandleProgress(0);
+    setCardDetailOpen(openDetail);
     if (soundEnabled) playCardSelectSound();
+  }
+
+  function restartExperience() {
+    if (timerRef.current) window.clearTimeout(timerRef.current);
+    resetDriver();
+    setEnergyRod(emptyRodState("energy"));
+    setSkillRod(emptyRodState("skill"));
+    setInjector(null);
+    setCardEditorOpen(false);
+    setCardEditorTemplateId(null);
+    setCardDetailOpen(false);
+    setSelectedPackId(null);
+    setPackOpened(false);
+    setRevealedPackIds([]);
+    setViewedEntranceIds([]);
+    setPackEntrancePersonaId(null);
+    setEntranceCopyVisible(false);
+    dealRunRef.current = false;
+    setHistoryOpen(false);
+    setSystemCheckOpen(false);
+    setSystemChecking(false);
+    setSystemChecks(INITIAL_SYSTEM_CHECKS);
+    if (typeof window !== "undefined") window.localStorage.removeItem(PACK_PROGRESS_KEY);
+    packProgressResetRef.current = true;
+    setScreen("cover");
+  }
+
+  function finishPackReveal(personaId: string) {
+    if (!PERSONAS.some((persona) => persona.id === personaId)) return;
+    stopPackEntrancePreset();
+    setRevealedPackIds((current) => current.includes(personaId) ? current : [...current, personaId]);
+    setViewedEntranceIds((current) => current.includes(personaId) ? current : [...current, personaId]);
+    setPackEntrancePersonaId(null);
+    setEntranceCopyVisible(false);
+    if (soundEnabledRef.current) {
+      try { playCardInsertSound(); } catch { /* Static reveal remains usable without audio. */ }
+    }
+  }
+
+  function revealPackCard(personaId: string) {
+    if (packEntrancePersonaId) return;
+    const persona = PERSONAS.find((item) => item.id === personaId);
+    if (!persona) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || !persona.motion) {
+      finishPackReveal(personaId);
+      return;
+    }
+    setEntranceCopyVisible(false);
+    setPackEntrancePersonaId(personaId);
+    if (soundEnabledRef.current) playPackEntrancePreset(personaId);
+  }
+
+  function revealAllPackCards() {
+    const video = packEntranceVideoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    stopPackEntrancePreset();
+    const allPersonaIds = PERSONAS.map((persona) => persona.id);
+    setPackEntrancePersonaId(null);
+    setEntranceCopyVisible(false);
+    setRevealedPackIds(allPersonaIds);
+    setViewedEntranceIds(allPersonaIds);
+    dealRunRef.current = true;
+  }
+
+  function finishActivationMotion(status: Extract<ActivationMotionStatus, "ended" | "error">, diagnostic?: string) {
+    const video = activationVideoRef.current;
+    if (video) video.pause();
+    setActivationMotionStatus(status);
+    setActivationMotionDiagnostic(diagnostic ?? null);
+    setActivationMotionPersonaId(null);
+  }
+
+  async function playActivationMotionVideo() {
+    const video = activationVideoRef.current;
+    if (!video) return;
+    try {
+      video.currentTime = 0;
+      await video.play();
+      setActivationMotionStatus("playing");
+    } catch {
+      finishActivationMotion("error", `角色动画无法自动播放，已降级为静态合体：${video.currentSrc || activationMotionPersona?.motion || "资源未知"}`);
+    }
+  }
+
+  function openStarterPack() {
+    packProgressResetRef.current = false;
+    if (revealedPackIds.length === PERSONAS.length) {
+      setScreen("deal-cards");
+      return;
+    }
+    dealRunRef.current = false;
+    setSelectedPackId("starter");
+    setScreen(packOpened ? "deal-cards" : "starter-pack");
+  }
+
+  function tearStarterPack() {
+    if (packOpened) return;
+    packProgressResetRef.current = false;
+    setPackOpened(true);
+    setSelectedPackId("starter");
+    dealRunRef.current = false;
+    setScreen("deal-cards");
+    if (soundEnabled) playCardInsertSound();
+  }
+
+  function enterWorkbench(personaId?: string) {
+    setScreen("workbench");
+    if (personaId) choosePersona(personaId);
+  }
+
+  function openTemplateCardEditor(template: PersonaCard) {
+    if (!template.templateId) return;
+    setCardDetailOpen(false);
+    setCardEditorTemplateId(template.id);
+    setCardEditorOpen(true);
+  }
+
+  function handleCardSaved(card: PersonaCard) {
+    setPersonaCards((current) => normalizePersonaCardCollection([...current.filter((item) => item.id !== card.id), card]));
+    setCardEditorOpen(false);
+    setCardEditorTemplateId(null);
+    choosePersona(card.id, { openDetail: false });
+  }
+
+  function handleSoulCardReady(card: PersonaCard) {
+    setPersonaCards((current) => normalizePersonaCardCollection([...current.filter((item) => item.id !== card.id), card]));
+    setSelectedPersonaId(card.id);
+    setCardDetailOpen(false);
+  }
+
+  function inspectPersona(personaId: string) {
+    const card = personaCards.find((item) => item.id === personaId);
+    if (card?.templateId) {
+      openTemplateCardEditor(card);
+      return;
+    }
+    if (consumeSuppressedItemClick("persona", personaId)) return;
+    choosePersona(personaId);
+  }
+
+  function mergePersonaCards(cards: readonly PersonaCard[]) {
+    setPersonaCards(normalizePersonaCardCollection(cards));
+  }
+
+  function openManagement(section: PersonaManagementSection = "prompts") {
+    stopDriverAudio();
+    setCardDetailOpen(false);
+    setResultSheetOpen(false);
+    setManagementSection(section);
+    setScreen("management");
+  }
+
+  function returnFromManagement() {
+    setScreen("workbench");
   }
 
   function insertPersona(personaId = selectedPersonaId) {
     if (!personaId) return;
     if (timerRef.current) window.clearTimeout(timerRef.current);
     setSelectedPersonaId(personaId);
-    setManifested(false);
     setNaviRun({ status: "idle" });
+    setResultSheetOpen(false);
+    setWaitingVideoOpen(false);
     activationStartedRef.current = false;
+    setEquippedRods({ energy: false, skill: false });
     updateHandleProgress(0);
+    setCardDetailOpen(false);
     setPhase("inserting");
     if (soundEnabled) playCardInsertSound();
     timerRef.current = window.setTimeout(() => setPhase("locked"), 920);
@@ -225,57 +862,96 @@ export default function Home() {
         payload = await response.json().catch(() => ({ ok: false, error: `HTTP ${response.status}` }));
       }
     }
-    if (!response.ok || !payload.ok) throw new Error(payload.error || `Bridge 请求失败（HTTP ${response.status}）`);
+    if (!response.ok || !payload.ok) {
+      const detail = payload.error || `Bridge 请求失败（HTTP ${response.status}）`;
+      throw new Error(payload.code ? `${detail} [${payload.code}]` : detail);
+    }
     return payload;
   }
 
+  function classifyNaviError(error: unknown): { message: string; code?: string } {
+    const message = String((error as Error)?.message || error);
+    if (/Failed to fetch|fetch failed|NetworkError|ECONNREFUSED/i.test(message)) {
+      return { message: "本地运行时未启动，请重启开发服务。", code: "BRIDGE_OFFLINE" };
+    }
+    const code = message.match(/\[([A-Z][A-Z0-9_]+)\]$/)?.[1];
+    const normalized = normalizeRunError(code, message);
+    return { message: normalized.message, code: code || undefined };
+  }
+
   async function ensureNaviBridge(persona: Persona, materialIds: string[]) {
+    if (!persona.skillName) throw new Error("这张自建卡尚未映射可执行 Skill；卡片可编辑/展示，但需映射 Skill 后才能唤起 YouNavi。");
     const health = await naviRequest("/health");
     if (!health.cliAvailable) throw new Error("未找到可用的 YouNavi agent-cli");
     if (!health.skills?.[persona.id]?.installed) throw new Error(`YouNavi 未安装 ${persona.skillName}`);
-    const missingPreset = materialIds.find((materialId) => !health.presets?.[materialId]?.available);
-    if (missingPreset) throw new Error(`本机预设不可读：${missingPreset}`);
+    const missingMaterial = materialIds.find((materialId) => !health.materials?.[materialId]?.available);
+    if (missingMaterial) throw new Error(`原始素材不可读：${missingMaterial}`);
     naviTokenRef.current = health.token;
   }
 
-  async function openNaviRun(runId: string) {
+  async function openNaviRun(runId: string, rethrow = false) {
     try {
       await naviRequest(`/runs/${encodeURIComponent(runId)}/open`, { method: "POST" });
+      setNaviRun((current) => ({ ...current, openError: undefined }));
     } catch (error) {
-      setNaviRun((current) => ({ ...current, openError: String((error as Error)?.message || error) }));
+      const classified = classifyNaviError(error);
+      const openError = classified.code ? `${classified.message} [${classified.code}]` : classified.message;
+      setNaviRun((current) => ({ ...current, openError }));
+      updateActivationHistory(runId, { openError });
+      if (rethrow) throw error;
     }
   }
 
-  async function startNaviConversation(persona: Persona, command = selectedCommand) {
+  async function startNaviConversation(persona: Persona, command: (typeof COMMANDS)[number]) {
+    const startedAt = new Date().toISOString();
     if (!isLocalPersonaRuntime()) {
       setNaviRun({ status: "demo" });
+      setPhase("activated");
+      addActivationHistory({ id: createPersonaRunId(), createdAt: startedAt, personaId: persona.id, personaName: persona.name, commandId: command.id, commandCode: command.code, status: "demo" });
       return;
     }
     const runId = createPersonaRunId();
     const materialIds = MATERIALS.filter((material) => selectedMaterialIds.includes(material.id)).map((material) => material.id);
-    setNaviRun({ status: "creating", runId });
+    const sourceName = selectedSourceDisplayName;
+    const customPrompt = skillRod.content.charged?.kind === "prompt" && skillRod.content.charged.presetId === "custom"
+      ? skillRod.content.charged.prompt
+      : undefined;
+    const task = buildPersonaTask(command, sourceName, customPrompt);
+    setNaviRun({ status: "creating", runId, task, commandId: command.id });
+    setResultSheetOpen(false);
+    setWaitingVideoOpen(false);
+    autoOpenedResultRunIdRef.current = null;
+    pendingAutoOpenRunIdRef.current = null;
+    addActivationHistory({ id: runId, createdAt: startedAt, personaId: persona.id, personaName: persona.name, commandId: command.id, commandCode: command.code, status: "creating", runId });
     try {
       await ensureNaviBridge(persona, materialIds);
+      const payload = buildPersonaNaviRodRequest({ runId, personaId: persona.id, task, energy: energyRod.content, skill: skillRod.content });
       const receipt = await naviRequest("/runs", {
         method: "POST",
-        body: JSON.stringify({
-          schema: "persona.navi-run/v1",
-          runId,
-          personaId: persona.id,
-          commandId: command.id,
-          task,
-          materials: materialIds,
-        }),
+        body: JSON.stringify(payload),
       });
+      setPhase("activated");
+      if (soundEnabled) {
+        playActivationSequence(persona.id, persona.announcerName, command.id, command.code);
+      }
       setNaviRun({
         status: receipt.status === "running" ? "running" : "pending",
         runId,
         taskId: receipt.taskId,
         conversationId: receipt.conversationId,
+        task,
+        commandId: command.id,
       });
-      await openNaviRun(runId);
+      setWaitingVideoOpen(true);
+      updateActivationHistory(runId, { status: receipt.status === "running" ? "running" : "pending", taskId: receipt.taskId, conversationId: receipt.conversationId });
     } catch (error) {
-      setNaviRun({ status: "error", runId, error: String((error as Error)?.message || error) });
+      const classified = classifyNaviError(error);
+      const errorMessage = classified.code ? `${classified.message} [${classified.code}]` : classified.message;
+      setNaviRun({ status: "error", runId, error: errorMessage, errorCode: classified.code });
+      setWaitingVideoOpen(false);
+      updateHandleProgress(0);
+      activationStartedRef.current = false;
+      updateActivationHistory(runId, { status: "error", error: errorMessage, errorCode: classified.code });
     }
   }
 
@@ -283,50 +959,179 @@ export default function Home() {
     if (!naviRun.runId) return;
     try {
       const result = await naviRequest(`/runs/${encodeURIComponent(naviRun.runId)}`);
+      if (!["pending", "running"].includes(result.status)) setWaitingVideoOpen(false);
       setNaviRun((current) => ({
         ...current,
         status: result.status,
         taskId: result.taskId,
         conversationId: result.conversationId,
         contentMarkdown: result.contentMarkdown,
-        error: result.status === "error" ? (result.error || "Navi 任务执行失败") : undefined,
+        coverage: result.coverage,
+        metadata: result.metadata,
+        error: ["error", "incomplete"].includes(result.status) ? (result.error || "Navi 任务未通过语义审计") : undefined,
+        errorCode: result.errorCode,
+        continuationError: undefined,
+        skillEvidence: result.skillEvidence,
       }));
+      updateActivationHistory(naviRun.runId, { status: result.status, taskId: result.taskId, conversationId: result.conversationId, error: ["error", "incomplete"].includes(result.status) ? (result.error || "Navi 任务未通过语义审计") : undefined, errorCode: result.errorCode });
     } catch (error) {
-      setNaviRun((current) => ({ ...current, status: "error", error: String((error as Error)?.message || error) }));
+      const classified = classifyNaviError(error);
+      const errorMessage = classified.code ? `${classified.message} [${classified.code}]` : classified.message;
+      setNaviRun((current) => ({ ...current, status: "error", error: errorMessage, errorCode: classified.code }));
+      setWaitingVideoOpen(false);
+      updateActivationHistory(naviRun.runId, { status: "error", error: errorMessage, errorCode: classified.code });
     }
   }
 
+  useEffect(() => {
+    if (!naviRun.runId || !["pending", "running"].includes(naviRun.status)) return;
+    const timer = window.setInterval(() => { void checkNaviRun(); }, 2200);
+    return () => window.clearInterval(timer);
+    // The polling callback is intentionally recreated per run identity.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [naviRun.runId, naviRun.status]);
+
+  async function continueNaviRun() {
+    if (!naviRun.runId || naviRun.status !== "incomplete") return;
+    const runId = naviRun.runId;
+    setNaviRun((current) => ({
+      ...current,
+      status: "continuing",
+      error: undefined,
+      errorCode: undefined,
+      continuationError: undefined,
+      continuationBlocked: false,
+    }));
+    try {
+      const receipt = await naviRequest(`/runs/${encodeURIComponent(runId)}/continue`, { method: "POST" });
+      setNaviRun((current) => ({
+        ...current,
+        status: receipt.status === "running" ? "running" : "pending",
+        taskId: receipt.taskId,
+        conversationId: receipt.conversationId,
+        error: undefined,
+        errorCode: undefined,
+        continuationError: undefined,
+        continuationBlocked: false,
+      }));
+      setWaitingVideoOpen(true);
+      updateActivationHistory(runId, { status: receipt.status === "running" ? "running" : "pending", taskId: receipt.taskId, conversationId: receipt.conversationId, error: undefined, errorCode: undefined });
+    } catch (error) {
+      const classified = classifyNaviError(error);
+      const continuationError = classified.code ? `${classified.message} [${classified.code}]` : classified.message;
+      setNaviRun((current) => ({ ...current, status: "incomplete", continuationError, continuationBlocked: classified.code === "CONTINUATION_STALLED" }));
+      updateActivationHistory(runId, { status: "incomplete", error: continuationError, errorCode: classified.code });
+    }
+  }
+
+  async function runSystemCheck() {
+    setSystemCheckOpen(true);
+    setHistoryOpen(false);
+    setSystemChecking(true);
+    setSystemChecks(INITIAL_SYSTEM_CHECKS.map((item) => ({ ...item, status: "checking", detail: "正在进行最短检查…" })));
+
+    const sourcesReady = PERSONAS.length === 5
+      && MATERIALS.length === 4
+      && PERSONAS.every((persona) => Boolean(persona.skillName && persona.image))
+      && MATERIALS.every((material) => Boolean(material.name && material.meta));
+    const audioReady = await checkDriverAudioOutput();
+    const flowReady = Boolean(
+      document.querySelector('[aria-label="Persona Card 卡牌架"]')
+      && document.querySelector(".driver-assembly")
+      && document.querySelectorAll(".driver-rod-card").length === DRIVER_RODS.length,
+    );
+
+    let handoff: SystemCheckItem;
+    if (!isLocalPersonaRuntime()) {
+      handoff = { id: "handoff", label: "最终接入", status: "warning", detail: "公开演示环境不连接本机 Navi；页面会以演示模式结束。" };
+    } else {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 2400);
+      try {
+        const response = await fetch(`${NAVI_BRIDGE_URL}/health`, { cache: "no-store", signal: controller.signal });
+        const health = await response.json().catch(() => null);
+        const skillsReady = PERSONAS.every((persona) => health?.skills?.[persona.id]?.installed);
+        const materialsReady = MATERIALS.every((material) => health?.materials?.[material.id]?.available);
+        handoff = response.ok && health?.ok && health?.cliAvailable && skillsReady && materialsReady
+          ? { id: "handoff", label: "最终接入", status: "pass", detail: "Navi Bridge、五个 Skill 和四份原始转写均可用。" }
+          : { id: "handoff", label: "最终接入", status: "fail", detail: "Bridge、Skill 或原始转写未就绪；启动不会创建真实对话。" };
+      } catch {
+        handoff = { id: "handoff", label: "最终接入", status: "fail", detail: "未连接到本机 Navi Bridge（localhost:8766）。" };
+      } finally {
+        window.clearTimeout(timeout);
+      }
+    }
+
+    setSystemChecks([
+      { id: "sources", label: "前期资料", status: sourcesReady ? "pass" : "fail", detail: sourcesReady ? "五张人物卡与四份原始转写说明已就绪。" : "人物卡或原始转写说明缺失。" },
+      {
+        id: "flow",
+        label: "中间流程",
+        status: flowReady && audioReady && soundEnabled && energyCharged && skillCharged ? "pass" : "warning",
+        detail: flowReady
+          ? audioReady && soundEnabled
+            ? energyCharged && skillCharged
+              ? "卡片、腰带、双棒、已注入内容与浏览器音频反馈正常。"
+              : "结构与音频正常；仍需给能量棒注入原文、给技能棒注入提问形态。"
+            : "卡片与腰带正常；请开启音效或检查浏览器音频权限。"
+          : "工作台组件未完整挂载。",
+      },
+      handoff,
+    ]);
+    setSystemChecking(false);
+  }
+
+  function openResultSheet() {
+    if (naviRun.status !== "completed" || !naviRun.contentMarkdown || !hasCompleteNaviCoverage(naviRun.coverage)) return;
+    setResultSheetOpen(true);
+  }
+
+  function retryNaviRun() {
+    if (!selectedPersona || !selectedCommand) return;
+    setResultSheetOpen(false);
+    void startNaviConversation(selectedPersona, selectedCommand);
+  }
+
   function activateDriver() {
-    if (!selectedPersona || phase !== "locked" || activationStartedRef.current) return;
+    if (!selectedPersona || !selectedCommand || !selectedPersona.skillName || phase !== "locked" || !rodsReady || activationStartedRef.current) return;
     activationStartedRef.current = true;
+    setResultSheetOpen(false);
     updateHandleProgress(1);
     setPhase("activated");
-    if (soundEnabled) {
-      playActivationSequence(
-        selectedPersona.id,
-        selectedPersona.announcerName,
-        selectedCommand.id,
-        selectedCommand.code,
-      );
-    }
     void startNaviConversation(selectedPersona, selectedCommand);
-    timerRef.current = window.setTimeout(() => setManifested(true), 900);
   }
 
   function resetDriver() {
     if (timerRef.current) window.clearTimeout(timerRef.current);
     setSelectedPersonaId(null);
     setPhase("idle");
-    setManifested(false);
+    setResultSheetOpen(false);
+    setWaitingVideoOpen(false);
     setNaviRun({ status: "idle" });
+    const activationVideo = activationVideoRef.current;
+    if (activationVideo) activationVideo.pause();
+    setActivationMotionPersonaId(null);
+    setActivationMotionStatus("idle");
+    setActivationMotionDiagnostic(null);
     activationStartedRef.current = false;
+    autoOpenedResultRunIdRef.current = null;
+    pendingAutoOpenRunIdRef.current = null;
+    setEquippedRods({ energy: false, skill: false });
     naviTokenRef.current = null;
+    grabRef.current = null;
+    updateHeldItem(null);
+    updateDropTarget(null);
+    setDragPointer({ x: 0, y: 0 });
+    suppressInspectRef.current = null;
+    handleDragRef.current = null;
+    handleMovedRef.current = false;
+    suppressHandleClickRef.current = false;
     updateHandleProgress(0);
     stopDriverAudio();
   }
 
   function beginHandleDrag(event: ReactPointerEvent<HTMLButtonElement>, side: "left" | "right") {
-    if (phase !== "locked") return;
+    if (phase !== "locked" || !rodsReady) return;
     event.currentTarget.setPointerCapture(event.pointerId);
     handleDragRef.current = { side, startX: event.clientX, startProgress: handleProgressRef.current };
     handleMovedRef.current = false;
@@ -335,7 +1140,7 @@ export default function Home() {
 
   function moveHandleDrag(event: ReactPointerEvent<HTMLButtonElement>) {
     const drag = handleDragRef.current;
-    if (!drag || phase !== "locked") return;
+    if (!drag || phase !== "locked" || !rodsReady) return;
     const signedDistance = drag.side === "left" ? event.clientX - drag.startX : drag.startX - event.clientX;
     if (Math.abs(signedDistance) > 4) handleMovedRef.current = true;
     updateHandleProgress(Math.max(0, Math.min(1, drag.startProgress + signedDistance / 92)));
@@ -359,24 +1164,159 @@ export default function Home() {
     activateDriver();
   }
 
-  function toggleMaterial(id: string) {
-    setSelectedMaterialIds((current) =>
-      current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
+  function equipRod(rodId: string) {
+    if (phase !== "locked" || (rodId !== "energy" && rodId !== "skill")) return;
+    const validRodId = rodId as DriverRodId;
+    if (equippedRods[validRodId]) return;
+    setEquippedRods((current) => ({ ...current, [validRodId]: true }));
+    if (soundEnabled) playCardInsertSound();
+  }
+
+  function updateEnergyRod(content: RodContentState) {
+    const charged = content.charged?.kind === "fixed-material" ? content.charged : null;
+    setEnergyRod({ content: migrateRodState(content), fixedMaterialId: charged?.id ?? null, fixedPresetId: null });
+  }
+
+  function updateSkillRod(content: RodContentState) {
+    const migrated = migrateRodState(content);
+    const charged = migrated.charged?.kind === "prompt" && migrated.charged.presetId !== "custom" ? migrated.charged : null;
+    setSkillRod({ content: migrated, fixedMaterialId: null, fixedPresetId: charged?.presetId ?? null });
+  }
+
+  function renderRodCase() {
+    return (
+      <>
+        <div className="rod-case" aria-label="变身棒收纳架">
+        {DRIVER_RODS.map((rod) => {
+          const equipped = equippedRods[rod.id];
+          if (equipped) return null;
+          const charged = rod.id === "energy" ? energyCharged : skillCharged;
+          const payloadLabel = rod.id === "energy" ? selectedMaterial?.name : selectedCommand?.label;
+          const available = phase === "locked" && charged && !equipped;
+          return (
+            <button
+              className={`driver-rod-card ${rod.id}${equipped ? " equipped" : ""}${charged ? " is-charged" : ""}${heldItem?.kind === "rod" && heldItem.id === rod.id ? " is-lifted" : ""}`}
+              type="button"
+              key={rod.id}
+              disabled={equipped}
+              aria-pressed={equipped}
+              aria-label={equipped ? `${rod.label}已装配` : charged ? `${rod.label}已充能，点击调整或拖入腰带` : `点击为${rod.label}注入内容`}
+              onPointerDown={(event) => {
+                if (available) beginItemGrab(event, { kind: "rod", id: rod.id, label: rod.label, detail: payloadLabel ?? rod.code, image: rod.id === "energy" ? "/driver-textures/energy-rod-charged-v1.png" : "/driver-textures/skill-rod-v1.png" });
+              }}
+              onClick={() => {
+                if (consumeSuppressedItemClick("rod", rod.id)) return;
+                setInjector(rod.id);
+              }}
+            >
+              <span className="driver-rod-visual" aria-hidden="true"><i /></span>
+              <small>{equipped ? "LOADED" : charged ? "CHARGED" : "EMPTY"}</small>
+              <strong>{rod.label}</strong>
+              <span>{equipped ? "已装配" : charged ? payloadLabel : "点击注入"}</span>
+            </button>
+          );
+        })}
+        </div>
+      </>
+    );
+  }
+
+  if (screen === "cover") {
+    return (
+      <main className="persona-cover">
+        <div className="persona-cover-copy">
+          <span className="persona-cover-kicker">PERSONA DRIVER · PUBLIC TEST</span>
+          <h1>假面骑事</h1>
+          <p>领取新手卡包，解锁你的第一组 Persona Card。</p>
+          <button className="cover-primary" type="button" onClick={openStarterPack}>准备变身</button>
+          <small>本地测试版 · 不读取真实飞书数据</small>
+        </div>
+        <div className="persona-cover-signal" aria-hidden="true"><span>PERSONA RIDE</span><i /></div>
+      </main>
+    );
+  }
+
+  if (screen === "starter-pack") {
+    return (
+      <main className="pack-opening-screen">
+        <header className="pack-screen-header"><button className="pack-back" type="button" onClick={() => setScreen("cover")}>返回封面</button><div><span>STARTER PACK</span><strong>新手卡包</strong></div></header>
+        <section className="pack-opening-content">
+          <div className="pack-opening-copy"><span>STARTER PACK ACQUIRED</span><h1>已获得新手卡包</h1><p>五张 Persona Card 将按顺序落位，准备好后一次收下。</p></div>
+          <button className="sealed-pack" type="button" aria-label="撕开新手卡包" onClick={tearStarterPack}><img className="sealed-pack-logo" src="/brand/persona-gate-logo-v1-256.png" alt="假面骑事" draggable={false} /><strong>撕开卡包</strong><small>STARTER PACK · 5 CARDS</small></button>
+        </section>
+      </main>
+    );
+  }
+
+  if (screen === "deal-cards") {
+    return (
+      <main className="pack-opening-screen">
+        <header className="pack-screen-header"><div><span>DEAL CARDS</span><strong>新手卡包</strong></div></header>
+        <section className={`pack-opening-content is-opened${packComplete ? " is-complete" : ""}`}>
+          <div className="pack-opening-copy pack-reveal-copy"><h1>{packComplete ? "五张卡牌已就位" : "点击任意卡牌翻开"}</h1><p>{packComplete ? "可重播角色动画，或进入工作台。" : `任选卡牌观看角色动画 · ${revealedPackIds.length}/5`}</p></div>
+          <div className="pack-reveal-grid" aria-label="新手 Persona Card">
+            {PERSONAS.map((persona, index) => {
+              const revealed = revealedPackIds.includes(persona.id);
+              return <button className={`pack-reveal-card${revealed ? " revealed" : ""}`} style={{ "--pack-delay": `${index * 140}ms` } as CSSProperties} key={persona.id} type="button" aria-pressed={revealed} aria-label={revealed ? `重播${persona.name}角色动画` : `翻开${persona.name}`} onClick={() => revealPackCard(persona.id)}>
+                {revealed ? <span className="pack-reveal-face pack-reveal-front"><img src={persona.image} alt="" draggable={false} /><span><small>{persona.code}</small><strong>{persona.name}</strong><em>{persona.role}</em></span></span> : <span className="pack-reveal-face pack-reveal-back"><PersonaCardBack /><small>点击翻开</small></span>}
+              </button>;
+            })}
+          </div>
+          {!packComplete && <button className="pack-skip-all" type="button" onClick={revealAllPackCards}>跳过动画</button>}
+          {packComplete && <button className="pack-to-workbench" type="button" onClick={() => enterWorkbench()}>收下卡牌，进入工作台</button>}
+        </section>
+        {packEntrancePersona && (
+          <div className="pack-entrance" role="dialog" aria-modal="true" aria-label={`${packEntrancePersona.name}角色动画`}>
+            <video ref={packEntranceVideoRef} className="pack-entrance-video" src={packEntrancePersona.motion} poster={packEntrancePersona.motionPoster ?? packEntrancePersona.image} autoPlay muted playsInline preload="auto" onEnded={() => finishPackReveal(packEntrancePersona.id)} onError={() => finishPackReveal(packEntrancePersona.id)} />
+            <div className={`pack-entrance-copy${entranceCopyVisible ? " is-visible" : ""}`}><span>{packEntrancePersona.code}</span><strong>{packEntrancePersona.name}</strong><small>{packEntrancePersona.role}</small></div>
+            <button className="pack-entrance-skip" type="button" onClick={revealAllPackCards}>跳过动画</button>
+          </div>
+        )}
+      </main>
+    );
+  }
+
+  if (screen === "management") {
+    return (
+      <PersonaManagementPage
+        initialSection={managementSection}
+        baselineCards={PERSONAS satisfies readonly PersonaCardBaseline[]}
+        bridgeUrl={NAVI_BRIDGE_URL}
+        recentErrors={naviRun.error ? [naviRun.error] : []}
+        soulCardWizard={SoulCardWizard}
+        soulBridgeRequest={naviRequest}
+        onSoulCardReady={handleSoulCardReady}
+        onPersonaCardsChange={mergePersonaCards}
+        onBack={returnFromManagement}
+      />
     );
   }
 
   return (
-    <main className="driver-workbench">
+    <main
+      className="driver-workbench"
+      onPointerMove={moveItemGrab}
+      onPointerUp={endItemGrab}
+      onPointerCancel={endItemGrab}
+      onDragStart={(event) => event.preventDefault()}
+    >
       <header className="workbench-header">
         <div className="workbench-brand">
-          <span className="workbench-mark" aria-hidden="true">人</span>
+          <img className="workbench-mark" src="/brand/persona-gate-logo-v1-32.png" alt="假面骑事" />
           <div><strong>假面骑事</strong><small>PERSONA DRIVER WORKBENCH</small></div>
         </div>
-        <label className="mission-field">
-          <span>当前任务</span>
-          <input value={task} onChange={(event) => setTask(event.target.value)} />
-        </label>
-        <button
+        <div className="header-actions">
+          <button className="management-toggle" type="button" aria-label="打开管理中心" onClick={() => openManagement("prompts")}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 13.5 5.8l2.7.6.6 2.7L19 10.5l-1.5 2.3 1.5 2.3-2.2 1.4-.6 2.7-2.7.6L12 22l-1.5-2.2-2.7-.6-.6-2.7L5 15.1l1.5-2.3L5 10.5l2.2-1.4.6-2.7 2.7-.6L12 3.5Z" /><circle cx="12" cy="12.8" r="2.7" /></svg>
+          </button>
+          <button className="history-toggle" type="button" aria-label="重新开始当前体验，不清除唤起记录" onClick={restartExperience}>重新开始</button>
+          <button ref={systemCheckButtonRef} className={systemCheckOpen ? "system-check-toggle active" : "system-check-toggle"} type="button" aria-expanded={systemCheckOpen} aria-controls="system-check-panel" onClick={() => void runSystemCheck()}>
+            {systemChecking ? "检查中…" : "检查状态"}
+          </button>
+          <button ref={historyButtonRef} className={historyOpen ? "history-toggle active" : "history-toggle"} type="button" aria-expanded={historyOpen} aria-controls="activation-history-panel" onClick={() => setHistoryOpen((value) => !value)}>
+            唤起记录{activationHistory.length > 0 ? ` · ${activationHistory.length}` : ""}
+          </button>
+          <button
           className={soundEnabled ? "sound-toggle enabled" : "sound-toggle"}
           type="button"
           aria-pressed={soundEnabled}
@@ -386,102 +1326,149 @@ export default function Home() {
           }}
         >
           {soundEnabled ? "音效开启" : "音效关闭"}
-        </button>
-        <a className="gallery-link" href="/persona-atlas.html">打开旧图鉴</a>
+          </button>
+        </div>
       </header>
 
-      <div className="workbench-grid">
-        <aside className="material-tray">
-          <div className="panel-title"><span>01</span><div><strong>原始素材</strong><small>来自 YouNavi 侧边栏的演示投影</small></div></div>
-          <div className="material-list">
-            {MATERIALS.map((material) => (
-              <label className={selectedMaterialIds.includes(material.id) ? "material selected" : "material"} key={material.id}>
-                <input
-                  type="checkbox"
-                  checked={selectedMaterialIds.includes(material.id)}
-                  onChange={() => toggleMaterial(material.id)}
-                />
-                <span className="file-glyph" aria-hidden="true">▤</span>
-                <span><strong>{material.name}</strong><small>{material.meta}</small></span>
-              </label>
-            ))}
+      {systemCheckOpen && (
+        <aside id="system-check-panel" className="system-check-panel" role="dialog" aria-label="启动流程状态检查">
+          <div className="system-check-head"><div><strong>启动流程检查</strong><small>不创建真实对话 · 只读检查</small></div><button type="button" className="history-close" aria-label="关闭状态检查" onClick={() => { setSystemCheckOpen(false); systemCheckButtonRef.current?.focus(); }}>×</button></div>
+          <div className="system-check-list">
+            {systemChecks.map((item) => <article className={`system-check-item status-${item.status}`} key={item.id}><span className="system-check-mark" aria-hidden="true">{item.status === "pass" ? "✓" : item.status === "warning" ? "!" : item.status === "fail" ? "×" : "·"}</span><div><strong>{item.label}</strong><p>{item.detail}</p></div></article>)}
           </div>
-          <div className="material-summary">
-            <span>{selectedMaterialIds.length} 份素材已授权</span>
-            <small>当前仅为演示数据，不读取本机文件</small>
-          </div>
-
-          <div className="command-section">
-            <div className="panel-title compact"><span>02</span><div><strong>指令卡</strong><small>定义本次操作</small></div></div>
-            <div className="command-grid">
-              {COMMANDS.map((command) => (
-                <button
-                  className={selectedCommandId === command.id ? "command-card selected" : "command-card"}
-                  type="button"
-                  key={command.id}
-                  onClick={() => {
-                    setSelectedCommandId(command.id);
-                    if (soundEnabled) playCommandSelectSound();
-                  }}
-                >
-                  <small>{command.code}</small><strong>{command.label}</strong><span>{command.description}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+          <button className="system-check-rerun" type="button" disabled={systemChecking} onClick={() => void runSystemCheck()}>{systemChecking ? "正在检查…" : "重新检查"}</button>
         </aside>
+      )}
 
+      {historyOpen && (
+        <aside id="activation-history-panel" className="activation-history-panel" role="dialog" aria-label="Persona 唤起记录">
+          <div className="activation-history-head"><div><strong>唤起记录</strong><small>仅保存在当前浏览器</small></div><button type="button" className="history-close" aria-label="关闭唤起记录" onClick={() => { setHistoryOpen(false); historyButtonRef.current?.focus(); }}>×</button></div>
+          {activationHistory.length === 0 ? <div className="activation-history-empty"><strong>还没有唤起记录</strong><p>完成一次 Persona Driver 启动后，记录会出现在这里。</p></div> : <><div className="activation-history-list">{activationHistory.map((entry) => <article className="activation-history-item" key={entry.id}><div className="activation-history-item-head"><strong>{entry.personaName}</strong><span className={`history-status status-${entry.status}`}>{NAVI_RUN_LABELS[entry.status] ?? entry.status}</span></div><div className="activation-history-meta"><span>{entry.commandCode}</span><time dateTime={entry.createdAt}>{formatActivationTime(entry.createdAt)}</time></div>{entry.conversationId && <code title={entry.conversationId}>conversation · {entry.conversationId.slice(0, 12)}</code>}{entry.error && <p className="history-error">{entry.error}</p>}{entry.openError && <p className="history-warning">未自动打开：{entry.openError}</p>}{entry.runId && entry.conversationId && <button className="history-open-run" type="button" onClick={() => void openNaviRun(entry.runId!)}>打开 YouNavi</button>}</article>)}</div><button className="history-clear" type="button" onClick={() => setActivationHistory([])}>清空全部记录</button></>}
+        </aside>
+      )}
+
+      {injector === "energy" && <RodInjectorPanel kind="energy" state={energyRod.content} onStateChange={updateEnergyRod} onClose={() => setInjector(null)} />}
+      {injector === "skill" && <RodInjectorPanel kind="skill" state={skillRod.content} onStateChange={updateSkillRod} onClose={() => setInjector(null)} />}
+
+      <div className={rodsRevealed ? "workbench-grid has-rods" : "workbench-grid workbench-empty"}>
+        {rodsRevealed && <aside className="rod-tray">
+          <div className="panel-title"><span>01</span><div><strong>变身组件</strong><small>先注入，锁定后可拖入</small></div></div>
+          {renderRodCase()}
+          <p className="rod-tray-note">点击棒注入内容；充能后再拖入腰带左右槽位。</p>
+        </aside>}
         <section
-          className={`driver-stage phase-${phase}`}
-          onDragOver={(event) => event.preventDefault()}
-          onDrop={(event) => {
-            event.preventDefault();
-            insertPersona(event.dataTransfer.getData("persona-id"));
-          }}
+          className={`driver-stage phase-${phase}${heldItem ? ` is-grabbing holding-${heldItem.kind === "rod" ? heldItem.id : "persona"}` : ""}${dropTarget ? ` drop-${dropTarget}` : ""}`}
+          ref={driverStageRef}
         >
           <div className="driver-stage-head">
             <span className="stage-status">{phase.toUpperCase()}</span>
-            <span>{selectedPersona ? selectedPersona.code : "NO PERSONA CARD"}</span>
+            <span>{heldItem ? `手持 ${heldItem.label}` : selectedPersona ? selectedPersona.code : "请选择并拿起人物卡"}</span>
           </div>
-          <Suspense fallback={<div className="driver-loading">正在装载 Persona Driver</div>}>
-            <DriverScene phase={phase} cardColor={selectedPersona?.color ?? "#ef3048"} handleProgress={handleProgress} />
-          </Suspense>
-          {selectedPersona && phase !== "idle" && (
-            <div className="inserted-card-label">
-              <small>PERSONA CARD</small><strong>{selectedPersona.name}</strong><span>{selectedPersona.role}</span>
-            </div>
+          {selectedPersona && naviRun.status !== "idle" && (
+            <section className={`run-status-card status-${naviRun.status}`} aria-live="polite" aria-label="Persona Run 状态">
+              <div className="run-status-identity">
+                <span className="run-status-avatar" style={{ "--card-color": selectedPersona.color } as CSSProperties}>{selectedPersona.name.slice(0, 1)}</span>
+                <div><strong>{selectedPersona.name}</strong><small>{selectedCommand?.code ?? "未选择指令"}</small></div>
+              </div>
+              <div className="run-status-state"><span>任务状态</span><strong>{RUN_STATUS_CARD_LABELS[naviRun.status]}</strong></div>
+              {((naviRun.status === "error" || naviRun.status === "incomplete") && naviRun.error || naviRun.continuationError) && <p className="run-status-error">{naviRun.errorCode ? `${naviRun.errorCode} · ` : ""}{(naviRun.continuationError || naviRun.error || "").slice(0, 120)}</p>}
+              {naviRun.status === "incomplete" && naviRun.coverage && <div className="run-coverage-summary" aria-live="polite">
+                {naviRun.coverage.map((item) => <span key={item.path || item.sourceName}>已读 {item.readLines ?? 0}/{item.totalLines ?? "?"} 行 · 未读到 EOF</span>)}
+              </div>}
+              {(naviRun.status === "error" || naviRun.status === "incomplete" || naviRun.continuationError || naviRun.skillEvidence) && <details className="run-status-details">
+                <summary>错误详情</summary>
+                {naviRun.continuationError && <p>{naviRun.continuationError}</p>}
+                {naviRun.skillEvidence && <div className="run-coverage-detail"><strong>Skill 激活证据</strong><span>期望：{naviRun.skillEvidence.expectedSkill || "未知"}；{naviRun.skillEvidence.summary}</span>{naviRun.skillEvidence.eventTypes?.length ? <code>事件：{naviRun.skillEvidence.eventTypes.join(", ")}</code> : null}</div>}
+                {naviRun.coverage?.map((item) => <div className="run-coverage-detail" key={`${item.path || item.sourceName}-detail`}>
+                  <strong>{item.readLines ?? 0}/{item.totalLines ?? "?"} 行</strong>
+                  {item.path && <code>{item.path}</code>}
+                  <span>{item.reason || "未读到 EOF"}；下一次应从 offset={item.nextOffset ?? item.readLines ?? 0} 继续。</span>
+                </div>)}
+              </details>}
+              <div className="run-status-actions">
+                <button type="button" disabled={naviRun.status !== "completed" || !hasCompleteNaviCoverage(naviRun.coverage)} onClick={openResultSheet}>查看结果</button>
+                {naviRun.status === "incomplete" && <button type="button" disabled={naviRun.continuationBlocked} onClick={() => void continueNaviRun()}>继续读取并生成</button>}
+                <button type="button" onClick={retryNaviRun}>重新创建</button>
+              </div>
+            </section>
           )}
-          <div className="driver-controls">
-            {!selectedPersona && <p>从下方卡盒选择一张人物卡</p>}
-            {selectedPersona && phase === "ready" && (
-              <button className="insert-button" type="button" onClick={() => insertPersona()}>插入 Persona Card</button>
+          <div className="driver-visual-zone">
+            <div className="driver-drop-guides" aria-hidden="true">
+              <span className="driver-drop-guide persona"><b>人物卡槽</b></span>
+              <span className="driver-drop-guide energy"><b>能量棒槽</b></span>
+              <span className="driver-drop-guide skill"><b>技能棒槽</b></span>
+            </div>
+            <DriverTextureScene
+              phase={phase}
+              cardColor={selectedPersona?.color ?? "#ef3048"}
+              personaImage={selectedPersona?.image}
+              personaName={selectedPersona?.name}
+              personaRole={selectedPersona?.role}
+              handleProgress={handleProgress}
+              energyRodEquipped={equippedRods.energy}
+              skillRodEquipped={equippedRods.skill}
+            />
+            {DRIVER_ACTIVATION_MOTION_ENABLED && phase === "activated" && activationMotionPersona && (
+              <div className="driver-activation-motion" data-motion-status={activationMotionStatus} aria-label={`${activationMotionPersona.name}合体动画`}>
+                <video
+                  ref={activationVideoRef}
+                  className="driver-activation-video"
+                  src={activationMotionPersona.motion}
+                  poster={activationMotionPersona.motionPoster ?? activationMotionPersona.image}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  onLoadedData={() => void playActivationMotionVideo()}
+                  onPlay={() => setActivationMotionStatus("playing")}
+                  onEnded={() => finishActivationMotion("ended")}
+                  onError={() => finishActivationMotion("error", `角色动画资源加载失败，已降级为静态合体：${activationMotionPersona.motion}`)}
+                />
+                <button className="driver-activation-motion-skip" type="button" onClick={() => finishActivationMotion("ended")}>跳过动画</button>
+              </div>
             )}
-            {phase === "inserting" && <p>正在读取人物能力数据</p>}
-            {phase === "locked" && (
-              <div className="driver-handle-control" style={{ "--handle-progress": handleProgress } as CSSProperties}>
-                <button className="activate-button" type="button" onClick={activateDriver}>启动 Persona Driver</button>
+            {DRIVER_ACTIVATION_MOTION_ENABLED && activationMotionDiagnostic && <p className="driver-activation-motion-diagnostic" role="status">{activationMotionDiagnostic}</p>}
+          </div>
+          {phase === "locked" && rodsReady && (
+            <div className="driver-handle-band" data-driver-control-band="belt">
+              <div className="driver-belt-handles" style={{ "--handle-progress": handleProgress } as CSSProperties}>
                 <button
-                  className="driver-side-handle left"
+                  className="driver-side-handle belt left"
                   type="button"
-                  aria-label="向内合拢左侧把手完成变身"
+                  aria-label="用左手向内合拢腰带把手"
                   onPointerDown={(event) => beginHandleDrag(event, "left")}
                   onPointerMove={moveHandleDrag}
                   onPointerUp={endHandleDrag}
                   onPointerCancel={endHandleDrag}
                   onClick={handleHandleClick}
                 >›</button>
-                <div className="driver-handle-track" aria-hidden="true"><span /></div>
                 <button
-                  className="driver-side-handle right"
+                  className="driver-side-handle belt right"
                   type="button"
-                  aria-label="向内合拢右侧把手完成变身"
+                  aria-label="用右手向内合拢腰带把手"
                   onPointerDown={(event) => beginHandleDrag(event, "right")}
                   onPointerMove={moveHandleDrag}
                   onPointerUp={endHandleDrag}
                   onPointerCancel={endHandleDrag}
                   onClick={handleHandleClick}
                 >‹</button>
-                <small>向内拖动把手完成变身，点击也可启动</small>
+              </div>
+            </div>
+          )}
+          <div className="driver-controls">
+            {!selectedPersona && <p>从下方卡盒选择一张人物卡</p>}
+            {selectedPersona && phase === "ready" && <p>请在人物详情半窗确认“插入卡片”。</p>}
+            {phase === "inserting" && <p>正在读取人物能力数据</p>}
+            {phase === "locked" && !rodsReady && (
+              <div className="rod-install-status" aria-live="polite">
+                <strong>{equippedRodCount}/2</strong>
+                <span>拖入能量棒与技能棒</span>
+              </div>
+            )}
+            {phase === "locked" && rodsReady && (
+              <div className="driver-handle-control is-compact" style={{ "--handle-progress": handleProgress } as CSSProperties}>
+                <button className="activate-button" type="button" disabled={!selectedPersona?.skillName} onClick={activateDriver}>启动 Persona Driver</button>
+                <small>{selectedPersona?.skillName ? "拖动腰带两侧把手，或直接点击启动" : "卡片可编辑/展示，但需映射 Skill 后才能唤起 YouNavi"}</small>
               </div>
             )}
             {phase === "activated" && <p className="activation-caption">PERSONA RIDE · {selectedPersona?.role} · {selectedPersona?.name}</p>}
@@ -491,87 +1478,75 @@ export default function Home() {
           </div>
         </section>
 
-        <aside className={manifested && selectedPersona ? "role-instance manifested" : "role-instance"}>
-          <div className="panel-title"><span>03</span><div><strong>角色实例</strong><small>Driver 实体化结果</small></div></div>
-          {!manifested || !selectedPersona ? (
-            <div className="instance-empty">
-              <span className="instance-sigil" aria-hidden="true">◇</span>
-              <strong>等待召唤</strong>
-              <p>插入人物卡并启动 Driver 后，角色能力将在这里展开。</p>
-            </div>
-          ) : (
-            <div className="instance-content">
-              <div className="instance-identity">
-                <span>{selectedPersona.name.slice(0, 1)}</span>
-                <div><small>MANIFESTED PERSONA</small><h2>{selectedPersona.name}</h2><p>{selectedPersona.role}</p></div>
-              </div>
-              <p className="instance-summary">{selectedPersona.summary}</p>
-              <div className="instance-tags">{selectedPersona.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              <dl>
-                <div><dt>当前指令</dt><dd>{selectedCommand.label} / {selectedCommand.code}</dd></div>
-                <div><dt>授权素材</dt><dd>{selectedMaterialIds.length} 份</dd></div>
-                <div><dt>当前任务</dt><dd>{task}</dd></div>
-              </dl>
-              {naviRun.status !== "idle" && (
-                <section className={`navi-run-panel status-${naviRun.status}`} aria-live="polite">
-                  <header>
-                    <h3>Navi 对话</h3>
-                    <span>{NAVI_RUN_LABELS[naviRun.status]}</span>
-                  </header>
-                  {naviRun.status === "creating" && <p>正在校验 Skill 并创建独立对话。</p>}
-                  {naviRun.status === "demo" && <p>公开演示不会调用访客本机 YouNavi。</p>}
-                  {naviRun.conversationId && (
-                    <code title={naviRun.conversationId}>conversation · {naviRun.conversationId.slice(0, 12)}</code>
-                  )}
-                  {naviRun.error && <p className="navi-run-error">{naviRun.error}</p>}
-                  {naviRun.openError && <p className="navi-run-warning">对话已创建，但未自动打开 YouNavi：{naviRun.openError}</p>}
-                  {naviRun.contentMarkdown && <pre>{naviRun.contentMarkdown}</pre>}
-                  {naviRun.runId && naviRun.status !== "creating" && naviRun.status !== "demo" && (
-                    <div className="navi-run-actions">
-                      <button type="button" onClick={() => void checkNaviRun()}>检查结果</button>
-                      {naviRun.conversationId && (
-                        <button type="button" onClick={() => void openNaviRun(naviRun.runId!)}>打开 YouNavi</button>
-                      )}
-                      {naviRun.status === "error" && (
-                        <button type="button" onClick={() => void startNaviConversation(selectedPersona, selectedCommand)}>重新创建</button>
-                      )}
-                    </div>
-                  )}
-                </section>
-              )}
-              <section className="output-section">
-                <h3>角色输出</h3>
-                <ol>
-                  {OUTPUTS[selectedCommand.id].map((output) => <li key={output}>{output}</li>)}
-                </ol>
-              </section>
-              <p className="instance-footnote">演示输出基于公开人物 Skill 摘要，不代表本人观点或背书。</p>
-            </div>
-          )}
-        </aside>
+        {selectedPersona && <WaitingVideoPanel
+          open={waitingVideoOpen}
+          runId={naviRun.runId}
+          receiptAccepted={waitingVideoOpen}
+          runStatus={naviRun.status}
+          runtime="local"
+          personaName={selectedPersona.name}
+          commandCode={selectedCommand?.code ?? "—"}
+          onMinimize={() => setWaitingVideoOpen(false)}
+          onClose={() => setWaitingVideoOpen(false)}
+        />}
+
+        {selectedPersona && <RunResultSheet
+          open={resultSheetOpen}
+          markdown={naviRun.status === "completed" ? naviRun.contentMarkdown : undefined}
+          resultTitle={naviRun.metadata?.title}
+          task={naviRun.metadata?.task ?? naviRun.task}
+          personaName={selectedPersona.name}
+          skillName={naviRun.metadata?.persona?.skillName ?? selectedPersona.skillName}
+          commandId={naviRun.metadata?.command?.id ?? naviRun.commandId ?? selectedCommand?.id}
+          promptCode={naviRun.metadata?.command?.code ?? selectedCommand?.code ?? "—"}
+          promptLabel={naviRun.metadata?.command?.label ?? selectedCommand?.label ?? "分析"}
+          instruction={naviRun.metadata?.command?.instruction ?? selectedPrompt?.prompt}
+          sourceDisplayName={naviRun.metadata?.source?.displayName ?? selectedSourceDisplayName}
+          sourceTechnicalName={naviRun.metadata?.source?.technicalName ?? selectedSourceTechnicalName}
+          sourcePath={naviRun.metadata?.source?.path ?? naviRun.coverage?.[0]?.path}
+          sourceSha256={naviRun.metadata?.source?.sha256 ?? naviRun.coverage?.[0]?.sha256}
+          runId={naviRun.runId}
+          taskId={naviRun.taskId}
+          conversationId={naviRun.conversationId}
+          coverage={naviRun.coverage?.map((item) => item.mode === "inline"
+            ? `${item.bytes ?? "?"} 字节已注入`
+            : `${item.readLines ?? "?"}/${item.totalLines ?? "?"} 行`).join("；")}
+          onOpenInYouNavi={naviRun.runId ? () => openNaviRun(naviRun.runId!, true) : undefined}
+          onClose={() => setResultSheetOpen(false)}
+        />}
       </div>
 
-      <section className="card-case" aria-label="人物卡盒">
-        <div className="case-title"><span>CARD CASE</span><strong>选择或拖动人物卡插入 Driver</strong></div>
-        <div className="persona-cards">
-          {PERSONAS.map((persona, index) => (
-            <button
-              className={selectedPersonaId === persona.id ? "workbench-card selected" : "workbench-card"}
-              type="button"
-              draggable
-              key={persona.id}
-              onDragStart={(event) => event.dataTransfer.setData("persona-id", persona.id)}
-              onClick={() => choosePersona(persona.id)}
-            >
-              <span className="workbench-card-index">{String(index + 1).padStart(2, "0")}</span>
-              <span className="workbench-card-art" style={{ "--persona-color": persona.color } as CSSProperties}>
-                <img className="workbench-card-art-image" src={persona.image} alt="" />
-              </span>
-              <small>{persona.code}</small><strong>{persona.name}</strong><span>{persona.role}</span>
-            </button>
-          ))}
-        </div>
-      </section>
+      <PersonaCardShelf
+        cards={personaCards}
+        selectedId={selectedPersonaId}
+        onInspect={inspectPersona}
+        onCreateFromTemplate={openTemplateCardEditor}
+        onManage={() => openManagement("cards")}
+        onDragEnd={endItemGrab}
+        onDragStart={(item, event) => beginItemGrab(event, { ...item, kind: "persona" })}
+      />
+      <PersonaDetailSheet
+        card={selectedPersonaCard}
+        open={cardDetailOpen}
+        onClose={() => setCardDetailOpen(false)}
+      />
+      {cardEditorOpen && (
+        <section className="persona-editor-backdrop" role="presentation" onPointerDown={() => { setCardEditorOpen(false); setCardEditorTemplateId(null); }}>
+          <div className="persona-editor-modal" role="dialog" aria-modal="true" aria-label="建立或编辑人物卡" onPointerDown={(event) => event.stopPropagation()}>
+            <button className="persona-editor-close" type="button" aria-label="关闭人物卡编辑器" onClick={() => { setCardEditorOpen(false); setCardEditorTemplateId(null); }}>×</button>
+            <PersonaCardEditor
+              baselineCards={PERSONAS satisfies readonly PersonaCardBaseline[]}
+              templateCards={PERSONA_CARD_TEMPLATE_CARDS}
+              initialCardId={selectedPersonaId}
+              initialTemplateId={cardEditorTemplateId}
+              onCardsChange={mergePersonaCards}
+              onCardSaved={handleCardSaved}
+              onCardDragStart={(item, event) => beginItemGrab(event, { ...item, kind: "persona" })}
+            />
+          </div>
+        </section>
+      )}
+      <InteractionDragLayer item={heldItem} pointer={dragPointer} />
     </main>
   );
 }

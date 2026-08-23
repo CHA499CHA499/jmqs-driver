@@ -1,64 +1,183 @@
-# ROLLBACK
+# Persona Driver 回退手册
 
-## 生产回退
+> 核对日期：2026-08-21。回退目标是停止新增副作用并恢复上一可用行为；不得删除真实 YouNavi conversation、Soul 产物或 `.persona-runs/` 审计证据。
 
-1. 在 Sites 版本列表中选择上一条已验证版本。
-2. 将上一版本重新部署为公开生产版本。
-3. 回读生产链接，确认根页面与人物卡交互恢复。
+## 1. 回退前先保全
 
-## 源码回退
+1. 停止产生新 Run：关闭页面或停止 Bridge/supervisor。
+2. 记录故障时间、当前独立仓 commit/branch、浏览器 URL、Run ID、task ID、conversation ID、错误码。
+3. 复制或只读保留对应 `.persona-runs/prun-*`、`.persona-runs/soul/psoul-*` 与 `bridge-events.ndjson`；不要改写 request/receipt。
+4. 若 request 已存在但 receipt 缺失，先去 YouNavi 核对是否已创建 conversation；禁止自动重发或手工补 receipt。
+5. Soul 故障时保留 `${PERSONA_NAVI_SOUL_WORKSPACE_ROOT}/outputs/persona-souls/*-soul`，不要随站点回退删除。
 
-1. 在当前独立 Git 仓库中定位上一条可用提交。
-2. 新建回退提交，恢复 `app/`、`public/persona-atlas.html` 与 `public/og.png`。
-3. 运行 `npm test`。
-4. 保存并部署新的 Sites 版本，禁止直接覆盖或删除历史版本。
+## 2. 最小隔离顺序
 
-固定五人卡组出现内容错误时，只回退 `public/persona-atlas.html` 与对应测试；首页主视觉未变，不随卡组回退。
-入口分流出现问题时，回退 `choice` 页面与 `begin/open-pack/build-cards/back-choice` 四个动作，恢复原 `begin → scope`。
-开包动效出现问题时，回退 `pack` 页面、`crackPack/revealPackCard/resetPackOpening` 和对应 CSS，恢复 `open-pack → atlas`。
-动态出场层出现加载、性能或焦点问题时，回退 `atlas-entrance` DOM/CSS、`playPackEntrance/closePackEntrance/finishPackReveal` 和人物数据中的 `motion/motionPoster` 字段，再删除 `public/personas-motion/`；原静态卡包与 `public/personas/` 不受影响。
-立绘出现问题时，同时回退 `public/personas/`、人物数据中的 `image` 字段与卡面图片 CSS；禁止只删图片留下失效路径。
-首页卡盒立绘出现问题时，回退 `app/page.tsx` 的 `Persona.image` 与 `workbench-card-art-image`，恢复原几何占位卡面。
+| 故障面 | 第一动作 | 不应连带回退 |
+|---|---|---|
+| 公开内容/版权/隐私 | 先停止或收紧 Sites 公开部署 | 不删除本机 Run/Soul 数据 |
+| Bridge 重复创建/认证错误 | 停止 Bridge；web 可继续 demo | 不删除 YouNavi conversation |
+| Soul 输入范围/产物错误 | 停止新增 Soul Run | 不删除既有卡库或产物 |
+| 等待视频遮挡/卡死 | 关闭/卸载 WaitingVideoPanel | 不取消 Run |
+| 结果阅读器错误 | 关闭结果窗；保留 Markdown/metadata | 不重建 conversation |
+| 音频/人物 motion 错误 | 静音或关闭对应播放层 | 不阻断卡片/双棒/Run 主链 |
+| Driver 拖拽/闭合错误 | 保留点击/键盘显式入口 | 不修改 Bridge、卡片数据或 Run |
+| 管理中心错误 | 返回 workbench 或移除入口接线 | 不重置 workbench |
 
-首页主视觉或高度修正出现问题时，同时回退 `public/persona-atlas.html` 与 `public/hero-personas.png`，避免 HTML
-引用新资产但发布包缺图。回退后至少以一个宽屏和一个窄屏视口确认没有底部白区。
+## 3. 运行时停机
 
-Three.js Driver 出现黑屏、GPU 兼容或性能问题时，优先回退 `app/page.tsx`、`app/globals.css`、
-`app/driver-scene.tsx`、`package.json` 与 `package-lock.json` 到上一公开版本；旧图鉴静态资产无需删除。
-回退提交完成后重新构建并部署历史兼容版本，不在生产环境临时改用 CDN。
+### supervisor / Bridge
 
-模块化 GLB 出现加载、朝向、穿模或性能问题时，先回退 `app/driver-scene.tsx` 的 `GLTFLoader` 与模型装配分支；程序化 Driver 会恢复为唯一渲染路径。确认生产已恢复后再删除 `public/models/persona-driver/`，禁止先删资产留下 404 请求。
+- 正常：在运行 `npm run dev` 的终端发送 SIGINT。
+- 只停 Bridge：停止 `npm run navi:bridge`；页面随后应显示 `BRIDGE_OFFLINE`，公开 demo 不受影响。
+- 8766 已被未知进程占用：先只读确认 PID/命令，再停止明确属于本项目的进程；不要启动第二个 Bridge。
+- Bridge 异常重启：保留 `bridge-events.ndjson`，改为分别运行 `npm run dev:web` 与 `npm run navi:bridge` 定位。
 
-锁定态主按钮再次消失时，先恢复 `phase === "locked"` 分支中的 `.activate-button` 和 `activateDriver` 点击绑定；
-不允许只留下图标、拖拽手势或说明文字作为唯一启动入口。
+supervisor 的 `BRIDGE_RESTART_LIMIT` 只是停止自动重启，不会回滚或删除 Run。
 
-机械把手交互异常时，移除 `app/page.tsx` 的 `handleProgress` 与 `.driver-handle-control`，恢复 locked 阶段的单一启动按钮；同时从 `DriverScene` props 和动画循环移除把手进度映射。该回退不会影响卡片插入、音效或角色实例状态。
+### 浏览器降级
 
-音频出现浏览器兼容、音量或误播放问题时，可单独回退 `app/driver-audio.ts` 与 `app/page.tsx` 的声音调用，
-保留 Three.js Driver 和 DOM 工作台。禁止用影视原声音频文件替代合成层。
+- 真实 Bridge 不可用时不应伪造 activated success；保持错误码与重试。
+- 必要时只运行 `npm run dev:web` 做 UI demo。
+- 公开 hostname 必须保持 `demo` 分支，不能让 Worker 代理本机执行。
 
-本机随机候选覆盖出现问题时，停止 `127.0.0.1:8765` 静态服务即可立即恢复原创合成音；源码回退只需删除
-`localActivationClipUrls`、`playRandomLocalActivationClip` 和 `stopDriverAudio` 中的本机播放器清理，不需要改动或删除候选源文件。
-公开版本不携带候选音频，因此无需执行 Sites 回退。
+## 4. 数据回退
 
-三段串行播报出现顺序、发音或音色问题时，可单独回退 `localPersonaAnnouncementUrls`、
-`localCommandAnnouncementUrls`、`playLocalClip` 与 `playLocalActivationSequence`，恢复为启动按钮直接随机候选；
-`announcer/` 源文件可保留用于重新选音，不影响站点构建。
+### localStorage 精确清理
 
-Persona Navi Bridge 出现误创建、重复任务或本机调用问题时：
+| 目的 | 只清理此 key |
+|---|---|
+| 重走卡包 | `persona-driver.pack-progress.v1` |
+| 清启动摘要 | `persona-driver.activation-history.v1` |
+| 重置自建/Soul 卡 | `persona-driver.persona-cards.v1`；先导出或确认可丢失 |
+| 重开随机池 | `persona-driver.persona-random-pool.v1` |
+| 清自定义 Prompt | `persona-driver.prompt-presets.v1` |
+| 清管理素材 | `persona-driver.custom-materials.v1` |
 
-1. 先停止 `pnpm navi:bridge`；页面会显示 Bridge 不可用，公开站不受影响。
-2. 回退 `scripts/persona-navi-bridge*.mjs`、`app/page.tsx` 的 Navi 状态与请求、`app/globals.css` 的 `.navi-run-*` 样式。
-3. 保留 `.persona-runs/` 作为审计证据，不删除已创建的 YouNavi conversation；需要归档/删除时由用户在 YouNavi 明确操作。
-4. 五个已安装 Skill 与站点无运行耦合，可以保留；如需卸载，逐一移出 `/Users/zqnw/navi-ai/CHA499/skills/`，不要删除其他用户 Skill。
-5. request 存在但 receipt 缺失时不得手工补 receipt 或自动重发；先用 YouNavi 会话历史核对是否已创建任务。
+禁止整站 `localStorage.clear()`。页面“重新开始”只应删除 pack progress，不应删除启动历史或卡库。
 
-固定预设素材解析异常时，可回退 `MATERIAL_MANIFEST`、`inspectPresetMaterials` 与 `resolvePresetMaterials`，恢复为仅传演示元数据；不要删除用户放在 `PERSONA_NAVI_PRESET_ROOT` 中的原始 Markdown。
+### `.persona-runs/`
 
-若角色面板变化再次触发 ResizeObserver 错误，保留 `scheduleResize` 的 animation-frame 合并和相同尺寸短路；
-只回退该逻辑前必须在开发模式反复展开/收起 Navi 状态面板验证没有错误浮层。
+- 不作为普通缓存删除。
+- request/receipt/result/continuation 是幂等与 RCA 证据。
+- v2 `inputs/` 可能含用户正文；归档或销毁需用户明确同意并精确定位。
+- 回退源码后仍保留旧 schema 的只读记录；不要批量重写历史 JSON。
 
-## 紧急下线
+## 5. 分层源码回退
 
-如果公开内容出现隐私、版权或错误数据风险，应先将 Sites 访问权限收紧或停止公开部署，再调查源码。
-本版本只有公开 Skill 摘要和浏览器会话状态，正常情况下不需要删除任何访客数据。
+在当前独立 Git 仓库中定位上一可用提交，创建新的 revert/回退提交；不要改写已共享历史。当前工作树有大量用户未提交变更，执行任何 Git 回退前必须先确认不会覆盖这些改动。
+
+### Persona Driver 视觉/拖拽
+
+成组检查/回退：
+
+- `app/page.tsx`
+- `app/driver-texture-scene.tsx`
+- `app/driver-closure-layer.tsx` 与 CSS module
+- `app/interaction-drag-layer.tsx`
+- `app/globals.css`
+- 对应 driver/layout/rendered tests
+
+必须保留：`.driver-assembly` 唯一坐标源、base/middle/foreground 三层、页面级 DragLayer、显式启动按钮、点击/键盘回退。禁止恢复 Three.js、GLB 浏览器加载、人体底片、场景内第二套拖拽副本或 `--belt-nudge`。
+
+### 卡片/管理中心
+
+卡架故障优先只回退 `persona-card-shelf*`；详情只回退 `persona-detail-sheet*`；CRUD/随机池回退 `persona-card-model/editor*`；管理中心回退 `persona-management-*`。
+
+安全门必须保留：固定卡只读、通用空位不可执行、自建/Soul 未映射卡不能创建 Run、上传图不被随机池覆盖、管理中心返回不重置 workbench。
+
+### 双棒与 v1/v2
+
+成组检查：
+
+- `app/rod-content-model.ts`
+- `app/rod-injector-panel.tsx`
+- `app/page.tsx` 的 charged/equipped 与 request 构建
+- `scripts/persona-navi-bridge-lib.mjs`
+- rod/Bridge tests
+
+不要只移除 UI 而保留激活门槛。固定素材应继续走 v1，单个文档走 v2；每 Run 恰好一篇、文档 ≤1 MiB、custom Prompt ≤4,000 字符。不得恢复 `normal` 或把文档正文塞进 CLI prompt。
+
+### Persona Bridge / EOF / continuation
+
+紧急停用先停 Bridge。源码回退必须成组覆盖 HTTP 路由、Bridge lib、共享 Run contract、页面轮询和测试。
+
+必须保留：
+
+- loopback Host/Origin/Fetch Metadata/token 四门。
+- `execFile` 参数数组，不走 shell。
+- 服务端 Persona/Command/Material manifest。
+- request-before-send 与 receipt 幂等保护。
+- 期望 Skill 结构化证据门。
+- EOF coverage 门；`SOURCE_NOT_FULLY_READ` 不展示结果。
+- continuation 复用 conversation 和 stalled 防循环。
+
+若 continuation 本身故障，可以暂时移除调用入口，但保留 incomplete 状态和“新建 Run”恢复路径；不要猜测 EOF 或从 0 静默重读。
+
+### Soul
+
+可先从管理中心移除 `SoulCardWizard` 注入，保留手工创建卡。源码回退成组覆盖：
+
+- `app/soul-card-model.ts`
+- `app/soul-card-runtime.ts`
+- `app/soul-card-wizard.tsx`
+- `scripts/persona-soul-bridge-lib.mjs`
+- `/soul-runs` 路由与测试
+
+不得放宽精确路径、隐私确认、speaker purification、固定输出目录、必需文件/知识/引语/来源门。动态 Skill 索引未确认时必须继续 `unmapped`。
+
+### 等待视频
+
+调用方停止渲染 `WaitingVideoPanel` 即可，不取消 Run。若 480p 文件有问题，从项目外归档恢复 720p 备份后再显式修改路径；独立仓不默认携带该备份。播放器仍只允许 localhost + accepted receipt + pending/running。
+
+文件位于 `public/`，若问题是公开部署携带大媒体，正确回退是发布资产排除/移出 public，而不是只隐藏组件。
+
+### 结果阅读器
+
+关闭/撤下 `RunResultSheet` 不影响 Run。保留 `contentMarkdown` 与 metadata；不得为修 UI 重建 conversation。
+
+结果门必须继续要求 completed + Markdown + complete coverage。Markdown 继续结构化渲染，禁止改为不受控 HTML。`/open` 只是打开 YouNavi App，不应改文案为 conversation 深链。
+
+### 音频与 motion
+
+音频故障可单独回退 `audio-library.ts`/`driver-audio.ts` 并使用 Web Audio/TTS/静默降级；播放异常不得抛回业务流程。不要引入无授权影视原声。
+
+开包 motion 可按人物关闭或降级静态卡面；Naval/Musk 与另外三人的目录映射不可整组替换。Driver 激活 motion 当前本来就是 `false`，不要把关闭误判为回退失败。
+
+## 6. 发布回退
+
+1. 在 Sites 版本列表选择上一条已验证版本。
+2. 重新部署为生产版本，不删除历史版本。
+3. 回读根页面、标题、卡包、静态资产与公开 demo 分支。
+4. 确认公开页面没有调用 localhost Bridge。
+5. 审计部署产物是否仍携带 `public/audio/local-test/`、`public/waiting-media/`、GLB/QA；当前源码尚未实现物理排除。
+
+`.openai/hosting.json` 含既有 project ID。独立摘仓或新仓首发前必须由主代理决定重绑定/模板化；未经明确授权不得创建 remote、push 或误部署原项目。
+
+## 7. 独立仓回退与首次发布
+
+- 当前目录已有独立 `.git` 且无 remote。
+- 不要用外层 CHA499 的 reset/clean 处理这个嵌套仓。
+- 首发前先处理 dirty/untracked 主链；不可用 `git clean` 清理，因为大量新源码和资产尚未提交。
+- 生成物 `node_modules/.next/.vinext/dist/.wrangler/.persona-runs/.env*` 保持排除；还应排除 `tsconfig.tsbuildinfo`。
+- 本机绝对路径通过环境变量显式提供；不要把 transcripts、安装 Skills、Soul outputs 或 `.persona-runs` 复制进独立仓。
+- remote/tag/push 都需要用户另行明确授权。
+
+## 8. 回退后验证
+
+最低自动化：
+
+```bash
+npm run build
+npm test
+npm run lint
+```
+
+再按影响面验证：
+
+- 视觉：1440px + 390px、5/7/12 卡、拖拽与键盘。
+- Bridge：可绑定端口环境下 Origin/Host/token 测试。
+- Persona：v1、v2、EOF continuation、结果门。
+- Soul：失败不写卡、完整产物投影、索引未确认保持 unmapped。
+- 媒体：等待窗关闭不取消 Run，音频失败不阻断主流程。
+
+自动化通过仍不能替代真实浏览器与真实 YouNavi 回归。
