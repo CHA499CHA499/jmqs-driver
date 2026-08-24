@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-08-24 · YouNavi Agent 一键安装 Skill
+
+- 新增 `.agents/skills/persona-driver-setup`：假设用户已在 YouNavi 登录，提供 doctor/install/start 三种幂等模式，自动安装五个人物 Skill 与随仓 `create-soul`、生成 `.env.local`、安装依赖、测试、启动并健康检查。
+- 四份经典访谈原文迁入 `materials/classic-interviews/`，由 `persona-driver.material-bundle/v1` manifest 固定字节数和 SHA-256；Bridge 默认读取内置目录，不再要求用户选择材料路径。
+- supervisor 统一使用 npm 子进程并增加 Web HTTP ready / stale-listener 检查，消除 pnpm 前置与“端口存在但页面 502 仍报告 ready”的问题。
+
 ## 2026-08-24 · 交付说明校准
 
 - README 更新为收口后的真实验证基线：99/99 测试通过、TypeScript/构建/diff check 通过、lint 0 error。

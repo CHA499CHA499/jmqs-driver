@@ -46,6 +46,8 @@ bridge-persona-atlas-site/
 │   ├── brand/、cards/           # 当前 Logo 与卡背
 │   └── hero-personas.png、og.png
 ├── worker/index.ts              # vinext/Cloudflare Worker 入口
+├── materials/classic-interviews/# 四份内置固定原文与 SHA manifest
+├── .agents/skills/persona-driver-setup/ # YouNavi Agent 一键安装 Skill
 ├── .openai/hosting.json         # Sites 项目 ID；当前无 D1/R2 绑定
 ├── package.json                 # 命令与 Node >=22.13.0 合同
 ├── README.md                    # 使用入口与当前边界
@@ -189,12 +191,12 @@ Bridge 固定监听 `127.0.0.1:${PERSONA_NAVI_BRIDGE_PORT:-8766}`。允许 Origi
 
 ## 运行命令
 
-要求 Node `>=22.13.0`。当前同时存在 `package-lock.json`，标准安装/测试命令用 npm；开发 supervisor 子进程依赖本机 `pnpm`。
+要求 Node `>=22.13.0`。项目以 `package-lock.json` 和 npm 为唯一包管理器合同；不要求 pnpm。
 
 | 命令 | 用途 |
 |---|---|
 | `npm install` | 安装依赖 |
-| `npm run dev` / `pnpm dev:persona` | 启动 supervisor：web 3000 + Bridge 8766 |
+| `npm run dev` / `npm run dev:persona` | 启动 supervisor：web 3000 + Bridge 8766 |
 | `npm run dev:web` | 只启动 vinext web；真实 Run 会报 Bridge offline |
 | `npm run navi:bridge` | 只启动本机 Bridge |
 | `npm run build` | vinext/Vite/Cloudflare 构建 |
@@ -211,7 +213,7 @@ Bridge 固定监听 `127.0.0.1:${PERSONA_NAVI_BRIDGE_PORT:-8766}`。允许 Origi
 | `PERSONA_NAVI_RUN_ROOT` | 项目 `.persona-runs/` | Persona/Soul 审计目录 |
 | `PERSONA_NAVI_AGENT_CLI` | 自动探测三种 YouNavi App | agent-cli 覆盖路径 |
 | `PERSONA_NAVI_SKILLS_DIR` | `.local/skills` | Skill 根目录；完整运行应在 `.env.local` 指向 YouNavi workspace |
-| `PERSONA_NAVI_MATERIAL_ROOT` | `.local/materials` | 四份固定素材根目录；仓库不携带用户原文 |
+| `PERSONA_NAVI_MATERIAL_ROOT` | `materials/classic-interviews` | 可选覆盖四份内置素材根目录 |
 | `PERSONA_NAVI_PRESET_ROOT` | 无 | 旧兼容别名，优先级低于 MATERIAL_ROOT |
 | `PERSONA_NAVI_SOUL_WORKSPACE_ROOT` | `.local/soul-workspace` | Soul 输出工作区；可在 `.env.local` 覆盖 |
 | `NEXT_PUBLIC_PERSONA_DRIVER_AUDIO_MODE` | localhost 为 `local-test`，其他为 `public-cleared` | 浏览器音频资源层 |
@@ -284,7 +286,7 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 | local-test 音频 | `public/audio/local-test/manifest.json` 及其文件 | 用户确认是完整项目必需资产；localhost 自动启用 |
 | 等待视频 | 中间 6 分钟的 480p MP4 + VTT | 用户确认是完整项目必需资产；完整 480p/720p 版本已在项目外归档 |
 | GLB | 项目外历史归档 | 浏览器与发布包均不包含；仓内 README 只保留恢复指针 |
-| 固定文本素材 | Bridge `MATERIAL_MANIFEST` + `PERSONA_NAVI_MATERIAL_ROOT` | 仓库不携带原文；运行时冻结 SHA/行数/绝对路径 |
+| 固定文本素材 | `materials/classic-interviews/manifest.json` + Bridge `MATERIAL_MANIFEST` | 四份原文随仓；Setup/health 校验 SHA，运行时冻结路径/行数 |
 | 固定人物 Skill | Bridge `PERSONA_MANIFEST` + `PERSONA_NAVI_SKILLS_DIR` | 检查 SKILL.md name 与运行时 SHA；manifest 中源 commit 仅作来源记录 |
 
 ## 故障码
@@ -365,10 +367,10 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 
 ### 当前仓库事实
 
-- 目录本身已是独立 Git 仓库：仓根为 `axon/bridge-persona-atlas-site/.git`，当前分支 `main`。
+- 目录本身已是独立 Git 仓库：仓根为 `axon/bridge-persona-atlas-site/.git`，当前分支 `yjz/persona-driver-convergence`。
 - `git remote -v` 当前无输出，即没有 remote；本次不创建 remote、不 push。
 - 它在 CHA499 外层仓中表现为一个未跟踪目录，不应把外层仓状态当成该独立仓的提交状态。
-- 当前独立仓工作树包含大量尚未提交的新源码/资产/测试和已修改文件；首次发布前必须先由主代理确定提交边界，不能只提交本文档。
+- 主功能与收口基线已提交；本轮 Setup Skill、内置材料和 npm supervisor 增量在同一分支形成可审计提交。
 
 结论：已经具备“独立版本历史容器”，但尚未具备“任意机器 clone 后零配置运行”的摘仓完成度。
 
@@ -376,11 +378,10 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 
 | 位置 | 当前硬编码/默认 | 摘仓影响 | 应做的环境变量化/配置化 |
 |---|---|---|---|
-| `scripts/persona-navi-bridge.mjs` | `.env.local` / `.local/*` | 未配置时固定 Skill、素材和 Soul 输出不可用 | 复制 `.env.example` 并设置三个绝对路径；不提交 `.env.local` |
+| `scripts/persona-navi-bridge.mjs` | 内置材料 + `.env.local` / `.local/*` | 未配置时仅 Skills/Soul 输出不可用 | Setup 自动推导 YouNavi Skills/Soul workspace；不提交 `.env.local` |
 | `persona-navi-bridge-lib.mjs` | 三个 macOS `/Applications/*/agent-cli` 候选 | 非 macOS或自定义安装不可运行 | 已支持 `PERSONA_NAVI_AGENT_CLI`；独立仓 README/启动检查必须将其作为可移植入口 |
 | `app/page.tsx`、管理页 | Bridge URL `http://127.0.0.1:8766` | 自定义 Bridge 端口时前后端错配 | 新增公开安全的 `NEXT_PUBLIC_PERSONA_NAVI_BRIDGE_URL`，并校验仍为 loopback |
 | Bridge | Origin 白名单固定 web 端口 3000 | `PORT!=3000` 时 CORS 拒绝 | 新增 `PERSONA_NAVI_ALLOWED_ORIGINS` 或由同一 web port 配置生成；不可支持任意 Origin |
-| supervisor | 子进程命令固定 `pnpm` | 只有 npm 的机器无法 `npm run dev` | 新增包管理器/可执行配置，或统一 lockfile 与命令 |
 | `.openai/hosting.json` | 现有 Sites `project_id` | 摘仓后可能误部署到原项目或无权限 | 首发模板/文档化重绑定流程；是否保留原 ID 由主代理决定 |
 
 已有可用环境变量：`PORT`、`PERSONA_NAVI_BRIDGE_PORT`、`PERSONA_NAVI_RUN_ROOT`、`PERSONA_NAVI_AGENT_CLI`、`PERSONA_NAVI_SKILLS_DIR`、`PERSONA_NAVI_MATERIAL_ROOT`、`PERSONA_NAVI_PRESET_ROOT`、`PERSONA_NAVI_SOUL_WORKSPACE_ROOT`、`NEXT_PUBLIC_PERSONA_DRIVER_AUDIO_MODE`。其中 web 端 Bridge URL 与允许 Origin 仍未跟这些变量联动。
@@ -388,9 +389,9 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 ### 运行时与发布边界
 
 - 本机完整运行：Browser → loopback Bridge → agent-cli → YouNavi；需要本机 App、认证、Skills 和真实素材，不是纯 Web 应用。
-- 完整独立项目必须携带 local-test 音频和约 110 MiB 的 480p 等待视频；公开部署仍需确认其授权边界，不能仅依赖 UI 门控隐藏。
+- 完整独立项目必须携带 local-test 音频和约 50.9 MiB 的 6 分钟 480p 等待视频；公开部署仍需确认其授权边界。
 - Soul 输出位于外部 workspace；摘仓不会自动携带或迁移既有 Soul。
-- 四份固定原文在仓外；摘仓不会自动携带，且不应因方便而把用户原文直接提交进首个公开仓。
+- 四份固定原文按用户决定随仓内置；`persona-driver-setup` 在安装前验证 manifest，不再询问材料目录。
 - `.persona-runs/` 与浏览器 localStorage 是运行数据，不是可发布种子数据。
 
 ### 应排除的本地产物
@@ -401,18 +402,18 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 - 已补充忽略：`tsconfig.tsbuildinfo`；临时端口/进程文件和编辑器本地配置仍不得提交。
 - 完整独立仓保留 `audio/local-test/` 与 480p `waiting-media/`；若另行制作公开 demo，应在单独构建配置中排除或替换，而不是从主项目删除。
 - 历史 GLB、frames、QA 截图、旧 motion、旧立绘和 720p 备份已迁到 `CHA499/artifacts/persona-driver-convergence/2026-08-21/history/`。
-- `.persona-runs/`、仓外 transcripts、已安装 Skills、Soul outputs 绝不能为“让摘仓能跑”而复制进公开仓。
+- `.persona-runs/`、已安装 Skills、Soul outputs 绝不能为“让摘仓能跑”而复制进公开仓；四份固定 transcripts 已按用户决定成为随仓资产。
 
 ### 首个独立仓库发布检查表
 
 - [ ] 主代理确认仓库名称、license、可见性、默认分支与资产版权边界。
-- [ ] 审核当前 dirty worktree，确定源码/资产/测试的完整首发提交；不得只有文档或遗漏 untracked 主链。
+- [x] 主功能、当前资产、测试、INDEX/架构与 Setup Skill 均进入独立分支提交。
 - [ ] 确认 `git remote -v` 仍为空，直到用户明确指定 remote；创建 remote/push 属于后续显式动作。
-- [ ] 移除个人绝对路径默认，或提供 `.env.example` 和 fail-fast preflight；真实 `.env` 不提交。
-- [ ] 统一 npm/pnpm 策略，验证全新目录 `npm ci`（或选定命令）可安装。
+- [x] 个人绝对路径默认已移除；`.env.example`、ignored `.env.local` 与 Setup doctor 已提供。
+- [x] 统一为 npm，Setup Skill 使用 `npm ci`，supervisor 使用 `npm run dev:web`。
 - [ ] 从 clean clone 执行 `npm run build`、`npm test`、`npm run lint`；记录跳过项与原因。
 - [ ] 在可绑定端口环境补跑 Origin/Host/token HTTP 测试。
-- [ ] 用显式环境变量执行 localhost `/health`，确认 CLI、五 Skill、四素材与 create-soul 状态。
+- [x] 当前 YouNavi workspace 的 Web/Bridge 为 200；五人物 Skill、create-soul 和四份内置素材均 ready。
 - [ ] 分别完成 Persona v1、v2、EOF continuation 与 Soul 真实回归；不复用会导致重复对话的未知 Run。
 - [ ] 决定公开包资产 allowlist/denylist，验证产物不含 local-test、等待视频、GLB/QA、用户输入与绝对路径。
 - [ ] 处理 `.openai/hosting.json`：重绑定新项目、模板化或明确保留；不得误推原项目。

@@ -1,0 +1,25 @@
+{
+  "schema": "persona-driver.material-bundle/v1",
+  "files": [
+    {
+      "name": "FuVenture_乔布斯盖茨D5大会对话_转写文本.txt",
+      "bytes": 102739,
+      "sha256": "01f4740b3c950401ecb8e16ff08af8269f46cd72496dcac82b028d7950eb724f"
+    },
+    {
+      "name": "乔布斯访谈1990_转写文本.txt",
+      "bytes": 60576,
+      "sha256": "6679e8519de5d464ab029554b788452e59bd17cc69c61313c3448453e87a0b20"
+    },
+    {
+      "name": "比尔盖茨_TED_Interview_原转写.txt",
+      "bytes": 45878,
+      "sha256": "e0cb46c5494fd3ec8d6afed5724b2a3dc5527b5cca4d5a476810d492d70de212"
+    },
+    {
+      "name": "梁文道_一千零一夜_活着二_转写文本.txt",
+      "bytes": 28206,
+      "sha256": "b1754cad2961a09c06b8e2c056f488f25f6435763e4fce9c9f077779c511d8ef"
+    }
+  ]
+}

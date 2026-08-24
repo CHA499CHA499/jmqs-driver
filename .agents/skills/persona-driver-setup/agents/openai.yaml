@@ -1,0 +1,7 @@
+interface:
+  display_name: "Persona Driver Setup"
+  short_description: "一键安装、校验并启动 Persona Driver"
+  default_prompt: "Use $persona-driver-setup to install and start Persona Driver in my YouNavi workspace."
+  brand_color: "#EF3048"
+policy:
+  allow_implicit_invocation: true

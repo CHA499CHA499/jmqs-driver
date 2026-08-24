@@ -2,6 +2,12 @@
 
 > 核对日期：2026-08-21。回退目标是停止新增副作用并恢复上一可用行为；不得删除真实 YouNavi conversation、Soul 产物或 `.persona-runs/` 审计证据。
 
+## Persona Driver Setup Skill
+
+若一键安装失败，先运行 `node .agents/skills/persona-driver-setup/scripts/setup.mjs doctor --project <path> --skills-dir <path>`。Skill 不覆盖名称冲突的现有 Skill；修复冲突目录后重跑即可。`.env.local` 可删除后由 Setup 重建，不影响内置材料或历史 Run。
+
+若四份内置原文校验失败，从当前 Git 提交恢复 `materials/classic-interviews/` 与 `manifest.json`；不要跳过 SHA 校验或修改 manifest 伪装成功。
+
 ## 1. 回退前先保全
 
 1. 停止产生新 Run：关闭页面或停止 Bridge/supervisor。

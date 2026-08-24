@@ -41,6 +41,19 @@ async function defaultHealth(port) {
   }
 }
 
+async function defaultWebHealth(port) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 800);
+  try {
+    const response = await fetch(`http://localhost:${port}/`, { cache: "no-store", signal: controller.signal });
+    return response.ok;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function defaultSpawnChild(label, command, args) {
   const child = spawn(command, args, { cwd: PROJECT_DIR, env: process.env, stdio: ["inherit", "pipe", "pipe"] });
   child.stdout.on("data", (chunk) => process.stdout.write(`[${label}] ${chunk}`));
@@ -55,6 +68,7 @@ export function createLocalRuntimeSupervisor({
   readyTimeoutMs = BRIDGE_READY_TIMEOUT_MS,
   probePort = probe,
   health = defaultHealth,
+  webHealth = defaultWebHealth,
   spawnChild = defaultSpawnChild,
   logEvent = defaultLogEvent,
   write = (value) => process.stdout.write(value),
@@ -71,6 +85,15 @@ export function createLocalRuntimeSupervisor({
       await new Promise((resolve) => setTimeout(resolve, 250));
     }
     throw new Error(`Persona Bridge 未通过 health ready：127.0.0.1:${bridgePort}`);
+  }
+
+  async function waitForWebReady() {
+    const deadline = Date.now() + readyTimeoutMs;
+    while (Date.now() < deadline) {
+      if (await webHealth(webPort)) return true;
+      await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+    throw new Error(`Persona Web 未通过 HTTP ready：localhost:${webPort}`);
   }
 
   async function restartBridge() {
@@ -104,16 +127,19 @@ export function createLocalRuntimeSupervisor({
 
   async function ensureWeb() {
     if (await probePort(webPort)) {
+      if (!await webHealth(webPort)) throw new Error(`WEB_PORT_OCCUPIED_UNHEALTHY：localhost:${webPort}`);
       await logEvent("startup", { code: "WEB_ALREADY_LISTENING", port: webPort });
       return;
     }
-    const child = spawnChild("web", "pnpm", ["dev:web", "--", "--port", String(webPort)]);
+    const child = spawnChild("web", "npm", ["run", "dev:web", "--", "--port", String(webPort)]);
     children.set("web", child);
     await logEvent("startup", { code: "WEB_START", childPid: child.pid, port: webPort });
     child.once("exit", async (code, signal) => {
       children.delete("web");
       await logEvent("shutdown", { code: "WEB_EXIT", childPid: child.pid, exitCode: code, signal });
     });
+    await waitForWebReady();
+    await logEvent("listening", { code: "WEB_READY", childPid: child.pid, port: webPort });
   }
 
   async function start() {

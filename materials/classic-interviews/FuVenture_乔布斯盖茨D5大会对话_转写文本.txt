@@ -1,0 +1,1663 @@
+================================================================
+【转写稿】经典回顾：史蒂夫·乔布斯 Steve Jobs 和 比尔·盖茨 Bill Gates 在 D5 大会上的对话
+来源链接：https://www.youtube.com/watch?v=zE-wzCqnxBM
+频道/播客：FuVenture（YouTube 频道）
+单集标题：经典回顾：史蒂夫·乔布斯 Steve Jobs 和 比尔·盖茨 Bill Gates 在 D5 大会上的对话
+上传日期：2021-12-14（访谈实际录制于 2007 年 D5 大会，即 All Things Digital 大会）
+时长：81 分 54 秒（4914 秒）
+嘉宾：史蒂夫·乔布斯（Steve Jobs，时任苹果 CEO）；比尔·盖茨（Bill Gates，时任微软董事长）
+主持人：D5 大会现场主持人（Walt Mossberg / Kara Swisher；页面未提供独立嘉宾信息）
+主题：2007 年 D5 大会（All Things Digital）上乔布斯与盖茨罕见同台，回顾苹果与微软 30 年恩怨、
+      互相评价贡献，讨论 PC 与后 PC 设备、云端之争、未来设备形态、娱乐产业、创业与领导力、
+      两人关系与最大误解等话题。
+转写方式：本地音频自动语音识别（ASR），英语原声，带说话人与时间戳。
+================================================================
+
+[Speaker_1] 00:00:00 - 00:00:01
+so, let's get started.
+[Speaker_1] 00:00:01 - 00:00:10
+I want to ask, there's been a lot of like, mano a mano catfight kind of thing in a lot of the blogs and the press and stuff like that, and we wanted to.
+[Speaker_1] 00:00:10 - 00:00:19
+the first thing I called it was interesting asking is what you think each has contributed to the computer and technology industry, starting with you, Steve, for Bill, and vice versa.
+[Speaker_2] 00:00:21 - 00:00:38
+Um, we know Bill built the first software company in the industry, and I think he built the first software company before anybody really in our industry knew what a software company was, except for these guys.
+[Speaker_2] 00:00:38 - 00:00:42
+And that was huge, that was really huge.
+[Speaker_2] 00:00:42 - 00:00:47
+And the business model that they ended up pursuing turned out to be the one that worked really well, you know, for the industry.
+[Speaker_3] 00:00:47 - 00:00:58
+So, I think that the the the biggest thing was Bill was really focused on software before almost anybody else, had a clue that that it was really the software.
+[Speaker_2] 00:00:58 - 00:01:02
+That's that's what I see, I mean a lot of other things you could say, but that's the high order bit.
+[Speaker_2] 00:01:02 - 00:01:15
+And I think building a company is really hard, and and it requires it requires your greatest persuasive abilities to hire the best people you can, and keep them keep them keep them at your company.
+[Speaker_2] 00:01:15 - 00:01:25
+and keep them working, you know, doing the best work of their lives hopefully, and Bill's been able to stay with it for all these years, so.
+[Speaker_2] 00:01:25 - 00:01:28
+Bill, how about the contribution of Steve and Apple?
+[Speaker_4] 00:01:28 - 00:01:31
+Well, first I wanna clarify I'm not fake Steve Jobs.
+[Speaker_4] 00:02:07 - 00:02:10
+And people may not remember that apple really bet the company.
+[Speaker_4] 00:02:11 - 00:02:17
+Lisa hadn't done that well, and you know some people were saying okay that general approach wasn't good.
+[Speaker_4] 00:02:17 - 00:02:27
+But the team that Steve built even within the company to pursue that, even some days it felt a little ahead of its time.
+[Speaker_4] 00:02:27 - 00:02:29
+I don't remember that twiggy disk drive.
+[Speaker_2] 00:02:30 - 00:02:31
+128K.
+[Speaker_4] 00:02:31 - 00:02:33
+Yeah, and.
+[Speaker_5] 00:02:34 - 00:02:35
+Ah, the twiggy disk drive.
+[Speaker_4] 00:02:36 - 00:02:38
+Yes,ha ha ha.
+[Speaker_4] 00:02:38 - 00:02:44
+Steve gave a speech once, which is one of my favorites where he talked about in a certain sense we build the products that we wanna use ourselves.
+[Speaker_4] 00:02:45 - 00:02:54
+And, you know, so he's really pursued that with incredible taste and elegance that has had a huge impact on the industry.
+[Speaker_4] 00:02:55 - 00:03:03
+And his ability to always come around and figure out where that next bet should be, has been phenomenal.
+[Speaker_4] 00:03:03 - 00:03:14
+You know, Apple literally was failing when Steve went back and reinfused the innovation and risk taking that have been phenomenal.
+[Speaker_4] 00:03:14 - 00:03:15
+So the industry's benefited immensely.
+[Speaker_4] 00:03:16 - 00:03:23
+From his his work, we both been lucky to be part of it, but you know, I'd say he's contributed as much as anyone.
+[Speaker_2] 00:03:24 - 00:03:34
+We've also, we've also both been incredibly lucky to have had great partners that we started the companies with, and we've attracted great people.
+[Speaker_2] 00:03:34 - 00:03:40
+I mean, so everything that's been done at Microsoft and at Apple's been done by just remarkable people.
+[Speaker_2] 00:03:41 - 00:03:44
+None of which are sitting up here, you know, today.
+[Speaker_2] 00:03:45 - 00:03:46
+You're sort of the.
+[Speaker_2] 00:03:46 - 00:03:52
+You're sort of, you're so you're in a way you're the Stan and Frollos of all these other people.
+[Speaker_2] 00:03:54 - 00:03:55
+very tangible way.
+[Speaker_2] 00:03:55 - 00:04:10
+So, Bill mentioned the Apple II and and 1977 and thirty years ago, and there were a couple of other computers with which were aimed at the idea that average people might be able to use them.
+[Speaker_7] 00:04:10 - 00:04:18
+and looking back on it, and that really average average person might not have been able to use them by today's standards, but it certainly broadened the base of who could use computers.
+[Speaker_7] 00:04:19 - 00:04:31
+I actually looked at a at an Apple ad from 1978, it was a print ad, that church I ancient, was, and and it said that Thousands of people have discovered the apple computer.
+[Speaker_7] 00:04:31 - 00:04:32
+Thousands of people.
+[Speaker_7] 00:04:33 - 00:04:39
+Uh, and it also said you don't want to buy one of these computers where you put a cartridge in.
+[Speaker_7] 00:04:39 - 00:04:43
+I think that was a s- a a reference to one of the Atari or something.
+[Speaker_7] 00:04:43 - 00:04:44
+I don't know.
+[Speaker_7] 00:04:44 - 00:04:46
+You want a computer you can write your own programs on.
+[Speaker_7] 00:04:46 - 00:04:51
+And so the world, and obviously, we had some we had some very strange ads back then.
+[Speaker_7] 00:04:51 - 00:05:02
+We had one where it was in a kitchen, and there was a a a a a woman that looked like of the wife, and she was typing in recipes on the computer with the husband looking on approvingly in the back.
+[Speaker_7] 00:05:02 - 00:05:03
+Yeah.
+[Speaker_7] 00:05:03 - 00:05:04
+Stuff like that.
+[Speaker_7] 00:05:04 - 00:05:05
+Yeah, how did that work for you?
+[Speaker_7] 00:05:06 - 00:05:06
+I don't think well.
+[Speaker_7] 00:05:08 - 00:05:21
+so, but but just think back to, I I I know that you started Microsoft prior to 1977, yous, I think Apple started the year before in 76, Microsoft in 74, 75, and then yeah.
+[Speaker_7] 00:05:21 - 00:05:24
+then we did the ba, ship the basic in 75.
+[Speaker_7] 00:05:24 - 00:05:33
+OK, most people will, I I some people here, but I don't think most people know that there was actually a, some Microsoft software in that Apple two computer.
+[Speaker_7] 00:05:33 - 00:05:37
+Do you want to talk about what happened there, how that, how that occurred?
+[Speaker_4] 00:05:38 - 00:05:56
+Yeah, they, the, there've been the Altair and a few other companies, actually about 24 that had done various machines, but the 77 group included the PET, TRS8, and the Commodore PET, TRS8, and the Apple II.
+[Speaker_4] 00:05:56 - 00:06:06
+The original Apple II basic, the Energy Basic, we had nothing to do with, but then there was a floating point one, where, and I mostly worked with laws on that.
+[Speaker_4] 00:06:06 - 00:06:09
+I made, and we, let me tell the story.
+[Speaker_4] 00:06:45 - 00:06:50
+What Bagan was to make this floating point, and he he just never does it, you know, and he wrote it by hand on paper.
+[Speaker_2] 00:06:51 - 00:06:57
+I mean, you know, he didn't, we didn't, he didn't have an assemble or anything to write it with, it was all just written on paper, and he typed it in, he just never got around to making a floating point.
+[Speaker_2] 00:06:58 - 00:07:09
+Well, these is one of the mysteries of life, I don't know,but he never did, and so, you know, Microsoft had this very popular, really good floating point basic, that we ended up going to them and saying, help.
+[Speaker_7] 00:07:23 - 00:07:26
+And, yeah, that was fun.
+[Speaker_7] 00:07:26 - 00:07:32
+I think the most fun, is is later, when we were together.
+[Speaker_7] 00:07:32 - 00:07:33
+What was the most fun?
+[Speaker_7] 00:07:33 - 00:07:35
+Tell tell the story about the most fun that was later.
+[Speaker_1] 00:07:35 - 00:07:37
+And maybe later, not the most fun.
+[Speaker_7] 00:07:37 - 00:07:38
+Ha ha ha.
+[Speaker_7] 00:07:39 - 00:07:40
+Let him let him talk.
+[Speaker_1] 00:07:40 - 00:07:41
+Teasing, I'm teasing.
+[Speaker_4] 00:07:41 - 00:07:45
+Well, yeah, Steve can probably start it better.
+[Speaker_4] 00:07:45 - 00:07:56
+The the team that was assembled there to do the Macintosh was a very committed team, and there was an equivalent team on our side that just got totally focused on this activity.
+[Speaker_4] 00:07:56 - 00:08:13
+Jeff Harburg's a lot of incredible people, and we really that our future, because we on the Macintosh being successful, and then hopefully graphics interface in general being successful, but first and foremost the thing that would popularize that being the Macintosh.
+[Speaker_4] 00:08:14 - 00:08:27
+and so we were working together, the schedules were uncertain, the quality was uncertain, the price, when Steve first came up it was gonna be a lot cheaper computer, than it ended up being, but that was fine.
+[Speaker_1] 00:08:31 - 00:08:32
+So you worked in both places in both?
+[Speaker_4] 00:08:33 - 00:08:44
+Well, we we were in Seattle, and we fly down the Microsoft, if I'm re- remember correctly, from what I read,Wasn't Microsoft one of the few companies that were allowed to even have a prototype of the yeah.
+[Speaker_2] 00:08:44 - 00:08:44
+back at the time.
+[Speaker_2] 00:08:45 - 00:08:50
+interesting, what what what's hard to remember now is that Microsoft wasn't in the applications business then.
+[Speaker_2] 00:08:51 - 00:08:55
+The ma, they took a big bet on the Mac, because they, this is how they got into the apps business.
+[Speaker_2] 00:08:56 - 00:08:58
+I mean Lotus dominated the apps business on the PC back then.
+[Speaker_4] 00:08:59 - 00:09:09
+Right, we had done just Multiplan, yeah, which was a hit on the Apple II, and then Mitch did an incredible job betting on the IBM PC, and one two three came in and you know.
+[Speaker_4] 00:09:10 - 00:09:12
+ruled that that part of the business.
+[Speaker_4] 00:09:12 - 00:09:23
+So the question was what was the next paradigm shift right that would allow for an entry we're perfect 我们有 word but word perfect was by far the strongest word processing d base and databaseand word was a w- a that was a kind of a doss。
+[Speaker_7] 00:09:24 - 00:09:37
+a textall of the all of these products i'm saying were doss based rightproductscause windows wasn't in the picture at the timerightthat's more in the early nineties that that we get to that and so we made this bet that the parent time shift would be。
+[Speaker_4] 00:09:38 - 00:09:46
+graphic interface, in particular that the macintosh would make that happen with 128 k of memory, 22 k of which was for the screen buffer.
+[Speaker_4] 00:09:47 - 00:09:50
+14 k was for the operating system, so it was
+[Speaker_7] 00:09:51 - 00:09:52
+yeah, 14 k.
+[Speaker_7] 00:09:53 - 00:09:55
+The original Mac operating system was 14K.
+[Speaker_2] 00:09:56 - 00:09:59
+14K that we had to have loaded when our software ran.
+[Speaker_2] 00:10:00 - 00:10:03
+So, when the shell would come up, it had all the 128K.
+[Speaker_2] 00:10:04 - 00:10:06
+The OS was the OS was bigger than 14K.
+[Speaker_2] 00:10:06 - 00:10:07
+It was in the 20s somewhere.
+[Speaker_2] 00:10:10 - 00:10:13
+So we ship these, now we ship these computers now with, you know, a gigabyte, two gigabytes of memory.
+[Speaker_2] 00:10:14 - 00:10:17
+And and and nobody remembers 128K.
+[Speaker_2] 00:10:18 - 00:10:19
+I remember that.
+[Speaker_2] 00:10:19 - 00:10:23
+I remember I remember paying a lot of money for computers with 128K in those days.
+[Speaker_2] 00:10:23 - 00:10:34
+So, um, the two companies worked closely on the on the Mac project, cause cause you were maybe not the only, but the principal or one of the principal software creators for it, right?
+[Speaker_2] 00:10:34 - 00:10:35
+is that right?
+[Speaker_2] 00:10:35 - 00:10:50
+well, apple did the mac itself, but we got we got bill and his team involved to write these applications, and we were doing a few apps ourselves, we did Mac paint and MacDraw and stuff like that, but bill and his team did some great work.Now, in terms of going.
+[Speaker_1] 00:10:50 - 00:11:01
+moving forward, when the after you left, and your company grew more and more strong, how did you what did you think was gonna happen to apple after sort of the disasters that occurred after Steve left?
+[Speaker_4] 00:11:02 - 00:11:04
+Well, Apple's fate hung in the balance.
+[Speaker_4] 00:11:05 - 00:11:13
+We continued to do Macintosh software, and you know, Excel, which Steven and I introduced together in New York City.
+[Speaker_4] 00:11:14 - 00:11:18
+It was kind of a fun event that went on and did very well.
+[Speaker_4] 00:11:19 - 00:11:31
+But then, you know, Mac, Apple just wasn't differentiating itself well enough from the higher volume platform, and meaning Windows, right?
+[Speaker_4] 00:11:31 - 00:11:32
+I mean, DOS and Windows.
+[Speaker_7] 00:11:32 - 00:11:35
+OK, but especially Windows in the nineties.
+[Speaker_4] 00:11:36 - 00:11:37
+began to take off.
+[Speaker_4] 00:11:37 - 00:11:40
+By 1995, Windows became popular.
+[Speaker_4] 00:11:40 - 00:11:52
+The big debate wasn't sort of Mac versus Windows, the big debate was character mode interface versus graphics mode interface, and when the 386 came, and we got more memory, and the speed was adequate, and some development tools came along.
+[Speaker_4] 00:11:52 - 00:12:01
+that paradigm bet on GUI paid off for everybody who gotten in early, and said, you know, this is the way that's going to go.
+[Speaker_4] 00:12:01 - 00:12:03
+And so,but Apple wasn't able to leverage its.
+[Speaker_7] 00:12:03 - 00:12:11
+They weren't you,they, after the 512 came Mac was done, the product line just didn't evolve.
+[Speaker_4] 00:12:12 - 00:12:16
+As fast, we, Steve wasn't there.
+[Speaker_4] 00:12:16 - 00:12:24
+As it needed to, and we were actually negotiating a deal to invest and and make some commitments and things with Gil Amelio.
+[Speaker_4] 00:12:25 - 00:12:29
+And no, seriously, and we were.
+[Speaker_1] 00:12:29 - 00:12:30
+Don't be mean, don't be mean to him.
+[Speaker_4] 00:12:30 - 00:12:31
+I'm sorry.
+[Speaker_1] 00:12:31 - 00:12:32
+Just saying the word Gil Amelio, you can see him.
+[Speaker_4] 00:12:33 - 00:12:44
+And so, I was calling him up on the weekend and all this stuff, and next thing I knew, Steve called me up and said, don't worry about that negotiation with Gil Amelio.
+[Speaker_4] 00:12:44 - 00:12:48
+You can just talk to me now, and I said, wow.
+[Speaker_4] 00:12:48 - 00:12:53
+Bill, Bill was a nice guy, but he had a saying.
+[Speaker_2] 00:12:53 - 00:13:04
+He said, um, Apple is like a ship with a hole in the bottom leaking water, and my job is to get the ship pointed in the right direction.
+[Speaker_7] 00:13:04 - 00:13:04
+Ha ha ha.
+[Speaker_7] 00:13:30 - 00:13:31
+Windows was just going great guns.
+[Speaker_7] 00:13:31 - 00:13:34
+I mean, Windows 95.
+[Speaker_7] 00:13:34 - 00:13:40
+To whatever extent earlier versions of Windows had not had all the features, all the gooey stuff that the Mac had.
+[Speaker_7] 00:13:40 - 00:13:42
+Windows 95 really was an enormous enormous leap.
+[Speaker_4] 00:13:43 - 00:13:52
+Yeah, Windows 95 is when graphic center face became mainstream, and when the software industry realized, wow, this is the way applications are going to be done.
+[Speaker_4] 00:13:52 - 00:13:59
+It, and it was amazing that it was ridiculed sort of in 93 94 was not mainstream, and then in 95 the debate was over.
+[Speaker_4] 00:14:00 - 00:14:12
+It was kind of just a common sense thing, and it was a combination of Hardware and software, maturity getting to a a point that people could see it.
+[Speaker_7] 00:14:13 - 00:14:19
+So, I don't wanna go through every detail the whole history of how you came back, but thank you.
+[Speaker_7] 00:14:19 - 00:14:27
+You had, but you in that video we all saw, you said you decided to that it was destructive to have this competition with Microsoft.
+[Speaker_7] 00:14:27 - 00:14:36
+Now obviously, Apple was in a lot of trouble, and I presume that there was some tactical or strategic reason for that as well as just wanted to be a nice guy, right?
+[Speaker_7] 00:14:36 - 00:14:49
+I mean, you know, Apple was in in very serious trouble, and um What was really clear was that if the game was a zero sum game where for Apple to win, Microsoft had to lose.
+[Speaker_2] 00:14:49 - 00:14:50
+then Apple was gonna lose.
+[Speaker_2] 00:14:50 - 00:14:54
+But that's a lot of people's heads were still in that place.
+[Speaker_3] 00:14:54 - 00:14:55
+Why was that from your perspective?
+[Speaker_2] 00:14:56 - 00:14:59
+Well, a lot of people's heads were in that place at Apple.
+[Speaker_3] 00:14:59 - 00:15:12
+and and even in the customer base, because you know Apple had invented a lot of this stuff, and Microsoft was being successful and Apple wasn't, and there was jealousy in this and that, there was just a lot of reasons for it that don't matter. But the net result.
+[Speaker_2] 00:15:12 - 00:15:19
+of it was was there were too many people at Apple and in the Apple ecosystem playing the game of for Apple to win, Microsoft has to lose.
+[Speaker_2] 00:15:20 - 00:15:25
+And it was clear that you didn't have to play that game, cause Apple wasn't gonna beat Microsoft.
+[Speaker_2] 00:15:25 - 00:15:31
+Apple didn't have to beat Microsoft, Apple had to remember who Apple was, cause it forgotten who Apple was.
+[Speaker_2] 00:15:31 - 00:15:35
+And so to me it was pretty essential to break that paradigm.
+[Speaker_2] 00:15:35 - 00:15:42
+And it was it was also important that you know Microsoft was was the biggest software developer outside of Apple developing for the Mac.
+[Speaker_2] 00:15:42 - 00:15:48
+And and so you know that was it was just crazy what was happening at that time, and Apple was very weak.
+[Speaker_2] 00:15:48 - 00:15:52
+And so I called Bill up, and we tried to patch things up.
+[Speaker_2] 00:15:52 - 00:16:04
+And since that time we've had a team that's fairly dedicated to doing the Mac applications, and they've always been treated kind of in a unique way so that they can havePretty special relationship with Apple.
+[Speaker_2] 00:16:04 - 00:16:05
+and that's worked out very well.
+[Speaker_2] 00:16:06 - 00:16:19
+In fact, every couple years or so, there's been something new that we've been able to do on the Mac and yeah, great great business for us and and it's actually the relationship between the Mac development team at at Microsoft and Apple is a great relationship.
+[Speaker_2] 00:16:19 - 00:16:21
+It's one of our best developer relationships.
+[Speaker_1] 00:16:21 - 00:16:34
+And do you look at yourselves as rivals now today, as as this a landscape has evolved, and we'll talk about the internet landscape and everything else and other companies that have come forward, but how do you look at yourselves in this landscape today?Because you, I mean you you are competitors.
+[Speaker_2] 00:16:34 - 00:16:37
+in certain ways, which is in American way right?
+[Speaker_1] 00:16:37 - 00:16:37
+We watch commercials, we watch the commercials.
+[Speaker_2] 00:16:38 - 00:16:40
+And you get annoyed at each other from time to time.
+[Speaker_1] 00:16:40 - 00:16:40
+But you know what?
+[Speaker_1] 00:16:40 - 00:16:41
+I have to confess.
+[Speaker_2] 00:16:41 - 00:16:42
+I like PC guy better.
+[Speaker_6] 00:16:42 - 00:16:43
+Yeah, he's great.
+[Speaker_6] 00:16:43 - 00:16:44
+I like him.
+[Speaker_2] 00:16:44 - 00:16:51
+The art of those commercials is not to be mean, but it's actually for the guys to like each other.
+[Speaker_6] 00:16:51 - 00:16:52
+Haha.
+[Speaker_6] 00:16:52 - 00:16:56
+Thanks.
+[Speaker_6] 00:16:57 - 00:16:57
+Haha.
+[Speaker_6] 00:16:58 - 00:17:00
+PC guy is PC guy is great.
+[Speaker_2] 00:17:01 - 00:17:01
+I like PC guy.
+[Speaker_6] 00:17:01 - 00:17:02
+Haha.
+[Speaker_6] 00:17:06 - 00:17:07
+His mother loves him.
+[Speaker_6] 00:17:07 - 00:17:08
+His mother loves him.
+[Speaker_6] 00:17:08 - 00:17:09
+I'm telling you.
+[Speaker_6] 00:17:10 - 00:17:12
+I like PC guy totally better.
+[Speaker_2] 00:17:12 - 00:17:12
+Wow.
+[Speaker_6] 00:17:12 - 00:17:13
+I do.
+[Speaker_6] 00:17:13 - 00:17:14
+I don't know why.
+[Speaker_6] 00:17:14 - 00:17:14
+He's endearing.
+[Speaker_6] 00:17:15 - 00:17:15
+The other guy is.
+[Speaker_2] 00:17:15 - 00:17:17
+PC guy is what makes it all work.
+[Speaker_6] 00:17:17 - 00:17:18
+Actually.
+[Speaker_6] 00:17:18 - 00:17:18
+Yeah.
+[Speaker_6] 00:17:18 - 00:17:19
+All right.
+[Speaker_6] 00:17:19 - 00:17:22
+It's worth thinking about.
+[Speaker_6] 00:17:23 - 00:17:25
+So, how do you look at yourself?
+[Speaker_7] 00:17:25 - 00:17:27
+I mean, let me just ask you, Bill.
+[Speaker_7] 00:17:28 - 00:17:36
+You ob- obviously Microsoft is a much larger company, you're in many more markets, many more types of products than than Apple is.
+[Speaker_7] 00:17:37 - 00:17:50
+You know when you were running the company, or when Steve Ballmer is running the company, you think obviously about Google, you think about, I don't know, Linux in the in the in the enterprise.
+[Speaker_7] 00:17:50 - 00:17:54
+you think about a lots of I mean Sony with in in the game area.
+[Speaker_7] 00:17:55 - 00:18:02
+How often is Apple on your radar screen at Microsoft in in in a business sense?
+[Speaker_4] 00:18:02 - 00:18:11
+Well, they're they're only radar screen is an opportunity, and in in a few cases like the zoom, that if you go over to that group, they think of Apple as a competitor.
+[Speaker_4] 00:18:11 - 00:18:18
+They love the fact that Apple's created a gigantic market, and they're gonna try and come in and contribute something to that.
+[Speaker_4] 00:18:19 - 00:18:23
+That and and we love them cause they're all customers.
+[Speaker_4] 00:18:29 - 00:18:32
+I I I have to tell you, I was actually told by J.
+[Speaker_7] 00:18:32 - 00:18:48
+Allard, I'm serious, that because of the nature of the processor, the development platform they used to develop a lot of the software for the Xbox 360 was Max, and he claimed that at one point they had like placed the biggest order for whatever the.
+[Speaker_7] 00:18:48 - 00:18:52
+Mac tower was at the time of anybody, and it was Microsoft.
+[Speaker_4] 00:18:52 - 00:19:04
+I don't know was the biggest, but yeah, we had a the same processor essentially that the Mac had, is one of those great ironies, they were switching away from that processor while the Xbox 360 was adopting it.
+[Speaker_4] 00:19:04 - 00:19:13
+but for good reasons actually in both cases, cause we're not in a portable application, and that was one of the things that that processor roadmap didn't have, but yes, we did.
+[Speaker_4] 00:19:13 - 00:19:20
+it it shows pragmatism, but we we try and and do things that way.
+[Speaker_4] 00:19:21 - 00:19:28
+so that was the development system for the early people getting their software ready for the introduction of of Xbox 360.
+[Speaker_4] 00:19:28 - 00:19:30
+And we never ran an ad on that.
+[Speaker_7] 00:19:31 - 00:19:32
+I see.
+[Speaker_4] 00:19:32 - 00:19:34
+Admire restraint.
+[Speaker_7] 00:19:34 - 00:19:34
+That's wonderful.
+[Speaker_4] 00:19:34 - 00:19:36
+There were hundreds of them.
+[Speaker_7] 00:19:36 - 00:19:37
+Steve is so known for his restraint.
+[Speaker_4] 00:19:38 - 00:19:46
+how do you look at that Microsoft from an Apple perspective?
+[Speaker_7] 00:19:46 - 00:19:54
+I mean you compete in computers and I mean you could say you don't compete, you know the era of destructive whatever, that whatever you said in 1997.
+[Speaker_7] 00:19:55 - 00:20:00
+You think you you're you're consciously aware of what they're doing with with you know, did you follow this to closely, I think you know.
+[Speaker_2] 00:20:00 - 00:20:05
+What's what's really interesting is, and and we talked about this earlier today.
+[Speaker_2] 00:20:06 - 00:20:14
+If you if you look at the reason that the iPod exists, and that Apple's in that marketplace.
+[Speaker_2] 00:20:15 - 00:20:24
+It's because these really great Japanese consumer electronics companies who kind of own the portable music market, for a long long invented it, and owned it.
+[Speaker_2] 00:20:25 - 00:20:32
+Couldn't write so couldn't do the appropriate software, couldn't conceive of and implement the appropriate software.
+[Speaker_2] 00:20:32 - 00:20:41
+cause an iPod is really just software, software in the iPod itself, it's software on the PC or the Mac, and it's software in the cloud for the store, and it's in a beautiful box, but it's software.
+[Speaker_2] 00:20:42 - 00:20:47
+If you look at what a Mac is, it's it's OS ten, right?
+[Speaker_2] 00:20:47 - 00:20:59
+It's in a beautiful box, but it's it's OS ten, and if you look at what an iPhone will hopefully be, it's software, and so the the the the big secret about Apple, of course, not so big secret maybe.
+[Speaker_2] 00:20:59 - 00:21:14
+is that Apple views itself as a software company and there aren't very many software companies left 微软是一个软件公司，所以，你知道，我们我们看他们做什么，我们认为有些东西真的很棒，我们认为有些东西。
+[Speaker_2] 00:21:14 - 00:21:15
+有点竞争，大部分不是。
+[Speaker_2] 00:21:16 - 00:21:21
+你知道，我们我们不相信，Mac 会占领超过80的 PC 市场。
+[Speaker_2] 00:21:22 - 00:21:25
+我们我们真的很高兴，当我们的市场份额上升一点。
+[Speaker_2] 00:21:25 - 00:21:32
+我们喜欢那样，我们努力工作，但是，苹果是一个软件公司，而且，没有很多人，在微软。
+[Speaker_7] 00:21:33 - 00:21:39
+但是你你也许是一个软件公司，但是你被认为，至少对你的客户，和对大部分记者来说。
+[Speaker_7] 00:21:39 - 00:21:55
+Company that kind of pays a lot of attention integrating software and hardware You know Allen Microsoft has made some recent moves to be a little more like that obviously not your core biggest businesses but with Xbox and Zune and you know the surface computing a device。
+[Speaker_7] 00:21:55 - 00:22:16
+we saw today is another example These aren't markets that hold up in size to Windows or Office but there are some of your more recent initiatives are are the company's approaches to thisAllen K had a great quote back in the seventies I think he said People。
+[Speaker_4] 00:22:16 - 00:22:19
+that love software wanna do their own hardware.
+[Speaker_4] 00:22:19 - 00:22:20
+You know?
+[Speaker_4] 00:22:21 - 00:22:22
+Well, build of software.
+[Speaker_4] 00:22:22 - 00:22:23
+I can resist that.
+[Speaker_4] 00:22:23 - 00:22:33
+The questions are there markets where the innovation and variety you get is a net positive.
+[Speaker_4] 00:22:33 - 00:22:37
+The negative is that in the early stage you really want to do the two together.
+[Speaker_4] 00:22:37 - 00:22:40
+So you want to do prototyping and things like that.
+[Speaker_4] 00:22:40 - 00:22:44
+You know really is one thing, and then just take the phone market.
+[Speaker_4] 00:22:45 - 00:22:48
+We think we're on 140 different kinds of hardware.
+[Speaker_4] 00:22:49 - 00:22:51
+We think it's beneficial to us.
+[Speaker_4] 00:22:51 - 00:22:56
+that even if we did a few ourselves, it wouldn't give us what we have through those partnerships.
+[Speaker_4] 00:22:56 - 00:22:59
+likewise, you take the robotics market, very undeveloped.
+[Speaker_4] 00:22:59 - 00:23:09
+we have over 140 all tiny volume robots using microsoft software, and the creativity building toys, security things, medical things.
+[Speaker_4] 00:23:09 - 00:23:20
+we love the innovation and the ecosystem that's going to grow up, who knows when, but we're patient around that, and we'll have a a great asset with this robotic software platform.
+[Speaker_4] 00:23:20 - 00:23:22
+so there are things like pc, phone.
+[Speaker_4] 00:23:22 - 00:23:29
+and robot were, I, the the the microsoft choice, is to go for the variety.
+[Speaker_4] 00:23:30 - 00:23:36
+It's apples, it's great, there's you know, for them, they do what works super well for them.
+[Speaker_4] 00:23:36 - 00:23:48
+And there's a few markets like Xbox 360 Zune, and this year we have two new ones, the Surface thing, and this round table, which is the meeting room thing, where we'll actually through subcontractors.
+[Speaker_4] 00:23:48 - 00:23:54
+but it's our, the PNL on the risk, and all that for the hardware, the design is is completely microsoft thing.
+[Speaker_7] 00:23:54 - 00:23:57
+The the the round table, is that something you've announced, or were you just
+[Speaker_4] 00:23:57 - 00:24:02
+We've shown prototypes of it, it's that's the thing where it's scott the 360D all right.
+[Speaker_2] 00:24:03 - 00:24:03
+and all those.
+[Speaker_7] 00:24:04 - 00:24:07
+it's like cisco has something in that market and hp too, right?
+[Speaker_2] 00:24:07 - 00:24:12
+oh, hp has a very high end thing, that's a tiny bit like it, but anyway.
+[Speaker_7] 00:24:12 - 00:24:13
+all right.
+[Speaker_2] 00:24:14 - 00:24:14
+ha ha.
+[Speaker_7] 00:24:14 - 00:24:16
+you know, you ever regret?
+[Speaker_2] 00:24:17 - 00:24:23
+it it it was was there something you might have wanted to do differently, and maybe this all, you feel like this happened after you left apple?
+[Speaker_7] 00:24:24 - 00:24:31
+something you might have done differently, that were were you could have had a much bigger market share for the mac?
+[Speaker_2] 00:24:32 - 00:24:46
+well, before i answer that, let me make a comment on bill's answer there, which is It's very interesting in the consumer market, and the enterprise market, they're they're very different spaces.
+[Speaker_2] 00:24:47 - 00:25:09
+And in the consumer market at least, I think one can make a pretty strong case that outside of Windows, on PCs, it's hard to see other examples of of of the software and hardware being decoupled working super well yet.
+[Speaker_2] 00:25:10 - 00:25:12
+It might in the phone space over time, it might.
+[Speaker_2] 00:25:13 - 00:25:15
+But it's not clear.
+[Speaker_2] 00:25:16 - 00:25:17
+It's not clear.
+[Speaker_2] 00:25:18 - 00:25:22
+You can see a lot more examples of the hardware software coupling working well.
+[Speaker_2] 00:25:23 - 00:25:34
+And so I think this is this is one of the reasons we all, you know, come to work every day is cause nobody knows the answer to some of these questions, and we'll find out over the coming years, maybe both will work fine.Yeah.Maybe they won't.Yeah, it's good.
+[Speaker_4] 00:25:34 - 00:25:38
+in it's good to try both approaches, and some product categories take music players.
+[Speaker_4] 00:25:38 - 00:25:42
+This the solo design worked better in the PC market.
+[Speaker_4] 00:25:43 - 00:25:48
+The the variety of designs, this stage has a higher share.
+[Speaker_2] 00:25:48 - 00:25:51
+It has a higher share, yeah, it has a lot higher share.
+[Speaker_4] 00:25:51 - 00:25:53
+Well, it's not that much different music players the other way around.
+[Speaker_4] 00:25:56 - 00:26:02
+Is there some moment you feel like I should have done this or Apple should have done that, and we could have had?
+[Speaker_2] 00:26:03 - 00:26:03
+Oh, if not.
+[Speaker_7] 00:26:03 - 00:26:07
+this idea of these hardware software integration, and it's working very well now.
+[Speaker_2] 00:26:07 - 00:26:17
+There's a lot of things that happens, that I'm sure I could have done better when I was at Apple the first time, and a lot of things that happened after I left, that I thought were wrong turns, but it doesn't matter.
+[Speaker_2] 00:26:17 - 00:26:28
+It really doesn't matter, and you kind of gotta let go of that stuff, and you know we are where we are, so we tend to look forward, and you know one of the things I did when I got back to Apple ten years ago was I I.
+[Speaker_2] 00:26:28 - 00:26:35
+I gave the museum to Stanford, and all the papers, and all the old machines, and kind of cleared out the cobwebs, and said, let's stop looking backwards here.
+[Speaker_2] 00:26:36 - 00:26:38
+It's all about what happens tomorrow.
+[Speaker_2] 00:26:38 - 00:26:46
+And and because you can't you can't look back and say, well gosh, you know I wish I hadn't gotten fired, I wish I was there, I wish this, I wish that, it doesn't matter.
+[Speaker_2] 00:26:46 - 00:26:51
+And so, let's go invent tomorrow, rather than worrying about what happened yesterday.
+[Speaker_1] 00:26:51 - 00:26:59
+Let's talk about, we're gonna talk a little bit about tomorrow, but let's talk about today, the landscape of how you see the different players in the market, and how you you you look at what's developing now.
+[Speaker_1] 00:27:00 - 00:27:02
+What is surprised both of you since having been around?
+[Speaker_1] 00:27:02 - 00:27:05
+for so long, and still very active in everything.
+[Speaker_1] 00:27:05 - 00:27:10
+I mean your companies are so critically key companies, but there are many many companies that are becoming quite powerful.
+[Speaker_1] 00:27:10 - 00:27:16
+How do you look at the landscape at this moment, and what's happening especially in the internet space?
+[Speaker_2] 00:27:17 - 00:27:19
+I think it's super healthy right now.
+[Speaker_2] 00:27:19 - 00:27:28
+I think there's a lot of a lot of young people out there building some great companies who want to build companies, who aren't just interested in starting something and selling it to one of the big guys.
+[Speaker_2] 00:27:28 - 00:27:30
+but who want to build companies.
+[Speaker_2] 00:27:30 - 00:27:41
+And I think there's some some really exciting companies getting built out there, some next generation stuff that that you know, some of us play catch up with, and and you know some of us find ways to partner with.
+[Speaker_2] 00:27:41 - 00:27:42
+and things like that.
+[Speaker_2] 00:27:42 - 00:27:44
+But there's a lot of activity out there now, wouldn't you say?
+[Speaker_4] 00:27:44 - 00:27:46
+Yeah, I'd say it's a healthy period.
+[Speaker_4] 00:27:46 - 00:28:03
+The the notion of what the new form factors look like, what natural interface can do, the ability to use the cloud, the internet to do part of the task, in a complimentary way to the the local experience.
+[Speaker_4] 00:28:03 - 00:28:18
+There's a lot of invention that the whole approach of startups, the existing companies who do research, it it We'll look back at this is one of the great periods of invention.
+[Speaker_1] 00:28:18 - 00:28:19
+I think so too.
+[Speaker_2] 00:28:19 - 00:28:26
+And there's a lot of things that that that are that are risky right now, which is always a good sign, you know, and you can see through them, you can see to the other side and go yes.
+[Speaker_2] 00:28:26 - 00:28:30
+this could be huge, but there's a period of risk that you know nobody's ever done it before.
+[Speaker_1] 00:28:30 - 00:28:33
+Give an example that would for exa-I do, but I can't say.
+[Speaker_1] 00:28:33 - 00:28:33
+OK.
+[Speaker_2] 00:28:33 - 00:28:37
+And so, but but I can't say when you feel like that, that's a great thing.
+[Speaker_1] 00:28:37 - 00:28:37
+Right.
+[Speaker_2] 00:28:38 - 00:28:43
+That's what keeps you coming to work in the morning, and it's an and it tells you there's something exciting around the next corner.
+[Speaker_1] 00:28:43 - 00:28:52
+OK, but so the two of you haveCertainly, you're you're involved every day with the internet, you have internet products, you have a whole, you know nobody's ever done it before.
+[Speaker_2] 00:28:52 - 00:28:55
+Give an example that would, for instance, I do but I can't say.
+[Speaker_7] 00:28:55 - 00:28:55
+OK.
+[Speaker_2] 00:28:55 - 00:28:59
+And so, but but I can't say when you feel like that, that's a great thing.
+[Speaker_7] 00:29:00 - 00:29:00
+Right.
+[Speaker_2] 00:29:00 - 00:29:05
+That's what keeps you coming to work in the morning, and it's an, and it tells you there's something exciting around the next corner.
+[Speaker_7] 00:29:05 - 00:29:17
+OK, but so the two of you have, certainly, you're you're involved every day with the internet, you have internet products, you have a whole slew of stuff on the internet, you you you have iTunes and dot Mac.
+[Speaker_7] 00:29:17 - 00:29:24
+and and and and and and all of that, but on on another level, you're the guys who represent the rich client.
+[Speaker_7] 00:29:25 - 00:29:37
+Personal computer, the you know big operating system and all that, and there is a certain school of thought, and I'm sure it's shared by some people in the room, that this is all migrating to the cloud.
+[Speaker_7] 00:29:37 - 00:29:40
+and you'll need a fairly light piece of hardware.
+[Speaker_7] 00:29:40 - 00:29:46
+that won't have to have all that in investment, all the kind of stuff you guys have done throughout your careers.
+[Speaker_7] 00:29:47 - 00:29:51
+So as much as people I think of you as rivals, one way to think of you is the two guys.
+[Speaker_2] 00:29:51 - 00:29:52
+Dinosaurs?
+[Speaker_7] 00:29:52 - 00:29:53
+Ah?
+[Speaker_2] 00:29:53 - 00:29:53
+There were both dinosaurs.
+[Speaker_7] 00:29:53 - 00:29:59
+Dinosaurs or whatever, I I I can talk about that, no.Seriously, is.
+[Speaker_1] 00:30:00 - 00:30:06
+there in five years, in five years, is the personal computer still gonna be the linchpin of all this stuff?
+[Speaker_2] 00:30:07 - 00:30:09
+well, you can say that it'll be predicted that it won't be.
+[Speaker_2] 00:30:10 - 00:30:16
+you know the network computer, took us over about what, 5 years ago, we disappeared.
+[Speaker_2] 00:30:16 - 00:30:22
+Remember the single function computer, there was somebody who said that the these general purpose things are kind of a dumb idea.
+[Speaker_2] 00:30:23 - 00:30:27
+So, that's because the mainstream is always under attack.
+[Speaker_2] 00:30:28 - 00:30:35
+The thing that people don't realize is that you're going to have rich local functionality, I mean at least our bet.
+[Speaker_2] 00:30:36 - 00:30:55
+where you get things like speech and vision, as you get more natural form factors, it's a question of using that local richness together with the richness that's that's elsewhere, and if if you look at the device say that's connecting to the TV sad or connecting in the car.
+[Speaker_2] 00:30:55 - 00:31:11
+there are lighter weight hardware internet connections, but when you come to the full screen rich, you know edit the document, create things, and I think we're nowhere near where we can be on making that stronger.
+[Speaker_3] 00:31:11 - 00:31:13
+I'll give you a concrete example.
+[Speaker_3] 00:31:13 - 00:31:19
+I love Google Maps, use it on my computer, you know, in a browser.
+[Speaker_3] 00:31:19 - 00:31:23
+But when we were doing the iPhone, we thought wouldn't it be great to have Maps on the iPhone?
+[Speaker_3] 00:31:23 - 00:31:33
+And so, we called up Google, and they had some, they'd done a few client apps in Java on some phones, and they had an API that we worked with them a little on.
+[Speaker_3] 00:31:34 - 00:31:45
+And we ended up writing a client app for those APIs, they would provide the back end service, and the app we were able to write, since we're pretty reasonable writing apps.
+[Speaker_3] 00:31:45 - 00:31:59
+blows away any Google Maps client, just blows it away, same set of data coming off the server, but the experience you have using it is unbelievable, is way better than the computer, and and and just in a completely different league than what they put on.
+[Speaker_3] 00:31:59 - 00:32:10
+phones before, and you know that client is is the result of a lot of technology on the client, that client application, so when we show it to them, they're they're just blown away by how good it is.
+[Speaker_3] 00:32:10 - 00:32:23
+and you can't do that stuff in a browser, so people are figuring out how to do more in a browser, how to get persistent state of things when you're disconnected from a browser, how do you actually run apps locally using you know apps written in those technologies.
+[Speaker_3] 00:32:23 - 00:32:34
+so they can be Pretty transparent whether you're connected or not, but it's happening fairly slowly, and there's still a lot you can do with a a a a rich client environment.
+[Speaker_3] 00:32:34 - 00:32:47
+At the same time, the hardware is progressing to where you can run a rich client environment on lower and lower cost devices, on lower and lower power devices, and so there are some pretty cool things you can do with clients.
+[Speaker_1] 00:32:48 - 00:32:59
+So are you, o- okay, so you're saying rich clients still matter, but maybe I misunderstood you, but I your example was about a rich client that is not a personal computer as we have thought of a personal.
+[Speaker_3] 00:32:59 - 00:33:04
+What I'm trying to say is it's, I think the marriage of some really great client apps.
+[Speaker_3] 00:33:04 - 00:33:14
+with some really great cloud services is incredibly powerful, and right now can be way more powerful than just having a browser on the client.
+[Speaker_4] 00:33:14 - 00:33:18
+You're talking about a software company being a software and services company rather than a.
+[Speaker_3] 00:33:18 - 00:33:24
+I'm saying the marriage of these services, plus a more sophisticated client, is a very powerful marriage.
+[Speaker_4] 00:33:25 - 00:33:25
+Really?
+[Speaker_3] 00:33:25 - 00:33:36
+Architecturally, the que- the question is do you run just in the cloud, and all you have down locally is the browser, and that that is the same question for the phone as it is for the full screen device.
+[Speaker_3] 00:33:36 - 00:33:46
+There'll always be different screen sizes because these are, you know, the eight, the the five inch screen does not really compete with the 20 inch screen does not compete with the big living room screen.
+[Speaker_2] 00:33:46 - 00:33:52
+Those are things that there'll be some type of computing behind all of those things, all connected to the internet.
+[Speaker_2] 00:33:52 - 00:34:04
+But the idea that locally you have the responsiveness of immediate interaction without the latency or bandwidth limitations that you get if you try and do it all all behind.
+[Speaker_2] 00:34:04 - 00:34:08
+And that that's what leads to the the right balance.
+[Speaker_1] 00:34:08 - 00:34:10
+What does that device look like in five years?
+[Speaker_1] 00:34:10 - 00:34:11
+What would you be your principal device?
+[Speaker_1] 00:34:12 - 00:34:17
+Is there one or is it is it I think you use, I could be wrong, I think you carry a tablet.
+[Speaker_2] 00:34:17 - 00:34:17
+Right.
+[Speaker_1] 00:34:18 - 00:34:18
+Right.
+[Speaker_2] 00:34:18 - 00:34:22
+Which has not necessarily stormed the world yet.
+[Speaker_1] 00:34:22 - 00:34:24
+Yeah, this is like Windows 1992.
+[Speaker_1] 00:34:25 - 00:34:32
+I think, that is I'm unun repentant on my belief.
+[Speaker_1] 00:34:32 - 00:34:39
+OK,but to go back to Kara's point, wha- what would you each imagine that you would carry as your principal, let's say, thing to do?
+[Speaker_1] 00:34:39 - 00:34:42
+I mean, Jeff showed a very lightweight,Email and all that kind of stuff.
+[Speaker_1] 00:34:42 - 00:34:51
+Yeah, you s- I don't know if you guys saw, but Jeff showed a Linux based, a very small, he called, I think he called it a companion to a smartphone today.
+[Speaker_4] 00:34:51 - 00:34:52
+A phone companion?
+[Speaker_4] 00:34:52 - 00:34:54
+It sounded a little naughty, frankly.
+[Speaker_1] 00:34:54 - 00:35:00
+It it doesn't matter you weren't there, butwhat would you think you got each would be?
+[Speaker_1] 00:35:01 - 00:35:07
+I assume you carry you you carry tablet pc, I don't know what brand it is, maybe you change them up, but I I don't know.
+[Speaker_1] 00:35:07 - 00:35:11
+You obviously carry a MacBook Pro, I would guess, or a Mac.
+[Speaker_1] 00:35:11 - 00:35:12
+Yeah, well, and an iPhone.
+[Speaker_1] 00:35:12 - 00:35:14
+And an iPhone?
+[Speaker_1] 00:35:14 - 00:35:14
+You have one?
+[Speaker_1] 00:35:14 - 00:35:15
+I do.
+[Speaker_1] 00:35:15 - 00:35:16
+Right here?
+[Speaker_1] 00:35:16 - 00:35:16
+Yes.
+[Speaker_1] 00:35:16 - 00:35:18
+Well, he has, when he took it out before.
+[Speaker_1] 00:35:18 - 00:35:18
+What?
+[Speaker_1] 00:35:19 - 00:35:20
+Ha ha ha.
+[Speaker_1] 00:35:20 - 00:35:22
+Really?
+[Speaker_1] 00:35:23 - 00:35:23
+Sorry.
+[Speaker_1] 00:35:23 - 00:35:25
+Flashed his iPhone earlier today.
+[Speaker_1] 00:35:25 - 00:35:25
+Anyway, go ahead.
+[Speaker_1] 00:35:25 - 00:35:26
+So what, what is your device?
+[Speaker_1] 00:35:26 - 00:35:30
+What what's your device in five years that you rely on the most?
+[Speaker_1] 00:35:31 - 00:35:33
+I don't think you'll have one device.
+[Speaker_2] 00:35:34 - 00:35:39
+I think you'll have a full screen device that you can carry around, and you'll do dramatically more reading.
+[Speaker_2] 00:35:39 - 00:35:39
+Right.
+[Speaker_2] 00:35:40 - 00:35:43
+yeah, I mean I believe in the tablet form factor.
+[Speaker_2] 00:35:43 - 00:35:55
+I think you'll have voice, I think you'll have ink, you'll have some way of having a hardware keyboard and some settings for that, and then you'll have the device that fits in your pocket, which the whole notion of how much function.
+[Speaker_2] 00:35:55 - 00:36:09
+how much function should you combine in there, you know there's navigation computers, there's media, there's phone,Technology is letting us put more things in there, but then again, you really want to tune it so people know what they expect.
+[Speaker_2] 00:36:09 - 00:36:15
+There's quite a bit of their experimentation in that pocket size device, but I think those are natural form factors.
+[Speaker_2] 00:36:15 - 00:36:24
+And then it will have the evolution of the portable machine, and the evolution of the phone will both be extremely high volume, complementary.
+[Speaker_2] 00:36:24 - 00:36:26
+That is, if you own one, you're more likely to own the other.
+[Speaker_2] 00:36:26 - 00:36:30
+And then at home you'd have a a setup that they all plug into.
+[Speaker_2] 00:36:30 - 00:36:37
+Well, home you you'll have your living room, which is your 10 foot experience, and that's connected up to the internet.
+[Speaker_2] 00:36:37 - 00:36:45
+And there you'll have gaming and entertainment, and there's a lot of experimentation in terms of what content looks like in that world.
+[Speaker_2] 00:36:45 - 00:36:49
+And then in your den, you'll have something a lot like you have at your desk at work.
+[Speaker_2] 00:36:49 - 00:37:00
+You know, the view is that every horizontal and vertical surface will have a projector, so you can put information, you know, your desk can be a surface that you can sit and manipulate things.
+[Speaker_2] 00:37:04 - 00:37:04
+You bet.
+[Speaker_2] 00:37:04 - 00:37:05
+Thanks.
+[Speaker_2] 00:37:05 - 00:37:06
+The bathroom.
+[Speaker_2] 00:37:09 - 00:37:11
+That's a perfect place for it, actually.
+[Speaker_3] 00:37:14 - 00:37:15
+You know, it's interesting.
+[Speaker_3] 00:37:15 - 00:37:21
+The PC has proved to be very resilient, cause as Bill said earlier, and the death of the PC has been predicted.
+[Speaker_3] 00:37:22 - 00:37:23
+Every few years.
+[Speaker_1] 00:37:23 - 00:37:27
+Here when you're saying PC, you mean personal computer in general, not just Windows PCs.
+[Speaker_3] 00:37:28 - 00:37:29
+I mean personal computer in general.
+[Speaker_1] 00:37:29 - 00:37:30
+Yeah.
+[Speaker_3] 00:37:30 - 00:37:37
+And and you know there was the age of productivity, if you will, you know the spreadsheets and word processors, and that kind of got the whole industry moving.
+[Speaker_3] 00:37:38 - 00:37:43
+And it it kind of plateaued for a while, was getting a little stale, then the internet came along, right?
+[Speaker_3] 00:37:43 - 00:37:51
+And everybody needed more powerful computers to get on the internet, browsers came along, and it was this whole internet age that came along, access to the internet.
+[Speaker_3] 00:37:51 - 00:38:05
+And and then some number of years ago, you could start to see that the PC that was taken for granted, things that kinda plateaued a little bit, and innovation wise at least, and then I I think this whole notion of the PC.
+[Speaker_3] 00:38:05 - 00:38:14
+we call it the digital hub, but you call it anything you want, sort of multimedia center of the house, started to take off with digital cameras and digital camcorders and sharing things over the internet.
+[Speaker_3] 00:38:14 - 00:38:27
+and kind of needing a repository for all that stuff, and it was reborn again as sort of the hub of your digital life, and you can sort of see that there's something starting again, it's not clear exactly what it is.
+[Speaker_3] 00:38:27 - 00:38:37
+but it will be the PC, maybe used a little more tightly coupled with some back end internet services and some things like that, and of course PCs are going mobile in an ever greater degree.
+[Speaker_3] 00:38:37 - 00:38:49
+so I think the PC is gonna continue as general purpose device, is gonna continue to Be with us, and morph with us, whether it's a tablet or a notebook or a, you know, big curved desktop that you have at your house or whatever it might be.
+[Speaker_3] 00:38:49 - 00:38:54
+So I think that'll be something that most people have, at least in this society, and others maybe not, but certainly in this one.
+[Speaker_3] 00:38:54 - 00:39:03
+But then there's an explosion that's starting to happen in these, wha- what you call post PC devices, right?
+[Speaker_3] 00:39:03 - 00:39:04
+And you call the iPod one of them.
+[Speaker_3] 00:39:05 - 00:39:08
+There's a lot of things that are not.
+[Speaker_1] 00:39:08 - 00:39:10
+You're getting into trouble for using that term, I want you to know that.
+[Speaker_3] 00:39:10 - 00:39:11
+What?
+[Speaker_1] 00:39:11 - 00:39:11
+What?
+[Speaker_1] 00:39:11 - 00:39:11
+I'm kidding.
+[Speaker_1] 00:39:11 - 00:39:13
+Post PC devices.
+[Speaker_1] 00:39:13 - 00:39:13
+Why?
+[Speaker_1] 00:39:14 - 00:39:18
+People people write letters to the editor, they complain about it anyway.
+[Speaker_1] 00:39:18 - 00:39:18
+Go ahead.
+[Speaker_1] 00:39:18 - 00:39:19
+OK.
+[Speaker_3] 00:39:19 - 00:39:24
+Well, anyway, I think there's just a category of devices that aren't as general purpose.
+[Speaker_3] 00:39:24 - 00:39:32
+That aren't, that that are, they're really more focused on specific functions, whether their phones or iPods or zooms or what have you.
+[Speaker_3] 00:39:32 - 00:39:40
+And I think the that category of devices is starting, is gonna continue to to be very innovative, and we're gonna see lots of them.
+[Speaker_4] 00:39:40 - 00:39:42
+Give me an example of what it would that be?
+[Speaker_3] 00:39:42 - 00:39:45
+Well, an iPod is a post-PC device, a phone is a post-PC device.
+[Speaker_3] 00:39:46 - 00:39:57
+The is the iPhone, and are some of these other smartphones, and I know you make, you believe that the iPhone is much better than these other smartphones at the moment, but is the are these things
+[Speaker_3] 00:39:57 - 00:39:59
+Aren't they really just computers in a different form factor?
+[Speaker_1] 00:40:00 - 00:40:03
+I mean, we say we see it with phone, it sounds like.
+[Speaker_3] 00:40:03 - 00:40:05
+where everything's a computer in a different form factor.
+[Speaker_3] 00:40:05 - 00:40:07
+So, so what?
+[Speaker_3] 00:40:08 - 00:40:08
+Right?
+[Speaker_3] 00:40:08 - 00:40:12
+So what if it's built with a computer inside it?
+[Speaker_3] 00:40:12 - 00:40:12
+It doesn't matter.
+[Speaker_3] 00:40:13 - 00:40:13
+It's what is it?
+[Speaker_3] 00:40:14 - 00:40:14
+How do you use it?
+[Speaker_3] 00:40:15 - 00:40:17
+And how does the consumer approach it?
+[Speaker_3] 00:40:17 - 00:40:20
+And and so who cares what's inside it anymore?
+[Speaker_1] 00:40:20 - 00:40:26
+What are the core functions of the device formally known as the cell phone, whatever we want to call it the pocket device?
+[Speaker_1] 00:40:26 - 00:40:27
+What would you say the core functions?
+[Speaker_1] 00:40:28 - 00:40:31
+Five years out, what are the core functions of that pocket device?
+[Speaker_2] 00:40:32 - 00:40:46
+How quickly all these things that have been somewhat specialized, the navigation device, the digital wallet, the the phone, the camera, the video camera, how quickly those all come together?
+[Speaker_2] 00:40:47 - 00:41:02
+It's hard to chart out, but eventually you'll be able to pick something that has the capability to do every one of those things, and yet given the small size, you still won't want to edit your homework or edit a movie.
+[Speaker_2] 00:41:03 - 00:41:11
+on the screen of that size, and so you'll have something else that let you do the reading and editing and and those things.
+[Speaker_2] 00:41:11 - 00:41:20
+Now if we could ever get a screen that would just roll out like a scroll, you know, then you might be able to have the device that did everything.
+[Speaker_1] 00:41:20 - 00:41:24
+Well, you know, in the very first D conference, we had these guys from E Ink here.
+[Speaker_1] 00:41:24 - 00:41:24
+Yeah.
+[Speaker_1] 00:41:24 - 00:41:25
+Sure you both talked to them.
+[Speaker_1] 00:41:26 - 00:41:30
+They were talking about that, that was five years ago, it's always five years out.
+[Speaker_1] 00:41:30 - 00:41:31
+Do you do you?
+[Speaker_2] 00:41:31 - 00:41:31
+Yes, we can't.
+[Speaker_2] 00:41:32 - 00:41:44
+There there's some advances in projection technology that are more likely deliver it, I think, than the flexible material guys, but It's not even on horizon, no matter which of the two approaches, are pursuing.
+[Speaker_3] 00:41:44 - 00:41:51
+We have some Microsoft Research people work on that, there's there's a lot of investment, but it's at least in the five year time frame.
+[Speaker_3] 00:41:51 - 00:41:55
+You, five years from now, what's gonna be on that pocket device?
+[Speaker_3] 00:41:57 - 00:41:58
+I don't know.
+[Speaker_3] 00:41:59 - 00:42:06
+And the reason I don't know is because I wouldn't have thought that there would have been maps on it five years ago.
+[Speaker_3] 00:42:07 - 00:42:13
+But something comes along, gets really popular, people love it, get used to it, you want it on there.
+[Speaker_3] 00:42:14 - 00:42:22
+So, people are inventing things constantly, and I think the art of it is is is is balancing what's on there and what's not on there, is the editing function.
+[Speaker_3] 00:42:22 - 00:42:27
+And clearly, most things you carry with your communications devices.
+[Speaker_3] 00:42:28 - 00:42:34
+You want to do some entertainment with them as well, but they're primarily communications devices, and they're gonna, that's what they're gonna be.
+[Speaker_4] 00:42:34 - 00:42:45
+Outside the computing area, where are the exciting areas in the internet space at all that you're looking at that you find that that's interesting to each of your companies, and in general for for you.
+[Speaker_4] 00:42:45 - 00:42:53
+any kind of social networking, any kind of the wikis, those kind of things, things we talked about in the past couple of them today essentially.
+[Speaker_4] 00:42:57 - 00:43:03
+you know, we're working on some things that I can't talk about.
+[Speaker_3] 00:43:04 - 00:43:09
+yeah, but there used to be a saying, isn't it at Apple?
+[Speaker_4] 00:43:09 - 00:43:15
+wow, it's there used to be a saying at Apple, isn't it funny a ship that leaks from the top?
+[Speaker_3] 00:43:29 - 00:43:36
+OK, the there's a zillion interesting things going on on the internet.
+[Speaker_3] 00:43:37 - 00:43:43
+The the most interesting things to me are these incredible new services that people are bringing up, and
+[Speaker_4] 00:43:43 - 00:43:45
+Surrounding entertainment or
+[Speaker_3] 00:43:47 - 00:44:02
+There's a lot of them surrounding entertainment, but there's a lot of them that have to do with just sort of figuring out how to navigate through life a little more efficiently, and I think it you know it's really great when you show somebody something. And you don't have to convince.
+[Speaker_3] 00:44:02 - 00:44:04
+them they have a problem that this solves.
+[Speaker_3] 00:44:04 - 00:44:08
+They know they have a problem, you can show them something, they go, oh my god, I need this.
+[Speaker_3] 00:44:08 - 00:44:11
+And I think you're gonna see a lot of things like that happen over the next year or two.
+[Speaker_1] 00:44:11 - 00:44:20
+Do you you obviously have a very large internet business with iTunes, and and you sell a lot of stuff on the on the Apple store.
+[Speaker_1] 00:44:20 - 00:44:32
+But you know you were early with this idea that when you bought a a computer from Apple, you had this kind of internet service back end, and it was called dot mac, and I think a lot of people feel it.
+[Speaker_1] 00:44:32 - 00:44:34
+You haven't developed it very much.
+[Speaker_3] 00:44:34 - 00:44:38
+I couldn't agree with you more, and we'll make up for lost time in the near future.
+[Speaker_1] 00:44:38 - 00:44:49
+And in in in your case, you obviously have huge things like like Hotmail, for instance, which is I guess it it it and and and Windows Messenger, which are both widely used.
+[Speaker_1] 00:44:49 - 00:44:50
+and I don't even know how many users.
+[Speaker_3] 00:44:51 - 00:44:51
+A gazillion.
+[Speaker_1] 00:44:51 - 00:44:52
+Huge numbers.
+[Speaker_1] 00:44:52 - 00:45:05
+But on the other hand, you haven't as as Steve Ballmer was talking about today, you know you have, other people have much stronger positions and things like search, and other parts of the of the internet.
+[Speaker_1] 00:45:05 - 00:45:18
+So, are are you guys because you areThe personal computer companies that that are best, you know, best associated with that, not as nimble as some of these competitors at this point.
+[Speaker_1] 00:45:19 - 00:45:21
+Do you worry about not being as nimble, both of you?
+[Speaker_1] 00:45:21 - 00:45:24
+I mean obviously Microsoft is a much bigger company, but you're a big company.
+[Speaker_1] 00:45:24 - 00:45:33
+Steve, Apple is, do you worry about not being as nimble as some, we sitting out there with, you know, the kind of ten employees that you guys had in 1977?
+[Speaker_2] 00:45:33 - 00:45:43
+Well, there's always gonna be great new things that come out of other companies, and you wanna be in a possession to benefit from those, to have those inventions drive demand.
+[Speaker_2] 00:45:44 - 00:45:49
+for windows and personal computers, and then some of those up screen things you want to participate in.
+[Speaker_2] 00:45:49 - 00:45:54
+I hope Steve mentioned we are gonna participate in search, hopefully to a higher degree in the future.
+[Speaker_1] 00:45:54 - 00:45:55
+Yeah, he did mention that.
+[Speaker_2] 00:45:55 - 00:45:58
+Yeah, than at present, so we'll we'll see what we can do there.
+[Speaker_2] 00:45:58 - 00:46:13
+A lot of the applications are more specialized, so they're not areas we'll go into, and take what it can happen with education now, that video is mainstream, and all these tools that let you do rich interactions are very mainstream.
+[Speaker_2] 00:46:13 - 00:46:27
+I'm very excited about that, you know, the idea of empowerment goes back to the very beginning of our industry, and some of those dreams that This would be used by students, or that teachers could get better and learn from each other in these new ways.
+[Speaker_2] 00:46:28 - 00:46:45
+We ju-, we're just at the threshold where some of those things can happen, and yes, our companies can contribute to that, but as a whole, it's the ecosystem jumping on and building on each other where you can finally say finally technology did something for education.
+[Speaker_2] 00:46:47 - 00:46:56
+See, I I I look at this a little bit differently, which is we're not trying to do a lot of this stuff, cause it's not what we do.
+[Speaker_2] 00:46:56 - 00:46:57
+We don't think one company can do everything.
+[Speaker_3] 00:46:58 - 00:47:01
+so, you've got a partner with people that are really good at stuff.
+[Speaker_3] 00:47:01 - 00:47:13
+like, we're not, i mean, maybe microsoft is is great at search, we're not, we're not trying to be great at search, so we partner with people that are great at search, and we don't know how to do maps on the back end.
+[Speaker_3] 00:47:13 - 00:47:18
+we know how to do a great the best maps client in the world, but we don't know how to do the back end, so we partner with people that know how to do the back end.
+[Speaker_3] 00:47:18 - 00:47:32
+and what we want to do is be that that consumer's device and that consumer's experience wrapped around all this information, and and and things we can deliver to them in a wonderful user interface, in a coherent product.
+[Speaker_3] 00:47:33 - 00:47:36
+And so in some cases, you know we have to do more work than others.
+[Speaker_3] 00:47:36 - 00:47:42
+You know, in the case of of of iTunes, there wasn't a music delivery service that was any good, and we had to do one, so we'll do one.
+[Speaker_3] 00:47:42 - 00:47:49
+But in other cases, there's companies doing a way better job, because we're not as as good at this stuff as other people are, and we'd love to partner with them.
+[Speaker_3] 00:47:49 - 00:47:56
+And so, you know, we selectively do that, and I think it's it's really hard for one company to do everything.
+[Speaker_4] 00:47:56 - 00:48:05
+It's sort of entertainment, you're both in entertain in the entertain, your old entertain is important to both your companies, for yours music right now, and as you get into iApple TV.
+[Speaker_4] 00:48:05 - 00:48:08
+Microsoft has been within the Hollywood area.
+[Speaker_4] 00:48:08 - 00:48:10
+Where do you see that going in the era of YouTube?
+[Speaker_4] 00:48:10 - 00:48:16
+We've had a couple of network people here, talking about changes that are happening in Hollywood and everything else.
+[Speaker_4] 00:48:17 - 00:48:20
+What is happening now to entertainment delivery, and where do you all play?
+[Speaker_4] 00:48:21 - 00:48:24
+Cause you'll be the delivery mechanism in one way or the other for most people.
+[Speaker_2] 00:48:26 - 00:48:34
+Well, the big the big milestone is where the delivery platform is the internet, and so you bring the richness and the interactivity.
+[Speaker_2] 00:48:35 - 00:48:46
+I think you can get a little bit of a glimpse of the future of TV more from looking at Community type things like Xbox Live where people are talking to each other, finding friends, you know.
+[Speaker_2] 00:48:46 - 00:48:49
+watching things together, talking about those things.
+[Speaker_2] 00:48:50 - 00:48:59
+That is you map that onto genres like educational shows or sports shows or watching the Olympics or the elections.
+[Speaker_2] 00:48:59 - 00:49:03
+That ability to navigate becomes very very powerful.
+[Speaker_2] 00:49:03 - 00:49:05
+And we're not an entertainment company.
+[Speaker_2] 00:49:05 - 00:49:11
+We, yes, we do Halo which is this big video game, but by enlarge we're a platform.
+[Speaker_2] 00:49:12 - 00:49:22
+And so it's the it's the top software things whether it's the speech or the ink or the deep graphics, that's where things that take ten years to get done.
+[Speaker_2] 00:49:23 - 00:49:36
+The IPTV stuff, the foundation there, you know it took ten years to get it done, now it's finally coming to fruition, and we have people like ATT betting their company on putting that together.
+[Speaker_2] 00:49:36 - 00:49:51
+so we're just at the start of having a a scale entertainment delivery vehicle, through both through PCs, unfortunately not connected up to the TV set in most cases, butThat's a point of innovation.
+[Speaker_1] 00:49:51 - 00:49:57
+and now things like iptv and an Xbox that are connected up in the living room.
+[Speaker_1] 00:49:57 - 00:50:06
+Steve, you were today, Bill, you weren't here, but Steve showed a a new function of Apple TV that brings YouTube directly to the TV.
+[Speaker_1] 00:50:06 - 00:50:09
+Is there gonna be more of that from you?
+[Speaker_1] 00:50:09 - 00:50:16
+Do you see yourself the the way Bill says is an enabler of entertainment or well, I mean putting aside your Disney role, but you're at.
+[Speaker_3] 00:50:16 - 00:50:24
+I mean I think I think people want to enjoy their entertainment when they want it and how they want it on the device that they want it on.
+[Speaker_3] 00:50:24 - 00:50:32
+So, ultimately, that's gonna drive the entertainment companies into all sorts of different business models.
+[Speaker_3] 00:50:32 - 00:50:33
+And that's a good thing.
+[Speaker_3] 00:50:33 - 00:50:36
+I mean, if you're a content company, that's a great thing.
+[Speaker_3] 00:50:36 - 00:50:42
+More people wanting to in, you know, enjoy your content more often and more different ways, that's that's why you're in business.
+[Speaker_3] 00:50:42 - 00:50:50
+But the transitions are hard sometimes, and you know the music industry, it turned out that the internet got fast enough to download songs pretty easily.
+[Speaker_3] 00:50:50 - 00:51:03
+There was no legal alternatives, and and maybe they made some bad choices and how they reacted to that, but you know they're still trying to make the transition to a a a very different way of doing business or ways of doing business.
+[Speaker_3] 00:51:04 - 00:51:05
+while they're under attack from piracy.
+[Speaker_3] 00:51:06 - 00:51:09
+And we can all highlight some of the mistakes that have been made, but you know, still it's a tough job.
+[Speaker_3] 00:51:10 - 00:51:17
+And uh Hollywood, I think uh you know is is watched what's happened in music, learn some things to do, some things not to do.
+[Speaker_3] 00:51:17 - 00:51:19
+But you know they're still trying to map this out.
+[Speaker_3] 00:51:19 - 00:51:20
+How do they make some of these transitions?
+[Speaker_3] 00:51:21 - 00:51:29
+Some new business models, different platforms allowing their their customers way more freedom on when they want to watch stuff and how they want to watch it.
+[Speaker_3] 00:51:30 - 00:51:37
+And I think there's a tremendous amount of experimentation and thought going on, it's gonna be good, it's gonna be really good if you're a content owner.
+[Speaker_1] 00:51:37 - 00:51:42
+can i ask about the user interface of the personal computer for a minute?
+[Speaker_1] 00:51:43 - 00:51:53
+Vista has just come out, which is your best version of Windows, you've done, has some UI improvements in it.
+[Speaker_1] 00:51:54 - 00:52:04
+You're about to do yet another version of the Mac OS called Leopard in the in the fall, which from what you've shown publicly at least so far has a has some improvements.
+[Speaker_1] 00:52:04 - 00:52:12
+But fundamentally these are still the kind of file icon, folder icon, drop down menu.
+[Speaker_1] 00:52:12 - 00:52:25
+I know I'm minimizing, there's a lot of other things, there's g- gadgets and widgets, and all all kinds of other cool things in there now, but it, you know there, you can see that it's still all built on what you started with.
+[Speaker_1] 00:52:25 - 00:52:38
+what Xerox uh did research on, is there a in the offing in the next four or five years, is it possible there's a new paradigm for organizing the user interface of the personal computer.
+[Speaker_1] 00:52:38 - 00:52:42
+let's leave cell phones and things out for a minute, but just the personal computer, uh Bill.
+[Speaker_1] 00:52:43 - 00:52:55
+One of the things that's been anticipated for a long time is when 3D comes into that interface, and there was a lot of experimentation sites on the internet where you kind of walk around and meet people.
+[Speaker_2] 00:52:55 - 00:52:58
+but in fact the richness, the speed, it just didn't sustain itself.
+[Speaker_2] 00:52:59 - 00:53:08
+Now we're starting to see with some of the mapping stuff, a few of the sites, that the quality of that graphics, the tools and things are getting to the point where 3D can really come in.
+[Speaker_2] 00:53:08 - 00:53:22
+So, I definitely say that when you go to a store, bookstore, you'll be able to see the books lined up, you know, the way you might be interested in, or lined up the way they are in the real store. So, 3D is a way of organizing things, particularly.
+[Speaker_2] 00:53:22 - 00:53:36
+as we're getting Much more media information on the computer, a lot more choices, a lot more navigation than we've ever had before, and we can take that into this communications world where the PC is playing a much more central role.
+[Speaker_2] 00:53:36 - 00:53:42
+kind of taking over what the was the Pbx sort of one of the last mainframes in the business environment.
+[Speaker_2] 00:53:42 - 00:53:48
+That'll be a big change, that'll come to it, and as we get natural input, that'll cause a change.
+[Speaker_1] 00:53:48 - 00:53:50
+and what about this multi touch stuff?
+[Speaker_1] 00:53:51 - 00:53:52
+It it's really interesting.
+[Speaker_1] 00:53:53 - 00:53:57
+Obviously Steve showed some bit on the on the iPhone when he introduced the iPhone.
+[Speaker_1] 00:53:58 - 00:54:03
+Steve Bommer today showed a bunch of it with the surface computing device.
+[Speaker_1] 00:54:03 - 00:54:14
+it happens, although that it's not part of our program that hp, which is a sponsor of this conference, has a multi touch sort of display, over here, out in the foyer.
+[Speaker_1] 00:54:15 - 00:54:20
+Is this, will this make its way to report this kind of thing?
+[Speaker_2] 00:54:20 - 00:54:20
+for the minority?
+[Speaker_1] 00:54:20 - 00:54:33
+Yeah, will this make its way into, maybe you call it direct manipulation of objects with your hands and your fingers, will this make its way into mainstream, let's say laptop computers as a new UI or an additional part of the UI.
+[Speaker_1] 00:54:33 - 00:54:34
+or is that just a?
+[Speaker_2] 00:54:34 - 00:54:35
+Well, we'll go beyond the laptop.
+[Speaker_1] 00:54:35 - 00:54:36
+Specialized devices.
+[Speaker_2] 00:54:36 - 00:54:39
+Vision, software is doing vision.
+[Speaker_2] 00:54:40 - 00:54:46
+And so, you know, imagine a game machine where you just can pick up the bat and swing it or the tennis racket and swing it, we have one.
+[Speaker_2] 00:54:46 - 00:54:49
+No, no, that's not it.
+[Speaker_2] 00:54:49 - 00:54:51
+You can't pick up your tennis racket.
+[Speaker_2] 00:54:51 - 00:54:52
+I see what you mean.
+[Speaker_2] 00:54:52 - 00:54:52
+Yeah.
+[Speaker_2] 00:54:52 - 00:54:52
+And swing it.
+[Speaker_2] 00:54:52 - 00:54:55
+You can't sit there with your friends and do those natural things.
+[Speaker_2] 00:54:56 - 00:54:58
+That's a 3D positional device.
+[Speaker_2] 00:54:58 - 00:55:02
+This is video recognition, this is a camera seeing what's going on.
+[Speaker_2] 00:55:03 - 00:55:10
+And you know, in a meeting like you're on a video con- uh video conference, you don't know who's speaking when they're they're audio only things like that.
+[Speaker_2] 00:55:10 - 00:55:12
+The camera will be ubiquitous.
+[Speaker_2] 00:55:13 - 00:55:22
+Now, of course, we have to design a way that people's expectations about privacy are handled appropriately, but software can do vision, and it can do it very very inexpensively.
+[Speaker_1] 00:55:23 - 00:55:26
+And that means this stuff becomes pervasive.
+[Speaker_1] 00:55:26 - 00:55:37
+You don't just talk about it being in a laptop device, you talk about it being part of the meeting room or the living room or but on the laptop the way that and and you know.
+[Speaker_1] 00:55:37 - 00:55:43
+maybe I'm wrong, maybe this is what we have is great, and we don't need any new big radical change.
+[Speaker_1] 00:55:43 - 00:55:55
+But when I turn on my laptop, whether it's my Vista laptop or my Mac laptop, you know it's it's kind, it there've been improvements, but it's a lot like it was ten years ago.
+[Speaker_1] 00:55:55 - 00:55:57
+It's much better, the graphics are better and all that.
+[Speaker_6] 00:55:57 - 00:55:59
+You talked about that radical change.
+[Speaker_1] 00:55:59 - 00:56:05
+You know you have the mouse, for both your company, you have the icons you move around, you have the, I mean, and you talked about what a big gamble it was in 84.
+[Speaker_1] 00:56:06 - 00:56:08
+to do that, and then follow on with with windows.
+[Speaker_1] 00:56:09 - 00:56:14
+we still essentially have that approach, and i'm just wondering, is that gonna change?
+[Speaker_2] 00:56:14 - 00:56:22
+Touch, ink, speech, vision, those things come in, but they don't come in as a radical substitute.
+[Speaker_2] 00:56:22 - 00:56:24
+I think you're also underestimating the degree of evolution.
+[Speaker_2] 00:56:25 - 00:56:34
+Because you've lived with it year by year, you know, say we sent you away for ten years, and you came back and you said, wow, there's a search paradigm, and that's more at the center of how you find these things.
+[Speaker_2] 00:56:35 - 00:56:38
+There's tagging, that's more at the center of how how you find these things.
+[Speaker_2] 00:56:39 - 00:56:43
+There's You know, the evolution is a very good thing.
+[Speaker_2] 00:56:43 - 00:56:54
+In fact, even in that evolution, the stuff we did with Office, you, there's this balance you strike where when you make a change in this, that case the ribbon, you're gonna have some users who feel like.
+[Speaker_2] 00:56:54 - 00:56:59
+oh geez, I have to spend a little bit time to be brought along, to that.
+[Speaker_2] 00:56:59 - 00:57:10
+You know, as, but there has been good evolution, but these natural interface things are the revolutionary change, and they'll be very revolutionary, that together with the 3D that I talked about.
+[Speaker_4] 00:57:10 - 00:57:10
+I see.
+[Speaker_4] 00:57:11 - 00:57:13
+I know you're working on something, it's gonna be beautiful, we'll see it.
+[Speaker_2] 00:57:13 - 00:57:21
+Yeah, did with Office, you, there's this balance you strike where when you make a change in this, that case the ribbon.
+[Speaker_2] 00:57:21 - 00:57:28
+you're gonna have some users who feel like oh geez, I have to spend a little bit time to be brought along, to that.
+[Speaker_2] 00:57:28 - 00:57:38
+you know, as, but there has been good evolution, but these natural interface things are the revolutionary change, and they'll be very revolutionary, that together with the 3D that I talked about.
+[Speaker_3] 00:57:39 - 00:57:39
+I see.
+[Speaker_3] 00:57:40 - 00:57:42
+I know you're working on something, it's gonna be beautiful, we'll see it.
+[Speaker_2] 00:57:42 - 00:57:51
+Yeah, you know, I can't talk about it, but the um, Bill discusses all his secret plans, you don't discuss any.
+[Speaker_3] 00:57:51 - 00:58:08
+I know, it's not fair, but it's um, I think the question of The question is a very simple one, which is, how much of the really revolutionary things people are gonna do in the next five years are done on the PCs.
+[Speaker_3] 00:58:09 - 00:58:13
+or how much of it is really focused on the post PC devices.
+[Speaker_3] 00:58:14 - 00:58:31
+And there's a real temptation to focus it on the post PC devices, because it's a clean slate, and because they're more focused devices, and because they don't have the, you know, they don't have the legacy of these zillions of apps that have to run in zillions of markets.And so, I think.
+[Speaker_3] 00:58:31 - 00:58:36
+there's gonna be tremendous revolution in the in the, you know, in the experiences of the post PC devices.
+[Speaker_3] 00:58:36 - 00:58:47
+And the question is how much to do in the PCs, and I think I'm sure Microsoft is, we're working on some really cool stuff, but some of it has to be tempered a little bit.
+[Speaker_3] 00:58:48 - 00:58:58
+because you do have, you know these tens of millions in our case or hundreds of millions in Bill's case users that are familiar with something that, you know, they don't want a car with six wheels.
+[Speaker_3] 00:58:59 - 00:59:11
+they like the car with four wheels, they don't want to drive with a with a with a with a joystick, they like the steering wheel, and so, you know, you have to, as Bill was saying, in some cases you have to augment what exists there. And in some cases you.
+[Speaker_3] 00:59:11 - 00:59:12
+can replace things.
+[Speaker_3] 00:59:12 - 00:59:18
+But I think the radical rethinking of things is gonna happen in a lot of these post-PC devices.
+[Speaker_4] 00:59:19 - 00:59:21
+Can I, I'm gonna ask it a more personal question.
+[Speaker_4] 00:59:21 - 00:59:24
+You, we have just a minute before we're gonna open up for questions.
+[Speaker_4] 00:59:24 - 00:59:30
+What's the greatest, I'm not gonna call this the Barbara Walters moment and ask you what tree you'd like to be, but what?
+[Speaker_3] 00:59:30 - 00:59:32
+You would love to be Barbara Walters, let me just tell you.
+[Speaker_4] 00:59:33 - 00:59:34
+No, I would not.
+[Speaker_4] 00:59:34 - 00:59:37
+What's the greatest misunderstanding?
+[Speaker_4] 00:59:37 - 00:59:39
+Thank you, see.
+[Speaker_4] 00:59:39 - 00:59:51
+About your relationship, I mean you're obviously gonna go down in histories, history books already said kind of thing, but what's the greatest misunderstanding between you and your relationship and about each uh each other?
+[Speaker_4] 00:59:52 - 00:59:58
+what would you say would be this idea of catfight, this idea of what whi- which one of the many?
+[Speaker_1] 01:00:00 - 01:00:02
+Kept our marriage secret for over a decade now.
+[Speaker_2] 01:00:02 - 01:00:02
+Ha ha ha.
+[Speaker_1] 01:00:06 - 01:00:08
+Canada, that trip to Canada.
+[Speaker_2] 01:00:08 - 01:00:10
+Ha ha ha.
+[Speaker_1] 01:00:10 - 01:00:17
+Was was there?
+[Speaker_2] 01:00:17 - 01:00:17
+Ha ha ha.
+[Speaker_1] 01:00:18 - 01:00:23
+I don't I don't think either of us have anything to complain about, in general.
+[Speaker_1] 01:00:24 - 01:00:34
+And I know that the the projects like the Mac project, you know, was just an incredible thing, a fun thing, where we were taking a risk.
+[Speaker_1] 01:00:34 - 01:00:37
+We did look a lot younger in that video.
+[Speaker_2] 01:00:37 - 01:00:37
+We did.
+[Speaker_1] 01:00:39 - 01:00:40
+You look 12 in the first one.
+[Speaker_1] 01:00:40 - 01:00:43
+That's how I try and look.
+[Speaker_1] 01:00:43 - 01:00:43
+I was 12.
+[Speaker_1] 01:00:43 - 01:00:49
+But, now it's been fun to work together.
+[Speaker_1] 01:00:49 - 01:00:53
+And I actually kind of miss some of the people aren't around anymore, you know?
+[Speaker_1] 01:00:53 - 01:01:06
+People come and go in this industry, it's nice when somebody sticks around and you know, have some context of all the things that have worked and not worked, and the industry gets all wor- all crazy about some new thing, you know?
+[Speaker_1] 01:01:06 - 01:01:12
+Like, you know the the there's always this paradigm of the company that's successful is gonna go away and stuff like that.
+[Speaker_1] 01:01:12 - 01:01:21
+It's nice to have people seen the waves and waves of that, and yet they're only wanna wanna counter to take the risk, to bring in something new.
+[Speaker_3] 01:01:21 - 01:01:23
+Has it been important?
+[Speaker_3] 01:01:23 - 01:01:26
+the the one last question, and then we'll we'll go to the audience.
+[Speaker_4] 01:01:26 - 01:01:28
+I didn't answer.
+[Speaker_3] 01:01:29 - 01:01:30
+okay.
+[Speaker_3] 01:01:33 - 01:01:45
+You know, when Bill and I first met each other and work together in the early days, generally we were both the youngest guys in the room.
+[Speaker_3] 01:01:46 - 01:01:50
+Right, individually or together, I'm about six months older than he is, but roughly the same age.
+[Speaker_3] 01:01:51 - 01:01:56
+And now, when we're working at our respective companies, I don't know about you, but I'm the oldest guy in the room most of the time.
+[Speaker_3] 01:01:56 - 01:01:58
+And, that's why I love being here.
+[Speaker_3] 01:01:58 - 01:02:07
+And, and, so, happy to oblige, happy to oblige.
+[Speaker_3] 01:02:07 - 01:02:25
+And, you know, I think of I think of most things in life is either a Bob Dylan or Beatles song, but there's that that one line in that one Beatles song, uhYou and I have memories longer than the road that stretches out ahead, and that's that's clearly true here.
+[Speaker_3] 01:02:25 - 01:02:25
+You know what?
+[Speaker_3] 01:02:25 - 01:02:26
+I think we should end it there.
+[Speaker_3] 01:02:26 - 01:02:27
+Let's just end it there.
+[Speaker_8] 01:02:51 - 01:02:52
+Have you ever had a standing ovation?
+[Speaker_1] 01:02:52 - 01:02:53
+No, I don't know.
+[Speaker_1] 01:02:53 - 01:02:54
+The toilet.
+[Speaker_8] 01:02:54 - 01:03:09
+No.
+[Speaker_6] 01:03:09 - 01:03:09
+Wow.
+[Speaker_6] 01:03:12 - 01:03:13
+Wow.
+[Speaker_8] 01:03:13 - 01:03:13
+Great.
+[Speaker_8] 01:03:16 - 01:03:17
+Wow.
+[Speaker_6] 01:03:21 - 01:03:23
+OK, so are some audience questions?
+[Speaker_8] 01:03:23 - 01:03:24
+Questions.
+[Speaker_8] 01:03:24 - 01:03:25
+Can we have the lights?
+[Speaker_1] 01:03:27 - 01:03:29
+Roger Manning from Elevation Partners.
+[Speaker_1] 01:03:29 - 01:03:31
+Hey guys, that was that was incredible.
+[Speaker_1] 01:03:31 - 01:03:32
+Thank you very much.
+[Speaker_1] 01:03:32 - 01:03:39
+We've got a big election coming up next year, I'm curious if there are any issues that you see in Silicon Valley?
+[Speaker_1] 01:03:39 - 01:03:47
+That we all ought to be focused on communicating effectively to the next potential president of the United States.
+[Speaker_1] 01:03:47 - 01:03:54
+That is any common ground that we share, cause it's weird you don't actually hear any issues that people are talking about right now.
+[Speaker_1] 01:03:54 - 01:03:55
+I'm curious if you guys have any in mind.
+[Speaker_9] 01:03:57 - 01:03:57
+Yeah.
+[Speaker_1] 01:03:58 - 01:04:03
+Well, certainly education is one that I'd put at the top of the list.
+[Speaker_1] 01:04:04 - 01:04:17
+You know, is the, are there technological solutions right now that they could do something about, or is that just sort of likenow that the pro, the ed tech technology is going to be helpful and more and more.
+[Speaker_1] 01:04:17 - 01:04:32
+but the way that teachers are measured and and made excellence, the way that the high schools are designed, the expectations they have, it's it's not just a pure technology thing, it's more an institutional practice.
+[Speaker_1] 01:04:33 - 01:04:39
+where the opportunity is, and you know there should be a lot of debate about the different ways of of doing that.
+[Speaker_3] 01:04:40 - 01:04:51
+Steve, boy, we've got some pretty big problems, and uh I think most of them are much bigger than anything Silicon Valley can contribute right now to solve.
+[Speaker_3] 01:04:52 - 01:04:54
+So hopefully some of those are good solved.
+[Speaker_3] 01:04:54 - 01:04:59
+I also think we underestimate how much all of our industry depends on stability.
+[Speaker_3] 01:05:00 - 01:05:11
+We've enjoyed it, you know, long period of stability, and we've we've s- been able to focus on on technology and growing our businesses and stuff, and and and I think we take that for granted sometimes.
+[Speaker_3] 01:05:11 - 01:05:20
+One of the more interesting areas that we all suffer from, of course, is is is in the area of energy dependence, and there's a lot of work going on.
+[Speaker_3] 01:05:20 - 01:05:23
+I know a lot of investing going on anyway.
+[Speaker_3] 01:05:23 - 01:05:30
+I don't know if the results are there, but a lot of investing going on in in alternative energy, and maybe maybe s- Silicon Valley can play a small role in some of that stuff.
+[Speaker_6] 01:05:30 - 01:05:32
+Are you guys investing in that area?
+[Speaker_6] 01:05:32 - 01:05:36
+Personally or some?
+[Speaker_6] 01:05:36 - 01:05:38
+Which might be a lot.
+[Speaker_11] 01:05:39 - 01:05:41
+Ha ha ha.
+[Speaker_3] 01:05:43 - 01:05:44
+A billion here or there.
+[Speaker_11] 01:05:45 - 01:05:47
+Ha ha ha.
+[Speaker_3] 01:05:48 - 01:05:49
+Are you investing in that area?
+[Speaker_6] 01:05:49 - 01:05:49
+No.
+[Speaker_3] 01:05:49 - 01:05:52
+Just appreciating over there.
+[Speaker_3] 01:05:52 - 01:05:55
+Hi, Donatella, Sony Pictures.
+[Speaker_3] 01:05:56 - 01:06:00
+My question is really, at what point is there too much diversity?
+[Speaker_12] 01:06:01 - 01:06:11
+It it was talked about a few times in the discussion, the fact that now microprocessors are very low cost, memories low cost, software is is ubiquitous.
+[Speaker_12] 01:06:12 - 01:06:34
+But you know my life has been made better by standards like coding standards, network standards, and it seems like we're reaching a point where diversity is starting to take hold to a point where we're not gonna be able to have the kinds of convergence devices that I think everyone would really be able to appreciate. And I'm.
+[Speaker_12] 01:06:34 - 01:06:40
+wondering, you know, is this gonna be like like healthcare or mass transit where you just can never put it back in the bottle again?
+[Speaker_12] 01:06:41 - 01:06:43
+And I'd like to get your perspective on that.
+[Speaker_12] 01:06:43 - 01:06:53
+There's still an opportunity to have some grand convergence devices that can really simplify people's lives and and and enrich their lives.
+[Speaker_12] 01:06:53 - 01:06:53
+Steve?
+[Speaker_3] 01:06:54 - 01:06:57
+Well, I think Bill and I would agree that we can get it down to two.
+[Speaker_3] 01:06:58 - 01:07:06
+No, I think there's it, it's hard to it's hard to limit imagination and innovation.
+[Speaker_3] 01:07:06 - 01:07:13
+I think there's always gonna be a bunch of new great things, butAnd I think that's part of what we put up with to get the innovation.
+[Speaker_1] 01:07:14 - 01:07:16
+We put up a little bit of aggravation to get the innovation.
+[Speaker_1] 01:07:16 - 01:07:25
+And I think the marketplace is awfully good at allowing diversity when it should, and then getting rid of it when it shouldn't.
+[Speaker_1] 01:07:25 - 01:07:26
+I mean, and then letting it come back sometime.
+[Speaker_13] 01:07:26 - 01:07:27
+Yeah.
+[Speaker_11] 01:07:27 - 01:07:28
+Hahaha.
+[Speaker_1] 01:07:29 - 01:07:43
+I mean in terms of standards and things, you know, there's a, the internet standards have been incredibly powerful, you know, video formats, things like this.
+[Speaker_1] 01:07:44 - 01:07:49
+And so I I don't see things that are gonna really hold back a convergence device.
+[Speaker_1] 01:07:49 - 01:07:54
+You know, sure there's a lot of wireless approaches, but that's pretty healthy right now.
+[Speaker_1] 01:07:54 - 01:08:07
+They each have various merits, a few of them all end up overlapping the other ones and kill the other ones out, but well, I think the industry's done very well at latching on the standards for the things that there were no longer any innovation in.
+[Speaker_1] 01:08:07 - 01:08:14
+and then focusing on the places where the it wasn't clear which approach was was best.
+[Speaker_4] 01:08:15 - 01:08:15
+Jessie.
+[Speaker_14] 01:08:16 - 01:08:18
+I'm Jessie Cornwell, with Head Butler dot com.
+[Speaker_14] 01:08:18 - 01:08:25
+Because you're not the youngest guys in the room anymore, it's perhaps appropriate to ask you a question about legacy, each of you.
+[Speaker_14] 01:08:26 - 01:08:43
+Bill, even your harshest critic would have to admit that your philanthropy work is, you know, planet shaking, incredible, and could could be, if you make it a a second act so amazing that it would dwarf what you've actually done at Microsoft.
+[Speaker_14] 01:08:56 - 01:08:58
+if you had to choose a legacy, what would it be?
+[Speaker_14] 01:08:58 - 01:09:02
+And Steve, do you look at Bill and you think, gee that guy is so lucky.
+[Speaker_14] 01:09:03 - 01:09:12
+He had a company so rich with talent that he didn't have to personally, you know, come in every day and and save it, and you know, I wish I had the opportunity.
+[Speaker_15] 01:09:16 - 01:09:17
+Okay, he's second answer that one.
+[Speaker_1] 01:09:17 - 01:09:28
+Well, the most important work I got a chance to be involved in, no matter what I do, is the personal computer.
+[Speaker_1] 01:09:28 - 01:09:32
+you know, that's what i grew up in my teens, my twenties, my thirties.
+[Speaker_1] 01:09:32 - 01:09:38
+you know, i even knew not to get married, cause i was so until later, cause i was so obsessed with it.
+[Speaker_1] 01:09:38 - 01:09:39
+that's my life's work.
+[Speaker_1] 01:09:40 - 01:10:03
+and i it's lucky for me that some of the skill skills and resources that i put skills first, that i i was able to develop through those experiences can be applied to the benefit ofThe the people who haven't had technology.
+[Speaker_1] 01:10:04 - 01:10:06
+including medicine working for them.
+[Speaker_1] 01:10:06 - 01:10:08
+So it's an incredible blessing to have two things like that.
+[Speaker_1] 01:10:08 - 01:10:17
+But the thing that all, you know, my, if you look inside my brain, it's filled with software, and you know, the magic of software and a belief in software.
+[Speaker_1] 01:10:17 - 01:10:21
+And you know that, that's not gonna change.
+[Speaker_3] 01:10:21 - 01:10:21
+OK.
+[Speaker_1] 01:10:21 - 01:10:29
+So, your question was a about whether I wish I didn't have to go into Apple every day.
+[Speaker_3] 01:10:29 - 01:10:30
+Ha ha ha.
+[Speaker_1] 01:10:32 - 01:10:37
+No, if you if you envy Bill a bit, the second act that he has.
+[Speaker_3] 01:10:38 - 01:10:39
+Oh, no, I think it's great, I think the world.
+[Speaker_3] 01:10:39 - 01:10:45
+I think the world's a better place cause Bill realized that his goal isn't to be the richest guy in the cemetery.
+[Speaker_3] 01:10:46 - 01:10:46
+Right?
+[Speaker_3] 01:10:46 - 01:10:51
+That's a good thing, and so he's doing a lot of good with the the money that he made.
+[Speaker_3] 01:10:52 - 01:11:06
+You know, I'm I'm sure Bill was was like me in this way, I mean I I grew up fairly middle class, lower middle class, and and uh, and I never really cared much about money.
+[Speaker_3] 01:11:07 - 01:11:14
+and Apple was so successful early on in life that I I was very lucky that I didn't have to care about money then.
+[Speaker_3] 01:11:15 - 01:11:18
+And so I've been able to focus on work, and then later on my family.
+[Speaker_3] 01:11:19 - 01:11:30
+And I I sort of look at us as two of the luckiest guys on the planet, cause we found what we loved to do, and we were at the right place at the right time.
+[Speaker_3] 01:11:31 - 01:11:38
+And we've gotten to go to work every day with super bright people for thirty years, and and do what we love doing.
+[Speaker_3] 01:11:38 - 01:11:44
+And so it's hard to be happier than that, you know, your family and that.
+[Speaker_3] 01:11:45 - 01:11:46
+What more can you ask for?
+[Speaker_3] 01:11:46 - 01:11:57
+And so I don't think about legacy much, I just think about being able to get up every day and go in and hang around these great people, and hopefully create something that other people will love as much as we do.
+[Speaker_1] 01:11:58 - 01:12:01
+and if we could do that, that's that's that's great.
+[Speaker_11] 01:12:02 - 01:12:03
+yeah.
+[Speaker_1] 01:12:03 - 01:12:07
+Thanks, Steven, Bill, Rob Kelly, here with my business partner.
+[Speaker_1] 01:12:08 - 01:12:11
+We've got a hundred person internet media business.
+[Speaker_1] 01:12:11 - 01:12:22
+I'm wondering what would be the single most valuable piece of advice you'd give us to even attempt to create some of the value that you guys have done in both your very impressive companies.
+[Speaker_1] 01:12:26 - 01:12:51
+I think actually it maybe in both cases, correct me if I'm wrong, the the excitement wasn't really seen the economic value,Even when we wrote down at Microsoft in 1975, a computer on every desk and every home, we didn't realize oh, we'll have to be a big company. Every time.
+[Speaker_1] 01:12:51 - 01:12:53
+I thought, oh god, can we double in size?
+[Speaker_1] 01:12:53 - 01:12:55
+Jesus, can you manage that many people?
+[Speaker_1] 01:12:55 - 01:12:57
+Will that feel fun still?
+[Speaker_1] 01:12:57 - 01:13:00
+You know, and so every doubling was like, okay, this is the last one.
+[Speaker_1] 01:13:00 - 01:13:15
+And so the economic thing wasn't for at the forefront, the the idea of being at the forefront and seeing new things and things we wanted to do, and bringing in, being able to bring in Different people were fun to work with.
+[Speaker_1] 01:13:15 - 01:13:25
+eventually with a pretty broad set of skills, and figuring out how to get those people, those broad skills to work well together, has been one of the greatest challenges.
+[Speaker_1] 01:13:26 - 01:13:33
+You know, I've made more of my mistakes in that area maybe than than any anywhere.
+[Speaker_1] 01:13:33 - 01:13:38
+But you know, eventually getting some of those those teams to work very well together.
+[Speaker_1] 01:13:38 - 01:13:41
+So, you know, I think it's a lot about the people and the passion.
+[Speaker_1] 01:13:42 - 01:13:47
+And it's amazing that the business Worked out the the way that it did.
+[Speaker_3] 01:13:47 - 01:14:01
+Yeah, people say you you have to have a lot of passion for what you're doing, and it's totally true, and the reason is is because it's so hard, but if you don't, any rational person would give up.
+[Speaker_3] 01:14:02 - 01:14:06
+It's really hard, and you have to do it over a sustained period of time.
+[Speaker_3] 01:14:06 - 01:14:17
+So if you don't love it, if you're not having fun doing it, you don't really love it, you're gonna give up, and that's what happens to most people actually, if you really look at at at at at the ones that ended up.
+[Speaker_3] 01:14:17 - 01:14:26
+you know, being successful on quote in the eyes of society, and the ones that didn't, oftentimes it it'sThe ones that are successful love what they did so they could persevere when you know, when it got really tough.
+[Speaker_3] 01:14:27 - 01:14:32
+And and the ones that that didn't love it quit, cause they're sane, right?
+[Speaker_3] 01:14:32 - 01:14:34
+Who would wanna put up with this stuff if you don't love it?
+[Speaker_3] 01:14:35 - 01:14:43
+So it's a lot of hard work, and and it's a lot of worrying constantly, and if you don't love it, you're gonna fail.
+[Speaker_3] 01:14:43 - 01:14:47
+So you gotta love it, you gotta have passion, and I think that's the high order bit.
+[Speaker_3] 01:14:47 - 01:14:53
+The second thing is, you've gotta be, you you've gotta be a really good talent scout.
+[Speaker_3] 01:14:54 - 01:14:57
+'cause no matter how smart you are, you need a team of great people.
+[Speaker_3] 01:14:58 - 01:15:08
+And you've got to figure out how to how to size people up fairly quickly, make decisions without knowing people too well, and hire them, and you know see how you do and refine your intuition.
+[Speaker_3] 01:15:08 - 01:15:14
+and be able to to help, you know build an organization that can eventually just, you know build itself.
+[Speaker_3] 01:15:15 - 01:15:16
+'cause you need great people around you.
+[Speaker_16] 01:15:17 - 01:15:18
+Liz Liz.
+[Speaker_17] 01:15:19 - 01:15:21
+Liz Buyer, a question, I guess it's historical curiosity.
+[Speaker_17] 01:15:22 - 01:15:25
+You approached the same opportunity so very differently.
+[Speaker_17] 01:15:26 - 01:15:32
+What did you learn about running your own business that you wished you had thought of sooner or thought of first by watching the other guy?
+[Speaker_17] 01:15:36 - 01:15:38
+I give a lot to have Steve's taste.
+[Speaker_18] 01:15:39 - 01:15:40
+Ha ha ha.
+[Speaker_1] 01:15:40 - 01:15:45
+He has natural, and it's not a joke at all.
+[Speaker_1] 01:15:45 - 01:15:48
+I I think in terms of intuitive taste, both for people and products.
+[Speaker_1] 01:15:49 - 01:16:01
+You know we we sat in Mac product reviews where there were questions about software choices, how things would be done that I did is an engineering question, you know, and you know that's just how my mind works.
+[Speaker_1] 01:16:01 - 01:16:08
+And I'd see Steve make the decision based on a sense of people and product that it was even hard for me to explain.
+[Speaker_1] 01:16:08 - 01:16:11
+He the way he does things it it's just different.
+[Speaker_1] 01:16:11 - 01:16:14
+and you know, I think it's it's magical.
+[Speaker_3] 01:16:14 - 01:16:16
+And in that case, wow.
+[Speaker_3] 01:16:17 - 01:16:27
+You know, because was and I started the company based on doing the whole banana.
+[Speaker_3] 01:16:28 - 01:16:41
+We weren't so good at partnering with people, and you know, actually the funny thing is Microsoft's one of the few companies we were able to partner with that actually worked for both companies, and uh we weren't so good at that.
+[Speaker_3] 01:16:41 - 01:16:46
+as we're, as we're Bill and Microsoft were really good at it, because they they didn't make the whole thing.
+[Speaker_3] 01:16:46 - 01:16:56
+in the early days, and they they they they learned how to partner with people really well, and i think if apple could have had that a little more of that in his dna, it would have served it extremely well.
+[Speaker_3] 01:16:57 - 01:17:03
+and and and i don't think apple learn that until, you know, several a few decades later.
+[Speaker_19] 01:17:03 - 01:17:04
+hmm hmm hmm.
+[Speaker_19] 01:17:05 - 01:17:06
+last question.
+[Speaker_19] 01:17:06 - 01:17:06
+hi.
+[Speaker_19] 01:17:06 - 01:17:08
+oh, oh, is this over here?
+[Speaker_19] 01:17:08 - 01:17:09
+i'm sorry, over here.
+[Speaker_19] 01:17:09 - 01:17:12
+yeah, hi, charlie ritter from fidelity investments.
+[Speaker_19] 01:17:12 - 01:17:22
+in our financial services industry, we are focusing very strongly on aging and retiring baby boomers a huge demographic.
+[Speaker_3] 01:17:22 - 01:17:22
+We're not that old.
+[Speaker_19] 01:17:22 - 01:17:24
+No, I wasn't.
+[Speaker_19] 01:17:27 - 01:17:48
+The question is different from what it sounds like it's going to be here, but most of the innovation that we see coming from computer and internet companies is kind of youth oriented, and I'm just wondering if there are activities going on in your companies acknowledging what's going to happen generational.Not true. I'll give you one example.
+[Speaker_3] 01:17:48 - 01:17:53
+So we started building in video cameras and almost all our computers a few years ago.
+[Speaker_3] 01:17:53 - 01:18:06
+And the response by people of all ages, but in particular seniors has been off the charts, because they're buying these things now, and they're buying them for their grand, their grandkids, their their their sons and daughters with their grandkids.
+[Speaker_3] 01:18:06 - 01:18:20
+so that they can stay in touch with their grandkids, and their video conferencing more than than younger people are, and it's it's incredible what this has done, so that's just one simple example, but there's like dozens of them that have clicked with you know seniors that are living independently.
+[Speaker_3] 01:18:20 - 01:18:23
+they wanna stay in touch with extended families, and do other things like that.
+[Speaker_3] 01:18:23 - 01:18:32
+Yeah, I think that it's a very good point when you look at the size of the market, and that's partly why it's great that there are all these companies.
+[Speaker_3] 01:18:32 - 01:18:36
+Out there who can see okay, what would you do for seniors?
+[Speaker_1] 01:18:36 - 01:18:47
+I think natural user interfaces particularly applicable here because the keyboard, you know we we're sort of warped in that we grew up using the keyboard, and so it's extremely natural to us.
+[Speaker_1] 01:18:48 - 01:18:56
+But things like, and that's probably why when we showed the surface computer, I showed it privately to s a bunch of CEOs a couple weeks ago.
+[Speaker_1] 01:18:57 - 01:18:59
+I was kind of stunned by how blown away they were.
+[Speaker_1] 01:18:59 - 01:19:09
+But the their ease of navigation is just not the same, and when they saw that, the idea that they could organize their photo album.
+[Speaker_3] 01:19:10 - 01:19:12
+to them, to it meant more of them than it did to me.
+[Speaker_3] 01:19:12 - 01:19:15
+I'll give you another example.
+[Speaker_3] 01:19:15 - 01:19:30
+We've got a little shy of 200 retail stores now, and one of the things the stores are doing is personal training now, it's called one to one, and we are up to now a run rate of a million personal training sessions.
+[Speaker_3] 01:19:30 - 01:19:34
+they last an hour per year, a million per year.
+[Speaker_3] 01:19:34 - 01:19:36
+You only started a little while ago, right?
+[Speaker_11] 01:19:36 - 01:19:36
+Yeah.
+[Speaker_3] 01:19:37 - 01:19:42
+We started about a year ago, and we're up to a million training sessions a year run rate now.
+[Speaker_3] 01:19:42 - 01:19:51
+And a lot of those folks, some of them anyway, many of them are seniors, and they're coming in, and they're spending an hour learning how to use office, and they're spending an hour learning how to video conference.
+[Speaker_3] 01:19:51 - 01:20:00
+and they can basically come in as much as they want, and they can schedule these things throughout a year, and they pay 99 dollars, I think a year for it, and it's been great.
+[Speaker_5] 01:20:02 - 01:20:03
+Last question.
+[Speaker_3] 01:20:03 - 01:20:04
+Now the last question over there.
+[Speaker_3] 01:20:05 - 01:20:17
+We all share a common science fiction experience of you know the metaverse or the matrix, where we all could communicate without being in the same place, and by the way, thank you both.
+[Speaker_13] 01:20:17 - 01:20:23
+for providing us the best platform so far to go to chat rooms or to all go to a MySpace.
+[Speaker_13] 01:20:24 - 01:20:28
+It's a far cry from these things that we see on Star Trek at the holodeck.
+[Speaker_13] 01:20:29 - 01:20:38
+What kind of things can you imagine they're part way there that could be much better than the three window iChat that we might see in the next five or ten years.
+[Speaker_3] 01:20:39 - 01:20:42
+Well, I don't I don't Steve's gonna announce his transporter.
+[Speaker_20] 01:20:42 - 01:20:43
+Ha ha ha.
+[Speaker_3] 01:20:46 - 01:20:47
+I want Star Trek.
+[Speaker_20] 01:20:47 - 01:20:48
+Ha ha ha.
+[Speaker_3] 01:20:48 - 01:20:49
+Just give me Star Trek.
+[Speaker_20] 01:20:49 - 01:20:50
+Ha ha ha.
+[Speaker_20] 01:20:51 - 01:21:11
+I think short of the transporter, most things you see in science fiction, are in the next decade, the kinds of things you'll see the the virtual presence, the the virtual worlds that both represents what's going on in the real world and represents whatever people are interested in.
+[Speaker_1] 01:21:11 - 01:21:16
+this in a movement in space is a way of interacting with the machine.
+[Speaker_1] 01:21:17 - 01:21:26
+I think the deep investments that have been made at the research level will pay off with these things in in the next ten years.
+[Speaker_3] 01:21:27 - 01:21:41
+Steve, I don't know, and that's what makes it exciting to go into work every day, cause there's, as as we talked about earlier, this is an extraordinarily exciting time in the industry, and lots of new stuff happening.
+[Speaker_3] 01:21:41 - 01:21:44
+so yeah, I can't even begin to think of what it's gonna be like ten years from now.
+[Speaker_3] 01:21:44 - 01:21:46
+Thank you so much, thank you so much.
+[Speaker_8] 01:21:47 - 01:21:48
+Thank you so much, great.
+[Speaker_8] 01:21:48 - 01:21:53
+Thank you so much, great. Thank you so much, great.

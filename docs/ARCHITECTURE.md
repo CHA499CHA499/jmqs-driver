@@ -146,7 +146,7 @@ sequenceDiagram
 
 ### 5.1 请求分支
 
-- v1：一篇服务端固定素材。Bridge 从 `MATERIAL_MANIFEST` + `PERSONA_NAVI_MATERIAL_ROOT` 解析真实文件。
+- v1：一篇服务端固定素材。Bridge 默认从随仓 `materials/classic-interviews/` 解析，`PERSONA_NAVI_MATERIAL_ROOT` 只作显式覆盖。
 - v2：浏览器提交一个 ≤1 MiB 的 UTF-8 `.md/.txt`；Bridge 再校验并写入 `inputs/`，CLI 只看冻结绝对路径。
 - custom Prompt 只替换当前 `command.instruction`；不会扩张命令白名单。
 
@@ -323,12 +323,12 @@ flowchart TB
 | 依赖 | 当前实现 | 摘仓要求 |
 |---|---|---|
 | Skill root | `.local/skills` 默认 | 完整运行在 `.env.local` 设置 `PERSONA_NAVI_SKILLS_DIR` |
-| transcript root | `.local/materials` 默认 | 在 `.env.local` 设置 `PERSONA_NAVI_MATERIAL_ROOT`；不要提交用户原文 |
+| transcript root | `materials/classic-interviews` | 四份原文随仓并由 SHA manifest 校验；环境变量只作覆盖 |
 | Soul workspace | `.local/soul-workspace` 默认 | 在 `.env.local` 设置 `PERSONA_NAVI_SOUL_WORKSPACE_ROOT` |
 | agent-cli | 三个 `/Applications/...` 候选 | 保留 macOS 探测，同时以 `PERSONA_NAVI_AGENT_CLI` 作为可移植覆盖 |
 | Browser Bridge URL | `http://127.0.0.1:8766` | 增加只允许 loopback 的 public env 配置，与 Bridge port 联动 |
 | allowed Origins | localhost/127.0.0.1:3000 | 与 `PORT` 同源生成或显式安全白名单，不允许通配符 |
-| supervisor package manager | 固定调用 `pnpm` | 与选定 lockfile/包管理器统一 |
+| supervisor package manager | npm | 与 `package-lock.json`、Setup Skill 的 `npm ci` 统一 |
 | Sites project | `.openai/hosting.json` 固定 project ID | 首发前决定重绑定、模板化或保留，避免误部署 |
 
 ### 10.4 摘仓后的运行/发布边界
@@ -363,7 +363,7 @@ dirty nested repo audit
 2. 动态 Soul Skill 索引由谁提供权威查询；在此之前必须保持 unmapped。
 3. `PORT` 可配置但 Origin 白名单固定 3000，是否统一成同一配置源。
 4. 是否删除/迁出未使用的 db/Drizzle/D1 starter 层，避免误判为已接数据库。
-5. `npm` lockfile 与 supervisor 对 `pnpm` 的运行依赖是否统一。
+5. npm lockfile、Setup Skill 与 supervisor 命令是否保持同一合同。
 6. `/open` 是否继续只打开 App，还是需要受支持的 conversation 深链合同。
 7. 独立仓首发采用何种 license/可见性，以及是否保留现有 Sites project ID。
 8. 外部固定原文与 Skills 的安装体验采用 `.env.example`、preflight 脚本还是交互式配置。

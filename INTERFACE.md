@@ -6,7 +6,7 @@
 
 | 入口 | 行为 | 边界 |
 |---|---|---|
-| `npm run dev` / `pnpm dev:persona` | supervisor 启动/复用 web 3000 与 Bridge 8766 | 依赖本机 `pnpm` 子进程 |
+| `npm run dev` / `npm run dev:persona` | supervisor 启动/复用 web 3000 与 Bridge 8766 | npm；Web 与 Bridge 均通过 HTTP ready 才报告成功 |
 | `npm run dev:web` | 只启动 vinext web | 不提供真实 Persona/Soul Run |
 | `npm run navi:bridge` | 只启动 `127.0.0.1:8766` Bridge | 不启动 web |
 | `npm run build` | 构建 vinext/Cloudflare 产物 | `public/` 被视为静态树 |
@@ -323,7 +323,7 @@ Soul 首条消息以 `/create-soul <person>` 开始，列出明确输入、隐�
 
 - `public/**`：浏览器同源静态资产。
 - Skill：`${PERSONA_NAVI_SKILLS_DIR}/{skill}/SKILL.md`。
-- 固定原文：`${PERSONA_NAVI_MATERIAL_ROOT}/{MATERIAL_MANIFEST.fileName}`。
+- 固定原文：默认 `${PROJECT_DIR}/materials/classic-interviews/{MATERIAL_MANIFEST.fileName}`；`PERSONA_NAVI_MATERIAL_ROOT` 可显式覆盖。Setup Skill 先按 manifest 校验四份文件的字节数和 SHA-256。
 - Soul 成品：固定输出目录内必需文件与 `_knowledge/*.md`。
 
 ### 写入

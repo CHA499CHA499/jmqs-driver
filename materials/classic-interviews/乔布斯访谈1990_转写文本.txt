@@ -1,0 +1,949 @@
+========================================
+播客名称：FuVenture（YouTube 频道）—— 视频实为 1990 年 WGBH 对 Steve Jobs 的电视访谈
+单集标题：【中文字幕】乔布斯 Steve Jobs 经典视频：《乔布斯：访谈 1990》
+来源链接：https://www.youtube.com/watch?v=BL_8zxCOInA
+YouTube 上传日期：2021-12-09（原始采访年份：1990）
+时长：50 分 07 秒
+嘉宾：Steve Jobs（时任 NeXT 创始人兼 CEO）
+采访者：WGBH 节目采访者（页面未提供独立姓名信息）
+主题：乔布斯谈计算机的意义（"大脑的自行车"）、行业两次大爆炸与"人际计算"第三次革命、NeXT 愿景、Xerox PARC 与 Macintosh 诞生、Apple I/Apple II 创业史、网络与教育、市场研究局限、Mac 发布团队情感等。
+========================================
+以下是完整逐字稿（含时间戳与说话人）：
+[Speaker_1] 00:00:00 - 00:00:01
+few questions.
+[Speaker_1] 00:00:02 - 00:00:04
+Is this out of the picture if I put it here?
+[Speaker_1] 00:00:04 - 00:00:04
+Great.
+[Speaker_1] 00:00:04 - 00:00:13
+What we're hoping to do in this whole series is look at this technology.
+[Speaker_1] 00:00:13 - 00:00:14
+Why is a computer so interesting?
+[Speaker_1] 00:00:14 - 00:00:16
+So I'm gonna start that way.
+[Speaker_1] 00:00:16 - 00:00:16
+OK.
+[Speaker_1] 00:00:16 - 00:00:17
+So what is it?
+[Speaker_1] 00:00:17 - 00:00:18
+What's different about this machine?
+[Speaker_1] 00:00:18 - 00:00:20
+I have one one quick request.
+[Speaker_1] 00:00:20 - 00:00:20
+Yep.
+[Speaker_1] 00:00:20 - 00:00:24
+And that is don't throw your fingers in front of that light, because that's that's not picking up well.
+[Speaker_1] 00:00:24 - 00:00:25
+All right, you're on.
+[Speaker_1] 00:00:27 - 00:00:36
+By the way, the next time, when you do an interview at the factory that place that we found,hmm.
+[Speaker_1] 00:00:36 - 00:00:37
+Probably the best location.
+[Speaker_1] 00:00:38 - 00:00:41
+We found a way to boost you up enough so you're over the rail.
+[Speaker_1] 00:00:41 - 00:00:44
+And you can see the the the two on a robot.
+[Speaker_2] 00:00:44 - 00:00:46
+Yeah, great.
+[Speaker_1] 00:00:47 - 00:00:48
+So nice shot.
+[Speaker_2] 00:00:53 - 00:00:54
+OK.
+[Speaker_1] 00:00:54 - 00:01:02
+What is it about this machine?
+[Speaker_1] 00:01:02 - 00:01:04
+Why is this machine so interesting?
+[Speaker_1] 00:01:04 - 00:01:05
+Why has it been so influential?
+[Speaker_2] 00:01:06 - 00:01:12
+Uh, um, I'll give you my point of view on it.
+[Speaker_2] 00:01:15 - 00:01:24
+I remember reading a magazine article long time ago, when I was 12 years old maybe, and I think it was Scientific American, I'm not sure.
+[Speaker_2] 00:01:24 - 00:01:38
+And the article um proposed to measure the efficiency of locomotion for lots of species on planet earth, to see which species was the most efficient at getting from point A to point B,
+[Speaker_2] 00:01:38 - 00:01:41
+they measured the kilocalories that each one expended.
+[Speaker_2] 00:01:41 - 00:01:47
+So they ranked them all, and I remember that the condor won.
+[Speaker_2] 00:01:48 - 00:01:58
+The condor was the most efficient at Getting from point A to point B, and humankind, the crown of creation came in with a rather unimpressive showing about a third of the way down the list.
+[Speaker_2] 00:01:59 - 00:02:02
+So, that didn't look so great.
+[Speaker_2] 00:02:03 - 00:02:08
+But, let me do this over again, cause I'm just,sure, sure,say this better.
+[Speaker_2] 00:02:15 - 00:02:25
+I remember reading an article when I was about 12 years old, I think it might have been in Scientific American, where they measured the efficiency of locomotion for all these species on planet Earth.
+[Speaker_2] 00:02:25 - 00:02:28
+How many kilocalories did they expend to get from point A to point B?
+[Speaker_2] 00:02:29 - 00:02:39
+And the Condor One came in at the top of the list, surpassed everything else, and humans came in about a third of the way down the list, which was not such a great showing for the crown of creation.
+[Speaker_2] 00:02:40 - 00:02:47
+And but somebody there had the imagination to test the efficiency of a human riding a bicycle.
+[Speaker_2] 00:02:47 - 00:02:51
+Human riding a bicycle blew away the Condor, all the way off the top of the list.
+[Speaker_2] 00:02:51 - 00:03:03
+And it it made a really big impression on me that we humans are tool builders, and that we can fashion tools that amplify these inherent abilities that we have to spectacular magnitudes.
+[Speaker_2] 00:03:04 - 00:03:11
+And so, for me, a computer has always been a bicycle of the mind, something that that takes us far beyond our inherent abilities.
+[Speaker_2] 00:03:12 - 00:03:25
+And I think we're just at the early stages of this tool, very early stages, and we've come only a very short distance, and it's still in its formation, but already we've seen enormous changes.
+[Speaker_2] 00:03:25 - 00:03:28
+I think that's nothing compared to what's coming in the next hundred years.
+[Speaker_2] 00:03:28 - 00:03:35
+In in program six, we're gonna look at some of the past predictions of why people have been so wrong about the future.
+[Speaker_2] 00:03:35 - 00:03:43
+And one of the notions is is that today's vision of a standalone computer is just as limited as those past Visions of it being only a number cruncher.
+[Speaker_2] 00:03:43 - 00:03:44
+Uh huh.
+[Speaker_1] 00:03:44 - 00:03:47
+What's the difference philosophically between a network machine and a standard machine?
+[Speaker_2] 00:03:48 - 00:03:52
+Let me answer that question a slightly different way.
+[Speaker_2] 00:03:54 - 00:04:05
+There have been, if you look at why the majority of people have bought these things so far, there have been two real explosions that have propelled the industry forward.
+[Speaker_2] 00:04:05 - 00:04:10
+The first one, really happened in 1977, and it was the spreadsheet.
+[Speaker_2] 00:04:11 - 00:04:23
+I remember when Dan Fylstra, who ran the company that marketed the first spreadsheet, walked into my office at Apple one day, and pulled out this disk from his vest pocket and said, I I have this incredible new program.
+[Speaker_2] 00:04:23 - 00:04:26
+I call it a visual calculator, and it became Visicalc.
+[Speaker_2] 00:04:27 - 00:04:40
+And that's what really drove, propelled the Apple II to to to the success it it achieved, more than any other single event, and and with the the invention of Lotus 123 and I think it was 1982.
+[Speaker_2] 00:04:40 - 00:04:44
+That's what really propelled the IBM PC to the level of success that it achieved.
+[Speaker_2] 00:04:44 - 00:04:47
+So that was the first explosion was the spreadsheet.
+[Speaker_2] 00:04:47 - 00:04:53
+The second major explosion is driven our the desktop industry has been desktop publishing.
+[Speaker_1] 00:04:55 - 00:04:55
+We just lost a light.
+[Speaker_1] 00:04:59 - 00:05:01
+Let's check the uh breaker.
+[Speaker_3] 00:05:01 - 00:05:02
+Chris.
+[Speaker_3] 00:05:03 - 00:05:04
+Yeah, I think so, Michael.
+[Speaker_3] 00:05:06 - 00:05:06
+Alright.
+[Speaker_1] 00:05:06 - 00:05:09
+When is this gonna be broadcast next year or something?
+[Speaker_1] 00:05:12 - 00:05:14
+Co-production with the BBC.
+[Speaker_1] 00:05:14 - 00:05:16
+Actually, one part is gonna be interesting.
+[Speaker_1] 00:05:16 - 00:05:18
+I ask you at the end is, we're gonna dramatize the future.
+[Speaker_1] 00:05:19 - 00:05:22
+What we guess our future is, because we've got a dramatic budget in England.
+[Speaker_1] 00:05:23 - 00:05:25
+Whatever our guess is, it's gonna be wrong.
+[Speaker_1] 00:05:25 - 00:05:28
+At least we wanna give people a vision of where things are heading.
+[Speaker_3] 00:05:30 - 00:05:34
+So can I just start off with the second one?
+[Speaker_2] 00:05:34 - 00:05:34
+Sure, right.
+[Speaker_2] 00:05:35 - 00:05:42
+The the second really big explosion in our our industry has been desktop publishing, happened in 1985 with the Macintosh and the laser writer printer.
+[Speaker_2] 00:05:43 - 00:05:52
+And at that point, people could start to do on their desktops things that only typesetters and printers could do prior to that, and that's been a very big revolution in publishing.
+[Speaker_2] 00:05:53 - 00:06:02
+And those are re- really those two explosions have been the only two real major revolutions which have caused mo- a lot of people to buy these things and use them.
+[Speaker_2] 00:06:03 - 00:06:19
+The third one is starting to happen now, and the third one is let's do for human to human communication what spreadsheets did for financial planning, and what public desktop publishing did for publishing, let's revolutionize it using these desktop devices.
+[Speaker_2] 00:06:19 - 00:06:22
+and we're already starting to see the signs of that.
+[Speaker_2] 00:06:22 - 00:06:40
+As an example in an organization, we're starting to see that as business conditions change faster and faster with each year, we cannot change our management hierarchical organization very fast relative to the changing business conditions.
+[Speaker_2] 00:06:40 - 00:06:43
+We can't have somebody working for a new boss every week.
+[Speaker_2] 00:06:44 - 00:06:47
+We also can't change our geographic organization very fast.
+[Speaker_2] 00:06:47 - 00:06:49
+Matter of fact, even slower than the management one.
+[Speaker_2] 00:06:49 - 00:06:52
+We can't be moving people around the country every week.
+[Speaker_2] 00:06:53 - 00:06:57
+But we can change an electronic organization like that.
+[Speaker_2] 00:06:57 - 00:07:04
+And what's starting to happen is, is we start to link these computers together with sophisticated networks and great user interfaces.
+[Speaker_2] 00:07:04 - 00:07:13
+We're starting to be able to create clusters of people working on a common task in a s- you know literally in 15 minutes worth of setup.
+[Speaker_2] 00:07:14 - 00:07:20
+And these 15 people can work together extremely efficiently no matter where they are geographically, and no matter who they work for hierarchically.
+[Speaker_2] 00:07:21 - 00:07:26
+And these organizations can live for as long as they're needed, and then vanish.
+[Speaker_2] 00:07:27 - 00:07:38
+And we're finding we can reorganize our companies electronically, very rapidly, and that's the only type of organization that can begin to keep pace with the changing business conditions.
+[Speaker_2] 00:07:39 - 00:07:47
+And I believe that this collaborative model has existed in higher education for a long time, but we're starting to see it applied into the commercial world as well.
+[Speaker_2] 00:07:48 - 00:07:56
+And this is gonna be the third major revolution that these desktop computers provide, is revolutionizing human to human communication and group work.
+[Speaker_2] 00:07:56 - 00:07:58
+We call it interpersonal computing.
+[Speaker_2] 00:07:58 - 00:08:00
+In the nineteen eighties, we did personal computing.
+[Speaker_2] 00:08:01 - 00:08:05
+And now we're gonna extend that as we network these things to interpersonal computing.
+[Speaker_2] 00:08:05 - 00:08:15
+Thinking, taking the long view now, what was the image of the computer in the mid nineteen sixties or whenever you first saw one?
+[Speaker_3] 00:08:15 - 00:08:15
+Hmm.
+[Speaker_2] 00:08:15 - 00:08:16
+And where are we now?
+[Speaker_2] 00:08:17 - 00:08:20
+What was the, how did the PC enact that change?
+[Speaker_3] 00:08:20 - 00:08:20
+Right.
+[Speaker_2] 00:08:21 - 00:08:25
+I am, I first saw my first computer when I was twelve.
+[Speaker_2] 00:08:26 - 00:08:27
+I first saw it.
+[Speaker_2] 00:08:29 - 00:08:31
+I um, I saw my first computer when I was 12.
+[Speaker_2] 00:08:32 - 00:08:36
+And it was at NASA, we had a local NASA center nearby.
+[Speaker_2] 00:08:36 - 00:08:42
+And it was a terminal, which was connected to a big computer somewhere, and I got a time sharing account on it.
+[Speaker_2] 00:08:42 - 00:08:44
+And I was fascinated by this thing.
+[Speaker_2] 00:08:44 - 00:08:50
+I saw my second computer a few years later, which was really the first desktop computer ever made, was made by Hewlett Packard.
+[Speaker_2] 00:08:50 - 00:08:52
+It's called the 9100A.
+[Speaker_2] 00:08:52 - 00:08:54
+And it ran a language called BASIC.
+[Speaker_2] 00:08:54 - 00:08:59
+And it was very large, had a very small cathode ray tube on it for display.
+[Speaker_2] 00:09:00 - 00:09:02
+And I got a chance to play with one of those.
+[Speaker_2] 00:09:02 - 00:09:10
+maybe in 1968 or nine, and spent every spare moment I had trying to write programs for it.
+[Speaker_2] 00:09:10 - 00:09:11
+I was so fascinated by this.
+[Speaker_2] 00:09:12 - 00:09:29
+And so I was probably fairly lucky, and that my introduction to computers very rapidly moved from a terminal to within maybe 12 months or so actually seeing the one of the first, probably the first desktop computer ever ever really produ- produced.
+[Speaker_2] 00:09:30 - 00:09:37
+and so my point of view never really changed from from being able to get my arms around it, even though my arms probably didn't quite fit around that first one.
+[Speaker_1] 00:09:40 - 00:09:41
+What was the role?
+[Speaker_1] 00:09:41 - 00:09:47
+How have personal computers changed the the landscape of of computers?
+[Speaker_1] 00:09:47 - 00:09:56
+I mean, back then it was centralized power was in the mainframe, now we have three times as much power at the fringe than we have in the center, or five times as much power, depending on what statistics.
+[Speaker_1] 00:09:56 - 00:10:00
+What what how did the PC change the world?
+[Speaker_2] 00:10:00 - 00:10:15
+Well, though the analogy is nowhere perfect, and and certainly one needs to factor out the environmental concerns of the of the analogy as well.
+[Speaker_2] 00:10:16 - 00:10:21
+There is a lot to be said for comparing it to going from trains, from passenger trains to automobiles.
+[Speaker_2] 00:10:21 - 00:10:29
+And the advent of the automobile gave us a personal freedom of transportation.
+[Speaker_2] 00:10:30 - 00:10:38
+In the same way, the advent of the computer gave us the ability to start to use computers without having to convince other people that we needed to use computers.
+[Speaker_2] 00:10:38 - 00:10:48
+And the biggest effect of the personal computer revolution has been to allow millions and millions of people.
+[Speaker_2] 00:10:49 - 00:11:03
+to experience computers themselves, decades before they ever would have in the old paradigm, and to allow them to participate in the making of choices and controlling their own destiny using these tools.
+[Speaker_2] 00:11:03 - 00:11:23
+But it has created it has created problems, and the largest problems are that now that we have all these very powerful tools, we're still islands, and we're still not really connecting these people using these powerful tools together.
+[Speaker_2] 00:11:24 - 00:11:29
+and that's really been the challenge of the last few years, and the next several years is how to connect these things back together.
+[Speaker_2] 00:11:30 - 00:11:40
+so that we can can rebuild a fabric of these things, rather than just individual points of light, if you will, and get the benefit of both the passenger train and the automobile.
+[Speaker_1] 00:11:41 - 00:11:42
+so.
+[Speaker_2] 00:11:42 - 00:11:42
+hmm-hmm.
+[Speaker_1] 00:11:44 - 00:11:47
+what's the vision behind the next machine?
+[Speaker_1] 00:11:49 - 00:11:50
+we've already covered this little bit.
+[Speaker_2] 00:11:50 - 00:12:04
+yeah, the e-everything thatthat we've done in our.
+[Speaker_2] 00:12:04 - 00:12:05
+What's the right way to say this?
+[Speaker_2] 00:12:12 - 00:12:16
+Everything I've done with computers in my life has been along pretty much a single vector.
+[Speaker_2] 00:12:16 - 00:12:20
+And and next is is just one more point on that same vector.
+[Speaker_2] 00:12:20 - 00:12:29
+In this case, what we we observed was that the computing power we could give to an individual was an order of magnitude more than the PCs we're giving.
+[Speaker_2] 00:12:30 - 00:12:35
+In the sense that people want to do many things at once, and you really need true multitasking.
+[Speaker_2] 00:12:36 - 00:12:44
+We really did want to start to network these things together in very sophisticated networks, so the technology to build that in became available.
+[Speaker_2] 00:12:45 - 00:12:56
+And most important, we saw a way to build a software system that was about 10 times as powerful than any PC, and where so new software could be created in a fourth of the time.
+[Speaker_2] 00:12:56 - 00:13:06
+So, we spent four years with the 50 to 100 of the best software people we could find building this new software system, and it's turned out beautifully.
+[Speaker_1] 00:13:07 - 00:13:09
+what's the vision behind next?
+[Speaker_2] 00:13:10 - 00:13:27
+It's not so much different than everything I've ever done in my life with computers, and starting with the Apple II and Macintosh, and now Next, which is if you believe that these are the most incredible tools we've ever built.
+[Speaker_2] 00:13:27 - 00:13:32
+which I do, then the more powerful tool we can give to people, the more they can do with it.
+[Speaker_2] 00:13:32 - 00:13:37
+And in this case, we we found a way to do two or three things that were real breakthroughs.
+[Speaker_2] 00:13:37 - 00:13:42
+Number one was to put a much more powerful computer in front of people for about the same price as a PC.
+[Speaker_2] 00:13:43 - 00:13:53
+The second was to integrate that networking into the computer, so we can begin to make this next revolution with interpersonal computing, and and the PCs so far have not been able to do that very well.
+[Speaker_2] 00:13:53 - 00:14:15
+And the third thing, and maybe the most important was to create a whole new software architecture from the ground up that lets us build these new types of applications, and lets them, let us, let's us build them in 25 percent of the time that it normally takes to do on a PC. So, we spent four years with.
+[Speaker_2] 00:14:15 - 00:14:16
+50 to 100 of the best software people.
+[Speaker_2] 00:14:17 - 00:14:21
+that I know, creating a whole new software platform from the ground up.
+[Speaker_2] 00:14:21 - 00:14:29
+And the way our industry works is that you create this platform software first, and then you go out and get people to write new applications on top of it.
+[Speaker_2] 00:14:30 - 00:14:39
+Well, the the height that these new applications can sore is is enabled or limited by the platform software.
+[Speaker_2] 00:14:39 - 00:14:48
+And there's only even three systems that have ever been successful in the whole history of desktop computing, that was the Apple II's platform software, of which there wasn't too much.
+[Speaker_2] 00:14:48 - 00:14:50
+The IBM PC.
+[Speaker_2] 00:14:50 - 00:14:51
+and macintosh.
+[Speaker_2] 00:14:51 - 00:15:04
+so we're attempting to create the fourth platform software standard, and hopefully will succeed because it will allow these applications to be written which far far exceed in capacity what can be done in today's machines.
+[Speaker_1] 00:15:08 - 00:15:09
+ok.
+[Speaker_1] 00:15:11 - 00:15:11
+based.
+[Speaker_2] 00:15:11 - 00:15:11
+uh huh.
+[Speaker_1] 00:15:11 - 00:15:18
+what happens when you have a network that allows the mino- relative minorities in a whole different area come together.
+[Speaker_1] 00:15:18 - 00:15:20
+how does it change the democracy?
+[Speaker_2] 00:15:20 - 00:15:20
+i don't know.
+[Speaker_1] 00:15:21 - 00:15:21
+ok.
+[Speaker_2] 00:15:21 - 00:15:26
+but but what i have seen is i've seen interpersonal computing happening in our own company.
+[Speaker_2] 00:15:27 - 00:15:36
+Maybe the best way to put it is um, I remember when the first spreadsheet came out, I saw it fly through Apple, as well as other companies.
+[Speaker_2] 00:15:36 - 00:15:44
+And when we uh, when we invented desktop publishing, of course it influenced Apple first, and I've seen the same thing happen with interpersonal computing here at Next.
+[Speaker_2] 00:15:44 - 00:15:53
+We decided to put a Next machine on every employee's desktop about 18 months ago, and connect them with you know, very high speed networking that's built in, and I've seen the revolution here with my own eyes.
+[Speaker_2] 00:15:53 - 00:15:56
+and it it's actually larger than the first two.
+[Speaker_2] 00:15:56 - 00:15:57
+Let me give you some examples.
+[Speaker_2] 00:15:57 - 00:16:03
+If we want to uh, if we're gonna be doing uh a special project, let's say with a company.
+[Speaker_2] 00:16:04 - 00:16:10
+And we, and let's say the company's called, what's your what's your.
+[Speaker_1] 00:16:10 - 00:16:10
+WGBH.
+[Speaker_2] 00:16:11 - 00:16:11
+J, WGBH.
+[Speaker_2] 00:16:11 - 00:16:21
+We're gonna do be doing a special project with WGBH, and what we'll do is we'll create a special mailbox, WGBH, and we'll put twenty people on it that are gonna be helping on this project.
+[Speaker_2] 00:16:21 - 00:16:34
+And these twenty people will be from all over our company, from marketing, from sales, from engineering, of some from manufacturing, maybe some from our Boston office so they can be close by, and if one sends a message to this mailbox.
+[Speaker_2] 00:16:34 - 00:16:35
+they'll all get it like that instantly.
+[Speaker_2] 00:16:36 - 00:16:49
+And if uh one sends a reply, they'll copy the whole mailbox on it, so the rest of the the team members get to read the intellectual content going back and forth, and everyone on this in this mailbox will probably get around 30 mail messages a day.
+[Speaker_2] 00:16:50 - 00:16:55
+and they'll spend about 20 minutes, 30 minutes reading these and answering these per day, and it'll be like a beehive.
+[Speaker_2] 00:16:56 - 00:17:04
+Now I, this project is very important for our company, and I wanna make sure it's getting off right, so I'll put my own name on this mailbox, and I'll see these 30 mail messages fly by.
+[Speaker_2] 00:17:04 - 00:17:11
+all of the disagreements and the arguments and the thoughts and the decisions, and I can just let it fly by and read it.
+[Speaker_2] 00:17:11 - 00:17:14
+I can do some background coaching with a few people if I think they're a little off track.
+[Speaker_2] 00:17:15 - 00:17:17
+I can get right on the network and kibbitz if I'd like.
+[Speaker_2] 00:17:18 - 00:17:22
+And after a month or so, when I know that it's going well, I can take my name off.
+[Speaker_2] 00:17:22 - 00:17:45
+And so, not only is this a way to organize violating all management and geographic boundaries, it's also a way to manage where one can see again the thoughts and disagreements and decisions of a company fly by a manager in a way that they never could before. And we have seen it reduce the.
+[Speaker_2] 00:17:45 - 00:17:47
+number of meetings we have at least by 50 percent.
+[Speaker_2] 00:17:50 - 00:18:10
+We're part of this electronically connected community.
+[Speaker_3] 00:18:11 - 00:18:23
+That's gonna provide us wonderful new capabilities and and communications abilities, but we still always wanna be able to disconnect that network, speak it, take it off and take our standalone computer somewhere.
+[Speaker_2] 00:18:23 - 00:18:24
+Let's say home.
+[Speaker_2] 00:18:25 - 00:18:32
+Now what's gonna happen rapidly is with radio links and with fiber optics to the home, you're gonna be able to hook your computer up to your network at home.
+[Speaker_2] 00:18:32 - 00:18:47
+But there's always gonna be that cabin in the middle of nowhere that I wanna go for a two week vacation where I want my computer, and if it doesn't work in a completely standalone way, I'm I'm going to be not happy.
+[Speaker_2] 00:18:48 - 00:18:55
+So we have to provide a fluid way for these things to kind of dock into the mother load network, but also undock.
+[Speaker_2] 00:18:55 - 00:19:07
+and allow me as an individual to carry my computer up in theosemite backpacking, and where there's you know no radio links and no fiber optic links, and still be able to use it, and then come back and dock back into the network.
+[Speaker_2] 00:19:07 - 00:19:11
+and find out what happened when I left, and share some of my thoughts maybe with some other folks.
+[Speaker_2] 00:19:12 - 00:19:20
+So, we're working on that, that's our goal for the next five years, is that seamless transition between the standalone computer, and the computer is part of this network community.
+[Speaker_2] 00:19:21 - 00:19:25
+It also keeps away the welling aspects of always being hooked into the network.
+[Speaker_2] 00:19:25 - 00:19:26
+Right, that's right.
+[Speaker_2] 00:19:27 - 00:19:33
+Now, I actually think what what an interesting paradox is it is the network which is ultimately gonna define and create the home computer market.
+[Speaker_2] 00:19:34 - 00:19:38
+not keeping our recipes on these things or something like we thought in 1975.
+[Speaker_2] 00:19:39 - 00:19:48
+Being a part of that network and not being able to stay away from it while you're at home will drive people to get computers in every house, just like we have a telephone in every house.
+[Speaker_1] 00:19:48 - 00:19:54
+But computers then won't be just computers, they'll be radios and stereos and TV.
+[Speaker_2] 00:19:54 - 00:19:58
+No, I think I think they'll be just computers, just like your phone isn't your television set.
+[Speaker_2] 00:19:59 - 00:20:02
+Just like your toaster isn't your radio.
+[Speaker_2] 00:20:02 - 00:20:07
+I think they'll be computers, and they'll have many of the capabilities of these other devices.
+[Speaker_2] 00:20:08 - 00:20:12
+Multimedia, the ability to integrate sound and video.
+[Speaker_2] 00:20:12 - 00:20:18
+In with the computer is absolutely coming, but a lot of people have mistaken it as the end rather than the means.
+[Speaker_2] 00:20:19 - 00:20:21
+We see multimedia as more more of a means.
+[Speaker_2] 00:20:22 - 00:20:29
+In other words, people aren't going to buy a computer for multimedia, they're going to buy it for training, or they're going to buy it for interpersonal communication.
+[Speaker_2] 00:20:30 - 00:20:37
+And in that communication, in addition to text, they're gonna want voice, they're gonna want potentially I might want to send you a video clip.
+[Speaker_2] 00:20:38 - 00:20:43
+But the real market is to help us communicate better, or to help us train somebody.
+[Speaker_2] 00:20:43 - 00:20:46
+And we need not lose sight of that.
+[Speaker_1] 00:20:48 - 00:20:56
+Going, um, I want to get your thoughts on the user interface stuff, and like to look at the transition, a Xerox to Apple.
+[Speaker_1] 00:20:56 - 00:20:56
+OK?
+[Speaker_1] 00:20:57 - 00:21:03
+When did you hear, what was your, the image of Xerox Park, and what was it like when you first went in there?
+[Speaker_2] 00:21:04 - 00:21:19
+Um, well Xerox Park was a, a research lab set up by Xerox when they were making a lot of profits in the copier days, and, they were doing some computer science research, which was basically an extension of some stuff started by a guy named Doug Engelbart.
+[Speaker_2] 00:21:19 - 00:21:20
+when he was at SRI.
+[Speaker_2] 00:21:20 - 00:21:33
+Dugan invented the mouse and invented the bitmap display, and some Xerox folks that that Xerox I believe hired away from Dugan or split off from Dugan somehow got to Xerox were continuing along in this in this vein.
+[Speaker_2] 00:21:33 - 00:21:44
+And I first went over there in 1979, and I saw what they were doing with the the larger screens, proportionally spaced text, and the mouse.
+[Speaker_2] 00:21:44 - 00:21:49
+And it was just instantly obvious to anyone that this was the way things should be.
+[Speaker_2] 00:21:49 - 00:21:56
+And so I remember coming back to Apple thinking, our our future is just changed, this is where we have to go.
+[Speaker_2] 00:21:56 - 00:21:59
+The problem was that Xerox had never made a commercial computer.
+[Speaker_2] 00:22:00 - 00:22:11
+This group of people at Xerox was was was more concerned with with looking out 15 years than they were looking out 15 months and trying to make a product that somebody could use.
+[Speaker_2] 00:22:11 - 00:22:16
+So, there were a lot of issues that they hadn't solved like menus, other things like that.
+[Speaker_2] 00:22:16 - 00:22:19
+And at Apple, what we had to do was to do two things.
+[Speaker_2] 00:22:19 - 00:22:23
+One was complete the research, which really was only about 50 percent complete.
+[Speaker_2] 00:22:24 - 00:22:32
+And the second was to find a way to implement it at a low enough cost where people would buy it.
+[Speaker_2] 00:22:32 - 00:22:34
+And that that was really our challenge.
+[Speaker_1] 00:22:35 - 00:22:38
+what did you six succeed in doing with the Mac?
+[Speaker_2] 00:22:39 - 00:22:44
+Well, the Macintosh, as you remember when it came out, we called it the computer for the rest of us.
+[Speaker_2] 00:22:45 - 00:22:58
+And what that meant was, that while experts could use some of the computers that were already out, most people didn't want the, again the computer was was not an end in itself, it was a means to an end.
+[Speaker_2] 00:22:58 - 00:23:01
+And so most people didn't want to learn how to use the computer, they just wanted to use it.
+[Speaker_2] 00:23:02 - 00:23:09
+And the Macintosh was supposed to be the computer for people that just wanted to use a computer without having to learn how to use one, spent six months.
+[Speaker_2] 00:23:09 - 00:23:21
+Now, it turned out that the the paradox was that to make a computer easier to use, you needed a more powerful computer in the first place, cause you were gonna burn a lot of the cycles on making it easy to use.
+[Speaker_2] 00:23:21 - 00:23:30
+and so this computer that was easy to use was actually more powerful and could do more things than the less easy to use computer, and it took people a few years to figure that out about the Macintosh.
+[Speaker_2] 00:23:30 - 00:23:32
+but i think i think people did.
+[Speaker_2] 00:23:34 - 00:23:38
+actually there's a funny joke that we were climbing around one day, and one of our group is an IBM person.
+[Speaker_2] 00:23:39 - 00:23:44
+And so he's saying, you know, some little girl walks up and sees a prompt, yeah, and goes to her daddy says, is it broken?
+[Speaker_2] 00:23:45 - 00:23:45
+you know, where's my desktop?
+[Speaker_3] 00:23:45 - 00:23:46
+mm-hmm.
+[Speaker_2] 00:23:46 - 00:23:47
+you know, where's where's my metaphor?
+[Speaker_2] 00:23:47 - 00:23:50
+and we've gotten, we've we've adopted this new metaphor.
+[Speaker_2] 00:23:51 - 00:23:52
+what how is that changed to look at computers?
+[Speaker_2] 00:23:56 - 00:24:15
+well, i think i think the Macintosh was created by a group of people who felt that there wasn't a strict division between sort of science and and art, or in other words that mathematics is really a liberal art if you look at it from a slightly different point of view.
+[Speaker_2] 00:24:16 - 00:24:19
+and why can't we interject typography into computers?
+[Speaker_2] 00:24:19 - 00:24:34
+why can't we have computerstalking to us in in English language, and looking back five years later, this seems like a trivial observation, but at the time it was cataclysmic in its consequences.
+[Speaker_2] 00:24:34 - 00:24:38
+and the battles that were fought to push this point of view out the door were very large.
+[Speaker_2] 00:24:38 - 00:24:53
+The balance between thinking and doing, I mean one of the things in the semiconductors was you had risk takers.
+[Speaker_2] 00:24:53 - 00:24:56
+Bob Noyce, you know, learned to hang glide at age forty.
+[Speaker_2] 00:24:57 - 00:24:59
+these people like laying their butts on the line.
+[Speaker_1] 00:24:59 - 00:25:02
+How important was that in the early days?
+[Speaker_1] 00:25:02 - 00:25:04
+I mean we're going back to 75.
+[Speaker_2] 00:25:04 - 00:25:13
+Well, again after seeing, my entire life has been spent only in one industry, which is this one.
+[Speaker_2] 00:25:13 - 00:25:20
+And but I've been in it now for about 15 years, and I've seen a lot of people make a lot of things, I've seen a lot of people fail a lot of things.
+[Speaker_2] 00:25:20 - 00:25:29
+And my my point of view on this, or my observation is that the doers are the major thinkers.
+[Speaker_2] 00:25:30 - 00:25:37
+The people that really create the things that change this industry are both the thinker doer in one person.
+[Speaker_2] 00:25:38 - 00:25:51
+And if we really go back and we examine, you know, did did Leonardo have a guy off to the side that was thinking five years out in the future what he would paint or the technology he would use to paint it? Of course not. Leonardo was the artist, but he.
+[Speaker_2] 00:25:51 - 00:25:52
+also mixed all his own paints.
+[Speaker_2] 00:25:52 - 00:26:06
+He also was a a fairly good chemist, knew about pigments, knew about human anatomy, and combining all of those skills together, the art and the science, the thinking and the doing, was what resulted in the exceptional result.
+[Speaker_2] 00:26:07 - 00:26:13
+And there is no difference in our industry, the people that have really made the contributions have been the thinkers and the doers.
+[Speaker_2] 00:26:14 - 00:26:19
+And when you when you a lot of people, of course, it's it's very easy to take credit for the thinking.
+[Speaker_2] 00:26:20 - 00:26:24
+The doing is more concrete, but somebody, it's very easy for somebody to say, oh, I thought of this three years ago.
+[Speaker_2] 00:26:25 - 00:26:34
+But usually when you dig a little deeper, you find that the people that really did it were also the people that really worked through the hard intellectual problems as well.
+[Speaker_1] 00:26:35 - 00:26:52
+What's it gonna take to make computers ac- accessible to the rest of the public?
+[Speaker_1] 00:26:53 - 00:26:59
+And now I don't know what the statistics are, but twenty million people on computers, or what's it gonna take to get it to a hundred million?
+[Speaker_1] 00:27:00 - 00:27:16
+well, you probably death is the best invention of life, yeah, because it means there's a constant turnover, and so if you wanna make a change in our society, the best place to do it is in the educational system.
+[Speaker_2] 00:27:17 - 00:27:31
+so that you're there there are now generations of people that have come out of school who computers are second nature to them, and the people in our society that that at this point still have have not embraced these things or getting older.
+[Speaker_2] 00:27:32 - 00:27:43
+and as that cycle that that wheel of birth and death turns, just like driving, people that don't drive are very rare, and Another generation or two people that don't use computers or be pretty rare.
+[Speaker_1] 00:27:45 - 00:27:47
+Going back,Harsh way of saying it, but that's the.
+[Speaker_1] 00:27:48 - 00:27:53
+very true, I mean there's there is a line that says those people that don't adopt it will die off.
+[Speaker_1] 00:27:53 - 00:27:57
+Well, time passes.
+[Speaker_1] 00:27:58 - 00:28:10
+Focusing now on the third program where we've gone from semiconductors, and the vision is IBM is this big machine, UNIVAC, big large machine, and we take the the line through of integrated circuit microprocessor.
+[Speaker_1] 00:28:11 - 00:28:13
+I actually get some great stuff from Ted Hoff,
+[Speaker_1] 00:28:13 - 00:28:17
+About, you know it's it's a light bulb, you know you repl you burns out you replace it.
+[Speaker_1] 00:28:18 - 00:28:21
+Then we lead up into the beginnings of the personal computers.
+[Speaker_1] 00:28:21 - 00:28:25
+So what were you doing at the time, and how did that get started?
+[Speaker_2] 00:28:27 - 00:28:33
+Actually, you know, it wasn't Intel that first figured out that the microprocessor was a computer.
+[Speaker_2] 00:28:33 - 00:28:46
+They designed these things to be used in calculators, and they thought the reason that the microprocessor came about was they thought if they could design a slightly programmable one, the next customer that walked in the door that wanted a slightly different calculator.
+[Speaker_2] 00:28:46 - 00:28:50
+they could just spend a few months rather than a few years designing a new piece of silicon.
+[Speaker_2] 00:28:51 - 00:28:59
+But I think the thought of making a computer never really occurred to them, and it was the hobbyists that thought about making a computer out of these things.
+[Speaker_2] 00:28:59 - 00:29:02
+It was this, it was the computer hobbyist community that that first did that.
+[Speaker_2] 00:29:03 - 00:29:06
+And I don't think Intel quite understood that for a few years.
+[Speaker_2] 00:29:06 - 00:29:16
+But again, the first thing that happened was these people came together and formed a club, the Homebrew Computer Club at Stanford was the first one in the country.
+[Speaker_2] 00:29:17 - 00:29:23
+And it it it was a beehive of all of these people who were interested in these small little computers.
+[Speaker_2] 00:29:24 - 00:29:29
+People that might have been ham radio operators, people that might have you know worked with large computers.
+[Speaker_2] 00:29:29 - 00:29:37
+Were all gathered together to share, discuss their their latest little projects.
+[Speaker_2] 00:29:38 - 00:29:44
+It was very exciting, and it there was not a month that would go by where some breakthrough didn't happen.
+[Speaker_2] 00:29:44 - 00:29:54
+And then the first magazine came along, which was Byte magazine, to communicate on a national scale with all these hobbyists, so that it was a very very exciting dynamic time.
+[Speaker_1] 00:29:56 - 00:29:59
+What did you think when you saw the Apple One? What did I.
+[Speaker_1] 00:30:33 - 00:30:35
+We had a we had a fun time doing that.
+[Speaker_1] 00:30:35 - 00:30:47
+So when it came to building a computer together, Woz focused mostly Woz was the brilliant hardware engineer and focused on the core design of the computer.
+[Speaker_1] 00:30:48 - 00:31:00
+And I was worrying about which parts we ought to use and how we were gonna build these things and how a sort of somebody that wasn't a Woz was gonna manage to buy all the extra parts you still needed to buy and plug this thing together.
+[Speaker_1] 00:31:00 - 00:31:08
+cause you still needed to buy your own keyboard, your own display, and your own power supply, and so you needed to be pretty much of a hardware hobbyist.
+[Speaker_1] 00:31:09 - 00:31:17
+Now, we made the a a very important decision was to not offer our computers a kit, even though you needed to buy these extra parts, the the main computer board itself came fully assembled.
+[Speaker_1] 00:31:18 - 00:31:19
+We were the first company in the world to do that.
+[Speaker_1] 00:31:19 - 00:31:29
+Everybody else was offering their little computers a kit, and what that meant was was there was maybe an order magnitude more people who could actually buy our computer and use it than if they had to build it themselves.
+[Speaker_1] 00:31:31 - 00:31:49
+And the Apple II was actually the first computer to come fully assembled, where you didn't have to do anything, and the reason there was it was our observation that for every hardware hobbyist someone who could either build the kit themselves or at least find these five or ten extra parts they needed. there.
+[Speaker_1] 00:31:49 - 00:31:58
+were a thousand potential software hobbyists, and if they didn't have to do anything with the hardware except use it, make, ran, at that time, that meant write their own programs.
+[Speaker_1] 00:31:58 - 00:32:06
+still, there was a much larger group of people that could take advantage of this, so we wanted to reach them, and that was the the real breakthrough in the Apple II.
+[Speaker_1] 00:32:07 - 00:32:10
+contrast, if you will, the At-Atlantic City Fair, with the West Coast Computer Fair.
+[Speaker_1] 00:32:12 - 00:32:17
+well, the the Atlantic City computer show was the first, about to sneeze actually.
+[Speaker_1] 00:32:19 - 00:32:26
+Look, look at the look.
+[Speaker_1] 00:32:30 - 00:32:40
+The first face to face gathering of personal computer hobbyists from all around the country was the show put on Atlantic City in 1976.
+[Speaker_1] 00:32:41 - 00:32:52
+And it was in the basement of some dingy hotel, and it just happened to be about 300 degrees outside, so the basement was just it was like a steam bath.
+[Speaker_1] 00:32:52 - 00:33:03
+and it was impossible to be down there for longer than a half an hour without being completely drenched, and nevertheless there were a few hundred hobbyists completely drenched walking around for hours, and we had a little tiny booth there.
+[Speaker_1] 00:33:03 - 00:33:14
+was was a tablecloth over over over a hotel table, and there were was and I and a friend or two of ours went there, and we had our few Apple ones there, and a little poster we'd made.
+[Speaker_1] 00:33:14 - 00:33:18
+and that was really our first the first computer show in in the in the the world.
+[Speaker_1] 00:33:19 - 00:33:29
+A year later, I think maybe maybe even nine months later, there was the first West Coast Computer Fair, which was a much more professional operation by in comparison with Atlantic City.
+[Speaker_1] 00:33:30 - 00:33:34
+but still very very hobby oriented compared with what goes on today.
+[Speaker_1] 00:33:34 - 00:33:45
+And that was in San Francisco, and there were maybe a hundred companies showing their wears, and it was attended by maybe a thousand people, which was a lot for our industry at that time.
+[Speaker_1] 00:33:45 - 00:33:45
+Thirteen.
+[Speaker_1] 00:33:46 - 00:33:47
+Thirteen thousand.
+[Speaker_1] 00:33:47 - 00:33:48
+Wow, really?
+[Speaker_1] 00:33:48 - 00:33:49
+Thirteen thousand people?
+[Speaker_1] 00:33:49 - 00:33:50
+That's a lot.
+[Speaker_1] 00:33:50 - 00:33:51
+That's Jim Moore told me that.
+[Speaker_1] 00:33:51 - 00:33:52
+That's a lot.
+[Speaker_1] 00:33:52 - 00:33:56
+I I'd be surprised at that, but maybe he knows better than I do.
+[Speaker_1] 00:33:56 - 00:33:58
+Yeah, six thousand, thousands of people.
+[Speaker_1] 00:33:58 - 00:34:25
+And um That's when we introduced the Apple II and I think the Apple II was probably the hit of the show at that timeIn between you went and found麦肯纳 and Marcellawell we found Regis by I used to like Intel's advertising so。
+[Speaker_1] 00:34:25 - 00:34:37
+I called them up one day and I said who does your advertising They said Regis麦肯纳 and I said what's a Regis麦肯纳 They said no it's a person They gave me his phone number and I called Regis up and he he told us to go。
+[Speaker_1] 00:34:37 - 00:34:51
+away about four or five times but eventually he agreed to help us out And then Mike Markkula I found from a venture capitalist actually Told me that I should go talk to Mike Markkula Now we we hooked up with Mike just around the。
+[Speaker_1] 00:34:51 - 00:35:07
+time we introduced the Apple II maybe a month before but the Apple II was was pretty much designed and and ready to go and then Mike came on board and things really started to take off How important was the disk drive in the development of Apple。
+[Speaker_1] 00:35:07 - 00:35:08
+Disk drive was crucial.
+[Speaker_1] 00:35:08 - 00:35:19
+One of the things that people forget when they think about about Apple and the Apple II in particular was that that we were the first company to come out with a reliable, inexpensive floppy disk drive.
+[Speaker_1] 00:35:19 - 00:35:25
+And we had a a low cost floppy disk drive that really worked about two to three years before any of our competitors.
+[Speaker_1] 00:35:26 - 00:35:30
+And that was an incredibly important reason why the Apple II was successful.
+[Speaker_1] 00:35:30 - 00:35:32
+Matter of fact, there were a few others.
+[Speaker_1] 00:35:32 - 00:35:41
+The Apple II could hold up to 48 kilobytes of memory, which today doesn't seem like much, but at that time was maybe three times as much as its competitors.
+[Speaker_1] 00:35:42 - 00:35:45
+And that's why VisiCalc was written for the Apple II.
+[Speaker_1] 00:35:45 - 00:35:47
+That was the only computer that could hold it.
+[Speaker_1] 00:35:48 - 00:35:53
+And so, if VisiCalc had been written for some other computer, you'd be interviewing somebody else right now.
+[Speaker_1] 00:35:53 - 00:36:00
+And it was because of that design decision, and and other design decisions like it, that the Apple II really beat its competition.
+[Speaker_1] 00:36:01 - 00:36:08
+How did the Apple II change the field, the world of computing?
+[Speaker_1] 00:36:08 - 00:36:17
+Well, the Apple II was the world's first successful comp- a personal computer, and really defined the personal computers we know it today.
+[Speaker_1] 00:36:18 - 00:36:21
+So, I think it it changed the world a lot.
+[Speaker_1] 00:36:21 - 00:36:22
+from that point of view.
+[Speaker_1] 00:36:23 - 00:36:27
+One of the thesis is that, well let me turn this question around.
+[Speaker_1] 00:36:27 - 00:36:29
+How important is market research?
+[Speaker_1] 00:36:29 - 00:36:31
+How much did you rely on it in the early days?
+[Speaker_1] 00:36:31 - 00:36:44
+Well, you know I think in the early days it was very easy because you could go to a homebrew computer club meeting and there was your whole market, and so you could find out what they thought.
+[Speaker_1] 00:36:44 - 00:36:51
+and then you show them your product and see what they thought, and you could, you because the products were much simpler then, within a few months you could change it all around and come back and show them a new one.
+[Speaker_1] 00:36:51 - 00:37:05
+But as the market got more sophisticated, it was less easy to do that, and the problem is is that market research can tell you tell you what your customers think of something you show them.
+[Speaker_1] 00:37:05 - 00:37:10
+or it can tell you what your customers want as an incremental improvement on what you have.
+[Speaker_1] 00:37:10 - 00:37:14
+but very rarely can your customers predict something that they don't even quite know they want yet.
+[Speaker_1] 00:37:15 - 00:37:20
+as an example, no market research could have led to the development of the Macintosh or the personal computer in the first place.
+[Speaker_1] 00:37:21 - 00:37:37
+so there are these sort of non incremental jumps that need to take place where it's very difficult for market research to really contribute much in the early phases of the thinking about how to, you know, what those should be. however, once you have made that jump, possibly before.
+[Speaker_1] 00:37:37 - 00:37:39
+the products on the market, or even after.
+[Speaker_1] 00:37:40 - 00:37:46
+is a great time to go check your instincts with the marketplace and verify that you're on the right track.
+[Speaker_1] 00:37:47 - 00:37:53
+and usually when you show people something, they'll they'll say oh my god, this is fantastic, or you know give you some feedback along those lines.
+[Speaker_1] 00:37:59 - 00:38:04
+how has the personal computer changed society?
+[Speaker_1] 00:38:04 - 00:38:08
+I I I'm I'm I'm not sure why I keep asking this again.
+[Speaker_1] 00:38:09 - 00:38:17
+I mean how have we fundamentally changed the way we do, do our do our daily business, our our daily lives.
+[Speaker_2] 00:38:17 - 00:38:18
+how's it affected that?
+[Speaker_1] 00:38:19 - 00:38:21
+I'm not the right person to ask.
+[Speaker_2] 00:38:21 - 00:38:24
+OK, ask Ellen.
+[Speaker_1] 00:38:24 - 00:38:25
+OK.
+[Speaker_3] 00:38:25 - 00:38:26
+Ha ha ha.
+[Speaker_2] 00:38:27 - 00:38:46
+We have just about covered the only other thought I have is, when you were getting started out, I read somewhere that you had no intention of building a company.
+[Speaker_1] 00:38:47 - 00:38:47
+Mmm hmm.
+[Speaker_2] 00:38:47 - 00:38:49
+You were just out to do stuff for yourselves.
+[Speaker_1] 00:38:49 - 00:38:50
+if you can give me, right?
+[Speaker_1] 00:38:52 - 00:38:54
+I don't know the question they asked to get that, but.
+[Speaker_1] 00:38:54 - 00:39:06
+Well, at the time we started Apple, Woz was working for Hewlett Packard, I was working for Atari, actually for Nolan Bushnell, designing video games, and we we went to Atari and showed them our early prototypes.
+[Speaker_1] 00:39:06 - 00:39:17
+and we went to HP, and we encouraged each company to hire the other one, and let us do this for them, and we got we got turned down in both places, probably for good reasons.
+[Speaker_1] 00:39:18 - 00:39:23
+but we started a company because it was the only alternative left, not cause we wanted to.
+[Speaker_2] 00:39:24 - 00:39:29
+what did you ever think that it was gonna real, this was really gonna happen, that this was gonna go from just an interesting idea that to.
+[Speaker_1] 00:39:30 - 00:39:32
+oh, it didn't take very long.
+[Speaker_1] 00:39:32 - 00:39:45
+it it happened for me when i saw people that could never possibly design a computer, could never possibly build a hardware kit, could never possibly assemble their own keyboards and monitors, could never even write their own software using these things.
+[Speaker_1] 00:39:47 - 00:39:49
+then you knew something very big was gonna happen.
+[Speaker_1] 00:39:50 - 00:39:58
+when we got into that stage where we were high enough on the food chain, if you will, that a lot of people could use these things, and they were really liking it.
+[Speaker_1] 00:40:06 - 00:40:10
+what's the the goal of the the the next factory?
+[Speaker_1] 00:40:10 - 00:40:12
+Why why is it so automated?
+[Speaker_1] 00:40:12 - 00:40:13
+Why is that necessary?
+[Speaker_4] 00:40:14 - 00:40:26
+one could go on for a long time about how the US has forgotten about manufacturing, which has certainly been true, but we're starting to wake up.
+[Speaker_1] 00:40:27 - 00:40:48
+And what we're finding is is that time to market is very important and quality is very important and the way we can make tremendous increase in quality and and reductions in time to market is through automation 所以，自动化不是在那儿，降低成本。
+[Speaker_1] 00:40:48 - 00:40:50
+虽然它，它确实做那。
+[Speaker_1] 00:40:50 - 00:40:53
+它是真的在那儿，增加质量，减少时间。
+[Speaker_1] 00:40:53 - 00:40:58
+它，以我们的新产品为例，是一个例子，到市场，这是非常重要的，在一个技术为基础的市场。
+[Speaker_1] 00:40:58 - 00:41:04
+所以，我们碰巧是，最低成本的生产者，在世界，已经在，next of our class of products。
+[Speaker_1] 00:41:04 - 00:41:08
+我们也碰巧是，最高质量的生产者，我们的产品类型，在世界。
+[Speaker_1] 00:41:09 - 00:41:16
+我们认为，一个公司，要生存，更别说繁荣，在九十年代，这些是，非常非常重要的事情，要世界级的。
+[Speaker_1] 00:41:16 - 00:41:21
+我们不是在竞争，在，homebrew computer society 了，我们在竞争，与 Europe Inc。
+[Speaker_1] 00:41:21 - 00:41:45
+and japan ink and ibm ink and in order to do that we really have to be world class manufacturers What a computer dancing around a bit just picking up the stray ends here so if they're not very connected excuse me What a computer networks offered。
+[Speaker_1] 00:41:45 - 00:41:46
+education?
+[Speaker_1] 00:41:46 - 00:41:54
+Well, education's been on computer networks for longer than almost anyone else.
+[Speaker_1] 00:41:54 - 00:42:01
+The department of defense has an office called Darpa, and they funded a thing called Arpanet many many years ago.
+[Speaker_1] 00:42:02 - 00:42:10
+To try to build a command and control network for military purposes, and they did a very brilliant thing.
+[Speaker_1] 00:42:10 - 00:42:19
+After they got a prototype working, they gave it to the university community in America, and said bang on this for a while, and see if it works, and help us make it better.
+[Speaker_1] 00:42:19 - 00:42:34
+And after a few years of the university community doing that, they created a separate version for military purposes, but they left the educational version going, and that is tied together the research community of the United States now for about a decade.
+[Speaker_1] 00:42:35 - 00:42:38
+and is vital to the functioning of higher education in this country.
+[Speaker_1] 00:42:39 - 00:42:41
+So higher education has actually led the way.
+[Speaker_1] 00:42:42 - 00:42:50
+That's why we started off focusing exclusively on higher education, because where else could you find 5,000 people on a network but Carnegie Mellon University as an example.
+[Speaker_1] 00:42:50 - 00:42:59
+So higher education has been five years ahead of business in using computers in some of these powerful new ways which we're gonna see now ripple into business in the first half of the nineties.
+[Speaker_1] 00:42:59 - 00:43:00
+It's pretty exciting.
+[Speaker_1] 00:43:00 - 00:43:01
+How about lower education?
+[Speaker_1] 00:43:02 - 00:43:02
+How about school?
+[Speaker_1] 00:43:02 - 00:43:02
+How about lower?
+[Speaker_1] 00:43:04 - 00:43:07
+Sharing valuable resources.
+[Speaker_1] 00:43:09 - 00:43:23
+So far, computer use in K through 12 has been primarily Apple 2s, and I wish I wishThat they've been upgrading the Macintosh is faster than they have been, but I think I think that that's slowly happening.
+[Speaker_1] 00:43:23 - 00:43:25
+and IBM is is getting in there as well.
+[Speaker_1] 00:43:25 - 00:43:38
+The primary purpose of computing in K through 12 has been just computer literacy, and there's been a bottleneck because there hasn't been enough sophisticated courseware written, and that's a problem for our society in general.
+[Speaker_1] 00:43:38 - 00:43:41
+amongst all the other problems with our K through 12 education system.
+[Speaker_1] 00:43:42 - 00:43:43
+One could talk about that for a few days.
+[Speaker_5] 00:43:44 - 00:43:45
+easily.
+[Speaker_2] 00:43:52 - 00:43:53
+Were you down in Austin to see Bob?
+[Speaker_4] 00:43:54 - 00:43:54
+Yeah.
+[Speaker_2] 00:43:54 - 00:43:55
+Oh, great.
+[Speaker_4] 00:43:55 - 00:43:55
+Yeah.
+[Speaker_2] 00:43:55 - 00:43:58
+And was gonna go speak with Jack Kilby.
+[Speaker_2] 00:43:58 - 00:43:59
+Unfortunately, he's he's in the hospital.
+[Speaker_4] 00:43:59 - 00:44:01
+Oh.
+[Speaker_2] 00:44:01 - 00:44:02
+I I think he's I think he's fine.
+[Speaker_2] 00:44:02 - 00:44:02
+I think he's back.
+[Speaker_4] 00:44:03 - 00:44:04
+Um.
+[Speaker_2] 00:44:12 - 00:44:18
+Going back to the Mac, and meeting the deadline for the Mac, how crazy did it get?
+[Speaker_2] 00:44:18 - 00:44:21
+I mean, you'd already set that you were gonna have this big splash at the Super Bowl.
+[Speaker_2] 00:44:22 - 00:44:33
+Actually, we'd wanted to get the Mac out a year before we did, so we had internal deadlines, that we were not able to meet.
+[Speaker_1] 00:44:33 - 00:44:39
+But by the time we set, by the time we bought the spots for the Super Bowl and things like that, it was basically in the bag.
+[Speaker_1] 00:44:40 - 00:44:47
+It's not that we didn't work twenty four hours a day for the last six months to get it out, but we were on the bomb run at that time.
+[Speaker_2] 00:44:49 - 00:44:55
+I I love this this, I I want to call it just to this thing that you did, which is have everybody sign the cases, that was yeah.
+[Speaker_2] 00:44:56 - 00:44:57
+What was, what why did you do that?
+[Speaker_1] 00:44:58 - 00:44:59
+Um.
+[Speaker_1] 00:45:00 - 00:45:05
+Because the people that worked on it, consider themselves, and I certainly consider them artists.
+[Speaker_1] 00:45:06 - 00:45:21
+These are the people that under under different circumstances would be painters and poets, but because of the that time that we live in, this new medium has appeared, in which to express oneself to one's fellow species, and that's a medium of computing.
+[Speaker_1] 00:45:21 - 00:45:36
+And um so a lot of people that would have been artists and scientists have gone into this field, to express their they're feeling, and so it it seemed like a the right thing to do.
+[Speaker_2] 00:45:36 - 00:45:39
+what was it like when you announced at the shareholders meeting?
+[Speaker_1] 00:45:40 - 00:45:49
+oh wow, it was a well I got the the first few rows had all the people that worked on the Mac, about a hundred people, hundred fifty people that really made it happen.
+[Speaker_1] 00:45:50 - 00:46:00
+We're all seated in the first few rows, and when when it was introduced, after we went through it all, and had the computer speak to people itself and things like that.
+[Speaker_1] 00:46:00 - 00:46:05
+The whole auditorium of about twenty five hundred people gave it a standing ovation.
+[Speaker_1] 00:46:06 - 00:46:15
+And the whole first few rows of Mac folks were all just crying, every, all of us were just.
+[Speaker_1] 00:46:16 - 00:46:19
+I was biting my tongue very hard, because I had a little bit more to do.
+[Speaker_1] 00:46:19 - 00:46:24
+But it was a very very emotional moment, because it was no longer ours.
+[Speaker_1] 00:46:24 - 00:46:27
+From that day forward, it was no longer ours.
+[Speaker_1] 00:46:27 - 00:46:28
+We couldn't change it.
+[Speaker_1] 00:46:29 - 00:46:31
+We had a good idea the following day, it was too late.
+[Speaker_1] 00:46:31 - 00:46:33
+It was it belonged to the world at that point in time.
+[Speaker_1] 00:46:44 - 00:46:45
+I should probably get going.
+[Speaker_2] 00:46:46 - 00:46:49
+Yeah, yeah, I'm just thinking a a couple, but let's do the kickers then.
+[Speaker_2] 00:46:50 - 00:46:56
+OK, these are the fifteen seconds at the beginning of the show to grab people's attention.
+[Speaker_2] 00:46:56 - 00:47:03
+So, program three, we're going from semiconductors to the to the growth and establishment of the computer industry.
+[Speaker_4] 00:47:03 - 00:47:04
+Uh huh.
+[Speaker_2] 00:47:04 - 00:47:05
+So, what did you accomplish?
+[Speaker_2] 00:47:05 - 00:47:07
+What did you set out to do and what did you do?
+[Speaker_1] 00:47:10 - 00:47:18
+Well, I think maybe something different along the lines of what you want is, you know, the semiconductor people didn't know what they had in the microprocessor for two or three years.
+[Speaker_1] 00:47:18 - 00:47:23
+It was the computer hobbyists that really Got the idea to make this into a computer rather than a calculator.
+[Speaker_1] 00:47:23 - 00:47:26
+We got to build the com company or change the world.
+[Speaker_1] 00:47:28 - 00:47:31
+When we started Apple, we were out to build computers for our friends.
+[Speaker_1] 00:47:32 - 00:47:33
+That was all, no idea of a company.
+[Speaker_1] 00:47:34 - 00:47:39
+How important is a user interface in the design of computer?
+[Speaker_1] 00:47:42 - 00:47:44
+Turn that in your own words.
+[Speaker_1] 00:47:44 - 00:48:00
+Well, the whole idea of the Macintosh was a computer for people who want to use a computer rather than learn how to use a computer.
+[Speaker_1] 00:48:01 - 00:48:05
+so, one way we've been playing with is, it's not how it does it, but what it does.
+[Speaker_1] 00:48:05 - 00:48:08
+I don't know if that's any good.
+[Speaker_1] 00:48:10 - 00:48:14
+There's, I don't care how it does it anymore, I just wanted to do what I wanted to do.
+[Speaker_1] 00:48:15 - 00:48:19
+Right, there is a quote in a an interview that was done with me in Playboy a while ago.
+[Speaker_1] 00:48:20 - 00:48:45
+All right, I uh, I gave a Macintosh to a young kid one time, was uh, actually Sean Lennon at his birthday, and uh, he had a great quote, he said uh, He said everyone else, and I guess I said this actually.Oh, I think I remember this is the.
+[Speaker_2] 00:48:45 - 00:48:46
+older people and younger people.
+[Speaker_1] 00:48:46 - 00:48:47
+Yeah, right.
+[Speaker_1] 00:48:47 - 00:48:52
+The older people all want to know how it does what it does, but the young people just want to know what it can do.
+[Speaker_2] 00:48:54 - 00:49:04
+OK, wrap that up into, is you the the the the gra- graphical interface or the the the trend, the the line that we're going, how about this?
+[Speaker_2] 00:49:04 - 00:49:09
+Where are we in the evolution of the user interface, and where are we going?
+[Speaker_2] 00:49:13 - 00:49:17
+I don't know that there is a short one, but yeah.
+[Speaker_1] 00:49:21 - 00:49:30
+The this whole discussion about user interface is just strange to me, because to me it's just sort of a natural thing that had to happen, did happen, and it's happened.
+[Speaker_1] 00:49:30 - 00:49:31
+It's kind of like automatic transmissions.
+[Speaker_2] 00:49:32 - 00:49:39
+Well, in a history series though, there isn't an evolutionary line, so that's why we're following.
+[Speaker_2] 00:49:40 - 00:49:41
+I mean a lot of people don't know about Doug Englebart.
+[Speaker_1] 00:49:41 - 00:49:42
+Right.
+[Speaker_2] 00:49:42 - 00:49:43
+for example.
+[Speaker_1] 00:49:43 - 00:49:43
+right.
+[Speaker_2] 00:49:43 - 00:49:45
+okay, networking.
+[Speaker_2] 00:49:45 - 00:49:47
+Why is networking important?
+[Speaker_2] 00:49:47 - 00:49:47
+Why is it the future?
+[Speaker_1] 00:49:48 - 00:50:00
+Well, in the nineties, we're gonna revolutionize human to human communication using these desktop computers in the same way that spreadsheets revolutionized financial modeling, and that desktop publishing revolutionized publishing.
+[Speaker_2] 00:50:01 - 00:50:01
+Great.
+[Speaker_1] 00:50:02 - 00:50:02
+Okay, good.
+[Speaker_2] 00:50:02 - 00:50:03
+Anything we haven't covered?
+[Speaker_1] 00:50:03 - 00:50:05
+No, I gotta go.This is great, thank you very much.

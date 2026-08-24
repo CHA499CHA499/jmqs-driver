@@ -20,7 +20,7 @@ test("default dev uses the supervisor and supervisor launches dev:web plus Bridg
   assert.equal(packageJson.scripts.dev, "node scripts/persona-local-runtime.mjs");
   assert.match(packageJson.scripts["dev:web"], /vinext dev/);
   assert.equal(packageJson.scripts["dev:persona"], "node scripts/persona-local-runtime.mjs");
-  assert.match(supervisor, /\["dev:web", "--", "--port", String\(webPort\)\]/);
+  assert.match(supervisor, /\["run", "dev:web", "--", "--port", String\(webPort\)\]/);
   assert.match(supervisor, /BRIDGE_READY/);
   assert.match(supervisor, /BRIDGE_RESTART_SCHEDULED/);
 });
@@ -34,12 +34,13 @@ test("supervisor waits for Bridge health before ready and does not duplicate exi
     webPort: 13000,
     probePort: async () => false,
     health: async () => true,
+    webHealth: async () => true,
     spawnChild: (label, command, args) => { const child = fakeChild(100 + spawned.length); spawned.push({ label, command, args, child }); return child; },
     logEvent: async (event, extra) => logs.push({ event, ...extra }),
     write: (value) => output.push(value),
   });
   await supervisor.start();
-  assert.deepEqual(spawned.map((item) => [item.label, item.command, item.args]), [["bridge", process.execPath, ["scripts/persona-navi-bridge.mjs"]], ["web", "pnpm", ["dev:web", "--", "--port", "13000"]]]);
+  assert.deepEqual(spawned.map((item) => [item.label, item.command, item.args]), [["bridge", process.execPath, ["scripts/persona-navi-bridge.mjs"]], ["web", "npm", ["run", "dev:web", "--", "--port", "13000"]]]);
   assert.match(output[0], /Persona local runtime ready/);
   assert.equal(logs.some((item) => item.code === "BRIDGE_READY"), true);
   await supervisor.shutdown("test");
@@ -51,6 +52,7 @@ test("supervisor waits for Bridge health before ready and does not duplicate exi
     webPort: 13000,
     probePort: async () => true,
     health: async () => true,
+    webHealth: async () => true,
     spawnChild: (...args) => { duplicateSpawned.push(args); return fakeChild(999); },
     logEvent: async () => {},
   });
@@ -68,6 +70,7 @@ test("supervisor schedules bounded Bridge restart after abnormal exit", async ()
     webPort: 13000,
     probePort: async (port) => port === 18766 ? listener : true,
     health: async () => true,
+    webHealth: async () => true,
     spawnChild: (label, command, args) => { listener = true; const child = fakeChild(200 + spawned.length); spawned.push({ label, command, args, child }); return child; },
     logEvent: async () => {},
     schedule: (callback, delay) => { scheduled.push({ callback, delay }); },
@@ -82,4 +85,17 @@ test("supervisor schedules bounded Bridge restart after abnormal exit", async ()
   scheduled[0].callback();
   await new Promise((resolve) => setTimeout(resolve, 5));
   assert.equal(spawned.length, 2);
+});
+
+test("supervisor rejects a stale web listener instead of reporting ready", async () => {
+  const supervisor = createLocalRuntimeSupervisor({
+    bridgePort: 18766,
+    webPort: 13000,
+    probePort: async () => true,
+    health: async () => true,
+    webHealth: async () => false,
+    spawnChild: () => { throw new Error("must not replace an unknown process"); },
+    logEvent: async () => {},
+  });
+  await assert.rejects(supervisor.start(), /WEB_PORT_OCCUPIED_UNHEALTHY/);
 });

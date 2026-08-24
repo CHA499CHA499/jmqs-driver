@@ -35,7 +35,7 @@ const SKILLS_DIR = path.resolve(process.env.PERSONA_NAVI_SKILLS_DIR || path.join
 const MATERIAL_ROOT = path.resolve(
   process.env.PERSONA_NAVI_MATERIAL_ROOT
     || process.env.PERSONA_NAVI_PRESET_ROOT
-    || path.join(LOCAL_ROOT, "materials"),
+    || path.join(PROJECT_DIR, "materials", "classic-interviews"),
 );
 const REQUEST_TOKEN = randomBytes(24).toString("base64url");
 const TOKEN_HEADER = "x-persona-navi-token";

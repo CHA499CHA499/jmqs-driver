@@ -1,0 +1,838 @@
+[00:04] Hello, Chris Anderson here, welcome to the TED Interview,
+[00:07] the podcast series where I get to sit down with a TED speaker
+[00:11] to dive much deeper into their ideas.
+[00:14] Today on the show, none other than Bill Gates,
+[00:18] a man who, along with everything else he's accomplished,
+[00:21] has graced the TED stage on no less than six occasions,
+[00:25] covering topics like the battle against malaria.
+[00:28] (TED Talk) Bill Gates: If you go into a country
+[00:30] with the right tools and the right way, and you do it vigorously,
+[00:34] you can actually get a local eradication.
+[00:37] CA: Empowering teachers.
+[00:39] (TED Talk) BG: Diagnosing areas where a teacher needs to improve
+[00:42] is only half the battle.
+[00:44] We also have to give them the tools they need to act on the diagnosis.
+[00:48] If you learn that you need to improve the way you teach fractions,
+[00:52] you should be able to watch a video
+[00:54] of the best person in the world teaching fractions.
+[00:58] CA: And the quest for renewable energy.
+[01:01] (TED Talk) BG: We need solutions, either one or several,
+[01:04] that have unbelievable scale
+[01:07] and unbelievable reliability.
+[01:10] And although there's many directions that people are seeking,
+[01:13] I really only see five that can achieve the big numbers.
+[01:17] (Music)
+[01:20] CA: Bill is a knowledge sponge,
+[01:22] and is passionate about so many things.
+[01:24] We talked about the current state of technology
+[01:27] and about a man facing the same kind of scrutiny he was 20 years ago,
+[01:32] Facebook's Mark Zuckerberg.
+[01:35] But the biggest single topic of our conversation
+[01:37] ended up being around philanthropy.
+[01:40] Not just because the Gates Foundation
+[01:42] is the single largest foundation out there,
+[01:44] but because Bill's influence goes far beyond that,
+[01:48] thanks to his conversations with governments
+[01:50] and his championing of the Giving Pledge,
+[01:54] where he's persuaded nearly 200 billionaires
+[01:57] to commit more than half their fortunes to philanthropy.
+[02:01] (TED Talk) BG: The world is a far better place
+[02:03] because of the philanthropists of the past
+[02:05] and the US tradition here, which is the strongest,
+[02:08] is the envy of the world.
+[02:10] I do think philanthropy is going to grow
+[02:13] and take some of these things
+[02:15] governments are just not good at working on and discovering,
+[02:18] and shine some light in the right direction.
+[02:20] CA: Of course, there are plenty of questions and controversies
+[02:24] swirling in philanthropy in general.
+[02:27] And especially when it comes to how billionaires seek to change the world.
+[02:31] We had a chance to explore some of those issues,
+[02:34] as well as taking note of the astonishing progress
+[02:37] that's been achieved,
+[02:38] most of which has stayed shockingly under the radar.
+[02:41] Bill has a unique vantage point,
+[02:44] and it was a treat to see the world through his eyes.
+[02:47] So, without further ado, here's Bill Gates.
+[02:51] (Music)
+[02:55] Bill Gates, welcome.
+[02:57] BG: Great to be here.
+[02:58] CA: I'm hugely looking forward to this conversation,
+[03:01] I hope it goes better than the very first time I interviewed you,
+[03:04] which was possibly one of the more embarrassing moments of my TED time.
+[03:07] I don't know if you remember this --
+[03:09] we were onstage,
+[03:10] you'd just given this amazing talk where you'd released a jar of mosquitoes
+[03:14] into the audience.
+[03:15] (TED Talk) BG: Now, malaria's transmitted by mosquitoes,
+[03:18] and I brought some here so you could experience this.
+[03:20] We'll let those roam around the auditorium a little bit.
+[03:26] (Laughter)
+[03:27] There.
+[03:28] There's no reason only poor people should have the experience.
+[03:31] (Laughter)
+[03:33] (Studio) CA: Great line, got you headlines around the world.
+[03:36] But I was interviewing you and I was a couple of earnest questions in,
+[03:39] and suddenly, the audience started guffawing.
+[03:42] (TED Talk) CA: I'm not distracted, I'm reading a question.
+[03:45] (Laughter)
+[03:47] (Studio) CA: And I didn't know what had happened.
+[03:50] This was at the time, I guess there was still Microsoft-Apple rivalry.
+[03:53] I had opened my laptop, and there was this big, glowing Apple logo
+[03:57] right in your face.
+[03:58] (BG laughs)
+[03:59] And that was bad.
+[04:01] Not deliberate.
+[04:02] BG: It's funny, it's hard to remember that,
+[04:04] but there was a period where Apple users felt
+[04:07] maybe they were in opposition or something like that.
+[04:10] CA: Yeah, it was intense,
+[04:12] the bad feelings in different sections of the technology world were amazing.
+[04:17] I'm excited for this conversation,
+[04:19] because you have shape-shifted the world in so many different ways.
+[04:22] And there's three in particular I'd love us to cover.
+[04:25] There's what you did as a technologist through Microsoft,
+[04:28] what you've done as a philanthropist,
+[04:30] and then your ideas more generally --
+[04:33] you've influenced so many people with your thinking.
+[04:36] So that's what we're going to talk about,
+[04:38] and I'd love to just start with that technology vision that you had
+[04:41] of, you know, a computer on every desktop and in every home.
+[04:46] I mean, in a way, that has come true more than you could have imagined, right?
+[04:51] BG: Yeah, it's pretty phenomenal that what was viewed as a silly dream
+[04:58] is now so commonplace.
+[05:00] That to say "a computer on every desk and in every pocket,"
+[05:05] it's like, well, of course, what's the guy talking about?
+[05:08] I mean, it's like Edison saying,
+[05:10] "Hey, we're going to have electricity everywhere" --
+[05:12] it's like, well, yeah, that's the world we live in.
+[05:16] And it's been amazing, because that's unlocked a lot of things.
+[05:21] We're in a period now where people are saying,
+[05:24] "OK, is everything that it's unlocked for the good of society,"
+[05:27] in terms of how it's used for political or outraging people,
+[05:31] but overall, I'm very proud to have been part of that.
+[05:35] You know, people like Steve Jobs and I were born at the right time,
+[05:40] we were kind of stubborn and talented in some dimensions,
+[05:45] so we built organizations
+[05:47] that got to really make that revolution take place.
+[05:52] CA: The power of stubbornness.
+[05:54] That vision, as I understand it -- that goes right back to the beginning.
+[05:58] You and Paul Allen spoke about this even as you were founding Microsoft.
+[06:02] BG: Yeah, I was in high school with Paul, he was two years ahead of me.
+[06:06] And he showed me on page 73 of "Electronics" magazine
+[06:10] that chips were going to double -- this is Moore's law --
+[06:12] in power every year.
+[06:14] And people should just be mind-blown if that's true,
+[06:19] because what it means is these big computers
+[06:22] that Paul and I would stay up till three in the morning
+[06:25] just to get an hour of time on,
+[06:27] that people will have it on an individual level, 24 hours a day.
+[06:33] You know, 10 years of doubling is 1,000 times improvement,
+[06:37] and so I was like, "Oh, God, Paul,
+[06:38] the only thing limiting is going to be the software,"
+[06:41] and to Paul's credit, from that moment forward,
+[06:45] he wanted me to drop out so we could get going,
+[06:49] and he even moved back to Boston, where I was at Harvard,
+[06:54] you know, so he could keep saying to me,
+[06:56] "Hey, we've got to get going,
+[06:57] and get on the ground floor of doing the software."
+[07:00] He was right, he did succeed,
+[07:03] and I dropped out, and we started Microsoft.
+[07:06] (CA laughs)
+[07:07] CA: Now, we lost Paul last year.
+[07:11] You obviously knew him really well.
+[07:13] What should people know about Paul that they don't know?
+[07:17] BG: Well, Paul was a quiet thinker.
+[07:20] And you know, in a meeting, I like to add the numbers up
+[07:25] and be super [unclear].
+[07:26] Paul would sit and listen,
+[07:28] and always come back, often the next day,
+[07:32] having really thought through,
+[07:33] "Couldn't we do this," or "Couldn't we do that?"
+[07:36] And there were some particular ideas --
+[07:38] Well, first of all, he saw the chip.
+[07:41] He understood hardware and software.
+[07:43] He was a great, curious person,
+[07:47] and saw what was possible.
+[07:49] He also saw that our combination of talents were really necessary,
+[07:54] that I like to get out there and hire people and push things
+[07:58] in a way that our partnership would be pretty magical.
+[08:03] And so there wouldn't be a Microsoft without Paul
+[08:07] and even after he left Microsoft, he funded lots of amazing things,
+[08:11] like this Brain Institute that's doing great things,
+[08:15] and will continue to.
+[08:16] So his legacy will live on.
+[08:19] He also, in those later years,
+[08:21] got to enjoy owning the Seattle football team,
+[08:24] and it was fun to see him enjoying that.
+[08:26] But the main thing about Paul is he was so curious about everything.
+[08:32] CA: And that's a trait you share as well, I've noticed.
+[08:34] You're one of the world's great knowledge absorbers.
+[08:38] BG: Yeah, thank God for the internet,
+[08:40] it helps you keep track of all the amazing things going on.
+[08:44] Nobody gets to be totally polymathic nowadays,
+[08:47] because there's so many fields,
+[08:49] whether it's biology or quantum computing.
+[08:52] CA: So this tech vision happened above and beyond any reasonable dreams.
+[08:57] And there was this long period
+[09:00] where so many people actually felt this sense of fierce optimism
+[09:04] about where technology was taking us,
+[09:06] it was connecting the world and empowering people,
+[09:08] and that almost wasn't that strong a downside that you could paint.
+[09:12] And suddenly, now, at least in many minds,
+[09:14] there is a very strong downside.
+[09:17] What is your diagnosis, Bill, of what's happened to technology
+[09:21] in the last couple of years?
+[09:23] BG: Yeah, the main fear we had as we were putting it together
+[09:26] was what was called the digital divide,
+[09:28] which was that the better-off schools or better-off people
+[09:33] or better-off countries would have it,
+[09:35] and you'd actually accentuate
+[09:37] that it was such an amazing tool for curiosity and learning
+[09:41] that we just needed to make sure it was available to everyone.
+[09:46] The idea that in some respects,
+[09:50] it could be used in a way --
+[09:51] or the effect in terms of overuse
+[09:54] or people isolating off into groups --
+[09:56] that that would come back into the realm of how people think about facts
+[10:02] or how they politically wall themselves off
+[10:07] and lose understanding of other people --
+[10:09] that was not anticipated.
+[10:11] I certainly didn't anticipate it,
+[10:13] and it's because it's become so mainstream --
+[10:15] you know, this is the way you get the news,
+[10:17] and you can just choose news that's kind of outrageous
+[10:21] and maybe not fact-checked.
+[10:24] I still feel very strongly that digital connectivity,
+[10:30] which is -- people may be losing sight of the fact --
+[10:33] it is enabling very positive things,
+[10:35] it's still a very good thing,
+[10:37] but the idea of how we take --
+[10:40] OK, it can be used for bullying,
+[10:42] or political persuasion that we think is inappropriate.
+[10:45] We need some invention here.
+[10:47] When I sit and talk with critics,
+[10:49] I say, "OK, what is your solution?"
+[10:51] In many cases, they're much better at criticizing,
+[10:55] saying, "OK, there's a filter bubble,"
+[10:57] but absent getting rid of human freedom to choose what you read online,
+[11:02] the solutions are still too limited.
+[11:05] CA: Do you have solutions?
+[11:07] What would be your advice
+[11:09] to someone like Mark Zuckerberg at this moment?
+[11:12] Because you were, for a while, regarded with as much,
+[11:16] I would say, mistrust, by parts of the world.
+[11:19] You know, Microsoft was perceived as a super powerful monopoly,
+[11:23] and you were facing government action,
+[11:25] and certainly in Silicon Valley, you weren't the most popular person there.
+[11:28] And yet, here you are, in a very different place today.
+[11:31] What advice would you give Mark Zuckerberg?
+[11:35] Some steps that he could take that might start to --
+[11:39] A, first of all, most fundamentally, improve, tackle the problem directly.
+[11:43] And then perhaps, more indirectly,
+[11:45] you know, change how he might be regarded going forward?
+[11:49] BG: I think it's a huge challenge,
+[11:52] because a lot of the ills of this period now
+[11:57] are being heaped onto, OK ...
+[12:00] Some people don't like certain election results,
+[12:03] some people don't like the polarization.
+[12:05] Of course there's always been bullying,
+[12:07] but now a lot of that's being ascribed as though design decisions and Facebook
+[12:12] created those things,
+[12:14] which is really unfair.
+[12:16] I do think that Mark is a fantastic person
+[12:20] who's not sitting there, trying to say,
+[12:22] "OK, I want to maximize the profitability of Facebook,"
+[12:25] or he wants to spread some particular political point of view.
+[12:30] He does want to solve these problems.
+[12:33] And he's open-minded enough that he is engaging --
+[12:37] not just me, but lots of people --
+[12:39] about, OK, what are the solutions here,
+[12:42] where we don't give up digital connectivity,
+[12:45] but things like bullying or inappropriate political speech ...
+[12:50] You know, some of them, I can see what can be done.
+[12:54] The filter-bubble one, I think, is one of the toughest,
+[12:57] because as soon as you had lots of radio stations,
+[13:00] and I could just listen to right-wing radio,
+[13:03] or that cable TV gave you so many channels
+[13:05] that you could have partisan news channels.
+[13:09] You know, that is not something
+[13:11] that he alone is going to be able to solve.
+[13:15] So I think that some people are having a healthy dialogue,
+[13:19] some people are just piling on.
+[13:21] And you're right, I know what it's like when people are piling on.
+[13:27] The idea that software was a good thing, though,
+[13:30] wasn't what was in question.
+[13:31] What was in question was did the market share
+[13:34] or our competitive practices at Microsoft,
+[13:39] were they appropriate.
+[13:41] You know, giving opportunities for other people to compete with us.
+[13:44] It wasn't so much
+[13:45] that our dream of personal computing was bad for the world.
+[13:49] CA: And part of what seems to have happened today
+[13:51] is that it's some mix of the corporate system
+[13:55] giving these giant companies that are powered by advertizing
+[13:59] incentives that are at odds with the public good.
+[14:03] Versus the other explanation for things,
+[14:06] which I think is what you indicated as a series of unintended consequences,
+[14:10] just because of the massive complexity of the systems that we've built
+[14:14] and the things that were never anticipated have arisen,
+[14:16] like these filter bubbles,
+[14:18] like the unexpected fact that humans have used social-media tools
+[14:22] to start to get ever more mad at each other.
+[14:26] You know, these sort of outraged cycles have taken off.
+[14:30] Do you think that some technologists were just a little bit naive there
+[14:34] and actually could have foreseen some of this coming?
+[14:38] BG: The idea that us nerdy guys who work on fast software,
+[14:43] that we're supposed to have intuited the social effects of all of our things --
+[14:50] you should not expect that prescience.
+[14:54] I remember when I was, like, 18,
+[14:56] and going around telling people about the microprocessor,
+[14:59] because they were so surprised about some of the things I knew,
+[15:02] they thought I understood lots of things I had no idea about.
+[15:05] And so yes, the world will need to have regulations
+[15:10] about privacy and surveillance,
+[15:12] and the companies involved should be part of that dialogue.
+[15:17] But no, they alone don't know all the answers,
+[15:21] nor would you necessarily want them to be making the final decisions on that.
+[15:27] And so, as your home is filled with equipment that's digital,
+[15:32] there will have to be rules --
+[15:34] otherwise people stop using this stuff.
+[15:37] And remember, the marketplace is still there.
+[15:39] If these things aren't able to resolve
+[15:44] some of these downsides,
+[15:46] the usage will go down.
+[15:49] CA: So your view is that fundamentally, these are fixable problems
+[15:53] that we need to invent our way out of them.
+[15:55] Is there a case for people in the tech industry,
+[15:58] like yourself and others,
+[15:59] to sort of offer services, some kind of grand council of elders
+[16:04] to spend time and to try to plot the way forward?
+[16:08] Because there are days where it seems like a pretty severe crisis of trust
+[16:12] for many people.
+[16:14] I'm certainly thinking hard about these things,
+[16:17] and I think the idea of being able to take all this digital data
+[16:22] that should let us see when a drug is having a side effect,
+[16:27] or see when it's even more beneficial than we expected,
+[16:30] or understand which social programs are working well and which ones are not.
+[16:34] Our digital view of the world should be helpful.
+[16:37] But unless it can be done in a way
+[16:39] that it doesn't violate individual privacy,
+[16:42] then people may choose not to look at which schools are doing better
+[16:47] and try and learn from that.
+[16:49] So we have a great opportunity
+[16:52] to keep pushing the digital revolution and get a lot of benefits from it.
+[16:56] But we won't be allowed to go forward
+[16:59] unless we're clear about how we limit some of these downsides.
+[17:04] The extreme view would be to say,
+[17:06] "Hey, no more electronic messaging."
+[17:09] And I think what we would lose would be far greater
+[17:13] than what we get.
+[17:15] So at least in the past revolutions, printing press, radio, TV,
+[17:20] eventually is said for all of the negative things that came with that,
+[17:24] including rousing the masses sometimes in not a fully informed way,
+[17:30] we mange to feel like, OK, it is good.
+[17:34] Now, do some kids watch TV too much?
+[17:37] When I was a kid, people said I read books too much,
+[17:40] you know, that I was addicted to reading and I wasn't getting outside enough.
+[17:44] CA: Yeah, so part of the issue may be that the reaction has swung too far
+[17:49] that we are in our haste to condemn
+[17:51] we're forgetting the narrative of all the other pieces as well.
+[17:54] (Music)
+[18:12] (Music)
+[18:14] CA: I'm curious to understand more
+[18:17] and hear more about hits huge, incredible transition you made
+[18:20] over the last 20 years,
+[18:21] where, initially slowly, but then full-time,
+[18:24] you shift away form focusing on Microsoft, focusing on philanthropy.
+[18:29] I mean, that was unexpected to a lot of people,
+[18:33] and the way and the scale with which you've embraced this
+[18:36] is kind of incredible.
+[18:37] I'd love your own sort of headlines.
+[18:41] The total amount that has been invested by the foundation,
+[18:45] and some of the achievements of which you are most proud?
+[18:50] BG: I'm super lucky to have had two of the best careers you can imagine.
+[18:56] You know, to be involved in personal computing
+[18:58] and the magic of software,
+[19:00] and now our philanthropy,
+[19:02] which spends most its resources on the health of the poorest in the world,
+[19:07] what's called global health,
+[19:08] and we've had a lot of success there.
+[19:11] The idea that the resources from Microsoft
+[19:14] and the resources from Berkshire Hathaway that Warren Buffett created --
+[19:18] that now allows us to spend five billion a year.
+[19:22] Which, in philanthropic terms, is very large.
+[19:26] In terms of the scale of the problems,
+[19:28] we'll have to have some really dramatic innovations
+[19:32] so that money is like investing in Google or Apple,
+[19:35] where the net effect is way beyond just the raw amount that got it started.
+[19:41] We started with the idea that vaccines should get to all the children.
+[19:46] The government donors joined in a partnership we created,
+[19:49] a new organization called Gavi,
+[19:51] to get those vaccines out.
+[19:53] And that's now saved over 10 million lives.
+[19:56] Of the two areas we focus,
+[19:59] the global health and the US education,
+[20:01] we've exceeded what we expected in global health,
+[20:05] and we see room to do even more.
+[20:08] In US education, which we're still very committed to,
+[20:11] our actual results, in terms of number of kids finishing college
+[20:15] or math scores or any metric --
+[20:21] US education, the whole field, we haven't had a dramatic improvement,
+[20:27] you know, versus, say, 15 years ago.
+[20:29] So that one, we haven't had the impact that we'd hoped for.
+[20:34] CA: You don't give yourself an A on that one yet,
+[20:37] but you're still in it.
+[20:38] It's interesting,
+[20:39] hearing some of your thinking about vaccines,
+[20:41] the methodical way in which you decided how to spend your money,
+[20:44] and there's a whole logic to a vaccine --
+[20:46] it's like a one-time treatment, it doesn't cost that much money,
+[20:50] but the impact,
+[20:51] you know, it's a whole life potentially affected.
+[20:55] That is, in one way, sort of so obvious,
+[20:59] and yet, the world was not paying enough attention to it.
+[21:01] BG: Yeah, the paradox was that we had two vaccines,
+[21:05] one for diarrhea and one for pneumonia,
+[21:08] that were getting out to kids
+[21:10] in middle-income and upper-income countries.
+[21:13] And yet, the risk of dying of that diarrheal disease,
+[21:17] which is called rotavirus,
+[21:18] or that respiratory disease, which is called pneumococcus,
+[21:22] the poor kids were 20 times more likely to die.
+[21:25] It was truly a great injustice where it had been invented,
+[21:29] and the marginal cost of making it
+[21:31] could be brought down to be only a few dollars.
+[21:34] And yet, because the poor countries didn't have the money,
+[21:37] it wasn't getting to those
+[21:39] who it would have been the most beneficial to.
+[21:41] So when I came in, I thought, OK, I'm going to fund
+[21:43] the creation of new vaccines,
+[21:45] but realizing there were a few that existed already
+[21:49] that weren't getting out.
+[21:50] We had to solve that problem,
+[21:52] or else the benefit of any new ones
+[21:53] wouldn't be any better than what was already there.
+[21:56] And that's where this Gavi, the vaccine initiative, came out of that.
+[22:00] Actually got started in 2001, when I was still full-time at Microsoft.
+[22:05] But of the things we've done, that one has had the biggest impact.
+[22:10] So those diarrheal deaths and pneumonia deaths
+[22:14] and overall deaths of kids under five have been cut in half.
+[22:18] CA: I mean, does it drive you crazy
+[22:20] that this story about the progress made on, for example,
+[22:26] needless, preventable deaths of kids is so undertold --
+[22:30] you know, the news every day is pretty bleak
+[22:33] and yet, you know, 100 people die, 200 people die,
+[22:36] and we will feel depressed about the world,
+[22:38] and yet, literally,
+[22:39] I think the numbers are like hundreds of thousands of kids' lives
+[22:43] are saved, compared with prior years.
+[22:46] The scale of progress on that is pretty breathtaking.
+[22:50] Does that drive you crazy?
+[22:51] BG: Well, yes.
+[22:52] The general negativity
+[22:54] and that these good news stories are such gradual improvement.
+[22:59] You know, in 1990, 12 million kids under the age of five died,
+[23:03] and now we're well under six million.
+[23:05] And so, it's been cut a half million every year,
+[23:10] and it never gets through,
+[23:13] whereas a plane crash certainly would get through.
+[23:17] And I'm not saying you shouldn't write up the plane crash,
+[23:20] but we should find a way to step back
+[23:22] and look at these things of overall progress.
+[23:25] The best book on this, "Factfulness," which is Hans Rosling thing --
+[23:28] I met Hans because he gave the TED Talk,
+[23:33] and then you allowed him to be out on the internet,
+[23:35] so I got to see what is still to me one of the most inspirational talks
+[23:40] about improvements in reducing death and population growth.
+[23:45] He was the best spokesman to get this good news out
+[23:48] that the world has ever had.
+[23:50] CA: He turned data into entertainment.
+[23:52] BG: Yeah, he had a certain brilliance, including sword-swallowing,
+[23:57] to sort of get the audience engaged.
+[24:00] And it is a problem, because unless people see that,
+[24:05] they'll say,
+[24:06] "Gosh, all I hear is that a little bit of the aid money went astray.
+[24:11] I don't hear the story
+[24:13] about how 95 percent of it had these phenomenally positive impacts."
+[24:19] And I do feel lucky that governments who fund a lot of this
+[24:23] aren't good at telling that story.
+[24:26] The fact that I'm viewed
+[24:27] as sort of tough-minded about not wanting to waste money --
+[24:31] you know, I've got a private sector history
+[24:33] where only doing the things that are most effective
+[24:37] was key to the success of Microsoft,
+[24:39] so when I'm saying we're putting billions into the same issues,
+[24:45] getting the vaccines out or HIV medicine or malaria bed nets,
+[24:49] you know, hopefully, we can break through
+[24:51] what is otherwise a fairly inward-looking, fairly negative view of what's going on,
+[24:57] and should we continue to engage with these countries,
+[25:00] particularly in Africa, where the challenges are the greatest.
+[25:04] CA: If you're listening to this podcast, take out a calculator
+[25:07] and take the number half a million,
+[25:09] which is what you said was the reduction in child mortality every year,
+[25:12] divide that by 365,
+[25:14] look at that number
+[25:16] and compare that to the worst story in today's news,
+[25:19] and tell me which is more important.
+[25:22] It is amazing that the heroic work of so many people
+[25:24] just does not go fully reported.
+[25:26] BG: Yeah, Max Roser says the headline could have been,
+[25:29] "137,000 people left extreme poverty today,"
+[25:34] and you could run that every day for 25 years,
+[25:38] and yet, when did that story get covered?
+[25:40] So there really is this asymmetry of general progress versus disaster.
+[25:48] CA: One of the surprising things you did in your philanthropic journey
+[25:52] was persuade many others of your peers to come along with you,
+[25:55] and, with Warren and Melinda, created the Giving Pledge,
+[25:58] which is a pledge to give away half your wealth
+[26:02] during your life or upon death, in your will.
+[26:05] Have you ever worried that you could have just left out the last bit,
+[26:09] and made it "during your life, you have to give away the half"?
+[26:12] Because people are struggling to give away some of the money, right?
+[26:15] BG: Yeah, it's hard, because the numbers are kind of insane.
+[26:20] You know, in your personal life,
+[26:22] OK, spending 1,000 dollars is a lot or 10,000 is a lot.
+[26:25] The idea that if you have a large fortune,
+[26:27] you should be giving away tens or hundreds of million dollars a year,
+[26:31] and should be willing to take risks
+[26:33] and if the outcomes are not quite as measured as buying a stock
+[26:36] and seeing what the price is.
+[26:39] So, it is something that getting people together
+[26:43] to say, "What should I give to?"
+[26:46] and "How should I go about it?"
+[26:48] and even be willing to say,
+[26:51] "OK, how do you make this a fun, engaging part of your life,
+[26:55] where it's not just a guilt-driven thing,
+[26:57] but rather you feel like you're bringing some of your passion
+[27:00] and understanding to it.
+[27:02] So in helping philanthropists get together
+[27:05] and share what they're seeing, what's going well and not,
+[27:08] this Giving Pledge gathering,
+[27:10] it is pretty inspirational every year.
+[27:11] And I think it is helping people,
+[27:14] because how do they really get down that learning curve?
+[27:18] It's not like capitalism,
+[27:20] where you're getting feedback all the time about which products people like
+[27:25] and which ones they don't.
+[27:27] CA: So you've persuaded, like, a couple hundred people
+[27:30] to sign this pledge,
+[27:31] and as a result, billions of dollars have been given away.
+[27:34] But the net worth of those 200 is still continuing to rise.
+[27:40] How should we think about this?
+[27:44] Is part of it just that it is inherently hard
+[27:46] to do philanthropy the right way
+[27:48] and people have good intent,
+[27:49] but they just struggle to really get going?
+[27:52] Is part of it that people should be starting
+[27:54] to make commitments at a certain age?
+[27:56] What percentage of your net worth should you commit to giving away in a year
+[27:59] to have any chance?
+[28:01] How does this change where the giving gets more actualized
+[28:07] and that number goes up?
+[28:08] Because what I'm worried about, and we'll come onto this in a minute,
+[28:11] is that the narrative out there is in danger of turning quite negative
+[28:15] about the world's ultrarich.
+[28:18] I'm sure you're wrestling with this a lot.
+[28:20] How are you thinking about it?
+[28:22] BG: Well, certainly, the tax system can be made more progressive.
+[28:28] If government's going to support all the things people wanted to do,
+[28:32] the tax collection as a percentage of GDP will have to go up
+[28:37] and of course, that should be disproportionately
+[28:39] the people who've done very well over these last 20 years.
+[28:43] And so there's different arguments about how far to go with that
+[28:46] and if you go too far, you definitely do discourage innovation,
+[28:51] and so it's a good political debate.
+[28:53] You know, how we evolve taxes is one issue.
+[28:58] The rich will end up paying more.
+[29:00] Then, the balance, society has decided that individuals get a choice.
+[29:06] And so if we can make the culture
+[29:08] such that the expectation is a little bit stronger,
+[29:14] that yes, to whom much is given much is expected,
+[29:18] then philanthropy can take its role,
+[29:21] which is the innovative thing,
+[29:23] it's not the day in, day out provision of health or education,
+[29:26] which, that's the tax side, but the trying out the new ideas,
+[29:30] how do you help teachers teach better,
+[29:33] and some diseases like Alzheimer's or anorexia or malaria,
+[29:38] that are underfunded unless philanthropists come in
+[29:41] and are clever about how they back new scientists,
+[29:44] we can do better on philanthropy.
+[29:47] Amazingly, the US is the best.
+[29:50] It's two percent of the economy,
+[29:52] and that includes a lot of small givers, not just the big givers.
+[29:56] In some countries, philanthropy, like in continental Europe,
+[30:00] is not even a quarter of what it is in the US.
+[30:03] CA: Yeah, it's all the government's responsibility.
+[30:05] And that conversation actually is out there,
+[30:09] right now, there's a lot of people
+[30:12] who are arguing that big philanthropy is almost like a smoke screen
+[30:16] that is intended to cement the current system in place,
+[30:19] it's down from slightly cynical motives.
+[30:24] Or at any rate, has the impact of whitewashing the injustices
+[30:28] that allowed those fortunes to be created in the first place.
+[30:31] And it's not very effective, it's sort of like,
+[30:33] it pales compared with what government should be doing.
+[30:38] What is the most effective use of philanthropy,
+[30:40] how should we think about it in relation to what is philanthropy's role
+[30:43] versus government's role?
+[30:45] BG: Well, government is in charge of taking all the things
+[30:49] we think everyone should have access to,
+[30:52] health, education, shelter.
+[30:54] That responsibility, to deliver equity in our society,
+[30:58] that is a governmental responsibility.
+[31:00] And we have to raise enough taxes
+[31:03] to fund that, day in, day out, you can count on it,
+[31:07] those health services, that shelter service,
+[31:09] that education service, that is going to be there.
+[31:12] And if any philanthropist ever comes in and says,
+[31:16] "Hey, don't raise my taxes, because my philanthropy is so good,"
+[31:19] I think that's a nonsense argument.
+[31:22] I've been lobbying for the estate tax to not only be slightly higher,
+[31:26] but it almost went away,
+[31:28] actually, for a whole year, it did go away, anyway.
+[31:31] So government is our vehicle for equity.
+[31:34] CA: You were able to lobby that and retain the love of your children.
+[31:37] (CA laughs)
+[31:38] BG: Yeah, it is not a favor to a child
+[31:42] to give them gigantic sums of money.
+[31:45] It will, if anything, be confusing
+[31:47] in terms of what their personal contribution
+[31:50] and what their profession is
+[31:52] and what they're going to get done.
+[31:55] And so it is, in my view, a win-win for society,
+[31:59] for those very large fortunes, after they pay their taxes,
+[32:04] to go to energetic, philanthropic things,
+[32:08] which in terms of innovating,
+[32:10] innovating in certain science things,
+[32:13] you know, keeping our universities very strong.
+[32:16] I don't do a lot of cultural giving,
+[32:18] but the museums we have and lots of great cultural things,
+[32:23] philanthropists deserve a lot of credit for that,
+[32:26] so it's a very diverse field, and that's part of its beauty.
+[32:29] Things like the green revolution,
+[32:31] where Ford and Rockefeller Foundations came up with these crops,
+[32:36] corn, rice and wheat,
+[32:38] that basically avoided hundreds of millions starving in Asia.
+[32:42] That is still the number one thing where philanthropy can say,
+[32:47] "Wow, if philanthropists hadn't backed Norman Borlaug to go and do that,
+[32:51] it wouldn't have happened.
+[32:53] CA: Bill, you spend a lot of time
+[32:55] talking with high net-worth donors, philanthropists --
+[32:59] what is their motivation?
+[33:02] You probably see a spectrum,
+[33:03] but I mean, do you see a significant number of people
+[33:06] basically giving because they have to?
+[33:10] How many people share your passion for trying to do this the right way?
+[33:14] BG: I feel very lucky that I love
+[33:18] digging into things like malaria.
+[33:20] And meeting the top scientists and being able to back their ideas.
+[33:25] and going -- I was just in Africa,
+[33:28] and seeing the great results we're having there.
+[33:31] Everybody's going to go about things a bit differently
+[33:34] in terms of how hands-on they are,
+[33:36] whether the person who's the business leader
+[33:38] is doing the philanthropy
+[33:40] or the spouse of the person who had success in business doing it,
+[33:43] or what surprised me is how many cases it's actually the kids
+[33:47] who are encouraging their parents or taking the lead on helping,
+[33:52] make sure that the giving is very well managed.
+[33:55] Warren has shown a lot of trust in Melinda and I,
+[33:59] that he wants to keep doing his job as CEO of Berkshire,
+[34:04] and so we have this incredible trust,
+[34:07] that OK, we're working hard to make sure his money has great returns.
+[34:14] So there are many different styles,
+[34:16] and that's what people have to get used to.
+[34:18] But when people think about giving,
+[34:20] it forces them to think about their death.
+[34:23] It forces them to think about,
+[34:24] "OK, how much money am I going to give to the kids,
+[34:27] when am I going to give it to them?
+[34:29] What if different kids would use the money wisely
+[34:32] and others wouldn't?
+[34:34] Do I make that equal?"
+[34:35] It forces you to think about that your business career
+[34:38] won't last forever.
+[34:40] Many things that make it kind of easy to put off.
+[34:43] So when I call people up and say, "How are you thinking about philanthropy?"
+[34:47] a lot of them are saying, "Well, call me back in five years."
+[34:53] Because these are tough things.
+[34:56] They force you to think through that your life is finite,
+[35:00] and then as soon as you start to pick,
+[35:03] there is no formula that tells you what cause to give to.
+[35:07] You know, there are lots of people who thought about that,
+[35:11] but in the end of the day,
+[35:12] it'll be an emotional connection to helping schools or curing a disease
+[35:17] or preserving some cultural strength.
+[35:21] CA: There's this fundamental problem, that to do it well takes time.
+[35:25] Unless you take a step like Warren Buffet, to just trust someone else.
+[35:28] Otherwise, it takes time, and people don't have time.
+[35:32] And so it gets put off.
+[35:34] Given where the world is at right now,
+[35:35] is there a greater urgency
+[35:37] that people start to tackle this seriously now,
+[35:42] because you can kind of feel a lot of people saying things like,
+[35:46] "We shouldn't even have billionaires in the world,"
+[35:48] or there is anger out there because of growing inequality,
+[35:52] there is anger out there,
+[35:53] and I'm wondering what your sense is of how long the clock is ticking,
+[35:56] whether people really should be concerned and worried
+[36:00] that there needs to be a more clear-cut and compelling response?
+[36:04] BG: I'm not sure the existence of philanthropy
+[36:08] should affect all that much how we do progressive tax collection.
+[36:14] I'm the world's biggest believer in philanthropy,
+[36:16] but government's got to be funded to do some very expensive things,
+[36:22] including health care and pensions.
+[36:26] And so, I would not say
+[36:30] that if you're worried that the taxes will get so high
+[36:36] that that will reduce the amount of innovation or value creation,
+[36:40] that philanthropy is the answer to that.
+[36:42] I think you're just going to have to go engage in that argument
+[36:45] in the political realm.
+[36:47] In the meantime, if you want to have a fulfilling life,
+[36:50] and often do something with your kids or your spouse,
+[36:55] really, philanthropy is such an amazing, fun thing.
+[36:59] And for any amount of your time you want to put into it,
+[37:02] there are great organizations out there that you can get involved in.
+[37:06] One big trend we see
+[37:08] is that a lot of philanthropists are now partnering together.
+[37:13] Because of the inequity in the US or health in Africa,
+[37:18] that that's complicated enough that having a fellow traveler,
+[37:22] and learning along with them,
+[37:24] there's three or four efforts, one which you're helping to thrive,
+[37:28] where you get philanthropists talking
+[37:30] and that idea of, "OK, have we picked something,
+[37:33] is this somebody we really want to get behind as a group?"
+[37:37] They're being more intelligent than if they were isolated by themselves.
+[37:40] So that, to me, is one of the great trends
+[37:44] that I think will unlock more of this wealth.
+[37:48] CA: Well, certainly you're evangelizing this idea
+[37:50] that philanthropy can be a joyful thing, for you and the whole family.
+[37:55] That's a powerful idea,
+[37:56] it's not how people often think about it.
+[37:58] They think about it as a guilt trip, "Oh, God, I've got to do that,"
+[38:01] and it can be hard and earnest and difficult.
+[38:04] But I think that right there counts as an idea worth spreading.
+[38:07] Let's talk about this part of your life,
+[38:09] because you have been very influential in lots of ways.
+[38:12] Ideas about public health, about philanthropy,
+[38:14] about climate change,
+[38:16] you've got, I think, six TED talks in total, something like that.
+[38:19] (CA laughs)
+[38:20] For which, thank you.
+[38:22] What ideas are top of mind for you right now
+[38:25] that you would love, either other people or governments,
+[38:30] to notice and take seriously?
+[38:32] BG: My general theme is that if you really are numerate
+[38:37] and you really think how to spur innovation,
+[38:40] that even problems that look impossible, like climate change,
+[38:44] like making the US education system work well,
+[38:47] even for lower-income families,
+[38:50] I still have this belief
+[38:52] that of course my experience at Microsoft reinforced,
+[38:55] that we can be innovative.
+[38:58] Now, to solve climate change,
+[39:00] the amount of innovation we need is very large,
+[39:03] and we need it, essentially, with a deadline.
+[39:06] Most innovation, you know, OK, cancer will be cured some days,
+[39:10] OK, some people have a deadline,
+[39:12] but in general, there isn't an apocalypse coming
+[39:16] if that gets delayed.
+[39:19] Climate change, you will have some permanent effects,
+[39:22] and many people think it's just clean electricity,
+[39:26] whereas it's actually clean cement and clean meat and clean steel.
+[39:32] And so, this is a daunting problem,
+[39:35] but my view is that with innovation,
+[39:38] we can make the premium cost of all those things,
+[39:41] doing them in a clean way, zero,
+[39:44] over the current way that we make those things.
+[39:47] Unless you have that innovation,
+[39:48] if it's way more expensive,
+[39:51] yes, the US could afford to pay a lot more for those things,
+[39:54] but when you turn to India,
+[39:56] where you're just getting basic air-conditioning and lighting
+[39:59] out to the masses,
+[40:01] the idea that they should slow down,
+[40:04] when they aren't responsible for the current emissions,
+[40:10] and their energy use per person is a 20th of what ours is --
+[40:14] you know, that wouldn't make sense.
+[40:16] So it's a very tough problem,
+[40:18] but my view is that there's a lot of smart people in the world --
+[40:23] if we back them to innovate, climate change ... we can solve it.
+[40:29] CA: TED's whole mission is to spread ideas.
+[40:31] If you could plant one idea into the minds of millions of people around the world,
+[40:37] what would you inject?
+[40:39] BG: I'd like people to see that there really is progress
+[40:42] on certain issues,
+[40:43] and that we don't need to go to extreme political systems,
+[40:47] like shut down capitalism or democracy;
+[40:51] that we are improving lives.
+[40:54] If we stay generous, if we stay innovative,
+[40:57] if countries work together,
+[40:59] instead of splintering and being selfish and short-term.
+[41:04] That a lot of the things that were done post World War II are pretty fantastic.
+[41:08] Yes, they need updating in terms of how countries work together,
+[41:12] but they can be great.
+[41:13] So my message is a very positive one.
+[41:15] Even things like AI that looks daunting,
+[41:19] kind of like social media,
+[41:21] there are a lot of good things there
+[41:23] and I do think we can make it net very, very positive.
+[41:29] The idea that TED has gotten innovative thinking out there,
+[41:34] I think it's a great example, like, "Hey, you think digital is negative?"
+[41:38] Think of me seeing that Hans Rosling talk,
+[41:41] that was a great influence on what our foundation is going out to do.
+[41:46] So the, kind of, creativity, of different way of thinking of things,
+[41:50] it's easier to access that brilliant thinking now
+[41:54] than ever before.
+[41:55] And I think the next generation will take the access
+[41:58] and will surprise us with new things
+[42:01] that, even though they'll come with some side effects,
+[42:04] overall will cure cancer and cure obesity
+[42:08] and not only polio, which we're about to eradicate,
+[42:11] but dozens of other diseases.
+[42:14] So my voice is one of hope and excitement
+[42:18] about where the future is taking us.
+[42:21] CA: It's a powerful voice.
+[42:23] There is so much drama out there,
+[42:26] the sense the apocalypse is coming,
+[42:29] and many different apocalypses that, apparently, are coming.
+[42:32] And what I hear you saying so powerfully
+[42:34] is you know, there are huge problems, and by people spending their time on them,
+[42:38] reasonably continuing to believe that a solution is there,
+[42:41] we actually can make incredible progress.
+[42:44] Well, thank you for all you've done for this.
+[42:46] It's really a remarkable life you've lived
+[42:49] and it's incredible what you've achieved,
+[42:51] and I suspect the ripple effects from your life
+[42:54] may still be at their early stages.
+[42:57] Bill Gates, what a delight to speak with you, thank you.
+[42:59] BG: Thanks. Hopefully, more to come.
+[43:01] (BG laughs)
+[43:02] CA: Take care.
+[43:03] (Music)
+[43:11] You can track Bill Gates' torrent of thinking about so many topics
+[43:15] by following him on Twitter, @billgates,
+[43:19] or by visiting his personal website, gatesnotes.com.
+[43:25] Bill has graced the TED stage on six different occasions.
+[43:28] To hear any of those talks, visit TED.com.
+[43:31] (Music)
+[43:33] This week's show was produced by Megan Tan.
+[43:37] Our production manager is Roxanne Hai Lash.
+[43:39] Our mix engineer David Herman,
+[43:41] our theme music is by Allison Layton-Brown.
+[43:44] Special thanks to my colleague Michelle Quint.
+[43:48] If you like this show,
+[43:49] please share it with someone else who is curious,
+[43:52] and consider rating and reviewing us on iTunes
+[43:55] or wherever you listen to your podcasts.
+[43:57] I'm Chris Anderson -- thanks so much for listening.
+[44:00] (Music)
+[44:10] On the next episode, singer, songwriter, artist
+[44:13] Amanda Palmer.
+[44:14] We discuss what she predicts for the future generation of artists,
+[44:18] and the intention behind her radical openness.
+[44:21] Amanda Palmer: If you're a good artist,
+[44:23] you use yourself as a vessel to get someone's attention
+[44:26] about something larger than just your own ego.
+[44:29] (Music)

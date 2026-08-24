@@ -7,14 +7,18 @@ Persona Driver 是一个 vinext/React 互动工作台：用户从新手包获得
 ## 当前状态
 
 - 已接线：新手包、五卡发牌、卡架/详情、双棒、管理中心、Persona Run v1/v2、continuation、等待视频、结果阅读器、Soul 向导与本地 supervisor。
-- 自动化：2026-08-23 `npm test` 为 99/99 通过；TypeScript `--noEmit`、构建与 diff check 通过，lint 0 error（18 个 `<img>` 性能 warning）。
+- 自动化：2026-08-24 `npm test` 为 100 通过、2 个真实端口测试因 Codex 沙箱限制跳过、0 失败；TypeScript `--noEmit`、构建与 diff check 通过，lint 0 error（18 个 `<img>` 性能 warning）。
 - 尚未完成验收：真实浏览器 5/7/12 卡与窄屏拖拽、真实 YouNavi Persona/Soul 全链路、动态 Soul Skill 索引。
 
 不要把“构建/夹具测试通过”写成“真实运行态已验收”。详细模块与测试覆盖见 [INDEX.md](INDEX.md)。
 
 ## 快速运行
 
-要求 Node `>=22.13.0`，本机可执行 `pnpm`，并已安装/登录 YouNavi。
+要求 Node `>=22.13.0`，并在已登录的 YouNavi 环境中运行。
+
+### YouNavi Agent 一键安装
+
+在 YouNavi 中对 Agent 说“安装并启动 Persona Driver”，Agent 会加载项目内 `$persona-driver-setup`：校验四份内置原文，幂等安装五个人物 Skill 与随仓 `create-soul`，生成 `.env.local`，执行 `npm ci` / 测试，启动 Web + Bridge 并打开页面。该 Skill 默认用户已登录，不处理认证。
 
 ```bash
 npm install
@@ -41,7 +45,7 @@ Persona Run 默认从以下位置读取依赖：
 
 - agent-cli：YouNavi / YouNavi Internal / YouNavi Debug App 包内自动探测，也可设 `PERSONA_NAVI_AGENT_CLI`。
 - Skill 根：通过 `.env.local` 的 `PERSONA_NAVI_SKILLS_DIR` 配置；未配置时使用项目私有 `.local/skills`。
-- 固定原文：通过 `PERSONA_NAVI_MATERIAL_ROOT` 配置；未配置时使用 `.local/materials`，仓库不提交用户原文。
+- 固定原文：随仓位于 `materials/classic-interviews/`，由 manifest 固定字节数与 SHA-256；`PERSONA_NAVI_MATERIAL_ROOT` 仅用于显式覆盖。
 - Run 审计：项目 `.persona-runs/`，可设 `PERSONA_NAVI_RUN_ROOT`。
 - Soul 输出工作区：通过 `PERSONA_NAVI_SOUL_WORKSPACE_ROOT` 配置；未配置时使用 `.local/soul-workspace`。
 
