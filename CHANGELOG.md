@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2026-08-24 · YouNavi 根 Skill 入口修正
+
+- 新增项目根目录 `SKILL.md`，以 `$persona-driver` 作为 YouNavi L0 导入、检索、安装、启动和诊断入口；用户不再单独导入 `.agents/skills/persona-driver-setup`。
+- 根 Skill 使用 YouNavi 支持的 `name/description/tags/version/order` 元数据，并按项目约束保留 `exposure: on-trigger`；正文使用 `${SKILL_DIR}` 指向完整随包项目。
+- 安装脚本新增“项目已整体导入 `.../skills/persona-driver`”检测，未显式配置时自动将项目父目录作为 Skills 根，确保五个人物 Skill与 `create-soul` 安装为同级 Skill。
+- 项目与父级触发表、README、INDEX、接口、架构、回退和测试同步指向根入口；嵌套 setup Skill 降为 `manual` 内部实现说明。
+
 ## 2026-08-24 · YouNavi Agent 一键安装 Skill
 
 - 新增 `.agents/skills/persona-driver-setup`：假设用户已在 YouNavi 登录，提供 doctor/install/start 三种幂等模式，自动安装五个人物 Skill 与随仓 `create-soul`、生成 `.env.local`、安装依赖、测试、启动并健康检查。

@@ -2,6 +2,15 @@
 
 > 核对日期：2026-08-21。回退目标是停止新增副作用并恢复上一可用行为；不得删除真实 YouNavi conversation、Soul 产物或 `.persona-runs/` 审计证据。
 
+## 根 Skill 入口回退
+
+如果 YouNavi 无法识别或启动分发包：
+
+1. 先确认导入目录根部存在 `SKILL.md`，其 `name` 为 `persona-driver`；不要回退为只分发 `.agents/skills/persona-driver-setup`。
+2. 确认 `${SKILL_DIR}` 被替换为当前导入目录，并确认 `package.json`、`materials/` 与内部 setup 脚本仍在同一目录树。
+3. 若自动 Skills 根推断错误，显式向 setup 脚本传 `--skills-dir <YouNavi Skills 根>`；不要搜索或猜测用户主目录。
+4. 如需回退本轮实现，可还原根 `SKILL.md`、触发表和 `resolveSkillsDir()` 的同一次提交；保留 `.env.local` 与 `.persona-runs/` 作为本机恢复和审计证据。
+
 ## Persona Driver Setup Skill
 
 若一键安装失败，先运行 `node .agents/skills/persona-driver-setup/scripts/setup.mjs doctor --project <path> --skills-dir <path>`。Skill 不覆盖名称冲突的现有 Skill；修复冲突目录后重跑即可。`.env.local` 可删除后由 Setup 重建，不影响内置材料或历史 Run。

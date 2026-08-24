@@ -5,6 +5,12 @@
 > 当前实现基线：独立仓库 `main@c2db321` 之上的未提交工作树
 > 本文件只整理事实与证据，不把计划、对话承诺或历史 `completed` 字段自动升级为当前已验证状态。
 
+## 2026-08-24：根 Skill 入口校准
+
+- 用户明确纠正：YouNavi 检索分发目录根部的 `SKILL.md`，该文件必须直接告诉用户如何安装和使用；把入口只放在 `.agents/skills/persona-driver-setup/` 属于错误的包边界。
+- 当前决定：完整项目文件夹就是 `persona-driver` Skill 包，根 `SKILL.md` 是唯一外部入口；内部 setup 目录只保留确定性实现。
+- 安装路径随之校准：完整项目导入 YouNavi Skills 根后，setup 自动把项目父目录作为五人物 Skill 与 `create-soul` 的安装根。
+
 ## 2026-08-21 收口执行补记
 
 - `verified` — INDEX、架构、资产审计和本文件已经建立；历史 GLB、frames、QA、旧立绘/motion、男女模板媒体与 720p 备份已迁到项目外可恢复归档。

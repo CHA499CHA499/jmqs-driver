@@ -77,6 +77,10 @@ function loadProjectEnv(projectRoot) {
 async function resolveSkillsDir(projectRoot, explicit) {
   const configured = explicit || process.env.PERSONA_NAVI_SKILLS_DIR;
   if (configured) return path.resolve(configured);
+  const projectParent = path.dirname(projectRoot);
+  if (path.basename(projectParent) === "skills" && await exists(path.join(projectRoot, "SKILL.md"))) {
+    return projectParent;
+  }
   const parent = path.dirname(SKILL_ROOT);
   if (path.basename(parent) === "skills" && path.basename(path.dirname(parent)) !== ".agents") return parent;
   const localCandidate = path.join(projectRoot, ".local", "skills");

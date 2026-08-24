@@ -7,7 +7,7 @@ Persona Driver 是一个 vinext/React 互动工作台：用户从新手包获得
 ## 当前状态
 
 - 已接线：新手包、五卡发牌、卡架/详情、双棒、管理中心、Persona Run v1/v2、continuation、等待视频、结果阅读器、Soul 向导与本地 supervisor。
-- 自动化：2026-08-24 `npm test` 为 100 通过、2 个真实端口测试因 Codex 沙箱限制跳过、0 失败；TypeScript `--noEmit`、构建与 diff check 通过，lint 0 error（18 个 `<img>` 性能 warning）。
+- 自动化：2026-08-24 `npm test` 为 101 通过、2 个真实端口测试因 Codex 沙箱限制跳过、0 失败；TypeScript `--noEmit`、构建与 diff check 通过，lint 0 error（18 个 `<img>` 性能 warning）。
 - 尚未完成验收：真实浏览器 5/7/12 卡与窄屏拖拽、真实 YouNavi Persona/Soul 全链路、动态 Soul Skill 索引。
 
 不要把“构建/夹具测试通过”写成“真实运行态已验收”。详细模块与测试覆盖见 [INDEX.md](INDEX.md)。
@@ -18,7 +18,9 @@ Persona Driver 是一个 vinext/React 互动工作台：用户从新手包获得
 
 ### YouNavi Agent 一键安装
 
-在 YouNavi 中对 Agent 说“安装并启动 Persona Driver”，Agent 会加载项目内 `$persona-driver-setup`：校验四份内置原文，幂等安装五个人物 Skill 与随仓 `create-soul`，生成 `.env.local`，执行 `npm ci` / 测试，启动 Web + Bridge 并打开页面。该 Skill 默认用户已登录，不处理认证。
+将包含根目录 [`SKILL.md`](SKILL.md) 的整个项目文件夹导入 YouNavi。YouNavi 以该根文件识别 `$persona-driver`，不会要求用户单独导入内部 Bridge 或 `.agents/skills/persona-driver-setup` 目录。
+
+在 YouNavi 中对 Agent 说“安装并启动 Persona Driver”，根 Skill 会把自身 `${SKILL_DIR}` 作为完整项目根目录，调用随包安装脚本：校验四份内置原文，幂等安装五个人物 Skill 与随仓 `create-soul`，生成 `.env.local`，执行 `npm ci` / 测试，启动 Web + Bridge 并打开页面。该 Skill 默认用户已登录，不处理认证。
 
 ```bash
 npm install

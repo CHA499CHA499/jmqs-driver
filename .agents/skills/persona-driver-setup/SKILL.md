@@ -1,10 +1,12 @@
 ---
 name: persona-driver-setup
-description: Install, diagnose, configure, or start the bundled Persona Driver project from an already authenticated YouNavi workspace. Use when the user asks to install, repair, verify, or launch Persona Driver; do not use for ordinary Persona Driver product interactions.
-exposure: on-trigger
+description: Internal Persona Driver setup implementation referenced by the project-root SKILL.md. Use only when maintaining the bundled installer; YouNavi users import and activate the root persona-driver Skill instead.
+exposure: manual
 ---
 
 # Persona Driver Setup
+
+Internal implementation note: the public YouNavi entry is `../../../SKILL.md` at the project root. Do not ask users to import this nested directory by itself.
 
 Use the deterministic setup script instead of recreating installation steps manually.
 

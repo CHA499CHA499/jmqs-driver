@@ -1,6 +1,6 @@
 # Persona Driver 项目内容索引
 
-> 最后核对：2026-08-21。本文以当前工作树中的 `app/`、`scripts/`、`tests/`、`public/` 与 `package.json` 为真源；历史说明或旧部署与代码冲突时，以代码为准。
+> 最后核对：2026-08-24。本文以当前工作树中的根 `SKILL.md`、`app/`、`scripts/`、`tests/`、`public/` 与 `package.json` 为真源；历史说明或旧部署与代码冲突时，以代码为准。
 
 ## 当前完成度
 
@@ -12,12 +12,13 @@
 | 本地 supervisor | 已接线 | 进程模型测试通过；HTTP Origin/Token 两项测试在当前沙箱因不可绑定端口而跳过 |
 | 公开 Sites | 可构建 | 当前源码不再以线上链接为最新验收对象；公开部署内容边界待主代理确认 |
 
-自动化基线（2026-08-21）：`npm test` 构建成功，102 项测试中 100 通过、2 跳过、0 失败。跳过项均来自真实本地端口绑定测试，不得据此声称 HTTP 运行态已验收。`npm run lint` 为 0 error、18 个既有 `<img>` 性能 warning。
+自动化基线（2026-08-24）：`npm test` 构建成功，103 项测试中 101 通过、2 跳过、0 失败。跳过项均来自真实本地端口绑定测试，不得据此声称 HTTP 运行态已验收。`npm run lint` 为 0 error、18 个既有 `<img>` 性能 warning。
 
 ## 目录结构
 
 ```text
 bridge-persona-atlas-site/
+├── SKILL.md                    # YouNavi 导入、检索、安装与使用的根入口
 ├── app/                         # 浏览器应用与领域模型
 │   ├── page.tsx                 # 根编排器：屏幕、Driver、Run、弹层与本机 Bridge
 │   ├── driver-*.{ts,tsx}        # Driver 状态类型、二维装配层、闭合层与音频
@@ -47,7 +48,7 @@ bridge-persona-atlas-site/
 │   └── hero-personas.png、og.png
 ├── worker/index.ts              # vinext/Cloudflare Worker 入口
 ├── materials/classic-interviews/# 四份内置固定原文与 SHA manifest
-├── .agents/skills/persona-driver-setup/ # YouNavi Agent 一键安装 Skill
+├── .agents/skills/persona-driver-setup/ # 根 Skill 调用的确定性安装实现
 ├── .openai/hosting.json         # Sites 项目 ID；当前无 D1/R2 绑定
 ├── package.json                 # 命令与 Node >=22.13.0 合同
 ├── README.md                    # 使用入口与当前边界
@@ -102,6 +103,8 @@ bridge-persona-atlas-site/
 
 | 模块 | 真实职责 | 关键入口/导出 |
 |---|---|---|
+| `SKILL.md` | YouNavi L0 根入口；说明导入、安装、启动、诊断与使用，将 `${SKILL_DIR}` 固定为完整项目根 | `$persona-driver` |
+| `.agents/skills/persona-driver-setup/scripts/setup.mjs` | 根 Skill 的 doctor/install/start 实现；识别项目位于 YouNavi `skills/persona-driver` 的安装形态 | CLI `doctor\|install\|start` |
 | `scripts/persona-local-runtime.mjs` | 避免重复占端口，启动 web/Bridge，等待 health，Bridge 异常最多重启 3 次 | `createLocalRuntimeSupervisor()` |
 | `scripts/persona-navi-bridge.mjs` | loopback HTTP、Origin/Fetch Metadata/token 门、路由与统一 JSON 错误 | HTTP server on `127.0.0.1:8766` |
 | `scripts/persona-navi-bridge-lib.mjs` | Persona manifest、请求冻结、agent-cli、幂等回执、Skill/EOF 证据、continuation | `createPersonaRunService()` |

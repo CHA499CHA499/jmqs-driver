@@ -2,6 +2,20 @@
 
 > 核对日期：2026-08-21。本文只描述当前代码已存在的链路；真实浏览器 + 真实 YouNavi 回归与动态 Soul Skill 索引仍是待验收项。
 
+## 分发与发现层
+
+```text
+完整项目文件夹
+  └─ 根 SKILL.md（YouNavi L0 扫描）
+       └─ ${SKILL_DIR}/.agents/skills/persona-driver-setup/scripts/setup.mjs
+            ├─ 校验随包 materials/classic-interviews
+            ├─ 安装同级五人物 Skill + create-soul
+            ├─ 写 .env.local / npm ci / tests
+            └─ Agent 直接托管 npm run dev
+```
+
+根 `SKILL.md` 是唯一外部发现入口。嵌套 setup 目录属于实现层；YouNavi 导入器在发现 L0 `SKILL.md` 后不会再把其子目录当作第二个 Skill。项目安装到 `<skills>/persona-driver` 时，setup 将父级 `<skills>` 作为默认 Skills 根。
+
 ## 1. 系统边界
 
 Persona Driver 有两个运行面：

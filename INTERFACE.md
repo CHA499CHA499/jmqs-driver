@@ -2,6 +2,14 @@
 
 > 核对日期：2026-08-21。调用方是浏览器页面与本地开发者；被调用方是 Local Bridge、agent-cli、YouNavi、浏览器 localStorage 和本机文件系统。
 
+## YouNavi 根 Skill 导入合同
+
+- 外部分发单元是包含根目录 `SKILL.md`、`package.json`、源码、内置材料和运行资产的完整项目文件夹。
+- YouNavi 按 L0 `<导入目录>/SKILL.md` 将其识别为 `persona-driver`；根 Skill 中 `${SKILL_DIR}` 必须替换为该目录绝对路径。
+- `.agents/skills/persona-driver-setup/` 是根 Skill 调用的内部安装实现，不是要求用户另行导入的第二个分发包。
+- 项目被导入为 `<YouNavi Skills 根>/persona-driver` 且未设置 `PERSONA_NAVI_SKILLS_DIR` 时，安装脚本将项目父目录识别为 Skills 根；五个人物 Skill 与 `create-soul` 安装到该目录下的同级子目录。
+- 根 Skill 本身不具备独立执行能力；YouNavi Agent 必须按正文调用 doctor/install、直接托管 `npm run dev`、验证 Web/Bridge HTTP 200 后才报告成功。
+
 ## 1. 运行入口
 
 | 入口 | 行为 | 边界 |
