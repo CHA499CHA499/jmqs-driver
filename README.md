@@ -7,7 +7,7 @@ Persona Driver 是一个 vinext/React 互动工作台：用户从新手包获得
 ## 当前状态
 
 - 已接线：新手包、五卡发牌、卡架/详情、双棒、管理中心、Persona Run v1/v2、continuation、等待视频、结果阅读器、Soul 向导与本地 supervisor。
-- 自动化：2026-08-21 `npm test` 为 100 通过、2 因沙箱不可绑定本地端口而跳过、0 失败。
+- 自动化：2026-08-23 `npm test` 为 99/99 通过；TypeScript `--noEmit`、构建与 diff check 通过，lint 0 error（18 个 `<img>` 性能 warning）。
 - 尚未完成验收：真实浏览器 5/7/12 卡与窄屏拖拽、真实 YouNavi Persona/Soul 全链路、动态 Soul Skill 索引。
 
 不要把“构建/夹具测试通过”写成“真实运行态已验收”。详细模块与测试覆盖见 [INDEX.md](INDEX.md)。
@@ -104,7 +104,7 @@ Soul 链通过 `/create-soul` 生成完整 Soul Skill。向导必须确认采集
 
 开包 motion 使用混合真源：Naval/Musk 在 `public/personas-motion/`，Jobs/Trump/Paul Graham 在 `public/personas-motion-v3-intense/`。Driver 激活 motion 当前由 `DRIVER_ACTIVATION_MOTION_ENABLED=false` 关闭。
 
-本地测试声音与等待视频虽然有 localhost 组件门控，但文件仍位于 `public/`，构建会把它们视为公开静态树的一部分。现阶段不能声称它们已从公开发布包物理排除；是否拆分构建由主代理决定。
+用户确认 Decade local-test 声音与中间 6 分钟的 480p 等待视频是完整项目必需资产，因此随仓保留。它们包含第三方来源的本地测试材料；技术上会进入静态构建，但公开分发前仍需单独确认授权边界。完整 480p/720p 备份和其它历史素材不在源码仓。
 
 ## 验证
 

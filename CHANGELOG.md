@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2026-08-24 · 交付说明校准
+
+- README 更新为收口后的真实验证基线：99/99 测试通过、TypeScript/构建/diff check 通过、lint 0 error。
+- 明确完整项目携带 6 分钟等待视频与 Decade local-test 音频，但公开分发前仍需单独确认第三方素材授权；避免把“本地可运行”写成“可无条件公开发布”。
+
 ## 2026-08-21 · 源码仓资产纯净与脚手架清理
 
 - 建立 `docs/ASSET-AUDIT.md` 和项目外可恢复归档；先移出字节重复人物图、被否决卡背与 starter SVG，再将历史 GLB/材质、frames、QA 截图、旧立绘、旧 motion、男女模板素材和 720p 等待视频迁到 `CHA499/artifacts/persona-driver-convergence/2026-08-21/`。
