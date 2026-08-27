@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-08-27 · 私有 GitHub 首次推送
+
+- 用户重新授权 GitHub CLI 后，在 `CHA499CHA499` 下创建私有仓库 `jmqs-driver`，设置 `origin`，将本地 `c662ded` 首次推送为远程 `main`。
+- 推送前审计全历史最大 blob 为 53,341,596-byte 等待视频，低于 GitHub 100MB 拒收线；GitHub仅提示超过建议 50MB，推送成功。
+- 本地 `yjz/persona-driver-convergence` 现跟踪 `origin/main`；本次不创建 tag、不改公开可见性、不部署 Sites。
+
 ## 2026-08-27 · 五人物 Skill 离线内置
 
 - 将 Naval、Elon Musk、Steve Jobs、Trump、Paul Graham 五个人物 Skill 从安装脚本已固定的精确 commit 以 Git tree 形式随包内置，排除 `.git`，保留各自 LICENSE、SKILL、references、examples 与必要 assets。

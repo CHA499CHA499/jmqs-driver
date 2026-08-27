@@ -287,7 +287,7 @@ sequenceDiagram
 
 ### 10.1 独立仓库现状
 
-`bridge-persona-atlas-site/` 已有自己的 `.git`，仓根就是当前目录，分支为 `main`；当前没有 remote。它不是等待从 CHA499 拆出的普通子目录，而是一个已经嵌套在 CHA499 工作区里的独立仓库。
+`bridge-persona-atlas-site/` 已有自己的 `.git`，仓根就是当前目录；本地开发分支为 `yjz/persona-driver-convergence`，跟踪私有远程 `origin/main`。远程为 `https://github.com/CHA499CHA499/jmqs-driver`。它不是等待从 CHA499 拆出的普通子目录，而是一个已经嵌套在 CHA499 工作区里的独立仓库。
 
 ```text
 CHA499 outer worktree
@@ -299,7 +299,7 @@ CHA499 outer worktree
     └── public/
 ```
 
-本次只记录摘仓条件，不创建 remote、不 push。当前独立仓工作树有大量未提交的新主链文件与资产；首发必须以独立仓 `git status` 为准做完整性审计。
+2026-08-27 用户明确授权后已创建私有 remote 并完成首次 push；公开可见性、tag 与部署仍不在本次授权内。后续发布必须继续以独立仓 `git status` 和远程 `main` 对齐结果为准做完整性审计。
 
 ### 10.2 可移植依赖图
 

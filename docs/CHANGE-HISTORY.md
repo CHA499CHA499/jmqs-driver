@@ -12,6 +12,12 @@
 - 当前修复将五个已固定 commit 的干净 Git tree 放入 setup assets；安装改为本地复制，doctor/install 校验 provenance 与聚合 SHA-256，网络下载路径删除。
 - 新增无 git、无网络的临时安装回归，五人物 Skill 与 `create-soul` 全部成功落到临时 Skills 根。
 
+## 2026-08-27：私有远程首发
+
+- 用户明确要求推送 Git；本机 GitHub CLI 旧 token 失效，用户通过 device flow 重新授权 `CHA499CHA499`。
+- 账号下不存在同名仓库，因此创建私有 `CHA499CHA499/jmqs-driver`，将离线内置提交 `c662ded` 推为默认 `main`。
+- 远程验收：`refs/heads/main` 指向 `c662dedda659eed415adce4eed5f6693dac7e3ef`；未创建 tag、未公开、未部署。
+
 ## 2026-08-24：根 Skill 入口校准
 
 - 用户明确纠正：YouNavi 检索分发目录根部的 `SKILL.md`，该文件必须直接告诉用户如何安装和使用；把入口只放在 `.agents/skills/persona-driver-setup/` 属于错误的包边界。
