@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { chmod, cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -24,6 +24,8 @@ test("setup doctor validates the bundled materials and six YouNavi Skills withou
     const report = JSON.parse(stdout);
     assert.equal(report.materials.count, 4);
     assert.match(report.materials.root, /materials\/classic-interviews$/);
+    assert.equal(report.bundledPersonaSkills.count, 5);
+    assert.equal(report.bundledPersonaSkills.skills.length, 5);
     assert.equal(report.skills.length, 6);
     assert.equal(report.ready, true);
   } finally {
@@ -39,7 +41,7 @@ test("the project and parent trigger tables expose the setup Skill", async () =>
     readFile(path.join(root, "AGENTS.md"), "utf8"),
     readFile(path.resolve(root, "..", "..", "AGENTS.md"), "utf8"),
   ]);
-  assert.match(rootSkill, /^name: persona-driver$/m);
+  assert.match(rootSkill, /^name: jmqs-driver$/m);
   assert.match(rootSkill, /^exposure: on-trigger$/m);
   assert.match(rootSkill, /\$\{SKILL_DIR\}\/\.agents\/skills\/persona-driver-setup\/scripts\/setup\.mjs/);
   assert.match(rootSkill, /--no-start --no-open/);
@@ -47,6 +49,9 @@ test("the project and parent trigger tables expose the setup Skill", async () =>
   assert.match(internalSkill, /^exposure: manual$/m);
   assert.match(internalSkill, /public YouNavi entry is/);
   assert.match(setupScript, /provisioned: true/);
+  assert.match(setupScript, /BUNDLED_PERSONA_SKILLS/);
+  assert.doesNotMatch(setupScript, /git\s*fetch|clonePinnedSkill|git@github\.com/);
+  assert.match(rootSkill, /首次安装禁止访问 GitHub 或依赖代理/);
   assert.match(localAgents, /`SKILL\.md`（YouNavi 根入口/);
   assert.match(parentAgents, /bridge-persona-atlas-site\/SKILL\.md/);
 });
@@ -54,7 +59,7 @@ test("the project and parent trigger tables expose the setup Skill", async () =>
 test("setup doctor infers the YouNavi Skills root when the whole project is imported as one root Skill", async () => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), "persona-driver-root-skill-"));
   const skillsDir = path.join(temporary, "skills");
-  const projectRoot = path.join(skillsDir, "persona-driver");
+  const projectRoot = path.join(skillsDir, "jmqs-driver");
   try {
     await mkdir(path.join(projectRoot, "scripts"), { recursive: true });
     await mkdir(path.join(projectRoot, "app"), { recursive: true });
@@ -63,7 +68,7 @@ test("setup doctor infers the YouNavi Skills root when the whole project is impo
     await cp(path.join(root, "app", "run-result-presentation.mjs"), path.join(projectRoot, "app", "run-result-presentation.mjs"));
     await cp(path.join(root, "app", "persona-run-contract.mjs"), path.join(projectRoot, "app", "persona-run-contract.mjs"));
     await writeFile(path.join(projectRoot, "package.json"), JSON.stringify({ name: "persona-driver" }), "utf8");
-    await writeFile(path.join(projectRoot, "SKILL.md"), "---\nname: persona-driver\ndescription: fixture\n---\n", "utf8");
+    await writeFile(path.join(projectRoot, "SKILL.md"), "---\nname: jmqs-driver\ndescription: fixture\n---\n", "utf8");
     for (const name of skillNames) {
       const directory = path.join(skillsDir, name);
       await mkdir(directory, { recursive: true });
@@ -74,7 +79,47 @@ test("setup doctor infers the YouNavi Skills root when the whole project is impo
     const report = JSON.parse(stdout);
     assert.equal(report.ready, true);
     assert.equal(report.materials.count, 4);
+    assert.equal(report.bundledPersonaSkills.count, 5);
     assert.equal(report.skills.length, 6);
+  } finally {
+    await rm(temporary, { recursive: true, force: true });
+  }
+});
+
+test("offline install copies all five bundled Persona Skills and create-soul without git or network", async () => {
+  const temporary = await mkdtemp(path.join(os.tmpdir(), "persona-driver-offline-install-"));
+  const skillsDir = path.join(temporary, "skills");
+  const projectRoot = path.join(temporary, "project");
+  const fakeBin = path.join(temporary, "bin");
+  try {
+    await mkdir(path.join(projectRoot, "scripts"), { recursive: true });
+    await mkdir(path.join(projectRoot, "app"), { recursive: true });
+    await mkdir(fakeBin, { recursive: true });
+    await cp(path.join(root, "materials"), path.join(projectRoot, "materials"), { recursive: true });
+    await cp(path.join(root, "scripts", "persona-navi-bridge-lib.mjs"), path.join(projectRoot, "scripts", "persona-navi-bridge-lib.mjs"));
+    await cp(path.join(root, "app", "run-result-presentation.mjs"), path.join(projectRoot, "app", "run-result-presentation.mjs"));
+    await cp(path.join(root, "app", "persona-run-contract.mjs"), path.join(projectRoot, "app", "persona-run-contract.mjs"));
+    await writeFile(path.join(projectRoot, "package.json"), JSON.stringify({ name: "persona-driver" }), "utf8");
+    const fakeNpm = path.join(fakeBin, "npm");
+    await writeFile(fakeNpm, "#!/bin/sh\nexit 0\n", "utf8");
+    await chmod(fakeNpm, 0o755);
+
+    await execFileAsync(process.execPath, [
+      setup,
+      "install",
+      "--project", projectRoot,
+      "--skills-dir", skillsDir,
+      "--skip-tests",
+      "--no-start",
+      "--no-open",
+    ], { env: { ...process.env, PATH: fakeBin } });
+
+    for (const name of skillNames) {
+      const body = await readFile(path.join(skillsDir, name, "SKILL.md"), "utf8");
+      assert.match(body, new RegExp(`^name: ${name}$`, "m"));
+    }
+    const envFile = await readFile(path.join(projectRoot, ".env.local"), "utf8");
+    assert.match(envFile, /PERSONA_NAVI_SKILLS_DIR=/);
   } finally {
     await rm(temporary, { recursive: true, force: true });
   }

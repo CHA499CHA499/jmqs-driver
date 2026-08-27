@@ -1,0 +1,50 @@
+{
+  "schema": "persona-driver.bundled-persona-skills/v1",
+  "skills": [
+    {
+      "name": "naval-perspective",
+      "source": "https://github.com/alchaincyf/naval-skill",
+      "commit": "259e452ef6f6c2bfdbe30368f7c85bc683fe1949",
+      "tree": "cc2ead7077541c7e80d9c021ae279dbcc6800aa4",
+      "files": 9,
+      "bytes": 160028,
+      "sha256": "b7c3be660518fe5013701acfa1b76ce6f37c8548cbda1db6f88ddf26d741af45"
+    },
+    {
+      "name": "elon-musk-perspective",
+      "source": "https://github.com/alchaincyf/elon-musk-skill",
+      "commit": "5a7d8cf0f23ca6071d18ed8c5c80e8996459a443",
+      "tree": "e696d555c9139b67401a8c64a0702a21b63ae89c",
+      "files": 10,
+      "bytes": 5427094,
+      "sha256": "bb2343bbef469c63000d64a3063b3c72ef32bba95fa17a3400ea2c1d3fde30e5"
+    },
+    {
+      "name": "steve-jobs-perspective",
+      "source": "https://github.com/alchaincyf/steve-jobs-skill",
+      "commit": "cd724b0e2e2d9e83a436063b5b915294b5925d28",
+      "tree": "5fd14c7efad6e6e2aefbb76f8a56da3876fe7a8f",
+      "files": 13,
+      "bytes": 3156320,
+      "sha256": "46365533b33e1ce7d87b5e658b8ac5147c6e09ee16abc1b27d9ad2059f88503c"
+    },
+    {
+      "name": "trump-perspective",
+      "source": "https://github.com/alchaincyf/trump-skill",
+      "commit": "4bdb94895a01a84b9f55d90ae5889747c0736757",
+      "tree": "8331c615ca3f96c738858d9885c469090f9c09cc",
+      "files": 11,
+      "bytes": 360502,
+      "sha256": "35b5f5ccb33bbeca125fa4b9d63fe49f68513c80a18137516b023ab29a2de5a0"
+    },
+    {
+      "name": "paul-graham-perspective",
+      "source": "https://github.com/alchaincyf/paul-graham-skill",
+      "commit": "8de3d2bf4e0c301ea3caf015b189307f8d8d8dc0",
+      "tree": "98c55895bf582cfdfb8ad317fbd44a80be294627",
+      "files": 11,
+      "bytes": 241223,
+      "sha256": "1ee45dffb698d0561fc8893404a5213369685c23b9888641c74cbc4f34d0b608"
+    }
+  ]
+}

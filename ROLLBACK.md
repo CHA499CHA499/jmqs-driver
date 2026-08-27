@@ -6,7 +6,7 @@
 
 如果 YouNavi 无法识别或启动分发包：
 
-1. 先确认导入目录根部存在 `SKILL.md`，其 `name` 为 `persona-driver`；不要回退为只分发 `.agents/skills/persona-driver-setup`。
+1. 先确认导入目录根部存在 `SKILL.md`，其 `name` 为 `jmqs-driver`；不要回退为只分发 `.agents/skills/persona-driver-setup`。
 2. 确认 `${SKILL_DIR}` 被替换为当前导入目录，并确认 `package.json`、`materials/` 与内部 setup 脚本仍在同一目录树。
 3. 若自动 Skills 根推断错误，显式向 setup 脚本传 `--skills-dir <YouNavi Skills 根>`；不要搜索或猜测用户主目录。
 4. 如需回退本轮实现，可还原根 `SKILL.md`、触发表和 `resolveSkillsDir()` 的同一次提交；保留 `.env.local` 与 `.persona-runs/` 作为本机恢复和审计证据。
@@ -16,6 +16,8 @@
 若一键安装失败，先运行 `node .agents/skills/persona-driver-setup/scripts/setup.mjs doctor --project <path> --skills-dir <path>`。Skill 不覆盖名称冲突的现有 Skill；修复冲突目录后重跑即可。`.env.local` 可删除后由 Setup 重建，不影响内置材料或历史 Run。
 
 若四份内置原文校验失败，从当前 Git 提交恢复 `materials/classic-interviews/` 与 `manifest.json`；不要跳过 SHA 校验或修改 manifest 伪装成功。
+
+若报“内置人物 Skill 完整性校验失败”，从同一项目提交恢复 `.agents/skills/persona-driver-setup/assets/persona-skills/` 与 manifest；不要回退为运行 `git fetch`，也不要为绕过校验修改哈希。安装到目标 Skills 根之前若已存在同名但 frontmatter 不匹配的目录，保留现场并停止，禁止覆盖。
 
 ## 1. 回退前先保全
 

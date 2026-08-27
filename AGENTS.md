@@ -6,7 +6,7 @@
 
 | 用户/上下文出现 | 加载 |
 |---|---|
-| 安装 Persona Driver / 启动 Persona Driver / 修复环境 / 一键安装 / persona-driver | `SKILL.md`（YouNavi 根入口，`exposure: on-trigger`） |
+| 安装 Persona Driver / 启动 Persona Driver / 修复环境 / 一键安装 / jmqs-driver | `SKILL.md`（YouNavi 根入口，`exposure: on-trigger`） |
 
 ## 维护边界
 

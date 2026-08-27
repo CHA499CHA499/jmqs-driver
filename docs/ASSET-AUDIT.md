@@ -7,6 +7,7 @@
 
 ## 执行记录
 
+- 2026-08-27：五个人物 Skill 以已固定的精确 Git tree 随 setup 内置，排除 `.git`；共 54 个文件、9,345,167 bytes。新增 manifest 固定公开来源、commit、tree 与聚合 SHA-256，分类为 KEEP；首次安装不再从 GitHub 下载。
 - 2026-08-21：批次 A 已执行。7 张顶层 masked-v2 重复图、1 张重复 contact sheet、被否决卡背和 3 个 starter SVG 已移出项目，归档到 `CHA499/artifacts/persona-driver-convergence/2026-08-21/batch-A/`；逐文件 SHA-256 见同目录 `MANIFEST.md`。随机池正本保留，卡片/HTML/Soul 定向测试 21/21 通过。
 - 2026-08-21：`tsconfig.tsbuildinfo` 已移出项目并加入 `.gitignore`。因本地 3000 开发服务仍在运行，`dist/.vinext/.wrangler/.next` 暂未清理。
 - 2026-08-21：用户确认“未使用清除、历史迁到项目外”。历史 GLB/材质、frames、QA、旧立绘/motion、男女模板媒体、720p 等待视频和旧 presets 演示稿已移入 `CHA499/artifacts/persona-driver-convergence/2026-08-21/history/`；自动测试改为只验证运行时资产，不再要求历史证据位于 `public/`。

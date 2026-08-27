@@ -5,10 +5,17 @@
 > 当前实现基线：独立仓库 `main@c2db321` 之上的未提交工作树
 > 本文件只整理事实与证据，不把计划、对话承诺或历史 `completed` 字段自动升级为当前已验证状态。
 
+## 2026-08-27：五人物 Skill 离线内置
+
+- 用户反馈分发压缩包首次安装仍从 GitHub 下载人物 Skill；目标环境需要代理，导致“一键安装”失败。
+- 根因是角色卡 UI/立绘已内置，但五张卡对应的思维 Skill 仍由 setup 执行 `git fetch`。
+- 当前修复将五个已固定 commit 的干净 Git tree 放入 setup assets；安装改为本地复制，doctor/install 校验 provenance 与聚合 SHA-256，网络下载路径删除。
+- 新增无 git、无网络的临时安装回归，五人物 Skill 与 `create-soul` 全部成功落到临时 Skills 根。
+
 ## 2026-08-24：根 Skill 入口校准
 
 - 用户明确纠正：YouNavi 检索分发目录根部的 `SKILL.md`，该文件必须直接告诉用户如何安装和使用；把入口只放在 `.agents/skills/persona-driver-setup/` 属于错误的包边界。
-- 当前决定：完整项目文件夹就是 `persona-driver` Skill 包，根 `SKILL.md` 是唯一外部入口；内部 setup 目录只保留确定性实现。
+- 当前决定：根 `SKILL.md` 通过用户指定表头让 YouNavi 识别为 `jmqs-driver`；内部 setup 目录和现有安装架构保持不动。
 - 安装路径随之校准：完整项目导入 YouNavi Skills 根后，setup 自动把项目父目录作为五人物 Skill 与 `create-soul` 的安装根。
 
 ## 2026-08-21 收口执行补记

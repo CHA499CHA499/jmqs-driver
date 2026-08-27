@@ -14,7 +14,7 @@
             └─ Agent 直接托管 npm run dev
 ```
 
-根 `SKILL.md` 是唯一外部发现入口。嵌套 setup 目录属于实现层；YouNavi 导入器在发现 L0 `SKILL.md` 后不会再把其子目录当作第二个 Skill。项目安装到 `<skills>/persona-driver` 时，setup 将父级 `<skills>` 作为默认 Skills 根。
+根 `SKILL.md` 是唯一外部发现入口。嵌套 setup 目录属于实现层；YouNavi 导入器在发现 L0 `SKILL.md` 后不会再把其子目录当作第二个 Skill。项目安装到 `<skills>/jmqs-driver` 时，setup 将父级 `<skills>` 作为默认 Skills 根。
 
 ## 1. 系统边界
 
@@ -330,7 +330,7 @@ flowchart TB
     ENV -. must replace personal defaults .-> SW
 ```
 
-独立仓本身不包含：真实固定原文、已安装的五 Persona Skills、`create-soul`、既有 Soul outputs 或 YouNavi 认证。clone 成功不代表 Persona/Soul 本机链可运行。
+独立仓已包含四份固定原文、五个固定 Persona Skills 与 `create-soul`；不包含既有 Soul outputs 或 YouNavi 认证。五人物 Skill 由随包 manifest 固定 provenance 与内容指纹，首次安装只作本地复制。clone/解压后仍需 Node/npm 安装 Web 依赖，并由已登录 YouNavi 提供 agent-cli。
 
 ### 10.3 需要收口的硬编码
 
@@ -347,7 +347,7 @@ flowchart TB
 
 ### 10.4 摘仓后的运行/发布边界
 
-本机发行应包含 Web 源码、Bridge、测试与 cleared 运行资产，但把外部依赖作为安装时显式配置。运行时数据继续写 clone 外可控目录或 gitignored `.persona-runs/`，不得进入版本历史。
+本机发行包含 Web 源码、Bridge、测试、cleared 运行资产、四份原文、五人物 Skill 与 `create-soul`。人物 Skill 不再是安装时网络依赖；Node/npm 依赖与已登录 YouNavi/agent-cli 仍是外部运行条件。运行时数据继续写 clone 外可控目录或 gitignored `.persona-runs/`，不得进入版本历史。
 
 公开发行应是纯 demo：不能接 agent-cli，也不能把用户本机配置注入 Worker。当前 `public/` 同时承载产品资产和 local-only/历史/QA 大资产，必须先确定发布资产清单；UI hostname 门控只能防执行，不能防文件被静态发布。
 

@@ -2,9 +2,8 @@
 
 import { createHash } from "node:crypto";
 import { openSync, closeSync } from "node:fs";
-import { access, cp, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
+import { access, cp, mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import { execFile, spawn } from "node:child_process";
-import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
@@ -13,6 +12,8 @@ const execFileAsync = promisify(execFile);
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const SKILL_ROOT = path.resolve(SCRIPT_DIR, "..");
 const BUNDLED_CREATE_SOUL = path.join(SKILL_ROOT, "assets", "create-soul");
+const BUNDLED_PERSONA_SKILLS = path.join(SKILL_ROOT, "assets", "persona-skills");
+const BUNDLED_PERSONA_SKILLS_MANIFEST = path.join(BUNDLED_PERSONA_SKILLS, "manifest.json");
 const MIN_NODE = [22, 13, 0];
 
 function parseArgs(argv) {
@@ -123,20 +124,55 @@ async function run(command, args, options = {}) {
   });
 }
 
-async function clonePinnedSkill({ name, source, commit }, target) {
-  const existing = await inspectSkill(target, name);
-  if (existing.installed) return "kept";
-  if (await exists(target)) throw new Error(`${target} ${existing.reason}；为避免覆盖，已停止`);
-  const temporary = await mkdtemp(path.join(os.tmpdir(), `persona-driver-${name}-`));
-  try {
-    await run("git", ["init", "-q"], { cwd: temporary });
-    await run("git", ["remote", "add", "origin", source], { cwd: temporary });
-    await run("git", ["fetch", "--depth", "1", "origin", commit], { cwd: temporary });
-    await run("git", ["checkout", "-q", "--detach", "FETCH_HEAD"], { cwd: temporary });
-    return await copySkill(temporary, target, name);
-  } finally {
-    await rm(temporary, { recursive: true, force: true });
+async function collectBundleFiles(root, current = root, collected = []) {
+  const entries = await readdir(current, { withFileTypes: true });
+  for (const entry of entries) {
+    if (entry.name === ".DS_Store" || entry.name === ".git") continue;
+    const absolute = path.join(current, entry.name);
+    if (entry.isDirectory()) await collectBundleFiles(root, absolute, collected);
+    else if (entry.isFile()) collected.push(path.relative(root, absolute).split(path.sep).join("/"));
   }
+  return collected;
+}
+
+async function fingerprintBundle(root) {
+  const files = (await collectBundleFiles(root)).sort();
+  const digest = createHash("sha256");
+  let bytes = 0;
+  for (const relative of files) {
+    const body = await readFile(path.join(root, relative));
+    bytes += body.length;
+    digest.update(relative);
+    digest.update("\0");
+    digest.update(createHash("sha256").update(body).digest("hex"));
+    digest.update("\0");
+  }
+  return { files: files.length, bytes, sha256: digest.digest("hex") };
+}
+
+async function verifyBundledPersonaSkills(expectedManifest) {
+  const manifest = JSON.parse(await readFile(BUNDLED_PERSONA_SKILLS_MANIFEST, "utf8"));
+  if (manifest.schema !== "persona-driver.bundled-persona-skills/v1" || !Array.isArray(manifest.skills)) {
+    throw new Error("内置人物 Skills manifest 无效");
+  }
+  const expectedSkills = Object.values(expectedManifest);
+  if (manifest.skills.length !== expectedSkills.length) throw new Error("内置人物 Skills 数量不完整");
+  const verified = [];
+  for (const expected of expectedSkills) {
+    const item = manifest.skills.find((candidate) => candidate.name === expected.skillName);
+    if (!item || item.source !== expected.source || item.commit !== expected.commit) {
+      throw new Error(`内置人物 Skill 来源不匹配：${expected.skillName}`);
+    }
+    const root = path.join(BUNDLED_PERSONA_SKILLS, expected.skillName);
+    const skill = await inspectSkill(root, expected.skillName);
+    if (!skill.installed) throw new Error(`内置人物 Skill 无效：${expected.skillName}（${skill.reason}）`);
+    const fingerprint = await fingerprintBundle(root);
+    if (fingerprint.files !== item.files || fingerprint.bytes !== item.bytes || fingerprint.sha256 !== item.sha256) {
+      throw new Error(`内置人物 Skill 完整性校验失败：${expected.skillName}`);
+    }
+    verified.push({ name: expected.skillName, source: item.source, commit: item.commit, tree: item.tree, ...fingerprint });
+  }
+  return { root: BUNDLED_PERSONA_SKILLS, count: verified.length, skills: verified };
 }
 
 async function verifyMaterials(projectRoot) {
@@ -223,12 +259,13 @@ async function startRuntime(projectRoot, noOpen) {
 async function doctor(projectRoot, skillsDir) {
   const materials = await verifyMaterials(projectRoot);
   const bridgeLib = await import(pathToFileURL(path.join(projectRoot, "scripts", "persona-navi-bridge-lib.mjs")).href);
+  const bundledPersonaSkills = await verifyBundledPersonaSkills(bridgeLib.PERSONA_MANIFEST);
   const skills = [];
   for (const persona of Object.values(bridgeLib.PERSONA_MANIFEST)) {
     skills.push({ name: persona.skillName, ...(await inspectSkill(path.join(skillsDir, persona.skillName), persona.skillName)) });
   }
   skills.push({ name: "create-soul", ...(await inspectSkill(path.join(skillsDir, "create-soul"), "create-soul")) });
-  return { materials, skills, ready: skills.every((item) => item.installed) };
+  return { materials, bundledPersonaSkills, skills, ready: skills.every((item) => item.installed) };
 }
 
 async function main() {
@@ -250,8 +287,9 @@ async function main() {
   if (options.command === "install") {
     await mkdir(skillsDir, { recursive: true });
     const bridgeLib = await import(pathToFileURL(path.join(projectRoot, "scripts", "persona-navi-bridge-lib.mjs")).href);
+    await verifyBundledPersonaSkills(bridgeLib.PERSONA_MANIFEST);
     for (const persona of Object.values(bridgeLib.PERSONA_MANIFEST)) {
-      await clonePinnedSkill({ name: persona.skillName, source: persona.source, commit: persona.commit }, path.join(skillsDir, persona.skillName));
+      await copySkill(path.join(BUNDLED_PERSONA_SKILLS, persona.skillName), path.join(skillsDir, persona.skillName), persona.skillName);
     }
     await copySkill(BUNDLED_CREATE_SOUL, path.join(skillsDir, "create-soul"), "create-soul");
     await writeEnv(projectRoot, {

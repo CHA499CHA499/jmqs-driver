@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2026-08-27 · 五人物 Skill 离线内置
+
+- 将 Naval、Elon Musk、Steve Jobs、Trump、Paul Graham 五个人物 Skill 从安装脚本已固定的精确 commit 以 Git tree 形式随包内置，排除 `.git`，保留各自 LICENSE、SKILL、references、examples 与必要 assets。
+- 新增 `persona-driver.bundled-persona-skills/v1` manifest，记录公开来源、commit、tree、文件数、字节数与聚合 SHA-256；doctor/install 均在使用前执行完整性校验。
+- setup 删除 `git init/remote/fetch/checkout` 与临时 clone 逻辑；缺失 Skill 只从包内复制，首次安装不再依赖 GitHub、Git 或代理。
+- 新增断网安装回归：测试 PATH 中只有 fake npm、没有 git，在临时项目/Skills 根成功安装五人物 Skill 与 `create-soul`。
+
+## 2026-08-24 · YouNavi 识别表头校准
+
+- 根 `SKILL.md` 表头按用户指定收敛为 `name: jmqs-driver` 与 JMQS Driver 工作台描述；保留项目规范要求的 `exposure: on-trigger`。
+- 本轮不移动脚本、不调整 Bridge、不改变安装架构；仅同步识别名称、触发表、相关文档和回归测试。
+
 ## 2026-08-24 · YouNavi 根 Skill 入口修正
 
 - 新增项目根目录 `SKILL.md`，以 `$persona-driver` 作为 YouNavi L0 导入、检索、安装、启动和诊断入口；用户不再单独导入 `.agents/skills/persona-driver-setup`。
