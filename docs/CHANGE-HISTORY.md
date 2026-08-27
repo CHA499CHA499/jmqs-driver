@@ -18,6 +18,12 @@
 - 账号下不存在同名仓库，因此创建私有 `CHA499CHA499/jmqs-driver`，将离线内置提交 `c662ded` 推为默认 `main`。
 - 远程验收：`refs/heads/main` 指向 `c662dedda659eed415adce4eed5f6693dac7e3ef`；未创建 tag、未公开、未部署。
 
+## 2026-08-27：远程公开
+
+- 用户随后要求改为公开仓。公开前扫描未发现被跟踪的 `.env.local`、`.persona-runs`、构建缓存或明显凭证。
+- 安全审查明确提示等待视频、Decade local-test 音频和其他媒体会被任何人下载；用户回复确认可以公开。
+- GitHub API 验收 `visibility=PUBLIC`、默认分支 `main`；tag 与 Sites 部署仍未授权。
+
 ## 2026-08-24：根 Skill 入口校准
 
 - 用户明确纠正：YouNavi 检索分发目录根部的 `SKILL.md`，该文件必须直接告诉用户如何安装和使用；把入口只放在 `.agents/skills/persona-driver-setup/` 属于错误的包边界。

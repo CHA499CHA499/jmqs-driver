@@ -2,7 +2,7 @@
 
 Persona Driver 是一个 vinext/React 互动工作台：用户从新手包获得五张基线 Persona 卡，把一张卡和两根已注入内容的变身棒装入二维 Driver；localhost 完整运行时再通过 Local Bridge 创建 YouNavi 对话、审计 Skill 与原文 EOF，最后在安全 Markdown 阅读器中展示结果。
 
-私有源码仓库：`https://github.com/CHA499CHA499/jmqs-driver`，默认分支 `main`。
+公开源码仓库：`https://github.com/CHA499CHA499/jmqs-driver`，默认分支 `main`。用户已明确授权等待视频、Decade local-test 音频及其他随仓媒体随源码公开；这不等同于授权第三方将素材用于其它用途。
 
 当前源码是唯一真源。旧 Sites 版本只作历史留档，不代表当前交互。
 

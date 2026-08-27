@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-08-27 · GitHub 仓库公开
+
+- 发布前扫描确认未跟踪 `.env.local`、`.persona-runs`、构建缓存或明显凭证。
+- 在明确告知等待视频、Decade local-test 音频和其他媒体会被任何人查看、下载、复制后，用户确认连同这些媒体一起公开；`CHA499CHA499/jmqs-driver` 已从 PRIVATE 切换为 PUBLIC。
+- 本次只改变 GitHub 仓库可见性并同步文档；不创建 tag、不部署 Sites、不改变媒体运行逻辑。
+
 ## 2026-08-27 · 私有 GitHub 首次推送
 
 - 用户重新授权 GitHub CLI 后，在 `CHA499CHA499` 下创建私有仓库 `jmqs-driver`，设置 `origin`，将本地 `c662ded` 首次推送为远程 `main`。

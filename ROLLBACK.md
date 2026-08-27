@@ -168,16 +168,16 @@ supervisor 的 `BRIDGE_RESTART_LIMIT` 只是停止自动重启，不会回滚或
 4. 确认公开页面没有调用 localhost Bridge。
 5. 审计部署产物是否仍携带 `public/audio/local-test/`、`public/waiting-media/`、GLB/QA；当前源码尚未实现物理排除。
 
-`.openai/hosting.json` 含既有 project ID。私有 Git remote 已按用户授权创建，但这不授权部署 Sites、修改公开可见性或重绑定 project ID；这些动作仍需单独确认。
+`.openai/hosting.json` 含既有 project ID。Git remote 已按用户明确授权设为 PUBLIC，但这不授权部署 Sites 或重绑定 project ID；这些动作仍需单独确认。
 
 ## 7. 独立仓回退与首次发布
 
-- 当前目录已有独立 `.git`；`origin` 为私有 `https://github.com/CHA499CHA499/jmqs-driver.git`，默认分支 `main`。
+- 当前目录已有独立 `.git`；`origin` 为公开 `https://github.com/CHA499CHA499/jmqs-driver.git`，默认分支 `main`。
 - 不要用外层 CHA499 的 reset/clean 处理这个嵌套仓。
 - 首发前先处理 dirty/untracked 主链；不可用 `git clean` 清理，因为大量新源码和资产尚未提交。
 - 生成物 `node_modules/.next/.vinext/dist/.wrangler/.persona-runs/.env*` 保持排除；还应排除 `tsconfig.tsbuildinfo`。
 - 本机绝对路径通过环境变量显式提供；不要把 transcripts、安装 Skills、Soul outputs 或 `.persona-runs` 复制进独立仓。
-- 首次 private remote/push 已获授权；后续 tag、公开化、强推、历史重写或部署仍需要用户另行明确授权。
+- remote/push/公开化已获授权；后续 tag、强推、历史重写或 Sites 部署仍需要用户另行明确授权。
 
 ## 8. 回退后验证
 

@@ -373,7 +373,7 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 ### 当前仓库事实
 
 - 目录本身已是独立 Git 仓库：仓根为 `axon/bridge-persona-atlas-site/.git`，当前分支 `yjz/persona-driver-convergence`。
-- 远程仓库为私有 `https://github.com/CHA499CHA499/jmqs-driver`，默认分支 `main`；本地 `yjz/persona-driver-convergence` 跟踪 `origin/main`。
+- 远程仓库为公开 `https://github.com/CHA499CHA499/jmqs-driver`，默认分支 `main`；本地 `yjz/persona-driver-convergence` 跟踪 `origin/main`。用户已明确确认随仓等待视频与 local-test 音频一并公开。
 - 它在 CHA499 外层仓中表现为一个未跟踪目录，不应把外层仓状态当成该独立仓的提交状态。
 - 主功能与收口基线已提交；本轮 Setup Skill、内置材料和 npm supervisor 增量在同一分支形成可审计提交。
 
@@ -413,7 +413,7 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 
 - [ ] 主代理确认仓库名称、license、可见性、默认分支与资产版权边界。
 - [x] 主功能、当前资产、测试、INDEX/架构与 Setup Skill 均进入独立分支提交。
-- [x] 用户已明确授权创建私有 remote 并 push；`origin` 指向 `CHA499CHA499/jmqs-driver`，远程 `main` 已建立。
+- [x] 用户已明确授权创建 remote、push，并在知悉媒体资产会被公开下载后确认切换为 PUBLIC；`origin` 指向 `CHA499CHA499/jmqs-driver`。
 - [x] 个人绝对路径默认已移除；`.env.example`、ignored `.env.local` 与 Setup doctor 已提供。
 - [x] 统一为 npm，Setup Skill 使用 `npm ci`，supervisor 使用 `npm run dev:web`。
 - [ ] 从 clean clone 执行 `npm run build`、`npm test`、`npm run lint`；记录跳过项与原因。
@@ -424,7 +424,7 @@ Soul 成品不在 `.persona-runs/`：固定写入 `${PERSONA_NAVI_SOUL_WORKSPACE
 - [ ] 处理 `.openai/hosting.json`：重绑定新项目、模板化或明确保留；不得误推原项目。
 - [ ] 扫描 secret、token、个人路径、用户材料、`.persona-runs`、Soul outputs 与超大文件。
 - [ ] 校验 README/INDEX/INTERFACE/ARCHITECTURE/ROLLBACK/CHANGELOG 与首发 commit 一致。
-- [x] remote 创建与首次 push 已于 2026-08-27 获得用户明确授权；后续 tag、公开可见性或部署仍需单独确认。
+- [x] remote 创建、首次 push 与公开可见性均于 2026-08-27 获得用户明确授权；后续 tag 或 Sites 部署仍需单独确认。
 
 ## 继续阅读
 
